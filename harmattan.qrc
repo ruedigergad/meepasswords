@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/harmattan/main.qml</file>
+        <file>qml/harmattan/MainPage.qml</file>
+        <file>qml/harmattan/PasswordInputPage.qml</file>
+        <file>qml/harmattan/EditEntrySheet.qml</file>
+        <file>qml/harmattan/AboutDialog.qml</file>
+        <file>qml/harmattan/ErrorDialog.qml</file>
+        <file alias="qml/common/ConfirmationDialog.qml">qml/harmattan/ConfirmationDialog.qml</file>
+        <file alias="qml/common/CommonDialog.qml">qml/harmattan/CommonDialog.qml</file>
+        <file alias="qml/common/CommonTextArea.qml">qml/harmattan/CommonTextArea.qml</file>
+        <file alias="qml/common/CommonTextField.qml">qml/harmattan/CommonTextField.qml</file>
+        <file alias="qml/common/CommonButton.qml">qml/harmattan/CommonButton.qml</file>
+        <file>qml/harmattan/NfcWriteDialog.qml</file>
+    </qresource>
+</RCC>

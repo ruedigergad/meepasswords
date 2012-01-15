@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>meepasswords_150x150.png</file>
+        <file>qml/common/EntryListView.qml</file>
+        <file>qml/common/EntryShowDialog.qml</file>
+        <file>qml/common/MessageDialog.qml</file>
+        <file>qml/common/PasswordChangeDialog.qml</file>
+        <file>meepasswords_100x100.png</file>
+        <file>qml/common/constants.js</file>
+    </qresource>
+</RCC>

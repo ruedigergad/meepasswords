@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/desktop/main.qml</file>
+        <file>qml/desktop/MainPage.qml</file>
+        <file alias="qml/common/Dialog.qml">qml/desktop/Dialog.qml</file>
+        <file>qml/desktop/EditEntryDialog.qml</file>
+        <file alias="qml/common/ConfirmationDialog.qml">qml/desktop/ConfirmationDialog.qml</file>
+        <file>qml/desktop/Menu.qml</file>
+        <file>qml/desktop/AboutDialog.qml</file>
+        <file>meepasswords_100x100.png</file>
+        <file alias="qml/common/CommonDialog.qml">qml/desktop/CommonDialog.qml</file>
+        <file alias="qml/common/CommonTextArea.qml">qml/desktop/CommonTextArea.qml</file>
+        <file alias="qml/common/CommonTextField.qml">qml/desktop/CommonTextField.qml</file>
+        <file>qml/desktop/PasswordInputPage.qml</file>
+        <file alias="qml/common/CommonButton.qml">qml/desktop/CommonButton.qml</file>
+    </qresource>
+</RCC>

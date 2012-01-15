@@ -1,0 +1,238 @@
+meepasswords (1.8.0) unstable; urgency=low
+
+  * Add option for using randomly generated passwords as proposed in:
+    http://forum.meego.com/showpost.php?p=37578&postcount=16
+  * Old password in password change dialog can also be set via NFC.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Sun, 01 Jan 2012 13:32:06 +0200
+
+meepasswords (1.7.0) unstable; urgency=low
+
+  * Logout when device is locked (standby screen/screen saver is activated).
+  * Use password hash for creating the symmetric key.
+  * Clear input fields in password change dialog on exit.
+  * Explicitly set password to empty string when logging out.
+  * Add functionality for writing and authenticating with NFC tags.
+  * Fix button style for password change dialog.
+  * Clear fields in change dialog when dialog is closed.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Sat, 28 Dec 2011 13:09:06 +0200
+
+meepasswords (1.6.1) unstable; urgency=low
+
+  * Lock view in portrait mode.
+  * Do not disable "OK" button in input sheet.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 06 Dec 2011 09:02:06 +0200
+
+meepasswords (1.6.0) unstable; urgency=low
+
+  * Store encrypted file in filesystem instead of Aegis storage.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Wed, 19 Oct 2011 10:18:06 +0200
+
+meepasswords (1.5.2) unstable; urgency=low
+
+  * Add version number to about dialog.
+  * Minor fixes in desktop file.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 04 Oct 2011 09:02:06 +0200
+
+meepasswords (1.5.1) unstable; urgency=low
+
+  * Fix section scroller.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Mon, 22 Aug 2011 09:17:06 +0200
+
+meepasswords (1.5.0) unstable; urgency=low
+
+  * Add a section scroller.
+  * Use highlightMoveDuration instead of speed.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Sat, 13 Aug 2011 11:51:06 +0200
+
+meepasswords (1.4.0-4) unstable; urgency=low
+
+  * Fix Harmattan build.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Thu, 04 Aug 2011 00:46:06 +0200
+
+meepasswords (1.4.0-3) unstable; urgency=low
+
+  * Try to force a rebuild in OBS.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Thu, 04 Aug 2011 00:12:06 +0200
+
+meepasswords (1.4.0-2) unstable; urgency=low
+
+  * Try to force a rebuild in OBS.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Wed, 03 Aug 2011 23:06:06 +0200
+
+meepasswords (1.4.0-1) unstable; urgency=low
+
+  * Change rules file.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Wed, 03 Aug 2011 21:37:06 +0200
+
+meepasswords (1.4.0) unstable; urgency=low
+
+  * Add pwman3 XML import.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Wed, 03 Aug 2011 09:48:06 +0200
+
+meepasswords (1.3.0) unstable; urgency=low
+
+  * Add functionality to copy user name and password to clipboard.
+  * Highlight URLs in notes as links.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Sun, 31 Jul 2011 13:57:06 +0200
+
+meepasswords (1.2.0) unstable; urgency=low
+
+  * Add KeePassX XML export.
+  * Add multiline note edit to Fremantle version (Harmattan version already has this).
+  * Fix a general issue on handling multiline notes.
+  * Add quite some rework to make MeePasswords work with the "stable" Fremantle Qt version.
+    This includes quite some nasty hacks due to some bugs(?) in this Qt version.
+    At least on all other Qt versions MeePasswords works without these dirty hacks.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 29 Jul 2011 17:48:00 +0200
+
+meepasswords (1.1.0) unstable; urgency=low
+
+  * Add KeePassX XML import.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 29 Jul 2011 15:37:00 +0200
+
+meepasswords (1.0.0) unstable; urgency=low
+
+  * First official release.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 28 Jul 2011 22:29:16 +0200
+
+meepasswords (0.9.0-1) unstable; urgency=low
+
+  * Add some issues with respect to the control file.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 27 Jul 2011 21:29:28 +0200
+
+meepasswords (0.9.0) unstable; urgency=low
+
+  * Prepare for first official release.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 27 Jul 2011 17:27:28 +0200
+
+meepasswords (0.1.18) unstable; urgency=low
+
+  * Prepare to implement Fremantle version in QML.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 19:47:28 +0200
+
+meepasswords (0.1.17) unstable; urgency=low
+
+  * Remove aegis step to verify package gets actually moved to repo.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 12:26:28 +0200
+
+meepasswords (0.1.16) unstable; urgency=low
+
+  * Add digsigsums.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 12:08:28 +0200
+
+meepasswords (0.1.15) unstable; urgency=low
+
+  * Try to force rebuild.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 11:27:28 +0200
+
+meepasswords (0.1.14) unstable; urgency=low
+
+  * Try to manually add manifest after deb had been build.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 10:23:28 +0200
+
+meepasswords (0.1.13) unstable; urgency=low
+
+  * Well, hacking around the aegis issue seems not to be the way. Anyway, try once more and be even more verbose.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 10:00:28 +0200
+
+meepasswords (0.1.12) unstable; urgency=low
+
+  * Yet another try on getting the manifest build. Add perl to build dependencies.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 09:06:28 +0200
+
+meepasswords (0.1.11) unstable; urgency=low
+
+  * Yet another try on getting the manifest build. Add libdpkg-perl to dependencies.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 09:06:28 +0200
+
+meepasswords (0.1.10) unstable; urgency=low
+
+  * Yet another try on getting the manifest build.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 03:04:28 +0200
+
+meepasswords (0.1.9) unstable; urgency=low
+
+  * Next try on getting the manifest build.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 02:46:28 +0200
+
+meepasswords (0.1.8) unstable; urgency=low
+
+  * Try to manually copy the aegis manifest.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 02:20:28 +0200
+
+meepasswords (0.1.7) unstable; urgency=low
+
+  * Be more verbose on debug output during build.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 01:52:28 +0200
+
+meepasswords (0.1.6) unstable; urgency=low
+
+  * Still no clue why aegis manifest is not properly generated.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 01:06:28 +0200
+
+meepasswords (0.1.5) unstable; urgency=low
+
+  * Fix missing application id, readd aegis-install to dependencies.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 00:23:28 +0200
+
+meepasswords (0.1.4) unstable; urgency=low
+
+  * Fix missing application id, remove aegis-install from dependencies.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 26 Jul 2011 00:08:28 +0200
+
+meepasswords (0.1.3) unstable; urgency=low
+
+  * Fix missing application id, rebuild.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 25 Jul 2011 23:51:28 +0200
+
+meepasswords (0.1.2) unstable; urgency=low
+
+  * Fix missing application id, add some more aegis stuff to build dependencies.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 25 Jul 2011 22:33:28 +0200
+
+meepasswords (0.1.1) unstable; urgency=low
+
+  * Fix missing application id.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 25 Jul 2011 20:20:28 +0200
+
+meepasswords (0.1.0) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 19 Jul 2011 08:38:28 +0200
