@@ -111,9 +111,25 @@ Page {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.bottom: parent.bottom
+
+            onCountChanged: {
+                /*
+                 * Needed to make SectionScroller happy.
+                 * First we set the list property of the SectionScroller.
+                 * This is done here for the sake of completeness.
+                 */
+                sectionScroller.listView = entryListView
+                /*
+                 * Second and more important, we force a re-initialization
+                 * of the SectionScroller. Note: the requirement to do this
+                 * may be due to the way the model is set for the list here.
+                 */
+                sectionScroller.listViewChanged()
+            }
         }
 
         SectionScroller {
+            id: sectionScroller
             listView: entryListView
         }
     }
