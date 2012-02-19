@@ -128,7 +128,7 @@ Page {
             }
         }
 
-        SectionScroller {
+        FastScroll {
             id: sectionScroller
             listView: entryListView
         }

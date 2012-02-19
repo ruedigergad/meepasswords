@@ -18,5 +18,8 @@
         <file>qml/harmattan/LabeledInput.qml</file>
         <file>qml/harmattan/ShowEntryPage.qml</file>
         <file>qml/harmattan/EntryDelegate.qml</file>
+        <file>qml/harmattan/FastScroll.js</file>
+        <file>qml/harmattan/FastScroll.qml</file>
+        <file>qml/harmattan/FastScrollStyle.qml</file>
     </qresource>
 </RCC>

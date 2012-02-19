@@ -135,7 +135,10 @@ OTHER_FILES += \
     qml/desktop/EntryDelegate.qml \
     qml/harmattan/LabeledInput.qml \
     qml/harmattan/ShowEntryPage.qml \
-    qml/harmattan/EntryLabel.qml
+    qml/harmattan/EntryLabel.qml \
+    qml/harmattan/FastScroll.qml \
+    qml/harmattan/FastScrollStyle.qml \
+    qml/harmattan/FastScroll.js
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)
@@ -149,3 +152,6 @@ INSTALLS += splash
 CONFIG += qdeclarative-boostable
 QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
 QMAKE_LFLAGS += -pie -rdynamic
+
+
+
