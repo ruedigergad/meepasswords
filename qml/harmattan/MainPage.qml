@@ -161,7 +161,9 @@ Page {
         id: commonTools
 
         ToolIcon {
-            id: iconLogout; platformIconId: "toolbar-back"; onClicked: logoutConfirmationDialog.open()
+            id: iconLogout; platformIconId: "toolbar-back"; 
+//            onClicked: logoutConfirmationDialog.open()
+            onClicked: entryStorage.logout()
         }
 
         ToolIcon {

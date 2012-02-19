@@ -1,6 +1,7 @@
 meepasswords (1.9.0) unstable; urgency=low
 
   * New UI by Connerlius. Thanks a lot, that's really a very nice UI!!
+  * Do not show confirmation dialog on logout.
 
  -- Ruediger Gad <r.c.g@gmx.de>  Sun, 01 Jan 2012 13:32:06 +0200
 
