@@ -38,7 +38,7 @@ Dialog {
       Text {id: description; text: "Keep your passwords protected."; font.pixelSize: 25; font.bold: true; anchors.horizontalCenter: parent.horizontalCenter; anchors.bottom: author.top; anchors.bottomMargin: 12; color: "white"}
 
       Text {id: author;
-          text: "Authors: "
+          text: "Authors: <br />"
                  + "Ruediger Gad - <a href=\"mailto:r.c.g@gmx.de\" style=\"text-decoration:none; color:#78bfff\" >r.c.g@gmx.de</a><br />"
                  + "Cornelius Hald - ";
           textFormat: Text.RichText;
