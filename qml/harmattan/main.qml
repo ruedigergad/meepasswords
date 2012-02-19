@@ -108,7 +108,7 @@ PageStackWindow {
                 entryStorage.getModel().clear();
                 entryStorage.setPassword("");
                 passwordInputPage.state = "EnterPassword"
-                pageStack.pop()
+                pageStack.pop(null, false)
                 isOpen = false
             }
         }
