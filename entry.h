@@ -31,10 +31,11 @@ class Entry : public QObject
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
     Q_PROPERTY(QString notes READ notes WRITE setNotes NOTIFY notesChanged)
     Q_PROPERTY(QString userName READ userName WRITE setUserName NOTIFY userNameChanged)
+    Q_PROPERTY(int id READ id NOTIFY idChanged)
 
 public:
     Entry(QObject *parent = 0);
-    Entry(QString name, QString category, QString userName, QString password, QString notes, QObject *parent = 0);
+    Entry(QString name, QString category, QString userName, QString password, QString notes, int id, QObject *parent = 0);
     Entry(const Entry &obj, QObject *parent = 0);
 
     Entry& operator = (const Entry &e);
@@ -44,6 +45,7 @@ public:
     QString notes() const { return m_notes; }
     QString name() const { return m_name; }
     QString userName() const { return m_userName; }
+    int id() const { return m_id; }
 
     void setCategory(QString category){
         m_category = category;
@@ -65,6 +67,10 @@ public:
         m_userName = userName;
         emit userNameChanged(userName);
     }
+    void setId(int id){
+        m_id = id;
+        emit idChanged(id);
+    }
 
 signals:
     void categoryChanged(QString);
@@ -72,6 +78,7 @@ signals:
     void nameChanged(QString);
     void notesChanged(QString);
     void userNameChanged(QString);
+    void idChanged(int);
 
 private:
     QString m_category;
@@ -79,6 +86,7 @@ private:
     QString m_name;
     QString m_notes;
     QString m_userName;
+    int m_id;
 
 };
 

@@ -28,98 +28,108 @@ Page {
 
     orientationLock: PageOrientation.LockPortrait
 
-    onVisibleChanged: {
-        if(visible)   {
-            updateLabels();
-        }
-    }
-
-    function updateLabels() {
-        var listEmpty = (entryStorage.getModel().rowCount() === 0)
-        noContentLabel.visible = listEmpty
-        explanationLabel.visible = listEmpty
-
-        var itemSelected = !listEmpty && entryListView.currentIndex >= 0 && entryStorage.getModel().rowCount()
-        iconEdit.enabled = itemSelected
-        menuDelete.enabled = itemSelected
-    }
-
-    Rectangle{
+    Item {
         anchors.fill: parent
-        color: "white"
+
+        Image {
+            id: header
+            height: 72
+            source: "image://theme/color8-meegotouch-view-header-fixed"
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.right: parent.right
+
+            Text {
+                text: "My Accounts"
+                color: "white"
+                font.family: "Nokia Pure Text Light"
+                font.pixelSize: 32
+                anchors.left: parent.left
+                anchors.leftMargin: 20
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
 
         Label {
             id: noContentLabel
+            visible: entryListView.count === 0
             text: "No Entries"
             font.pixelSize: 80; anchors.bottom: explanationLabel.top; anchors.bottomMargin: 50; anchors.horizontalCenter: parent.horizontalCenter; color: "lightgray"
         }
+
         Label {
             id: explanationLabel
+            visible: entryListView.count === 0
             text: "Use + to add entries."
             font.pixelSize: 40;  color: "lightgray"; anchors.centerIn: parent
         }
 
-        EntryListView{
-            id: entryListView
-            anchors.fill: parent
-
-            onCountChanged: {
-                updateLabels()
-                /*
-                 * Needed to make SectionScroller happy.
-                 * First we set the list property of the SectionScroller.
-                 * This is done here for the sake of completeness.
-                 */
-                sectionScroller.listView = entryListView
-                /*
-                 * Second and more important, we force a re-initialization
-                 * of the SectionScroller. Note: the requirement to do this
-                 * may be due to the way the model is set for the list here.
-                 */
-                sectionScroller.listViewChanged()
+        TextField {
+            id: search
+            platformStyle: TextFieldStyle {
+                backgroundSelected: "image://theme/color8-meegotouch-textedit-background-selected"
             }
-            onCurrentIndexChanged: updateLabels()
+            placeholderText: "Search"
+            inputMethodHints: Qt.ImhNoPredictiveText | Qt.ImhPreferLowercase | Qt.ImhNoAutoUppercase
+
+            anchors.top: header.bottom
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: 16 // TODO: Use platform margins
+
+            // TODO: We need a QFilterProxyList in C++
+            onTextChanged: entryStorage.getModel().setFilterFixedString(text)
+
+            Image {
+                anchors { top: parent.top; right: parent.right; margins: 5 }
+                smooth: true
+                fillMode: Image.PreserveAspectFit
+                source: search.text ? "image://theme/icon-m-input-clear" : "image://theme/icon-m-common-search"
+                height: parent.height - platformStyle.paddingMedium * 2
+                width: parent.height - platformStyle.paddingMedium * 2
+
+                MouseArea {
+                    anchors.fill: parent
+                    anchors.margins: -10 // Make area bigger than image
+                    enabled: search.text
+                    onClicked: search.text = ""
+                }
+            }
         }
 
-        SectionScroller{
-            id: sectionScroller
+        EntryListView {
+            id: entryListView
+            delegate: EntryDelegate {
+                onPressAndHold: {
+                    deleteConfirmationDialog.entryId = model.id
+                    deleteConfirmationDialog.entryName = model.name
+                    contextMenu.open()
+                }
+            }
+            anchors.top: search.bottom
+            anchors.topMargin: 20
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+        }
+
+        SectionScroller {
             listView: entryListView
         }
     }
 
-    AboutDialog{
-        id: aboutDialog
-    }
-
-    EntryShowDialog{
-        id: entryShowDialog
-    }
-
-    EditEntrySheet{
-        id: editEntrySheet
-
-        onStatusChanged: {
-            if(status === DialogStatus.Open){
-                /*
-                 * Quite a hack to avoid the MouseArea of the EntryListView to "shine through".
-                 * Without this hack double clicking an are of the sheet where (below) an item
-                 * of the list is shown, the dialog showing the item info will pop up.
-                 */
-                entryListView.visible = false
-            }else if (status === DialogStatus.Closing){
-                entryListView.visible = true
-            }else if (status === DialogStatus.Opening){
-                iconLogout.enabled = false
-                iconAdd.enabled = false
-                iconEdit.enabled = false
-                iconMenu.enabled = false
-            }else if (status === DialogStatus.Closed){
-                iconLogout.enabled = true
-                iconAdd.enabled = true
-                iconMenu.enabled = true
-                updateLabels()
+    ContextMenu {
+        id: contextMenu
+        MenuLayout {
+            MenuItem {
+                text: "Delete entry"
+                onClicked: deleteConfirmationDialog.open()
             }
         }
+    }
+
+    AboutDialog {
+        id: aboutDialog
     }
 
     QueryDialog {
@@ -133,14 +143,13 @@ Page {
 
     QueryDialog {
         id: deleteConfirmationDialog
-
-        property int index: -1
-
-        titleText: "Delete?"
+        property int entryId: -1
+        property string entryName
+        titleText: "Really delete '" + entryName + "'?"
         acceptButtonText: "OK"
         rejectButtonText: "Cancel"
         onAccepted: {
-            entryStorage.getModel().removeAt(index)
+            entryStorage.getModel().removeById(entryId)
         }
     }
 
@@ -151,76 +160,31 @@ Page {
     ToolBarLayout {
         id: commonTools
 
-        ToolIcon { id: iconLogout; platformIconId: "toolbar-previous"; onClicked: logoutConfirmationDialog.open();
-            onEnabledChanged: {
-                if(enabled){
-                    platformIconId = "toolbar-previous"
-                }else{
-                    platformIconId = "toolbar-previous-dimmed"
-                }
-            }
+        ToolIcon {
+            id: iconLogout; platformIconId: "toolbar-back"; onClicked: logoutConfirmationDialog.open()
         }
-        ToolIcon { id: iconAdd; platformIconId: "toolbar-add";
+
+        ToolIcon {
+            id: iconAdd
+            platformIconId: "toolbar-add"
             onClicked: {
-                editEntrySheet.text = "New Entry"
-                editEntrySheet.name = ""
-                editEntrySheet.category = ""
-                editEntrySheet.userName = ""
-                editEntrySheet.password = ""
-                editEntrySheet.notes = ""
-                editEntrySheet.edit = false
-
-                editEntrySheet.open()
-            }
-            onEnabledChanged: {
-                if(enabled){
-                    platformIconId = "toolbar-add"
-                }else{
-                    platformIconId = "toolbar-add-dimmed"
-                }
+                var component = Qt.createComponent("EditEntrySheet.qml");
+                var sheet = component.createObject(mainPage);
+                sheet.open()
             }
         }
-        ToolIcon { id: iconEdit; platformIconId: "toolbar-edit"
-            onClicked: {
-                var index = entryListView.currentIndex
-                var entry = entryStorage.getModel().at(index)
 
-                editEntrySheet.text = "Edit Entry"
-                editEntrySheet.name = entry.name
-                editEntrySheet.category = entry.category
-                editEntrySheet.userName = entry.userName
-                editEntrySheet.password = entry.password
-                editEntrySheet.notes = entry.notes
-                editEntrySheet.edit = true
-                editEntrySheet.index = index
-
-                editEntrySheet.open()
-            }
-            onEnabledChanged: {
-                if(enabled){
-                    platformIconId = "toolbar-edit"
-                }else{
-                    platformIconId = "toolbar-edit-dimmed"
-                }
-            }
-        }
-//        ToolIcon { id: iconSearch; platformIconId: "toolbar-search"}
-        ToolIcon { id: iconMenu; platformIconId: "toolbar-view-menu";
-             anchors.right: parent===undefined ? undefined : parent.right
-             onClicked: (myMenu.status == DialogStatus.Closed) ? myMenu.open() : myMenu.close()
-             onEnabledChanged: {
-                 if(enabled){
-                     platformIconId = "toolbar-view-menu"
-                 }else{
-                     platformIconId = "toolbar-view-menu-dimmed"
-                 }
-             }
+        ToolIcon {
+            id: iconMenu
+            platformIconId: "toolbar-view-menu"
+            anchors.right: parent === undefined ? undefined : parent.right
+            onClicked: myMenu.status === DialogStatus.Closed ? myMenu.open() : myMenu.close()
         }
     }
 
     Menu {
         id: myMenu
-        visualParent: pageStack
+
         MenuLayout {
             MenuItem { text: "Write NFC Tag"; onClicked: {
                     nfcWriteDialog.open()
@@ -238,29 +202,11 @@ Page {
                     entryStorage.importKeePassXml()
                 }
             }
-            MenuItem {id: menuDelete; text: "Delete Entry";  onClicked: {
-                    var index = entryListView.currentIndex
-                    deleteConfirmationDialog.index = index
-                    deleteConfirmationDialog.message = "Delete entry \"" + entryStorage.getModel().at(index).name +"\"?"
-                    deleteConfirmationDialog.open()
-                }
-                onEnabledChanged: {
-                    opacity = enabled ? 1.0 : 0.5
-                }
-            }
+            // TODO: Implement multiple-delete
+//            MenuItem {id: menuDelete; text: "Delete Entries";  onClicked: {
+//                }
+//            }
             MenuItem { text: "About"; onClicked: aboutDialog.open() }
-        }
-
-        onStatusChanged: {
-            if(status === DialogStatus.Opening){
-                iconLogout.enabled = false
-                iconAdd.enabled = false
-                iconEdit.enabled = false
-            }else if(status === DialogStatus.Closed){
-                iconLogout.enabled = true
-                iconAdd.enabled = true
-                updateLabels()
-            }
         }
     }
 }

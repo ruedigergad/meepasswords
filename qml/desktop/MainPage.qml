@@ -89,8 +89,14 @@ Item {
             font.pixelSize: 40;  color: "lightgray"; anchors.centerIn: parent;
         }
 
-        EntryListView{
+        EntryListView {
             id: entryListView
+            delegate: EntryDelegate {}
+            highlightMoveDuration: 200
+            highlight: Rectangle {
+                color: "#78bfff"
+                width: parent.width
+            }
             anchors.fill: parent
 
             onCountChanged: updateLabels();

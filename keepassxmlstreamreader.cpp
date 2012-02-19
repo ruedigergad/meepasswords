@@ -28,7 +28,7 @@ KeePassXmlStreamReader::KeePassXmlStreamReader(QObject *parent) :
 
 void KeePassXmlStreamReader::addEntry(){
     qDebug("Entry: %s, %s, %s", entryTitle.toUtf8().constData(), userName.toUtf8().constData(), comment.toUtf8().constData());
-    entries << Entry(entryTitle, groupTitle, userName, password, QString(url + "\n" + comment));
+    entries << Entry(entryTitle, groupTitle, userName, password, QString(url + "\n" + comment), -1);
     resetEntry();
 }
 

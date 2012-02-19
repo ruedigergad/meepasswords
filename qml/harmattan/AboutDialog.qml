@@ -25,8 +25,6 @@ import "../common/constants.js" as Constants
 Dialog {
     id: aboutDialog
 
-    anchors.fill: parent
-
     content:Item {
       anchors.fill: parent
 

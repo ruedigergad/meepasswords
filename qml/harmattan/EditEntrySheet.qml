@@ -23,49 +23,10 @@ import meepasswords 1.0
 
 Sheet{
     id: editEntrySheet
+
+    property QtObject entry
+
     anchors.fill: parent
-
-    visualParent: mainPage
-
-    property bool edit: false
-    property int index: -1
-
-    property alias text: entryLabel.text
-    property alias name: nameInput.text
-    property alias category: categoryInput.text
-    property alias userName: userNameInput.text
-    property alias password: passwordInput.text
-    property alias notes: notesInput.text
-
-    Dialog{
-        id: noNameGivenDialog
-        anchors.fill: parent
-
-        content: Text {
-            anchors.centerIn: parent
-            width: parent.width
-            text: "Please enter at least an entry name."
-            font.pointSize: 30
-            color: "white"
-            horizontalAlignment: Text.AlignHCenter; wrapMode: Text.Wrap
-        }
-
-        onRejected: {
-            //acceptButton.enabled = false;
-            nameInput.forceActiveFocus();
-        }
-    }
-
-    onStatusChanged: {
-        if(status === DialogStatus.Opening){
-            categoryInput.setItems(entryStorage.getModel().getItemNames());
-            //acceptButton.enabled = edit;
-        }else if(status === DialogStatus.Closing){
-            textInput.closeSoftwareInputPanel();
-        }else if(status === DialogStatus.Open){
-            nameInput.forceActiveFocus();
-        }
-    }
 
     buttons: Item {
         anchors.fill: parent
@@ -84,7 +45,7 @@ Sheet{
             anchors.rightMargin: 16
             anchors.verticalCenter: parent.verticalCenter
             platformStyle: SheetButtonAccentStyle { }
-            text: "OK"
+            text: "Save"
             onClicked: {
                 if(nameInput.text === ""){
                     noNameGivenDialog.open();
@@ -95,78 +56,179 @@ Sheet{
         }
     }
 
-    content: Rectangle {
-            anchors.fill: parent
-            color: "white"
+    content: Flickable {
+        contentHeight: grid.height
+        anchors.fill: parent
 
-            Label {id: entryLabel; text: "Entry"; font.pixelSize: 30; font.capitalization: Font.SmallCaps; font.bold: true; anchors.horizontalCenter: parent.horizontalCenter; anchors.top: parent.top}
-            Grid{
-                id: grid
-                z: 2
+        Column {
+            id: grid
+            spacing: 16
 
-                anchors.top: entryLabel.bottom
-                anchors.topMargin: 10
-                anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.top
+            anchors.topMargin: 10
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.margins: 20
 
-                width: parent.width
-                columns: 2
-
-                Label {text: "Name"}
-                Label {text: "Category"}
-                TextField{id: nameInput; width: 0.5 * parent.width;
-                    placeholderText: "Enter Name"
-                    //onPlatformPreeditChanged: acceptButton.enabled = true
-                }
-                QComboBox{id: categoryInput; width: 0.5 * parent.width; z: 3
-                    TextInput{ id: textInput }
-
-                    onFocusIn: textInput.openSoftwareInputPanel()
-
-                    onFocusOut: textInput.closeSoftwareInputPanel()
-                }
-/*
-                MTextEdit{id: categoryInput; width: 0.5 * parent.width;
-                    TextInput{
-                        id: textInput
-                    }
-
-                    MouseArea{
-                        anchors.fill: parent;
-                        width: categoryInput.width;
-                        height: categoryInput.height;
-                        onClicked: {
-                            categoryInput.focus();
-                            textInput.openSoftwareInputPanel();
-                        }
-                    }
-                }
-*/
-
-                Label {text: "User Name"}
-                Label {text: "Password"}
-                TextField{id: userNameInput; width: 0.5 * parent.width}
-                TextField{id: passwordInput; width: 0.5 * parent.width}
+            LabeledInput {
+                id: nameInput
+                label: "Account Name"
+                text: entry ? entry.name : ""
+                placeholderText: label
+                anchors.left: parent.left
+                anchors.right: parent.right
             }
 
-            Label {id: notesLabel; text: "Notes"; anchors.horizontalCenter: parent.horizontalCenter; anchors.top: grid.bottom; z: 1}
-            TextArea{id: notesInput;
-                anchors.horizontalCenter: parent.horizontalCenter; anchors.top: notesLabel.bottom;
-                width: parent.width; z: 1; textFormat: TextEdit.PlainText}
+            Column {
+                anchors.left: parent.left
+                anchors.right: parent.right
+
+                Label {
+                    text: "Category"
+                    color: "gray"
+                    font.pixelSize: 25
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+                    anchors.right: parent.right
+                }
+
+                Item {
+                    height: childrenRect.height
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+
+                    Button {
+                        id: categoryInput
+                        text: (entry && entry.category !== "") ? entry.category : "Default"
+                        iconSource: "image://theme/icon-m-common-combobox-arrow"
+                        anchors.left: parent.left
+                        anchors.right: categoryBtn.left
+                        anchors.rightMargin: 10
+                        anchors.top: parent.top
+                        onClicked: categorySelectionDialog.open()
+                    }
+
+                    Button {
+                        id: categoryBtn
+                        width: 100
+                        text: "New"
+                        anchors.top: parent.top
+                        anchors.right: parent.right
+                        onClicked: newCategoryDialog.open()
+                    }
+                }
+            }
+
+            LabeledInput {
+                id: userNameInput
+                label: "User Name"
+                text: entry ? entry.userName : ""
+                placeholderText: label
+                anchors.left: parent.left
+                anchors.right: parent.right
+            }
+
+            LabeledInput {
+                id: passwordInput
+                label: "Password"
+                text: entry ? entry.password : ""
+                placeholderText: label
+                anchors.left: parent.left
+                anchors.right: parent.right
+            }
+
+            Column {
+                anchors.left: parent.left
+                anchors.right: parent.right
+
+                Label {
+                    text: "Notes"
+                    color: "gray"
+                    font.pixelSize: 25
+                    anchors.left: parent.left
+                    anchors.leftMargin: 5
+                    anchors.right: parent.right
+                }
+
+                TextArea {
+                    id: notesInput
+                    text: entry ? entry.notes : ""
+                    placeholderText: "Notes"
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                }
+            }
+        }
+
+        // Currently does not work. No idea why.
+        ScrollDecorator {
+            flickableItem: parent
+        }
     }
 
     onAccepted: {
-        /*
-         * Hack to get a usable category even when categoryInput is still focused.
-         * categoryInput needs to loose focus at least once in order to return a usable QString.
-         */
-        nameInput.focus = true;
-        if(edit){
-            entryStorage.getModel().updateEntryAt(index, nameInput.text, categoryInput.text, userNameInput.text, passwordInput.text, notesInput.text);
-        }else{
-            entryStorage.getModel().addEntry(nameInput.text, categoryInput.text, userNameInput.text, passwordInput.text, notesInput.text);
-        }
-        editEntrySheet.close();
+        // If category is "Default", don't save category at all
+        entryStorage.getModel().addOrUpdateEntry(nameInput.text, (categoryInput.text === "Default" ? "" : categoryInput.text), userNameInput.text, passwordInput.text, notesInput.text, (entry ? entry.id : -1))
     }
 
-    onRejected: editEntrySheet.close();
+    Dialog {
+        id: noNameGivenDialog
+
+        content: Text {
+            anchors.centerIn: parent
+            text: "Please enter at least an entry name."
+            font.pixelSize: 30
+            color: "white"
+            horizontalAlignment: Text.AlignHCenter; wrapMode: Text.Wrap
+        }
+
+        onRejected: {
+            nameInput.forceActiveFocus();
+        }
+    }
+
+    ListModel {
+        id: catModel
+        Component.onCompleted: {
+            catModel.append({"name": "Default"})
+            var catList = entryStorage.getModel().getItemNames()
+            for (var i = 0; i < catList.length; i++) {
+                catModel.append({"name": catList[i]})
+            }
+        }
+    }
+
+    SelectionDialog {
+        id: categorySelectionDialog
+        anchors.fill: parent // Currently needed otherwise sometimes nothing is displayed
+        selectedIndex: 0 // Another bug. If not set sometimes nothing is displayed
+        titleText: "Select category"
+        // It should be possible to directly bind to the StringList, but currently its blocked by a bug.
+        // The following workaround seems to do it for now.
+        model: catModel //entryStorage.getModel().getItemNames()
+        onSelectedIndexChanged: {
+            categoryInput.text = selectedIndex < 1 ? "Default" : model.get(selectedIndex).name
+        }
+    }
+
+    QueryDialog {
+        id: newCategoryDialog
+        titleText: "Enter new category"
+        acceptButtonText: "OK"
+        rejectButtonText: "Cancel"
+        content: TextField {
+            id: newCatTxt
+            width: 400
+            focus: true
+            placeholderText: "Category"
+            anchors.centerIn: parent
+        }
+        onAccepted: {
+            categoryInput.text = newCatTxt.text
+            newCatTxt.text = ""
+        }
+        onRejected: {
+            newCatTxt.text = ""
+        }
+    }
 }

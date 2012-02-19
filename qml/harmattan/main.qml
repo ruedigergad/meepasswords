@@ -54,7 +54,7 @@ PageStackWindow {
                                + "There is no way to recover a lost password.")
                     onClicked: {
                         entryStorage.setPassword(passwordInputPage.password)
-                        pageStack.push(mainPage)
+                        entryStorage.showEntries()
                     }
                 }
             },
@@ -82,7 +82,7 @@ PageStackWindow {
     EntryStorage {
         id: entryStorage
 
-        property bool isOpen
+        property bool isOpen: false
 
         onStorageOpenSuccess: passwordInputPage.state = "EnterPassword"
         onStorageOpenSuccessNewPassword: passwordInputPage.state = "NewPassword"
@@ -100,6 +100,7 @@ PageStackWindow {
             pageStack.push(mainPage)
             passwordInputPage.password = ""
             isOpen = true
+            console.log("showEntries()")
         }
 
         function logout(){
@@ -110,10 +111,6 @@ PageStackWindow {
                 pageStack.pop()
                 isOpen = false
             }
-        }
-
-        Component.onCompleted: {
-            isOpen = false;
         }
     }
 

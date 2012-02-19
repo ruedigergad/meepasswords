@@ -13,5 +13,6 @@
         <file alias="qml/common/CommonTextField.qml">qml/desktop/CommonTextField.qml</file>
         <file>qml/desktop/PasswordInputPage.qml</file>
         <file alias="qml/common/CommonButton.qml">qml/desktop/CommonButton.qml</file>
+        <file>qml/desktop/EntryDelegate.qml</file>
     </qresource>
 </RCC>

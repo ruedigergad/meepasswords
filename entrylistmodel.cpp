@@ -41,17 +41,18 @@ EntryListModel::EntryListModel(QObject *parent) :
     roles[UserNameRole] = "userName";
     roles[PasswordRole] = "password";
     roles[NotesRole] = "notes";
+    roles[IdRole] = "id";
     setRoleNames(roles);
 }
 
-void EntryListModel::add(const Entry &entry){
-    beginResetModel();
+void EntryListModel::add(Entry &entry){
+    beginInsertRows(QModelIndex(), m_entries.length(), m_entries.length());
+    entry.setId(m_entries.length());
     m_entries << entry;
-    qSort(m_entries.begin(), m_entries.end(), entryCompare);
-    endResetModel();
+    endInsertRows();
 }
 
-void EntryListModel::addEntry(const Entry &entry){
+void EntryListModel::addEntry(Entry &entry){
     add(entry);
     qDebug("Added entry %s. New list size is: %d", entry.name().toUtf8().data(), m_entries.size());
     /*
@@ -64,10 +65,11 @@ void EntryListModel::addEntry(const Entry &entry){
 }
 
 void EntryListModel::addEntry(QString name, QString category, QString userName, QString password, QString notes){
-    addEntry(Entry(name, category, userName, password, notes));
+    Entry entry(name, category, userName, password, notes, -1);
+    addEntry(entry);
 }
 
-void EntryListModel::addFromByteArray(const QByteArray &data){
+void EntryListModel::addFromByteArray(QByteArray &data){
     qDebug("Adding entries from QByteArray.");
     QTextStream in(data);
 
@@ -78,16 +80,15 @@ void EntryListModel::addFromByteArray(const QByteArray &data){
     }
 
     qDebug("Beginning to insert data into model.");
-    beginResetModel();
+
     QRegExp xhtmlLineFeed("<br/>|<br />");
     while(line != 0 && line.length() > 0){
         QStringList list = line.split(CSV_SEP, QString::KeepEmptyParts);
         QString notes = list.at(4);
-        m_entries << Entry(list.at(0), list.at(1), list.at(2), list.at(3), notes.replace(xhtmlLineFeed, "\n"));
+        Entry entry(list.at(0), list.at(1), list.at(2), list.at(3), notes.replace(xhtmlLineFeed, "\n"), -1);
+        add(entry);
         line = in.readLine();
     }
-    qSort(m_entries.begin(), m_entries.end(), entryCompare);
-    endResetModel();
 }
 
 Entry* EntryListModel::at(int index){
@@ -115,6 +116,8 @@ QVariant EntryListModel::data(const QModelIndex &index, int role) const{
         return entry.password();
     else if (role == NotesRole)
         return entry.notes();
+    else if (role == IdRole)
+        return entry.id();
     return QVariant();
 }
 
@@ -127,6 +130,16 @@ void EntryListModel::remove(int index){
 void EntryListModel::removeAt(int index){
     remove(index);
     emit changed();
+}
+
+void EntryListModel::removeById(int id){
+    for (int i = 0; i <= m_entries.size(); i++) {
+        Entry e = m_entries[i];
+        if (e.id() == id) {
+            removeAt(i);
+            return;
+        }
+    }
 }
 
 int EntryListModel::rowCount(const QModelIndex &/*parent*/) const{
@@ -149,15 +162,16 @@ QByteArray EntryListModel::toByteArray(){
 
 void EntryListModel::updateEntryAt(int index, QString name, QString category, QString userName, QString password, QString notes){
     remove(index);
-    add(Entry(name, category, userName, password, notes));
+    Entry entry(name, category, userName, password, notes, -1);
+    add(entry);
     emit changed();
 }
 
 void EntryListModel::appendEntries(const QList<Entry> entries){
-    beginResetModel();
-    m_entries.append(entries);
-    qSort(m_entries.begin(), m_entries.end(), entryCompare);
-    endResetModel();
+    foreach (Entry entry, entries) {
+        entry.setId(m_entries.length());
+        add(entry);
+    }
     emit changed();
 }
 
@@ -173,4 +187,22 @@ QStringList EntryListModel::getItemNames() const {
     }
 
     return items;
+}
+
+void EntryListModel::addOrUpdateEntry(QString name, QString category, QString userName, QString password, QString notes, int id)
+{
+    Entry newEntry(name, category, userName, password, notes, id);
+
+    for (int i = 0; i < m_entries.length(); i++) {
+        Entry entry = m_entries[i];
+        if (entry.id() == newEntry.id()) {
+            m_entries.replace(i, newEntry);
+            emit dataChanged(index(i), index(i));
+            emit changed();
+            return;
+        }
+    }
+
+    // No entry found. Add new entry.
+    addEntry(newEntry);
 }

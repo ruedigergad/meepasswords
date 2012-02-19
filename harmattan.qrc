@@ -12,5 +12,11 @@
         <file alias="qml/common/CommonTextField.qml">qml/harmattan/CommonTextField.qml</file>
         <file alias="qml/common/CommonButton.qml">qml/harmattan/CommonButton.qml</file>
         <file>qml/harmattan/NfcWriteDialog.qml</file>
+        <file>qml/harmattan/EntryInputPage.qml</file>
+        <file>qml/harmattan/EntryLabel.qml</file>
+        <file>qml/harmattan/icon_background.png</file>
+        <file>qml/harmattan/LabeledInput.qml</file>
+        <file>qml/harmattan/ShowEntryPage.qml</file>
+        <file>qml/harmattan/EntryDelegate.qml</file>
     </qresource>
 </RCC>

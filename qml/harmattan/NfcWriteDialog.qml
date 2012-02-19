@@ -24,7 +24,7 @@ import "../common"
 
 QueryDialog {
     id: nfcWriteDialog
-    anchors.fill: parent
+    //anchors.fill: parent
 
     acceptButtonText: "Write"
     rejectButtonText: "Cancel"

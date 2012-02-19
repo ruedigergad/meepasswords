@@ -29,7 +29,8 @@
 
 #include <QtCrypto>
 
-#include <entrylistmodel.h>
+#include "entrylistmodel.h"
+#include "entrysortfilterproxymodel.h"
 
 #define DEFAULT_STORAGE "MeePasswords_DefaultStorage"
 #define ENCRYPTED_FILE "/encrypted.raw"
@@ -49,7 +50,7 @@ public:
     Q_INVOKABLE bool equalsStoredHash(QString hash);
     Q_INVOKABLE bool equalsStoredPassword(QString password);
     Q_INVOKABLE QString getBase64Hash(QString password);
-    Q_INVOKABLE EntryListModel* getModel() { return model; }
+    Q_INVOKABLE EntrySortFilterProxyModel* getModel() { return proxyModel; }
 
     Q_INVOKABLE void exportKeePassXml();
     Q_INVOKABLE void importKeePassXml();
@@ -89,6 +90,7 @@ private:
     QCA::SymmetricKey *key;
 
     EntryListModel *model;
+    EntrySortFilterProxyModel *proxyModel;
 };
 
 #endif // ENTRYSTORAGE_H

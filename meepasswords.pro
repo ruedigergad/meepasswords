@@ -7,14 +7,19 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     MEEGO_VERSION_PATCH     = 0
     MEEGO_EDITION           = harmattan
 
-    DEFINES += MEEGO_EDITION_HARMATTAN
+    DEFINES += MEEGO_EDITION_HARMATTAN NFC_ENABLED
     PKGCONFIG += aegis-crypto
     RESOURCES += harmattan.qrc
 
     CONFIG += mobility
     MOBILITY += connectivity
+} else:simulator {
+    DEFINES += NFC_ENABLED
+    RESOURCES += harmattan.qrc
+    CONFIG += mobility
+    MOBILITY += connectivity
 } else {
-    RESOURCES += desktop.qrc
+   RESOURCES += desktop.qrc
 }
 
 RESOURCES += common.qrc
@@ -55,7 +60,7 @@ HEADERS += \
     keepassxmlstreamreader.h \
     keepassxmlstreamwriter.h \
     qmlclipboardadapter.h \
-    nfctagwriter.h
+    entrysortfilterproxymodel.h
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
@@ -68,7 +73,12 @@ SOURCES += main.cpp \
     qcomboboxqmladapter.cpp \
     keepassxmlstreamreader.cpp \
     keepassxmlstreamwriter.cpp \
-    nfctagwriter.cpp
+    entrysortfilterproxymodel.cpp
+
+contains(DEFINES, NFC_ENABLED) {
+    HEADERS += nfctagwriter.h
+    SOURCES += nfctagwriter.cpp
+}
 
 OTHER_FILES += \
     qml/harmattan/MainPage.qml \
@@ -120,7 +130,12 @@ OTHER_FILES += \
     qml/harmattan/CommonButton.qml \
     qml/desktop/CommonButton.qml \
     qml/common/constants.js \
-    qml/harmattan/NfcWriteDialog.qml
+    qml/harmattan/NfcWriteDialog.qml \
+    qml/harmattan/EntryDelegate.qml \
+    qml/desktop/EntryDelegate.qml \
+    qml/harmattan/LabeledInput.qml \
+    qml/harmattan/ShowEntryPage.qml \
+    qml/harmattan/EntryLabel.qml
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)

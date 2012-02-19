@@ -22,14 +22,12 @@ import Qt 4.7
 CommonDialog {
     id: passwordChangeDialog
 
-    anchors.fill: parent
-
     property alias oldPassword: oldPasswordInput.text
 
-    onClosed: {
-        oldPasswordInput.text = ""
-        newPasswordInput.text = ""
-    }
+//    onClosed: {
+//        oldPasswordInput.text = ""
+//        newPasswordInput.text = ""
+//    }
 
     onOpened: {
         oldPasswordInput.text = ""

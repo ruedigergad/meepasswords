@@ -24,7 +24,7 @@ Entry::Entry(QObject *parent) :
 {
 }
 
-Entry::Entry(QString name, QString category, QString userName, QString password, QString notes, QObject *parent) :
+Entry::Entry(QString name, QString category, QString userName, QString password, QString notes, int id, QObject *parent) :
     QObject(parent)
 {
     m_name = name.trimmed();
@@ -32,6 +32,7 @@ Entry::Entry(QString name, QString category, QString userName, QString password,
     m_userName = userName.trimmed();
     m_password = password.trimmed();
     m_notes = notes;
+    m_id = id;
 }
 
 Entry::Entry(const Entry &obj, QObject *parent) :
@@ -42,6 +43,7 @@ Entry::Entry(const Entry &obj, QObject *parent) :
     m_userName = obj.userName();
     m_password = obj.password();
     m_notes = obj.notes();
+    m_id = obj.id();
 }
 
 Entry& Entry::operator = (const Entry &e) {
@@ -50,6 +52,7 @@ Entry& Entry::operator = (const Entry &e) {
     m_userName = e.m_userName;
     m_password = e.m_password;
     m_notes = e.m_notes;
+    m_id = e.m_id;
     return *this;
 }
 

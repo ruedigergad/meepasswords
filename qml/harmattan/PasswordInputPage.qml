@@ -40,69 +40,72 @@ Page {
         }
     }
 
-    Rectangle{
+    Item {
         anchors.fill: parent
-        color: "white"
-
-        Label {
-            id: appNameLabel
-            text: "MeePasswords"
-            font.pixelSize: 40
-            font.bold: true
-
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: meePasswordsIcon.top
-            anchors.bottomMargin: 10
-        }
 
         Image {
-            id: meePasswordsIcon
-            source: "qrc:/meepasswords_150x150.png"
+            id: header
+            height: 72
+            source: "image://theme/color8-meegotouch-view-header-fixed"
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.right: parent.right
 
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: descriptionLabel.top
-            anchors.bottomMargin: 10
+            Text {
+                text: "MeePasswords"
+                color: "white"
+                font.family: "Nokia Pure Text Light"
+                font.pixelSize: 32
+                anchors.left: parent.left
+                anchors.leftMargin: 20
+                anchors.verticalCenter: parent.verticalCenter
+            }
         }
 
-        Label {
-            id: descriptionLabel
-            text: "Keep your passwords protected."
-            anchors.centerIn: parent
+        Column {
+            spacing: 20
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.margins: 40
+
+            Image {
+                id: meePasswordsIcon
+                source: "qrc:/meepasswords_150x150.png"
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Label {
+                id: descriptionLabel
+                text: "Keep your passwords protected."
+                horizontalAlignment: Text.Center
+                anchors.left: parent.left
+                anchors.right: parent.right
+            }
+
+            Label {
+                id: passwordLabel
+                wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                horizontalAlignment: Text.Center
+                anchors.left: parent.left
+                anchors.right: parent.right
+            }
+
+            TextField {
+                id: passwordField
+                echoMode: TextInput.Password
+                placeholderText: "Password"
+                anchors.left: parent.left
+                anchors.right: parent.right
+            }
+
+            Button {
+                id: passwordButton
+                text: qsTr("OK")
+                anchors.left: parent.left
+                anchors.right: parent.right
+                onClicked: passwordInputPage.clicked()
+            }
         }
-
-        Label {
-            id: passwordLabel
-
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: descriptionLabel.bottom
-            anchors.topMargin: 30
-            width: parent.width
-
-            horizontalAlignment: Text.AlignHCenter
-            wrapMode: Text.Wrap
-        }
-
-        TextField {
-            id: passwordField
-
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: passwordLabel.bottom
-            anchors.topMargin: 10
-
-            echoMode: TextInput.Password
-        }
-
-        Button{
-            id: passwordButton
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: passwordField.bottom
-            anchors.topMargin: 10
-            text: qsTr("OK")
-            onClicked: {}
-        }
-    }
-
-    Component.onCompleted: {
-        passwordButton.clicked.connect(clicked)
     }
 }

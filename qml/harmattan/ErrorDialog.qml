@@ -23,7 +23,7 @@ import "../common/constants.js" as Constants
 
 Dialog{
     id: errorDialog
-    anchors.fill: parent
+    //anchors.fill: parent
 
     property alias message: errorMessage.message
 

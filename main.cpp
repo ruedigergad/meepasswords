@@ -31,7 +31,9 @@
 #include "entrylistmodel.h"
 #include "entrystorage.h"
 
+#ifdef NFC_ENABLED
 #include "nfctagwriter.h"
+#endif
 
 //#include "mcomboboxqmladapter.h"
 //#include "mtexteditqmladapter.h"
@@ -59,9 +61,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     qmlRegisterType<Entry>("meepasswords", 1, 0, "Entry");
     qmlRegisterType<EntryListModel>("meepasswords", 1, 0, "EntryListModel");
+    qmlRegisterType<EntrySortFilterProxyModel>("meepasswords", 1, 0, "EntrySortFilterProxyModel");
     qmlRegisterType<EntryStorage>("meepasswords", 1, 0, "EntryStorage");
 
+#ifdef NFC_ENABLED
     qmlRegisterType<NfcTagWriter>("meepasswords", 1, 0, "NfcTagWriter");
+#endif
 
 //    qmlRegisterType<MComboBoxQmlAdapter>("meepasswords", 1, 0, "MComboBox");
 //    qmlRegisterType<MTextEditQmlAdapter>("meepasswords", 1, 0, "MTextEdit");
@@ -83,7 +88,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     view->setWindowTitle("MeePasswords");
 
-#ifdef MEEGO_EDITION_HARMATTAN
+#if defined(MEEGO_EDITION_HARMATTAN)
+    view->setSource(QUrl("qrc:/qml/harmattan/main.qml"));
+    view->showFullScreen();
+#elif defined(QT_SIMULATOR)
     view->setSource(QUrl("qrc:/qml/harmattan/main.qml"));
     view->showFullScreen();
 #else

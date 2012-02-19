@@ -23,7 +23,7 @@ import "../common"
 CommonDialog {
     id: aboutDialog
 
-    anchors.fill: parent
+    //anchors.fill: parent
 
     content: Item {
       anchors.fill: parent

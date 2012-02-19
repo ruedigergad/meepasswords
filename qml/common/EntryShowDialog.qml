@@ -23,8 +23,6 @@ import meepasswords 1.0
 CommonDialog {
     id: entryShowDialog
 
-    anchors.fill: parent
-
     property alias name: name.text
     property alias userName: userName.text
     property alias password: password.text

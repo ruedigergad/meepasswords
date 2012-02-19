@@ -70,7 +70,7 @@ Rectangle{
                 text: qsTr("Enter Password:");
                 password: "";
                 onClicked: {
-                    entryStorage.loadAndDecryptData(passwordInputPage.password);
+                    entryStorage.loadAndDecryptDataUsingPassword(passwordInputPage.password);
                 }
             }
             PropertyChanges {
@@ -85,7 +85,7 @@ Rectangle{
                 text: qsTr("You entered a wrong password. Please reenter Password:");
                 password: "";
                 onClicked: {
-                    entryStorage.loadAndDecryptData(passwordInputPage.password);
+                    entryStorage.loadAndDecryptDataUsingPassword(passwordInputPage.password);
                 }
             }
             PropertyChanges {

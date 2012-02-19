@@ -24,6 +24,7 @@
 #include <QDesktopServices>
 #endif
 
+#include <QDebug>
 #include <QDir>
 #include <QFile>
 #include <QTextStream>
@@ -49,7 +50,10 @@ EntryStorage::EntryStorage(QObject *parent) :
     capabilities = QCA::supportedFeatures();
     qDebug("QCA supports: %s", capabilities.join(",").toUtf8().constData());
 
-    model = new EntryListModel();
+    model = new EntryListModel(this);
+    proxyModel = new EntrySortFilterProxyModel(this);
+    proxyModel->setSourceModel(model);
+
     connect(model, SIGNAL(changed()), this, SLOT(storeModel()));
 
     key = NULL;

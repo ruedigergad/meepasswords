@@ -40,14 +40,15 @@ public:
         CategoryRole = Qt::UserRole + 2,
         UserNameRole = Qt::UserRole + 3,
         PasswordRole = Qt::UserRole + 4,
-        NotesRole = Qt::UserRole + 5
+        NotesRole = Qt::UserRole + 5,
+        IdRole = Qt::UserRole + 6
     };
 
     EntryListModel(QObject *parent = 0);
 
-    Q_INVOKABLE void addEntry(const Entry &entry);
+    Q_INVOKABLE void addEntry(Entry &entry);
     Q_INVOKABLE void addEntry(QString name, QString category, QString userName, QString password, QString notes);
-    Q_INVOKABLE void addFromByteArray(const QByteArray &data);
+    Q_INVOKABLE void addFromByteArray(QByteArray &data);
 
     Q_INVOKABLE Entry* at(int index);
     // Needed to make SectionScroller happy.
@@ -59,12 +60,15 @@ public:
     Q_INVOKABLE int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
     Q_INVOKABLE void removeAt(int index);
+    void removeById(int id);
     QByteArray toByteArray();
     Q_INVOKABLE void updateEntryAt(int index, QString name, QString category, QString userName, QString password, QString notes);
 
     QList<Entry> getEntryList() const { return m_entries; }
     void appendEntries(const QList<Entry> entries);
     Q_INVOKABLE QStringList getItemNames() const;
+    Q_INVOKABLE void addOrUpdateEntry(QString name, QString category, QString userName, QString password, QString notes, int id);
+
 
 signals:
     void changed();
@@ -75,7 +79,7 @@ private:
     /**
       * Adds an entry to the list. While updating the model this method does <b>not</b> emit the changed() signal.
       */
-    void add(const Entry &entry);
+    void add(Entry &entry);
     /**
       * Remove an entry from the list. While updating the model this method does <b>not</b> emit the changed() signal.
       */
