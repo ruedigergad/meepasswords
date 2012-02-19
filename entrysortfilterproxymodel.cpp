@@ -1,5 +1,4 @@
 #include "entrysortfilterproxymodel.h"
-#include "entrylistmodel.h"
 
 EntrySortFilterProxyModel::EntrySortFilterProxyModel(QObject *parent) :
     QSortFilterProxyModel(parent)
