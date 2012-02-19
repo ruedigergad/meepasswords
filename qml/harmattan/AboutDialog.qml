@@ -40,7 +40,7 @@ Dialog {
       Text {id: author;
           text: "Authors: <br />"
                  + "Ruediger Gad - <a href=\"mailto:r.c.g@gmx.de\" style=\"text-decoration:none; color:#78bfff\" >r.c.g@gmx.de</a><br />"
-                 + "Cornelius Hald - ";
+                 + "Cornelius Hald - <a href=\"mailto:hald@icandy.de\" style=\"text-decoration:none; color:#78bfff\" >hald@icandy.de</a>";
           textFormat: Text.RichText;
           onLinkActivated: { Qt.openUrlExternally(link); }
           font.pixelSize: 20; anchors.centerIn: parent; color: "lightgray"; horizontalAlignment: Text.AlignHCenter}
