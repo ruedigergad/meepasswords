@@ -1,3 +1,9 @@
+meepasswords (1.9.0) unstable; urgency=low
+
+  * New UI by Connerlius. Thanks a lot, that's really a very nice UI!!
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Sun, 01 Jan 2012 13:32:06 +0200
+
 meepasswords (1.8.0) unstable; urgency=low
 
   * Add option for using randomly generated passwords as proposed in:

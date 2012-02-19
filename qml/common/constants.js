@@ -1,3 +1,3 @@
 .pragma library
 
-var VERSION = "1.8.0"
+var VERSION = "1.9.0"
