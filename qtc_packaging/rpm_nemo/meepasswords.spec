@@ -16,6 +16,7 @@ Source0:    %{name}_%{version}.tar.gz
 Source100:  meepasswords.yaml
 Requires:   libdeclarative-connectivity
 Requires:   libdeclarative-systeminfo
+Requires:   libqca2-plugin-ossl
 BuildRequires:  pkgconfig(QtCore) >= 4.7.0
 BuildRequires:  pkgconfig(QtGui)
 BuildRequires:  pkgconfig(QtConnectivity)

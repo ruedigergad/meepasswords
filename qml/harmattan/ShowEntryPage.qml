@@ -31,13 +31,11 @@ Page {
 //        }
     }
 
-    Image {
+    Rectangle {
         id: header
         height: 72
-        source: "image://theme/color8-meegotouch-view-header-fixed"
-        anchors.left: parent.left
-        anchors.top: parent.top
-        anchors.right: parent.right
+        color: "#0c61a8"
+        anchors{left: parent.left; right: parent.right; top: parent.top}
 
         Text {
             text: entry.name
