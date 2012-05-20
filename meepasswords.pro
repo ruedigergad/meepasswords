@@ -8,7 +8,7 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     MEEGO_EDITION           = harmattan
 
     DEFINES += MEEGO_EDITION_HARMATTAN NFC_ENABLED
-    PKGCONFIG += aegis-crypto
+    #PKGCONFIG += aegis-crypto
     RESOURCES += harmattan.qrc
 
     CONFIG += mobility

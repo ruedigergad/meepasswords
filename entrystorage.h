@@ -23,9 +23,11 @@
 #include <QObject>
 #include <QStringList>
 
+/*
 #ifdef MEEGO_EDITION_HARMATTAN
 #include <aegis_storage.h>
 #endif
+*/
 
 #include <QtCrypto>
 
@@ -76,10 +78,12 @@ public slots:
     void storeModel();
 
 private:
+/*
 #ifdef MEEGO_EDITION_HARMATTAN
     bool migrateStorage();
     aegis::storage *aegisStorage;
 #endif
+*/
     void encryptAndStoreData(const QByteArray rawData);
     void migrateSymmetricKey(QString password);
     void loadAndDecryptData();

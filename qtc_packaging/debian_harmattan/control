@@ -2,7 +2,7 @@ Source: meepasswords
 Section: user/office
 Priority: optional
 Maintainer: Ruediger Gad <r.c.g@gmx.de>
-Build-Depends: debhelper (>= 8), pkg-config, libqt4-dev, libqtm-dev, aegis-builder (>= 1.6), aegis-manifest-dev, libaegis-crypto-dev, libqca2-dev, applauncherd-dev
+Build-Depends: debhelper (>= 8), pkg-config, libqt4-dev, libqtm-dev, aegis-builder (>= 1.6), aegis-manifest-dev, libqca2-dev, applauncherd-dev
 Standards-Version: 3.7.3
 Homepage: http://meepasswords.garage.maemo.org
 

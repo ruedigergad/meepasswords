@@ -20,7 +20,7 @@
 #include "entrystorage.h"
 
 #ifdef MEEGO_EDITION_HARMATTAN
-#include <aegis_crypto.h>
+//#include <aegis_crypto.h>
 #include <QDesktopServices>
 #endif
 
@@ -35,9 +35,11 @@
 EntryStorage::EntryStorage(QObject *parent) :
     QObject(parent)
 {
+/*
 #ifdef MEEGO_EDITION_HARMATTAN
     aegisStorage = NULL;
 #endif
+*/
 
     qDebug("Initializing QCA...");
     initializer = new QCA::Initializer(QCA::Practical, 256);
@@ -60,11 +62,13 @@ EntryStorage::EntryStorage(QObject *parent) :
 }
 
 EntryStorage::~EntryStorage(){
+/*
 #ifdef MEEGO_EDITION_HARMATTAN
     if(aegisStorage != NULL){
         delete aegisStorage;
     }
 #endif
+*/
     if(key != NULL){
         delete key;
     }
@@ -210,6 +214,7 @@ void EntryStorage::migrateSymmetricKey(QString password){
     qDebug("SymmetricKey migration: done.");
 }
 
+/*
 #ifdef MEEGO_EDITION_HARMATTAN
 bool EntryStorage::migrateStorage(){
     QByteArray encryptedData;
@@ -250,39 +255,42 @@ bool EntryStorage::migrateStorage(){
     return true;
 }
 #endif
+*/
 
 void EntryStorage::openStorage(){
+
 #ifdef MEEGO_EDITION_HARMATTAN
     QString storageDirPath = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString(DEFAULT_STORAGE);
-    QDir storageDir(storageDirPath);
 
-    if(! storageDir.exists()){
-        /*
-         * Going to migrate data from Aegis to a location in the file system.
-         * This operation is quite risky as we are messing with live data and probably have only one shot.
-         */
-        QDir().mkpath(storageDirPath);
-        aegisStorage = new aegis::storage(DEFAULT_STORAGE, NULL, aegis::storage::vis_private, aegis::storage::prot_encrypted);
+//    QDir storageDir(storageDirPath);
 
-        if(aegisStorage->status() == aegis::storage::writable){
-            qDebug("Success opening storage for writing.");
+//    if(! storageDir.exists()){
+//        /*
+//         * Going to migrate data from Aegis to a location in the file system.
+//         * This operation is quite risky as we are messing with live data and probably have only one shot.
+//         */
+//        QDir().mkpath(storageDirPath);
+//        aegisStorage = new aegis::storage(DEFAULT_STORAGE, NULL, aegis::storage::vis_private, aegis::storage::prot_encrypted);
 
-            if(aegisStorage->contains_file(ENCRYPTED_FILE)){
-                qDebug("Found existing file. Going to migrate file to new location.");
+//        if(aegisStorage->status() == aegis::storage::writable){
+//            qDebug("Success opening storage for writing.");
 
-                /*
-                 * Remove directory if an error occured to notify us on the next start that we need to try again.
-                 */
-                if(! migrateStorage()){
-                    QDir().rmdir(storageDirPath);
-                }
-            }
-        }
-    }
+//            if(aegisStorage->contains_file(ENCRYPTED_FILE)){
+//                qDebug("Found existing file. Going to migrate file to new location.");
+
+//                /*
+//                 * Remove directory if an error occured to notify us on the next start that we need to try again.
+//                 */
+//                if(! migrateStorage()){
+//                    QDir().rmdir(storageDirPath);
+//                }
+//            }
+//        }
+//    }
 #else
     QString storageDirPath = QDir::home().absolutePath() + QString("/.") + QString(DEFAULT_STORAGE);
-    QDir().mkpath(storageDirPath);
 #endif
+    QDir().mkpath(storageDirPath);
 
     QString storagePath = storageDirPath + QString(ENCRYPTED_FILE);
     qDebug("Path to storage file: %s", storagePath.toUtf8().constData());

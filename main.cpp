@@ -18,7 +18,7 @@
  */
 
 #ifdef MEEGO_EDITION_HARMATTAN
-#include <aegis_crypto.h>
+//#include <aegis_crypto.h>
 #include <applauncherd/MDeclarativeCache>
 #else
 #include <QDebug>
@@ -48,9 +48,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QApplication *app = MDeclarativeCache::qApplication(argc, argv);
     QDeclarativeView *view = MDeclarativeCache::qDeclarativeView();
 
-    char *app_id;
-    aegis_application_id(getpid(), &app_id);
-    qDebug("Application Id: %s", app_id);
+//    char *app_id;
+//    aegis_application_id(getpid(), &app_id);
+//    qDebug("Application Id: %s", app_id);
 #else
     QApplication::setGraphicsSystem("raster");
     QApplication *app = new QApplication(argc, argv);
