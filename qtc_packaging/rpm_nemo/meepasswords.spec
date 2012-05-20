@@ -14,6 +14,8 @@ License:    GPLv3
 URL:        http://meepasswords.garage.maemo.org/
 Source0:    %{name}_%{version}.tar.gz
 Source100:  meepasswords.yaml
+Requires:   libdeclarative-connectivity
+Requires:   libdeclarative-systeminfo
 BuildRequires:  pkgconfig(QtCore) >= 4.7.0
 BuildRequires:  pkgconfig(QtGui)
 BuildRequires:  pkgconfig(QtConnectivity)
