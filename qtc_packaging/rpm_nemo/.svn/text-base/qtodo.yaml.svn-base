@@ -1,0 +1,25 @@
+Name: qtodo
+Summary: Q ToDo -- A Todo List Organizer
+Version: 0.7.1
+Release: 1
+Group: Applications/Office
+License: GPLv3
+URL: http://to-do-o.sourceforge.net
+Sources:
+    - "%{name}_%{version}.tar.gz"
+Description:  
+ Q ToDo is a simple todo list organizer.
+ It supports nested todos. As one special feature it provides a quick and easy way for viewing the progress of sub-todos.
+
+PkgBR:
+    - meegotouch-applauncherd-devel
+PkgConfigBR:
+    - QtCore >= 4.7.0
+    - QtGui
+Configure: none
+Builder: qmake 
+Files:
+    - "/usr/share/applications/%{name}.desktop"
+    - "/opt/%{name}"
+    - "/usr/share/icons/hicolor/*/apps/%{name}.png"
+    - "/usr/share/icons/hicolor/*/apps/%{name}.svg"

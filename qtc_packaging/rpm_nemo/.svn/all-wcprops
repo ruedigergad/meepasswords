@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svnroot/to-do-o/!svn/ver/929/qtodo/trunk/qtc_packaging/rpm_nemo
+END
+qtodo.changes
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/to-do-o/!svn/ver/929/qtodo/trunk/qtc_packaging/rpm_nemo/qtodo.changes
+END
+qtodo.spec
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/to-do-o/!svn/ver/929/qtodo/trunk/qtc_packaging/rpm_nemo/qtodo.spec
+END
+qtodo.yaml
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svnroot/to-do-o/!svn/ver/929/qtodo/trunk/qtc_packaging/rpm_nemo/qtodo.yaml
+END
