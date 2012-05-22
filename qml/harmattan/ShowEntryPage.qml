@@ -5,6 +5,8 @@ import meepasswords 1.0
 Page {
     id: root
 
+    orientationLock: PageOrientation.LockPortrait
+
     property QtObject entry
 
     tools: ToolBarLayout {
