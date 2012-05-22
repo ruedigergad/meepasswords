@@ -326,6 +326,13 @@ void EntryStorage::storeModel(){
 }
 
 void EntryStorage::encryptAndStoreData(const QByteArray rawData){
+    qDebug("Entering encryptAndStoreData...");
+
+    if(*key == QCA::SymmetricKey(hashPassword(""))){
+        qDebug("Warning: attempted to store data with an unset or empty password.\nData will not be saved.");
+        return;
+    }
+
     qDebug("Encrypting and storing data.");
     QCA::MemoryRegion data(rawData);
 
