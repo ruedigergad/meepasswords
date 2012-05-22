@@ -28,6 +28,15 @@ Sheet{
 
     anchors.fill: parent
 
+    Connections{
+        target: mainPage
+        onStatusChanged: {
+            if(mainPage.status === PageStatus.Deactivating){
+                editEntrySheet.reject()
+            }
+        }
+    }
+
     buttons: Item {
         anchors.fill: parent
         SheetButton{

@@ -7,7 +7,7 @@
 
 Name:       meepasswords
 Summary:    MeePasswords -- Keep your passwords protected.
-Version:    1.9.1
+Version:    1.9.2
 Release:    1
 Group:      Applications/Productivity
 License:    GPLv3
