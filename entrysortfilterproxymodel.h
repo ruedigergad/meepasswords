@@ -21,7 +21,7 @@ public:
     Q_INVOKABLE void removeById(int id);
 
     // Needed to make SectionScroller happy.
-    Q_INVOKABLE Entry* get(int index) { return ((EntryListModel*)sourceModel())->get(index); }
+    Q_INVOKABLE Entry* get(int index);
     Q_INVOKABLE int rowCount(const QModelIndex &parent = QModelIndex()) const {
         return ((EntryListModel*)sourceModel())->rowCount(parent);
     }

@@ -48,3 +48,12 @@ void EntrySortFilterProxyModel::removeById(int id)
 {
     ((EntryListModel*)sourceModel())->removeById(id);
 }
+
+Entry* EntrySortFilterProxyModel::get(int index){
+    QModelIndex idx = this->index(index, 0);
+    QModelIndex srcIdx = mapToSource(idx);
+
+    return (srcIdx.row() >= 0 && srcIdx.row() < sourceModel()->rowCount())
+            ? ((EntryListModel*) sourceModel())->get(srcIdx.row())
+            : ((EntryListModel*) sourceModel())->get(index);
+}
