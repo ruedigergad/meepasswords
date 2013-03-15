@@ -143,11 +143,12 @@ Rectangle{
                      * categoryInput needs to loose focus at least once in order to return a usable QString.
                      */
                     nameInput.focus = true;
-                    if(edit){
-                        entryStorage.getModel().updateEntryAt(index, nameInput.text, categoryInput.text, userNameInput.text, passwordInput.text, notesInput.text);
-                    }else{
-                        entryStorage.getModel().addEntry(nameInput.text, categoryInput.text, userNameInput.text, passwordInput.text, notesInput.text);
-                    }
+                    entryStorage.getModel().addOrUpdateEntry(nameInput.text,
+                                                             (categoryInput.text === "Default" ? "" : categoryInput.text),
+                                                             userNameInput.text,
+                                                             passwordInput.text,
+                                                             notesInput.text,
+                                                             (edit ? index : -1))
                     editEntryDialog.close();
                 }
             }

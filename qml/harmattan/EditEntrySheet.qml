@@ -177,7 +177,12 @@ Sheet{
 
     onAccepted: {
         // If category is "Default", don't save category at all
-        entryStorage.getModel().addOrUpdateEntry(nameInput.text, (categoryInput.text === "Default" ? "" : categoryInput.text), userNameInput.text, passwordInput.text, notesInput.text, (entry ? entry.id : -1))
+        entryStorage.getModel().addOrUpdateEntry(nameInput.text,
+                                                 (categoryInput.text === "Default" ? "" : categoryInput.text),
+                                                 userNameInput.text,
+                                                 passwordInput.text,
+                                                 notesInput.text,
+                                                 (entry ? entry.id : -1))
     }
 
     Dialog {

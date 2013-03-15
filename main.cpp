@@ -104,7 +104,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->resize(800, 424);
     view->show();
 #else
-    view->resize(600, 800);
+    view->resize(500, 600);
     view->show();
 #endif
 
