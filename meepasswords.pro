@@ -113,22 +113,24 @@ OTHER_FILES += \
     qml/desktop/main.qml \
     qml/desktop/PasswordInputPage.qml \
     qml/desktop/MainPage.qml \
-    qml/desktop/Dialog.qml \
     qml/desktop/EditEntryDialog.qml \
-    qml/desktop/ConfirmationDialog.qml \
     qml/desktop/Menu.qml \
     qml/desktop/AboutDialog.qml \
+    qml/desktop/common/Dialog.qml \
+    qml/desktop/common/CommonDialog.qml \
+    qml/desktop/common/CommonButton.qml \
+    qml/desktop/common/CommonToolBar.qml \
+    qml/desktop/common/ConfirmationDialog.qml \
+    qml/desktop/common/CommonToolIcon.qml \
+    qml/desktop/common/CommonTextField.qml \
+    qml/desktop/common/CommonTextArea.qml \
     qml/harmattan/ConfirmationDialog.qml \
     res/fremantle/meepasswords.desktop \
     res/fremantle/meepasswords.png \
-    qml/desktop/CommonTextArea.qml \
-    qml/desktop/CommonTextField.qml \
     qml/harmattan/CommonTextArea.qml \
     qml/harmattan/CommonTextField.qml \
-    qml/desktop/CommonDialog.qml \
     qml/harmattan/CommonDialog.qml \
     qml/harmattan/CommonButton.qml \
-    qml/desktop/CommonButton.qml \
     qml/common/constants.js \
     qml/harmattan/NfcWriteDialog.qml \
     qml/harmattan/EntryDelegate.qml \

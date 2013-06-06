@@ -1,5 +1,5 @@
 /*
- *  Copyright 2011 Ruediger Gad
+ *  Copyright 2012, 2013 Ruediger Gad
  *
  *  This file is part of MeePasswords.
  *
@@ -17,39 +17,69 @@
  *  along with MeePasswords.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Qt 4.7
+import QtQuick 1.1
 
 Rectangle {
     id: textArea
 
     height: textEdit.height + textEdit.font.pointSize
 
-    border.width: 3
+    border.width: primaryFontSize / 8
     border.color: "lightgrey"
-    radius: textEdit.font.pointSize
+    radius: textEdit.font.pointSize * 0.75
     smooth: true
 
     property alias text: textEdit.text
     property int textFormat: TextEdit.PlainText
 
+    signal enter()
+    signal keyPressed(variant event)
     signal textChanged(string text)
 
+    function forceActiveFocus() {
+        textEdit.forceActiveFocus()
+    }
 
     TextEdit {
         id: textEdit
 
         anchors.centerIn: parent
         width: parent.width - (2 * font.pointSize)
+        focus: parent.focus
 
-        font.pointSize: 17
+        font.pointSize: primaryFontSize * 0.75
         color: "black"
         textFormat: textArea.textFormat
+        wrapMode: TextEdit.WordWrap
+
+        Keys.onPressed: {
+            if (event.modifiers & Qt.AltModifier) {
+                event.accepted = true
+                keyPressed(event)
+            }
+        }
+
+        Keys.onEnterPressed: {
+            if (event.modifiers & Qt.ShiftModifier) {
+                event.accepted = false
+            } else {
+                enter()
+            }
+        }
+        Keys.onReturnPressed: {
+            if (event.modifiers & Qt.ShiftModifier) {
+                event.accepted = false
+            } else {
+                enter()
+            }
+        }
 
         onTextChanged: textArea.textChanged(text)
 
         onFocusChanged: {
             if(focus){
                 textArea.border.color = "#569ffd";
+                textEdit.cursorPosition = textEdit.text.length
             }else{
                 textArea.border.color = "lightgray";
             }

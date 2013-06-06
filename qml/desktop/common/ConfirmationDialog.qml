@@ -1,5 +1,5 @@
 /*
- *  Copyright 2011 Ruediger Gad
+ *  Copyright 2012, 2013 Ruediger Gad
  *
  *  This file is part of MeePasswords.
  *
@@ -17,7 +17,7 @@
  *  along with MeePasswords.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Qt 4.7
+import QtQuick 1.1
 
 Dialog {
     id: confirmationDialog
@@ -27,29 +27,34 @@ Dialog {
 
     signal accepted();
 
-    Text{
+    function accept() {
+        close()
+        accepted()
+    }
+
+    Text {
         id: titleText
         anchors.bottom: message.top
         anchors.margins: 20
         width: parent.width
         color: "white"
-        font.pointSize: 40
+        font.pointSize: primaryFontSize * 1.25
         font.bold: true
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
     }
 
-    Text{
+    Text {
         id:message
         anchors.centerIn: parent
         width: parent.width
         color: "white"
-        font.pointSize: 25
+        font.pointSize: primaryFontSize * 0.75
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
     }
 
-    CommonButton{
+    CommonButton {
         id: acceptButton
         text: "OK"
         anchors.top: message.bottom
@@ -57,12 +62,11 @@ Dialog {
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width * 0.5
         onClicked: {
-            close();
-            accepted();
+            accept()
         }
     }
 
-    CommonButton{
+    CommonButton {
         id: rejectButton
         text: "Cancel"
         anchors.top: acceptButton.bottom
@@ -70,8 +74,19 @@ Dialog {
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width * 0.5
         onClicked: {
-            close();
-            rejected();
+            reject()
         }
+    }
+
+    Keys.onEscapePressed: {
+        reject()
+    }
+
+    Keys.onEnterPressed: {
+        accept()
+    }
+
+    Keys.onReturnPressed: {
+        accept()
     }
 }

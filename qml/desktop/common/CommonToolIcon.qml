@@ -1,5 +1,5 @@
 /*
- *  Copyright 2011 Ruediger Gad
+ *  Copyright 2012, 2013 Ruediger Gad
  *
  *  This file is part of MeePasswords.
  *
@@ -17,45 +17,8 @@
  *  along with MeePasswords.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Qt 4.7
+import QtQuick 1.1
 
-Rectangle {
-    id: dialog
-    anchors.fill: parent
-
-    visible: true
-
-    color: "black"
-    opacity: 0
-
-    z: 32
-
-    signal opened()
-    signal rejected()
-
-    Behavior on opacity { PropertyAnimation { duration: 200 } }
-
-    MouseArea{
-        id: area
-        anchors.fill: parent
-        visible: dialog.visible
-
-        onClicked: {
-            close();
-            rejected();
-        }
-    }
-
-    function close(){
-        opacity = 0
-    }
-
-    function open(){
-        opacity = 0.9
-        opened()
-    }
-
-    property Item content: Item{}
-
-    onContentChanged: content.parent = dialog
+CommonButton {
+    property string platformIconId;
 }

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2011 Ruediger Gad
+ *  Copyright 2012, 2013 Ruediger Gad
  *
  *  This file is part of MeePasswords.
  *
@@ -17,7 +17,7 @@
  *  along with MeePasswords.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Qt 4.7
+import QtQuick 1.1
 
 Rectangle {
     id: textField
@@ -30,8 +30,9 @@ Rectangle {
     radius: height/4
     smooth: true
 
-    property alias text: textInput.text
     property int echoMode: TextInput.Normal
+    property alias pointSize: textInput.font.pointSize
+    property alias text: textInput.text
 
     signal textChanged(string text)
 

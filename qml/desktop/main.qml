@@ -23,6 +23,8 @@ import meepasswords 1.0
 Rectangle{
     id: main
 
+    property int primaryFontSize: 24
+
     onRotationChanged: {
         console.log("Rotation changed...");
     }
