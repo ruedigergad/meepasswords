@@ -35,6 +35,10 @@
 #include "nfctagwriter.h"
 #endif
 
+#if defined(LINUX_DESKTOP)
+#include <QGLWidget>
+#endif
+
 //#include "mcomboboxqmladapter.h"
 //#include "mtexteditqmladapter.h"
 #include "qcomboboxqmladapter.h"
@@ -96,6 +100,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->showFullScreen();
 #else
     view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
+    view->setViewport(new QGLWidget());
     view->setSource(QUrl("qrc:/qml/desktop/main.qml"));
 #endif
 

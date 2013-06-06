@@ -17,10 +17,11 @@
  *  along with MeePasswords.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Qt 4.7
+import QtQuick 1.1
 import meepasswords 1.0
+import "../common"
 
-Rectangle{
+Rectangle {
     id: main
 
     property int primaryFontSize: 24
@@ -31,107 +32,132 @@ Rectangle{
 
     anchors.fill: parent
 
-    color: "white"
+    color: "lightgray"
 
-    Component.onCompleted: {
-        console.debug("Opening storage...")
-        entryStorage.openStorage();
-    }
+    Item {
+        anchors.fill: parent
 
-    Component.onDestruction: {
-        console.debug("Shutting down...");
-    }
+        Rectangle {
+            id: header
+            height: primaryFontSize * 2
+            color: "#0c61a8"
+            anchors{left: parent.left; right: parent.right; top: parent.top}
 
-    onStateChanged: {
-        console.log("State changed: " + state);
-    }
-
-    states: [
-        State {
-            name: "NewPassword"
-            PropertyChanges {target: passwordInputPage;
-                visible: true;
-                text: qsTr("Please enter a new password. "
-                           + "Please keep the password at a safe place. "
-                           + "There is no way to recover a lost password.");
-                password: "";
-                onClicked: {
-                    entryStorage.setPassword(passwordInputPage.password);
-                    main.state = "LoginSuccess";
-                }
-            }
-            PropertyChanges {
-                target: mainPage;
-                visible: false;
-            }
-        },
-        State {
-            name: "EnterPassword"
-            PropertyChanges {target: passwordInputPage;
-                visible: true;
-                text: qsTr("Enter Password:");
-                password: "";
-                onClicked: {
-                    entryStorage.loadAndDecryptDataUsingPassword(passwordInputPage.password);
-                }
-            }
-            PropertyChanges {
-                target: mainPage;
-                visible: false;
-            }
-        },
-        State {
-            name: "WrongPassword"
-            PropertyChanges {target: passwordInputPage;
-                visible: true;
-                text: qsTr("You entered a wrong password. Please reenter Password:");
-                password: "";
-                onClicked: {
-                    entryStorage.loadAndDecryptDataUsingPassword(passwordInputPage.password);
-                }
-            }
-            PropertyChanges {
-                target: mainPage;
-                visible: false;
-            }
-        },
-        State {
-            name: "LoginSuccess"
-            PropertyChanges {
-                target: passwordInputPage;
-                visible: false;
-            }
-            PropertyChanges {
-                target: mainPage;
-                visible: true;
+            Text {
+                text: "MeePasswords"
+                color: "white"
+                font.family: "Nokia Pure Text Light"
+                font.pixelSize: primaryFontSize * 1.1
+                anchors.left: parent.left
+                anchors.leftMargin: primaryFontSize * 0.6
+                anchors.verticalCenter: parent.verticalCenter
             }
         }
 
-    ]
+        MainFlickable {
+            id: mainFlickable
 
-    PasswordInputPage{
-        id: passwordInputPage
-    }
-
-    MainPage{
-        id: mainPage
-    }
-
-    EntryStorage {
-        id: entryStorage
-
-        onStorageOpenSuccess: state = "EnterPassword"
-        onStorageOpenSuccessNewPassword: state = "NewPassword"
-
-        onDecryptionFailed: state = "WrongPassword"
-        onDecryptionSuccess: state = "LoginSuccess"
-        onNewFileOpened: state = "LoginSuccess"
-
-        onOperationFailed: {
-            errorDialog.message = message;
-            errorDialog.open();
+            anchors{top: header.bottom; left: parent.left; right: parent.right; bottom: parent.bottom}
         }
     }
+
+//    Component.onCompleted: {
+//        console.debug("Opening storage...")
+//        entryStorage.openStorage();
+//    }
+
+//    Component.onDestruction: {
+//        console.debug("Shutting down...");
+//    }
+
+//    onStateChanged: {
+//        console.log("State changed: " + state);
+//    }
+
+//    states: [
+//        State {
+//            name: "NewPassword"
+//            PropertyChanges {target: passwordInputPage;
+//                visible: true;
+//                text: qsTr("Please enter a new password. "
+//                           + "Please keep the password at a safe place. "
+//                           + "There is no way to recover a lost password.");
+//                password: "";
+//                onClicked: {
+//                    entryStorage.setPassword(passwordInputPage.password);
+//                    main.state = "LoginSuccess";
+//                }
+//            }
+//            PropertyChanges {
+//                target: mainPage;
+//                visible: false;
+//            }
+//        },
+//        State {
+//            name: "EnterPassword"
+//            PropertyChanges {target: passwordInputPage;
+//                visible: true;
+//                text: qsTr("Enter Password:");
+//                password: "";
+//                onClicked: {
+//                    entryStorage.loadAndDecryptDataUsingPassword(passwordInputPage.password);
+//                }
+//            }
+//            PropertyChanges {
+//                target: mainPage;
+//                visible: false;
+//            }
+//        },
+//        State {
+//            name: "WrongPassword"
+//            PropertyChanges {target: passwordInputPage;
+//                visible: true;
+//                text: qsTr("You entered a wrong password. Please reenter Password:");
+//                password: "";
+//                onClicked: {
+//                    entryStorage.loadAndDecryptDataUsingPassword(passwordInputPage.password);
+//                }
+//            }
+//            PropertyChanges {
+//                target: mainPage;
+//                visible: false;
+//            }
+//        },
+//        State {
+//            name: "LoginSuccess"
+//            PropertyChanges {
+//                target: passwordInputPage;
+//                visible: false;
+//            }
+//            PropertyChanges {
+//                target: mainPage;
+//                visible: true;
+//            }
+//        }
+
+//    ]
+
+//    PasswordInputPage{
+//        id: passwordInputPage
+//    }
+
+
+
+//    EntryStorage {
+//        id: entryStorage
+
+//        onStorageOpenSuccess: state = "EnterPassword"
+//        onStorageOpenSuccessNewPassword: state = "NewPassword"
+
+//        onDecryptionFailed: state = "WrongPassword"
+//        onDecryptionSuccess: state = "LoginSuccess"
+//        onNewFileOpened: state = "LoginSuccess"
+
+//        onOperationFailed: {
+//            errorDialog.message = message;
+//            errorDialog.open();
+//        }
+//    }
 
 }
 

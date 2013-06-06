@@ -19,7 +19,9 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     CONFIG += mobility
     MOBILITY += connectivity
 } else {
-   RESOURCES += desktop.qrc
+    DEFINES += LINUX_DESKTOP
+    RESOURCES += desktop.qrc
+    QT += opengl
 }
 
 RESOURCES += common.qrc
@@ -101,6 +103,7 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog \
     qtc_packaging/debian_harmattan/meepasswords.aegis \
+    qml/common/EntryDelegate.qml \
     qml/common/EntryListView.qml \
     qml/common/EntryShowDialog.qml \
     qml/common/MessageDialog.qml \
@@ -140,7 +143,9 @@ OTHER_FILES += \
     qml/harmattan/EntryLabel.qml \
     qml/harmattan/FastScroll.qml \
     qml/harmattan/FastScrollStyle.qml \
-    qml/harmattan/FastScroll.js
+    qml/harmattan/FastScroll.js \
+    qml/common/MainFlickable.qml \
+    qml/common/PasswordInputRectangle.qml
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)

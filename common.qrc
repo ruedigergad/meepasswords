@@ -7,5 +7,8 @@
         <file>qml/common/PasswordChangeDialog.qml</file>
         <file>meepasswords_100x100.png</file>
         <file>qml/common/constants.js</file>
+        <file>qml/common/EntryDelegate.qml</file>
+        <file>qml/common/MainFlickable.qml</file>
+        <file>qml/common/PasswordInputRectangle.qml</file>
     </qresource>
 </RCC>
