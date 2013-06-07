@@ -116,7 +116,7 @@ Flickable {
                 flickableDirection: Flickable.HorizontalFlick
                 interactive: true
 
-                boundsBehavior: Flickable.StopAtBounds
+                boundsBehavior: Flickable.DragOverBounds
                 property bool animationIsRunning: false
 
                 Behavior on contentX {
@@ -128,6 +128,15 @@ Flickable {
 
                 onContentXChanged: {
                     mainContent.performLogOut = contentX < -logText.width - primaryFontSize
+                }
+
+                onMovementEnded: {
+                    console.log("Movement ended. contentX: " + contentX)
+                    if (contentX >= mainFlickable.width * 0.5) {
+                        contentX = mainFlickable.width
+                    } else {
+                        contentX = 0
+                    }
                 }
 
                 Rectangle {
@@ -189,8 +198,8 @@ Flickable {
 
         onDecryptionSuccess: {
             console.log("Decryption successful, logging in.")
-//            entryListView.listView.model = entryStorage.getModel()
             loggedIn = true
+            passwordInput.password = ""
         }
 
         onNewFileOpened: state = "LoginSuccess"

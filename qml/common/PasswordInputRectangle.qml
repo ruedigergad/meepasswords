@@ -83,6 +83,10 @@ Rectangle{
         anchors.topMargin: 10
         echoMode: TextInput.Password
         width: parent.width * 0.5
+        focus: true
+
+        Keys.onEnterPressed: passwordButton.clicked()
+        Keys.onReturnPressed: passwordButton.clicked()
     }
 
     CommonButton{
@@ -92,7 +96,6 @@ Rectangle{
         anchors.topMargin: 10
         width: parent.width * 0.25
         text: qsTr("OK")
-        onClicked: {}
     }
 
     states: [
