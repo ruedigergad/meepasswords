@@ -7,7 +7,7 @@ Text {
     text: name;
     font.pixelSize: primaryFontSize * 1.25
     horizontalAlignment: Text.AlignHCenter
-    color: mouseArea.pressed ? "#78bfff" : "black"
+    color: mouseArea.pressed ? "gray" : "black"
 
     MouseArea{
         id: mouseArea
