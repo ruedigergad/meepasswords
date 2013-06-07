@@ -35,7 +35,7 @@ Rectangle{
     Text {
         id: appNameLabel
         text: "MeePasswords"
-        font.pixelSize: 40
+        font.pixelSize: primaryFontSize * 1.5
         font.bold: true
 
         anchors.horizontalCenter: parent.horizontalCenter
@@ -57,7 +57,7 @@ Rectangle{
         text: "Keep your passwords protected."
         anchors.centerIn: parent
         width: parent.width
-        font.pixelSize: 25
+        font.pixelSize: primaryFontSize
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
     }
@@ -67,10 +67,10 @@ Rectangle{
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: descriptionLabel.bottom
-        anchors.topMargin: 10
+        anchors.topMargin: primaryFontSize * 0.4
         width: parent.width
 
-        font.pixelSize: 20
+        font.pixelSize: primaryFontSize * 0.8
 
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
@@ -80,7 +80,7 @@ Rectangle{
         id: passwordField
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: passwordLabel.bottom
-        anchors.topMargin: 10
+        anchors.topMargin: primaryFontSize * 0.4
         echoMode: TextInput.Password
         width: parent.width * 0.5
         focus: true
@@ -93,7 +93,7 @@ Rectangle{
         id: passwordButton
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: passwordField.bottom
-        anchors.topMargin: 10
+        anchors.topMargin: primaryFontSize * 0.4
         width: parent.width * 0.25
         text: qsTr("OK")
     }
