@@ -23,7 +23,6 @@ import meepasswords 1.0
 
 ListView {
     id: entryListView
-    width: parent.width
     clip: true
     model: entryStorage.getModel()
 

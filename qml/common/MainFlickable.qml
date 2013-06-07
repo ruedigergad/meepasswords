@@ -28,13 +28,12 @@ Flickable {
     property bool newStorage: false
     property int showItemAt: 0
 
-
     onShowItemAtChanged: {
         contentX = width * showItemAt
     }
 
     flickableDirection: Flickable.HorizontalFlick
-    interactive: showItemAt > 0
+    interactive: false
     boundsBehavior: Flickable.StopAtBounds
     property bool animationIsRunning: false
 
@@ -45,11 +44,15 @@ Flickable {
         }
     }
 
+    function logOut() {
+        showItemAt = 0
+    }
+
     Item {
         id: contentItem
 
-        anchors{top: parent.top; bottom: parent.bottom; left: parent.left}
-        width: parent.width * 3
+        height: parent.height
+        width: parent.width * 2
 
         PasswordInputRectangle {
             id: passwordInput
@@ -68,40 +71,69 @@ Flickable {
         }
 
         Rectangle {
-            id: entryListRectangle
-
+            id: mainContent
             anchors{left: passwordInput.right; top: parent.top; bottom: parent.bottom}
             width: mainFlickable.width
+            color: "lightgray"
 
-            EntryListView {
-                anchors{top: parent.top; left: parent.left; right: parent.right; bottom: toolBar.top}
+            property bool performLogOut
+
+            Text {
+                id: logText
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                text: "Log out."
+                font.pointSize: primaryFontSize
+                color: mainContent.performLogOut ? "black" : "gray"
             }
 
-            Rectangle {
-                id: toolBar
-
-                anchors {left: parent.left; right: parent.right; bottom: parent.bottom}
-                height: meePasswordsToolBar.height
-
-                color: "lightgray"
-
-                MeePasswordsToolBar {
-                    id: meePasswordsToolBar
-                }
-            }
-        }
-
-        Rectangle {
-            id: showEntryRectangle
-
-            anchors{left: entryListRectangle.right; top: parent.top; bottom: parent.bottom}
-            width: mainFlickable.width
-
-            color: "red"
-
-            MouseArea {
+            Flickable {
+                id: mainContentFlickable
                 anchors.fill: parent
-                onClicked: showItemAt = 0
+
+                contentWidth: mainFlickable.width * 2
+                flickableDirection: Flickable.HorizontalFlick
+                interactive: true
+
+                onContentXChanged: {
+                    mainContent.performLogOut = contentX < -logText.width - primaryFontSize
+                }
+
+                Rectangle {
+                    id: entryListRectangle
+
+                    anchors{left: parent.left; top: parent.top; bottom: parent.bottom}
+
+                    width: mainFlickable.width
+
+                    EntryListView {
+                        anchors{top: parent.top; left: parent.left; right: parent.right; bottom: toolBar.top}
+                    }
+
+                    Rectangle {
+                        id: toolBar
+
+                        anchors {left: parent.left; right: parent.right; bottom: parent.bottom}
+                        height: meePasswordsToolBar.height
+
+                        color: "lightgray"
+
+                        MeePasswordsToolBar {
+                            id: meePasswordsToolBar
+                        }
+                    }
+                }
+
+                Rectangle {
+                    id: showEntryRectangle
+
+                    anchors{left: entryListRectangle.right; top: parent.top; bottom: parent.bottom}
+                    width: mainFlickable.width
+
+                    MouseArea {
+                        anchors.fill: parent
+                    }
+                }
             }
         }
     }

@@ -30,6 +30,7 @@ CommonToolBar {
         id: iconBack
         iconSource: ":/icons/back.png"
         opacity: enabled ? 1 : 0.5
+        onClicked: logOut()
     }
     CommonToolIcon {
         id: iconAdd
