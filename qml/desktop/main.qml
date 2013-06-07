@@ -61,6 +61,18 @@ Rectangle {
         }
     }
 
+    ConfirmationDialog {
+        id: deleteConfirmationDialog
+        anchors.fill: main
+        property int entryId: -1
+        property string entryName
+        titleText: "Delete '" + entryName + "'?"
+        message: "Are you sure you want to delete '" + entryName + "'?"
+        onAccepted: {
+            mainFlickable.entryStorage.getModel().removeById(entryId)
+        }
+    }
+
 //    Component.onCompleted: {
 //        console.debug("Opening storage...")
 //        entryStorage.openStorage();

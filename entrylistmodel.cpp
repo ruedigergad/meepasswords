@@ -83,6 +83,7 @@ void EntryListModel::addFromByteArray(QByteArray &data){
 
     QRegExp xhtmlLineFeed("<br/>|<br />");
     while(line != 0 && line.length() > 0){
+//        qDebug() << "Adding: "  << line;
         QStringList list = line.split(CSV_SEP, QString::KeepEmptyParts);
         QString notes = list.at(4);
         Entry entry(list.at(0), list.at(1), list.at(2), list.at(3), notes.replace(xhtmlLineFeed, "\n"), -1);

@@ -5,7 +5,7 @@ Text {
     width: parent.width
 
     text: name;
-    font.pixelSize: 42
+    font.pixelSize: primaryFontSize * 1.25
     horizontalAlignment: Text.AlignHCenter
     color: mouseArea.pressed ? "#78bfff" : "black"
 
@@ -25,16 +25,29 @@ Text {
             return ret
         }
 
-        function showEntry(){
-            entryShowDialog.name = (name !== "") ? name : " ";
-            entryShowDialog.userName = (userName !== "") ? createSimpleLink(userName) : " ";
-            entryShowDialog.password = (password !== "") ? createSimpleLink(password) : " ";
-            entryShowDialog.notes = beautifyNotes(notes);
-            entryShowDialog.open();
+        function setData(){
+            entryListView.currentIndex = index
+            editEntryRectangle.index = index
+            editEntryRectangle.category = category
+            editEntryRectangle.name = (name !== "") ? name : " ";
+            editEntryRectangle.userName = userName
+            editEntryRectangle.password = password
+//            editEntryRectangle.userName = (userName !== "") ? createSimpleLink(userName) : " ";
+//            editEntryRectangle.password = (password !== "") ? createSimpleLink(password) : " ";
+            editEntryRectangle.notes = notes
+//            editEntryRectangle.notes = beautifyNotes(notes);
         }
 
-        onClicked: entryListView.currentIndex = index
-        onDoubleClicked: showEntry();
-        onPressAndHold: showEntry();
+        onClicked: {
+            setData()
+        }
+
+        onDoubleClicked: {
+            setData()
+            editEntry()
+        }
+        onPressAndHold: {
+            setData()
+        }
     }
 }

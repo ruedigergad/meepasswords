@@ -26,6 +26,7 @@ Rectangle {
     color: "lightgray"
 
     property bool edit: false
+    property bool newEntry: false
     property int index: -1
 
     property alias name: nameInput.text
@@ -34,15 +35,27 @@ Rectangle {
     property alias password: passwordInput.text
     property alias notes: notesInput.text
 
-    MessageDialog {
-        id: noNameGivenDialog
-        parent: mainPage
-        text: "Please enter at least an entry name."
+    function resetContent() {
+        edit = false
+        newEntry = false
+        index = -1
+        name = ""
+        category = ""
+        userName = ""
+        password = ""
+        notes = ""
     }
+
+//    MessageDialog {
+//        id: noNameGivenDialog
+//        parent: mainPage
+//        text: "Please enter at least an entry name."
+//    }
 
     Flickable {
         id: inputFlickable
-        anchors.fill: parent
+
+        anchors{top: parent.top; bottom: editToolBarRectangle.top; left: parent.left; right: parent.right; margins: primaryFontSize * 0.5}
 
         contentHeight: inputArea.height
         clip: true
@@ -50,7 +63,7 @@ Rectangle {
         Item {
             id: inputArea
             width: parent.width
-            height: 400
+            height: column.height
 
             Column {
                 id: column
@@ -62,73 +75,152 @@ Rectangle {
 
                 spacing: primaryFontSize * 0.25
 
+                Text {
+                    id: nameText
+                    anchors.left: parent.left
+                    font.pointSize: primaryFontSize * 0.75
+                    text: "Entry Name"
+                }
                 Row {
                     id: nameRow
 
                     width: parent.width
                     height: nameInput.height
 
-                    Text {
-                        id: nameText
-                        anchors.left: parent.left
-                        font.pointSize: primaryFontSize
-                        text: "Name:"
-                    }
-
                     CommonTextField {
                         id: nameInput
-                        anchors{left: nameText.right; leftMargin: primaryFontSize / 2; right: parent.right}
+                        width: parent.width
+                        enabled: edit || newEntry
                     }
                 }
 
-
+                Text {
+                    id: categoryText
+                    anchors.left: parent.left
+                    font.pointSize: primaryFontSize * 0.75
+                    text: "Category"
+                }
                 Row {
                     id: categoryRow
-                    Text {
-                        id: categoryText
-                        anchors.left: parent.left
-                        font.pointSize: primaryFontSize
-                        text: "Category:"
-                    }
+
+                    width: parent.width
+                    height: nameInput.height
 
                     CommonTextField {
                         id: categoryInput
-                        anchors{left: nameText.right
-                                leftMargin: primaryFontSize / 2; right: parent.right}
+                        width: parent.width
+                        enabled: edit || newEntry
                     }
                 }
 
-//                /*
-//                 * Placeholder for the combobox below... somehow the "stable" Fremantle Qt version
-//                 * does not place the combobox correctly in the grid.
-//                 */
-//                Rectangle{width: 0.5 * parent.width; height: categoryInput.height; color: "white"}
+                Text {
+                    id: userNameText
+                    anchors.left: parent.left
+                    font.pointSize: primaryFontSize * 0.75
+                    text: "User Name"
+                }
+                Row {
+                    id: userNameRow
 
-//                QComboBox{id: categoryInput; width: 0.5 * parent.width; z: 3;
-//                    /*
-//                     * Next hack to place the combobox "in" the grid...
-//                     * FIXME: Move this hack to some place such that only the Fremantle version uses it!
-//                     */
-//                    x: parent.width * 0.5 + 5
-//                    y: nameInput.y
-//                }
+                    width: parent.width
 
-                Text {text: "User Name"}
-                Text {text: "Password"}
-                CommonTextField{id: userNameInput; width: 0.5 * parent.width}
-                CommonTextField{id: passwordInput; width: 0.5 * parent.width}
+                    CommonTextField {
+                        id: userNameInput
+                        anchors{left: parent.left; right: userNameCopyButton.left; rightMargin: primaryFontSize * 0.5}
+                        enabled: edit || newEntry
+                    }
+                    CommonButton {
+                        id: userNameCopyButton
+                        anchors.right: parent.right
+                        text: "Copy"
+                    }
+                }
 
+
+                Text {
+                    id: passwordText
+                    anchors.left: parent.left
+                    font.pointSize: primaryFontSize * 0.75
+                    text: "Password"
+                }
+                Row {
+                    id: passwordRow
+
+                    width: parent.width
+
+                    CommonTextField {
+                        id: passwordInput
+                        anchors{left: parent.left; right: passwordCopyButton.left; rightMargin: primaryFontSize * 0.5}
+                        enabled: edit || newEntry
+                    }
+                    CommonButton {
+                        id: passwordCopyButton
+                        anchors.right: parent.right
+                        text: "Copy"
+                    }
+                }
 
                 Text {
                     id: notesLabel
                     text: "Notes"
+                    font.pointSize: primaryFontSize * 0.75
                 }
                 CommonTextArea{
                     id: notesInput
                     width: parent.width
+                    enabled: edit || newEntry
+                    textFormat: Text.RichText
                 }
             }
+        }
+    }
 
+    Rectangle {
+        id: editToolBarRectangle
+
+        anchors{ left:parent.left; right: parent.right; bottom: parent.bottom }
+        height: editToolBar.height
+        color: "lightgray"
+
+        CommonToolBar {
+            id: editToolBar
+
+            width: parent.width
+
+            CommonToolIcon {
+                id: iconBack
+                anchors {right: editButton.left; rightMargin: primaryFontSize * 3}
+                iconSource: ":/icons/back.png"
+                opacity: enabled ? 1 : 0.5
+                onClicked: {
+                    resetContent()
+                    mainContentFlickable.contentX = 0
+                }
+            }
+            CommonButton {
+                id: editButton
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Edit"
+                visible: !newEntry
+                opacity: 1
+                onClicked: edit = !edit
+                color: edit ? "red" : "#0e65c8"
+            }
+            CommonButton {
+                id: saveButton
+                anchors {left: editButton.right; leftMargin: primaryFontSize * 3}
+                text: "Save"
+                enabled: edit || newEntry
+                onClicked: {
+                    entryStorage.getModel().addOrUpdateEntry(name,
+                                                             category,
+                                                             userName,
+                                                             password,
+                                                             notes,
+                                                             index)
+                    mainContentFlickable.contentX = 0
+                }
+            }
         }
     }
 }

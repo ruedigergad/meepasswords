@@ -26,10 +26,12 @@ Flickable {
     contentWidth: contentItem.width
 
     property bool newStorage: false
-    property int showItemAt: 0
+    property bool loggedIn: false
+    property alias listView: entryListView.listView
+    property alias entryStorage: entryStorage
 
-    onShowItemAtChanged: {
-        contentX = width * showItemAt
+    onLoggedInChanged: {
+        contentX = loggedIn ? width : 0
     }
 
     flickableDirection: Flickable.HorizontalFlick
@@ -44,8 +46,27 @@ Flickable {
         }
     }
 
+    function addEntry() {
+        editEntryRectangle.resetContent()
+        editEntryRectangle.newEntry = true
+        mainContentFlickable.contentX = mainFlickable.width
+    }
+
+    function deleteEntry() {
+        deleteConfirmationDialog.entryId = listView.currentItem.entryIndex
+        deleteConfirmationDialog.entryName = listView.currentItem.entryName
+        deleteConfirmationDialog.open()
+    }
+
+    function editEntry() {
+        mainContentFlickable.contentX = mainFlickable.width
+    }
+
     function logOut() {
-        showItemAt = 0
+        entryStorage.getModel().clear();
+        entryStorage.setPassword("");
+        loggedIn = false
+        mainContentFlickable.contentX = 0
     }
 
     Item {
@@ -63,7 +84,7 @@ Flickable {
             onPasswordEntered: {
                 if (newStorage) {
                     entryStorage.setPassword(password)
-                    showItemAt = 1
+                    loggedIn = true
                 } else {
                     entryStorage.loadAndDecryptDataUsingPassword(password)
                 }
@@ -95,6 +116,16 @@ Flickable {
                 flickableDirection: Flickable.HorizontalFlick
                 interactive: true
 
+                boundsBehavior: Flickable.StopAtBounds
+                property bool animationIsRunning: false
+
+                Behavior on contentX {
+                    SequentialAnimation {
+                        PropertyAnimation { duration: 140 }
+                        ScriptAction { script: mainContentFlickable.animationIsRunning = false }
+                    }
+                }
+
                 onContentXChanged: {
                     mainContent.performLogOut = contentX < -logText.width - primaryFontSize
                 }
@@ -107,6 +138,7 @@ Flickable {
                     width: mainFlickable.width
 
                     EntryListView {
+                        id: entryListView
                         anchors{top: parent.top; left: parent.left; right: parent.right; bottom: toolBar.top}
                     }
 
@@ -155,7 +187,12 @@ Flickable {
             console.log("Decryption failed.")
         }
 
-        onDecryptionSuccess: state = "LoginSuccess"
+        onDecryptionSuccess: {
+            console.log("Decryption successful, logging in.")
+//            entryListView.listView.model = entryStorage.getModel()
+            loggedIn = true
+        }
+
         onNewFileOpened: state = "LoginSuccess"
 
         onOperationFailed: {

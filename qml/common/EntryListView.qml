@@ -17,38 +17,90 @@
  *  along with MeePasswords.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import Qt 4.7
+import QtQuick 1.1
 import meepasswords 1.0
 
+Rectangle {
+    id: entryListViewRectangle
 
-ListView {
-    id: entryListView
-    clip: true
-    model: entryStorage.getModel()
+    property alias listView: entryListView
 
-    section {
-        property: "category"
-        criteria: ViewSection.FullString
-        delegate: Item {
-            width: parent.width
-            height: sectionText.height
+    color: "lightgoldenrodyellow"
 
-            Text {
-                id: sectionText
-                anchors.right: parent.right
-                anchors.rightMargin: 10
-                font.pixelSize: 30
-                font.bold: true
-                text: section
-                color: "gray"
-            }
+    Rectangle {
+        id: placeHolder
+        anchors.fill: parent
+        visible: entryListView.count <= 0
 
-            Rectangle {
-                height: 1
-                color: "gray"
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.bottom: parent.bottom
+        Text {
+            id: noEntriesText
+            anchors.centerIn: parent
+            wrapMode: Text.WordWrap
+            text: "No entries yet."
+            font.pointSize: primaryFontSize * 1.25
+            color: "gray"
+            horizontalAlignment: Text.AlignHCenter
+        }
+
+        Text {
+            anchors{ top: noEntriesText.bottom; topMargin: primaryFontSize * 0.5
+                     left: parent.left; right: parent.right}
+            wrapMode: Text.WordWrap
+            text: "Use + to add new entries."
+            font.pointSize: primaryFontSize
+            color: "gray"
+            horizontalAlignment: Text.AlignHCenter
+        }
+    }
+
+    ListView {
+        id: entryListView
+        anchors.fill: parent
+        clip: true
+        model: entryStorage.getModel()
+        visible: count > 0
+
+        onCountChanged: console.log("countChanged: " + count)
+
+        delegate: EntryDelegate {
+            id: entryDelegate
+
+            property int entryIndex: index
+            property string entryName: name
+        }
+
+        highlightFollowsCurrentItem: true
+        highlightMoveDuration: 100
+        highlight: Rectangle {
+            anchors.fill: entryDelegate
+            color: "gray"
+            opacity: 0.5
+        }
+
+        section {
+            property: "category"
+            criteria: ViewSection.FullString
+            delegate: Item {
+                width: parent.width
+                height: sectionText.height
+
+                Text {
+                    id: sectionText
+                    anchors.right: parent.right
+                    anchors.rightMargin: 10
+                    font.pixelSize: primaryFontSize
+                    font.bold: true
+                    text: section
+                    color: "gray"
+                }
+
+                Rectangle {
+                    height: 1
+                    color: "gray"
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                }
             }
         }
     }

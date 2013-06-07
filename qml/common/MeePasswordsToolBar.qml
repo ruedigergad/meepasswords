@@ -36,17 +36,21 @@ CommonToolBar {
         id: iconAdd
         iconSource: ":/icons/add.png"
         opacity: enabled ? 1 : 0.5
-        onClicked: mainRectangle.addItem()
+        onClicked: addEntry()
     }
     CommonToolIcon {
         id: iconDelete
         iconSource: ":/icons/delete.png"
+        enabled: listView.currentIndex > -1
         opacity: enabled ? 1 : 0.5
+        onClicked: deleteEntry()
     }
     CommonToolIcon {
         id: iconNext
         iconSource: ":/icons/next.png"
+        enabled: listView.currentIndex > -1
         opacity: enabled ? 1 : 0.5
+        onClicked: editEntry()
     }
     CommonToolIcon {
         id: iconMenu
