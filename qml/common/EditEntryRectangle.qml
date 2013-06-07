@@ -64,6 +64,10 @@ Rectangle {
 
                 Row {
                     id: nameRow
+
+                    width: parent.width
+                    height: nameInput.height
+
                     Text {
                         id: nameText
                         anchors.left: parent.left
@@ -89,34 +93,42 @@ Rectangle {
 
                     CommonTextField {
                         id: categoryInput
-                        anchors{left: nameText.right; leftMargin: primaryFontSize / 2; right: parent.right}
+                        anchors{left: nameText.right
+                                leftMargin: primaryFontSize / 2; right: parent.right}
                     }
                 }
 
-                /*
-                 * Placeholder for the combobox below... somehow the "stable" Fremantle Qt version
-                 * does not place the combobox correctly in the grid.
-                 */
-                Rectangle{width: 0.5 * parent.width; height: categoryInput.height; color: "white"}
+//                /*
+//                 * Placeholder for the combobox below... somehow the "stable" Fremantle Qt version
+//                 * does not place the combobox correctly in the grid.
+//                 */
+//                Rectangle{width: 0.5 * parent.width; height: categoryInput.height; color: "white"}
 
-                QComboBox{id: categoryInput; width: 0.5 * parent.width; z: 3;
-                    /*
-                     * Next hack to place the combobox "in" the grid...
-                     * FIXME: Move this hack to some place such that only the Fremantle version uses it!
-                     */
-                    x: parent.width * 0.5 + 5
-                    y: nameInput.y
-                }
+//                QComboBox{id: categoryInput; width: 0.5 * parent.width; z: 3;
+//                    /*
+//                     * Next hack to place the combobox "in" the grid...
+//                     * FIXME: Move this hack to some place such that only the Fremantle version uses it!
+//                     */
+//                    x: parent.width * 0.5 + 5
+//                    y: nameInput.y
+//                }
 
                 Text {text: "User Name"}
                 Text {text: "Password"}
                 CommonTextField{id: userNameInput; width: 0.5 * parent.width}
                 CommonTextField{id: passwordInput; width: 0.5 * parent.width}
+
+
+                Text {
+                    id: notesLabel
+                    text: "Notes"
+                }
+                CommonTextArea{
+                    id: notesInput
+                    width: parent.width
+                }
             }
 
-            Text {id: notesLabel; text: "Notes"; anchors.horizontalCenter: parent.horizontalCenter; anchors.top: grid.bottom; z: 1}
-            CommonTextArea{id: notesInput; anchors.horizontalCenter: parent.horizontalCenter; anchors.top: notesLabel.bottom; width: parent.width; z: 1}
         }
     }
-
 }
