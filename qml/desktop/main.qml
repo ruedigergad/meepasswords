@@ -73,6 +73,81 @@ Rectangle {
         }
     }
 
+
+    Menu {
+        id: mainMenu
+
+        anchors.bottomMargin: commonTools.height
+
+        onClosed: commonTools.enabled = true
+        onOpened: commonTools.enabled = false
+
+        CommonButton{
+            id: cleanDone
+            anchors.bottom: syncToImap.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Clean Done"
+            onClicked: {
+                mainRectangle.confirmCleanDoneDialog.open()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton{
+            id: syncToImap
+            anchors.bottom: syncSketchesToImap.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Sync To-Do List"
+            onClicked: {
+                mainRectangle.confirmSyncToImapDialog.open()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton{
+            id: syncSketchesToImap
+            anchors.bottom: syncAccountSettings.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Sync Sketches"
+            onClicked: {
+                mainRectangle.confirmSyncSketchesToImapDialog.open()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton{
+            id: syncAccountSettings
+            anchors.bottom: about.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Sync Account Settings"
+            onClicked: {
+                imapAccountSettings.open()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton{
+            id: about
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "About"
+            onClicked: {
+                mainRectangle.aboutDialog.open()
+                mainMenu.close()
+            }
+        }
+    }
+
 //    Component.onCompleted: {
 //        console.debug("Opening storage...")
 //        entryStorage.openStorage();
