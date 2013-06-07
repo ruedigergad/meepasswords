@@ -46,6 +46,10 @@ Rectangle {
         notes = ""
     }
 
+    onNameChanged: {
+        nameInput.focus = true
+    }
+
 //    MessageDialog {
 //        id: noNameGivenDialog
 //        parent: mainPage
@@ -91,6 +95,10 @@ Rectangle {
                         id: nameInput
                         width: parent.width
                         enabled: edit || newEntry
+
+                        Keys.onEnterPressed: categoryInput.focus = true
+                        Keys.onReturnPressed: categoryInput.focus = true
+                        Keys.onTabPressed: categoryInput.focus = true
                     }
                 }
 
@@ -110,6 +118,10 @@ Rectangle {
                         id: categoryInput
                         width: parent.width
                         enabled: edit || newEntry
+
+                        Keys.onEnterPressed: userNameInput.focus = true
+                        Keys.onReturnPressed: userNameInput.focus = true
+                        Keys.onTabPressed: userNameInput.focus = true
                     }
                 }
 
@@ -128,6 +140,10 @@ Rectangle {
                         id: userNameInput
                         anchors{left: parent.left; right: userNameCopyButton.left; rightMargin: primaryFontSize * 0.5}
                         enabled: edit || newEntry
+
+                        Keys.onEnterPressed: passwordInput.focus = true
+                        Keys.onReturnPressed: passwordInput.focus = true
+                        Keys.onTabPressed: passwordInput.focus = true
                     }
                     CommonButton {
                         id: userNameCopyButton
@@ -152,6 +168,10 @@ Rectangle {
                         id: passwordInput
                         anchors{left: parent.left; right: passwordCopyButton.left; rightMargin: primaryFontSize * 0.5}
                         enabled: edit || newEntry
+
+                        Keys.onEnterPressed: notesInput.focus = true
+                        Keys.onReturnPressed: notesInput.focus = true
+                        Keys.onTabPressed: notesInput.focus = true
                     }
                     CommonButton {
                         id: passwordCopyButton
@@ -170,6 +190,8 @@ Rectangle {
                     width: parent.width
                     enabled: edit || newEntry
                     textFormat: Text.RichText
+
+                    Keys.onTabPressed: nameInput.focus = true
                 }
             }
         }
@@ -203,7 +225,12 @@ Rectangle {
                 text: "Edit"
                 visible: !newEntry
                 opacity: 1
-                onClicked: edit = !edit
+                onClicked: {
+                    edit = !edit
+                    if (edit) {
+                        nameInput.focus = true
+                    }
+                }
                 color: edit ? "red" : "#0e65c8"
             }
             CommonButton {

@@ -60,13 +60,37 @@ Rectangle {
         model: entryStorage.getModel()
         visible: count > 0
 
+        function setData(){
+            editEntryRectangle.index = currentItem.entryIndex
+            editEntryRectangle.category = currentItem.entryCategory
+            editEntryRectangle.name = currentItem.entryName
+            editEntryRectangle.userName = currentItem.entryUserName
+            editEntryRectangle.password = currentItem.entryPassword
+    //            editEntryRectangle.userName = (userName !== "") ? createSimpleLink(userName) : " ";
+    //            editEntryRectangle.password = (password !== "") ? createSimpleLink(password) : " ";
+            editEntryRectangle.notes = currentItem.entryNotes
+    //            editEntryRectangle.notes = beautifyNotes(notes);
+        }
+
         onCountChanged: console.log("countChanged: " + count)
+        onCurrentIndexChanged: {
+            if (currentIndex < 0) {
+                currentIndex = 0
+            } else if (currentIndex >= count) {
+                currentIndex = count - 1
+            }
+            setData()
+        }
 
         delegate: EntryDelegate {
             id: entryDelegate
 
             property int entryIndex: index
             property string entryName: name
+            property string entryCategory: category
+            property string entryUserName: userName
+            property string entryPassword: password
+            property string entryNotes: notes
         }
 
         highlightFollowsCurrentItem: true

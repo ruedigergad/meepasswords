@@ -25,29 +25,16 @@ Text {
             return ret
         }
 
-        function setData(){
-            entryListView.currentIndex = index
-            editEntryRectangle.index = index
-            editEntryRectangle.category = category
-            editEntryRectangle.name = (name !== "") ? name : " ";
-            editEntryRectangle.userName = userName
-            editEntryRectangle.password = password
-//            editEntryRectangle.userName = (userName !== "") ? createSimpleLink(userName) : " ";
-//            editEntryRectangle.password = (password !== "") ? createSimpleLink(password) : " ";
-            editEntryRectangle.notes = notes
-//            editEntryRectangle.notes = beautifyNotes(notes);
-        }
-
         onClicked: {
-            setData()
+            entryListView.currentIndex = index
         }
 
         onDoubleClicked: {
-            setData()
+            entryListView.currentIndex = index
             editEntry()
         }
         onPressAndHold: {
-            setData()
+            entryListView.currentIndex = index
         }
     }
 }
