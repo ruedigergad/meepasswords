@@ -107,6 +107,7 @@ OTHER_FILES += \
     qml/common/EntryListView.qml \
     qml/common/EntryShowDialog.qml \
     qml/common/MessageDialog.qml \
+    qml/common/MeePasswordsToolBar.qml \
     qml/common/PasswordChangeDialog.qml \
     qml/harmattan/PasswordInputPage.qml \
     qml/harmattan/EntryInputPage.qml \

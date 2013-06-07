@@ -62,7 +62,7 @@ Rectangle {
     states: [
         State {
             name: "pressed"; when: mouseArea.pressed && mouseArea.containsMouse
-            PropertyChanges { target: commonButton; color: commonButton.text === "" ? "lightgray" : "#2e85d8" } //"#569ffd"
+            PropertyChanges { target: commonButton; color: commonButton.text === "" ? "gray" : "#2e85d8" } //"#569ffd"
             PropertyChanges { target: textItem; x: textItem.x + 1; y: textItem.y + 1; explicit: true }
         },
         State {

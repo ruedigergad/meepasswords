@@ -10,5 +10,6 @@
         <file>qml/common/EntryDelegate.qml</file>
         <file>qml/common/MainFlickable.qml</file>
         <file>qml/common/PasswordInputRectangle.qml</file>
+        <file>qml/common/MeePasswordsToolBar.qml</file>
     </qresource>
 </RCC>

@@ -35,7 +35,6 @@ Flickable {
 
     flickableDirection: Flickable.HorizontalFlick
     interactive: showItemAt > 0
-    pressDelay: 0
     boundsBehavior: Flickable.StopAtBounds
     property bool animationIsRunning: false
 
@@ -49,7 +48,7 @@ Flickable {
     Item {
         id: contentItem
 
-        anchors{top: parent.top; bottom: parent.bottom}
+        anchors{top: parent.top; bottom: parent.bottom; left: parent.left}
         width: parent.width * 3
 
         PasswordInputRectangle {
@@ -75,7 +74,20 @@ Flickable {
             width: mainFlickable.width
 
             EntryListView {
-                anchors.fill: parent
+                anchors{top: parent.top; left: parent.left; right: parent.right; bottom: toolBar.top}
+            }
+
+            Rectangle {
+                id: toolBar
+
+                anchors {left: parent.left; right: parent.right; bottom: parent.bottom}
+                height: meePasswordsToolBar.height
+
+                color: "lightgray"
+
+                MeePasswordsToolBar {
+                    id: meePasswordsToolBar
+                }
             }
         }
 
