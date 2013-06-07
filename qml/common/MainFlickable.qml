@@ -33,6 +33,9 @@ Flickable {
 
     onLoggedInChanged: {
         contentX = loggedIn ? width : 0
+        if (!loggedIn) {
+            entryStorage.getModel().clear()
+        }
     }
 
     flickableDirection: Flickable.HorizontalFlick
