@@ -124,15 +124,11 @@ Flickable {
                     }
                 }
 
-                Rectangle {
-                    id: showEntryRectangle
+                EditEntryRectangle {
+                    id: editEntryRectangle
 
                     anchors{left: entryListRectangle.right; top: parent.top; bottom: parent.bottom}
                     width: mainFlickable.width
-
-                    MouseArea {
-                        anchors.fill: parent
-                    }
                 }
             }
         }
