@@ -126,7 +126,7 @@ Flickable {
 
                 Behavior on contentX {
                     SequentialAnimation {
-                        PropertyAnimation { duration: 140 }
+                        PropertyAnimation { duration: 80 }
                         ScriptAction { script: mainContentFlickable.animationIsRunning = false }
                     }
                 }
