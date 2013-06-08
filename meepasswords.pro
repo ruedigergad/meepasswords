@@ -115,11 +115,6 @@ OTHER_FILES += \
     qml/harmattan/AboutDialog.qml \
     qml/harmattan/ErrorDialog.qml \
     qml/desktop/main.qml \
-    qml/desktop/PasswordInputPage.qml \
-    qml/desktop/MainPage.qml \
-    qml/desktop/EditEntryDialog.qml \
-    qml/desktop/Menu.qml \
-    qml/desktop/AboutDialog.qml \
     qml/desktop/common/Dialog.qml \
     qml/desktop/common/CommonDialog.qml \
     qml/desktop/common/CommonButton.qml \
@@ -138,7 +133,6 @@ OTHER_FILES += \
     qml/common/constants.js \
     qml/harmattan/NfcWriteDialog.qml \
     qml/harmattan/EntryDelegate.qml \
-    qml/desktop/EntryDelegate.qml \
     qml/harmattan/LabeledInput.qml \
     qml/harmattan/ShowEntryPage.qml \
     qml/harmattan/EntryLabel.qml \
