@@ -31,6 +31,7 @@ Rectangle{
 
     Component.onCompleted: {
         passwordButton.clicked.connect(passwordEntered)
+        forceActiveFocus()
     }
 
     Text {

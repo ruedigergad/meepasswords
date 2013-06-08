@@ -131,10 +131,10 @@ Rectangle {
 
     Keys.onUpPressed:  listView.currentIndex--
     Keys.onDownPressed: listView.currentIndex++
-    Keys.onRightPressed: mainContentFlickable.contentX = mainFlickable.width
+    Keys.onRightPressed: mainContentFlickable.contentX = mainFlickable.width * 2
     Keys.onLeftPressed: {
-        if (mainContentFlickable.contentX === mainFlickable.width) {
-            mainContentFlickable.contentX = 0
+        if (mainContentFlickable.contentX === mainFlickable.width * 2) {
+            mainContentFlickable.contentX = mainFlickable.width
         } else {
             loggedIn = false
         }

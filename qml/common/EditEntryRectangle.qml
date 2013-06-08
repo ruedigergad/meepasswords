@@ -128,6 +128,7 @@ Rectangle {
                         id: addCategoryIcon
                         iconSource: ":/icons/add.png"
                         anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
                         onClicked: newCategoryDialog.open()
                     }
                 }
@@ -207,6 +208,8 @@ Rectangle {
     TextInputDialog {
         id: newCategoryDialog
 
+        parent: main
+
         title: "New Category"
         label: "Category Name"
         input: ""
@@ -231,7 +234,7 @@ Rectangle {
                 opacity: enabled ? 1 : 0.5
                 onClicked: {
                     resetContent()
-                    mainContentFlickable.contentX = 0
+                    mainContentFlickable.contentX = mainFlickable.width
                 }
             }
             CommonButton {

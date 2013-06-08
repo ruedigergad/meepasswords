@@ -54,7 +54,7 @@ CommonDialog {
 
         CommonTextField {
             id: inputField;
-            width: parent.width * 0.8;
+            width: parent.width * 0.75;
             anchors.centerIn: parent
             focus: true
         }

@@ -59,7 +59,7 @@ Flickable {
     function addEntry() {
         editEntryRectangle.resetContent()
         editEntryRectangle.newEntry = true
-        mainContentFlickable.contentX = mainFlickable.width
+        mainContentFlickable.contentX = mainFlickable.width * 2
     }
 
     function deleteEntry() {
@@ -69,14 +69,14 @@ Flickable {
     }
 
     function editEntry() {
-        mainContentFlickable.contentX = mainFlickable.width
+        mainContentFlickable.contentX = mainFlickable.width * 2
     }
 
     function logOut() {
         entryStorage.getModel().clear();
         entryStorage.setPassword("");
         loggedIn = false
-        mainContentFlickable.contentX = 0
+        mainContentFlickable.contentX = mainFlickable.width
     }
 
     Item {
@@ -133,7 +133,7 @@ Flickable {
 
                 Behavior on contentX {
                     SequentialAnimation {
-                        PropertyAnimation { duration: 80 }
+                        PropertyAnimation { duration: 120 }
                         ScriptAction { script: mainContentFlickable.animationIsRunning = false }
                     }
                 }
