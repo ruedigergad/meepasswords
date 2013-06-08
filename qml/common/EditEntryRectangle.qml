@@ -116,12 +116,19 @@ Rectangle {
 
                     CommonTextField {
                         id: categoryInput
-                        width: parent.width
+                        anchors{left: parent.left; right: addCategoryIcon.left; rightMargin: primaryFontSize * 0.25}
                         enabled: edit || newEntry
 
                         Keys.onEnterPressed: userNameInput.focus = true
                         Keys.onReturnPressed: userNameInput.focus = true
                         Keys.onTabPressed: userNameInput.focus = true
+                    }
+
+                    CommonToolIcon {
+                        id: addCategoryIcon
+                        iconSource: ":/icons/add.png"
+                        anchors.right: parent.right
+                        onClicked: newCategoryDialog.open()
                     }
                 }
 
@@ -195,6 +202,14 @@ Rectangle {
                 }
             }
         }
+    }
+
+    TextInputDialog {
+        id: newCategoryDialog
+
+        title: "New Category"
+        label: "Category Name"
+        input: ""
     }
 
     Rectangle {

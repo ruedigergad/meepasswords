@@ -14,5 +14,6 @@
         <file>qml/common/EditEntryRectangle.qml</file>
         <file>qml/common/AboutDialog.qml</file>
         <file>qml/common/Menu.qml</file>
+        <file>qml/common/TextInputDialog.qml</file>
     </qresource>
 </RCC>

@@ -143,7 +143,8 @@ OTHER_FILES += \
     qml/common/PasswordInputRectangle.qml \
     qml/common/EditEntryRectangle.qml \
     qml/common/AboutDialog.qml \
-    qml/common/Menu.qml
+    qml/common/Menu.qml \
+    qml/common/TextInputDialog.qml
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)
