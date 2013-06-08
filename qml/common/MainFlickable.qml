@@ -190,6 +190,11 @@ Flickable {
         parent: main
     }
 
+    PasswordChangeDialog {
+        id: passwordChangeDialog
+        parent: main
+    }
+
     EntryStorage {
         id: entryStorage
 
@@ -229,56 +234,56 @@ Flickable {
 //        onOpened: commonTools.enabled = false
 
         CommonButton{
-            id: cleanDone
-            anchors.bottom: syncToImap.top
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "Clean Done"
-            onClicked: {
-                mainRectangle.confirmCleanDoneDialog.open()
-                mainMenu.close()
-            }
-        }
-
-        CommonButton{
-            id: syncToImap
-            anchors.bottom: syncSketchesToImap.top
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "Sync To-Do List"
-            onClicked: {
-                mainRectangle.confirmSyncToImapDialog.open()
-                mainMenu.close()
-            }
-        }
-
-        CommonButton{
-            id: syncSketchesToImap
-            anchors.bottom: syncAccountSettings.top
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "Sync Sketches"
-            onClicked: {
-                mainRectangle.confirmSyncSketchesToImapDialog.open()
-                mainMenu.close()
-            }
-        }
-
-        CommonButton{
-            id: syncAccountSettings
+            id: changePassword
             anchors.bottom: about.top
             anchors.bottomMargin: primaryFontSize / 3
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - primaryFontSize
-            text: "Sync Account Settings"
+            text: "Change Password"
             onClicked: {
-                imapAccountSettings.open()
+                passwordChangeDialog.open()
                 mainMenu.close()
             }
         }
+
+//        CommonButton{
+//            id: syncToImap
+//            anchors.bottom: syncSketchesToImap.top
+//            anchors.bottomMargin: primaryFontSize / 3
+//            anchors.horizontalCenter: parent.horizontalCenter
+//            width: parent.width - primaryFontSize
+//            text: "Sync To-Do List"
+//            onClicked: {
+//                mainRectangle.confirmSyncToImapDialog.open()
+//                mainMenu.close()
+//            }
+//        }
+
+//        CommonButton{
+//            id: syncSketchesToImap
+//            anchors.bottom: syncAccountSettings.top
+//            anchors.bottomMargin: primaryFontSize / 3
+//            anchors.horizontalCenter: parent.horizontalCenter
+//            width: parent.width - primaryFontSize
+//            text: "Sync Sketches"
+//            onClicked: {
+//                mainRectangle.confirmSyncSketchesToImapDialog.open()
+//                mainMenu.close()
+//            }
+//        }
+
+//        CommonButton{
+//            id: syncAccountSettings
+//            anchors.bottom: about.top
+//            anchors.bottomMargin: primaryFontSize / 3
+//            anchors.horizontalCenter: parent.horizontalCenter
+//            width: parent.width - primaryFontSize
+//            text: "Sync Account Settings"
+//            onClicked: {
+//                imapAccountSettings.open()
+//                mainMenu.close()
+//            }
+//        }
 
         CommonButton{
             id: about

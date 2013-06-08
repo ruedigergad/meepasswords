@@ -28,22 +28,35 @@ CommonDialog {
     content: Item {
       anchors.fill: parent
 
-      Text {id: name; text: "MeePasswords"; font.pixelSize: primaryFontSize * 1.25; font.bold: true; anchors.horizontalCenter: parent.horizontalCenter; anchors.bottom: homepage.top; anchors.bottomMargin: 0; color: "white"}
+      Text {id: name; text: "MeePasswords"
+           font {pointSize: primaryFontSize; bold: true}
+           anchors {horizontalCenter: parent.horizontalCenter; bottom: description.top; bottomMargin: 0}
+           color: "white"}
+
+      Text {id: description; text: "Keep your passwords protected."
+            font{pointSize: primaryFontSize * 0.6; bold: true}
+            anchors{horizontalCenter: parent.horizontalCenter; bottom: version.top; bottomMargin: primaryFontSize * 0.5}
+            color: "white"}
+
+      Text {id: version; text: "Version: 1.9.3"
+           font {pointSize: primaryFontSize * 0.6; bold: true}
+           anchors {horizontalCenter: parent.horizontalCenter; bottom: homepage.top; bottomMargin: primaryFontSize * 0.5}
+           color: "lightgray"}
 
       Text {id: homepage;
-          text: "<a href=\"http://meepasswords.garage.maemo.org\" style=\"text-decoration:none; color:#78bfff\" >Home Page</a><br /><a href=\"http://meepasswords.garage.maemo.org\"><img src=\"qrc:/meepasswords_100x100.png\" /></a>";
+          text: "<a href=\"http://meepasswords.garage.maemo.org\"><img src=\"qrc:/meepasswords_100x100.png\" /></a><br /><a href=\"http://meepasswords.garage.maemo.org\" style=\"text-decoration:none; color:#78bfff\" >Home Page</a>";
           textFormat: Text.RichText;
           onLinkActivated: { Qt.openUrlExternally(link); }
-          font.pixelSize: primaryFontSize * 0.75; horizontalAlignment: Text.AlignHCenter;
-          anchors.horizontalCenter: parent.horizontalCenter; anchors.bottom: description.top; anchors.bottomMargin: 0 }
-
-      Text {id: description; text: "Keep your passwords protected."; font.pixelSize: 20; font.bold: true; anchors.horizontalCenter: parent.horizontalCenter; anchors.bottom: author.top; anchors.bottomMargin: 0; color: "white"}
+          font.pointSize: primaryFontSize * 0.6; horizontalAlignment: Text.AlignHCenter;
+          anchors.horizontalCenter: parent.horizontalCenter; anchors.bottom: author.top; anchors.bottomMargin: primaryFontSize * 0.5 }
 
       Text {id: author;
-          text: "Author: Ruediger Gad <a href=\"mailto:r.c.g@gmx.de\" style=\"text-decoration:none; color:#78bfff\" >r.c.g@gmx.de</a>";
+          text: "Author: Ruediger Gad <a href=\"mailto:r.c.g@gmx.de\" style=\"text-decoration:none; color:#78bfff\" >r.c.g@gmx.de</a><br />Contributor: Cornelius Hald (Harmattan UI Improvements)";
           textFormat: Text.RichText;
           onLinkActivated: { Qt.openUrlExternally(link); }
-          font.pixelSize: primaryFontSize * 0.75; anchors.centerIn: parent; color: "lightgray"; horizontalAlignment: Text.AlignHCenter}
+          width: parent.width
+          wrapMode: Text.WordWrap
+          font.pointSize: primaryFontSize * 0.6; anchors.centerIn: parent; color: "lightgray"; horizontalAlignment: Text.AlignHCenter}
 
       Text {id: license;
           text: "MeePasswords is free software: you can redistribute it and/or modify "
@@ -58,6 +71,6 @@ CommonDialog {
             + "along with MeePasswords.  If not, see <a href=\"http://www.gnu.org/licenses\" style=\"text-decoration:none; color:#78bfff\" >http://www.gnu.org/licenses</a>.";
           textFormat: Text.RichText;
           onLinkActivated: { Qt.openUrlExternally(link); }
-          font.pixelSize: primaryFontSize * 0.5; anchors.horizontalCenter: parent.horizontalCenter; anchors.top: author.bottom; anchors.topMargin: 10; width: parent.width; color: "lightgray"; horizontalAlignment: Text.AlignHCenter; wrapMode: Text.Wrap}
+          font.pointSize: primaryFontSize * 0.4; anchors.horizontalCenter: parent.horizontalCenter; anchors.top: author.bottom; anchors.topMargin: 10; width: parent.width; color: "lightgray"; horizontalAlignment: Text.AlignHCenter; wrapMode: Text.Wrap}
     }
 }

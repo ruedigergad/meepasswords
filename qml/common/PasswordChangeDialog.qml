@@ -37,16 +37,15 @@ CommonDialog {
 
     MessageDialog{
         id: informationDialog
-        parent: mainPage
     }
 
     content: Item {
         anchors.centerIn: parent
         width:parent.width
 
-        Text {id: name; text: "Change Password"; font.pixelSize: 40; font.bold: true; anchors.bottom: oldPasswordLabel.top; anchors.bottomMargin: 30; anchors.horizontalCenter: parent.horizontalCenter; color: "white"}
+        Text {id: name; text: "Change Password"; font.pixelSize: primaryFontSize; font.bold: true; anchors.bottom: oldPasswordLabel.top; anchors.bottomMargin: 30; anchors.horizontalCenter: parent.horizontalCenter; color: "white"}
 
-        Text {id: oldPasswordLabel; text: "Old Password: "; font.pixelSize: 30; color: "lightgray"; anchors.bottom: oldPasswordInput.top; anchors.horizontalCenter: parent.horizontalCenter}
+        Text {id: oldPasswordLabel; text: "Old Password: "; font.pixelSize: primaryFontSize * 0.75; color: "lightgray"; anchors.bottom: oldPasswordInput.top; anchors.horizontalCenter: parent.horizontalCenter}
         CommonTextField {
             id: oldPasswordInput;
             width: parent.width * 0.5;
@@ -56,27 +55,45 @@ CommonDialog {
             echoMode: TextInput.Password
         }
 
-        Text {id: newPasswordLabel; text: "New Password: "; font.pixelSize: 30; color: "lightgray"; anchors.bottom: newPasswordInput.top; anchors.horizontalCenter: parent.horizontalCenter}
+        Text {id: newPasswordLabel; text: "New Password: "; font.pixelSize: primaryFontSize * 0.75; color: "lightgray"; anchors.bottom: newPasswordInput.top; anchors.horizontalCenter: parent.horizontalCenter}
         CommonTextField {id: newPasswordInput;
             width: parent.width * 0.5;
             anchors.centerIn: parent;
             anchors.horizontalCenter: parent.horizontalCenter;
             echoMode: TextInput.Password}
 
-        CommonButton{id: okButton; text: "OK"; anchors.top: newPasswordInput.bottom; anchors.topMargin: 30; anchors.horizontalCenter: parent.horizontalCenter
+        Text {
+            id: confirmPasswordLabel
+            text: "Re-type new Password: "; font.pixelSize: primaryFontSize * 0.75; color: "lightgray";
+            anchors {top: newPasswordInput.bottom; horizontalCenter: parent.horizontalCenter}
+        }
+        CommonTextField {id: confirmPasswordInput;
+            width: parent.width * 0.5;
+            anchors {top: confirmPasswordLabel.bottom; horizontalCenter: parent.horizontalCenter}
+            echoMode: TextInput.Password
+        }
+
+        CommonButton{id: okButton; text: "OK"; anchors.top: confirmPasswordInput.bottom; anchors.topMargin: 30; anchors.horizontalCenter: parent.horizontalCenter
             width: cancelButton.width
             onClicked: {
-                if(entryStorage.equalsStoredPassword(oldPasswordInput.text)
-                        || entryStorage.equalsStoredHash(oldPasswordInput.text)){
+                if (newPasswordInput !== confirmPasswordInput) {
+                    informationDialog.text = "New passwords do not match!"
+                    informationDialog.open()
+                    return
+                }
+
+                if (entryStorage.equalsStoredPassword(oldPasswordInput.text)
+                        || entryStorage.equalsStoredHash(oldPasswordInput.text)) {
                     entryStorage.setPassword(newPasswordInput.text)
                     entryStorage.storeModel()
 
                     informationDialog.text = "Password successfully changed."
-                }else{
+                    informationDialog.open()
+                    passwordChangeDialog.close()
+                } else {
                     informationDialog.text = "Failed to set new password!\nOld password was not correct."
+                    informationDialog.open()
                 }
-                informationDialog.open()
-                passwordChangeDialog.close()
             }
         }
 
