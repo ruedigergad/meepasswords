@@ -29,14 +29,31 @@ CommonDialog {
 //        newPasswordInput.text = ""
 //    }
 
-    onOpened: {
+    function resetFields() {
         oldPasswordInput.text = ""
         newPasswordInput.text = ""
+        confirmPasswordInput.text = ""
         oldPasswordInput.forceActiveFocus()
+    }
+
+    onClosed: {
+        resetFields()
+    }
+
+    onOpened: {
+        resetFields()
     }
 
     MessageDialog{
         id: informationDialog
+
+        property bool propagateClose: false
+
+        onRejected: {
+            if (propagateClose) {
+                passwordChangeDialog.close()
+            }
+        }
     }
 
     content: Item {
@@ -76,8 +93,9 @@ CommonDialog {
         CommonButton{id: okButton; text: "OK"; anchors.top: confirmPasswordInput.bottom; anchors.topMargin: 30; anchors.horizontalCenter: parent.horizontalCenter
             width: cancelButton.width
             onClicked: {
-                if (newPasswordInput !== confirmPasswordInput) {
+                if (newPasswordInput.text !== confirmPasswordInput.text) {
                     informationDialog.text = "New passwords do not match!"
+                    informationDialog.propagateClose = false
                     informationDialog.open()
                     return
                 }
@@ -88,10 +106,11 @@ CommonDialog {
                     entryStorage.storeModel()
 
                     informationDialog.text = "Password successfully changed."
+                    informationDialog.propagateClose = true
                     informationDialog.open()
-                    passwordChangeDialog.close()
                 } else {
                     informationDialog.text = "Failed to set new password!\nOld password was not correct."
+                    informationDialog.propagateClose = false
                     informationDialog.open()
                 }
             }
