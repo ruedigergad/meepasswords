@@ -36,8 +36,11 @@ Flickable {
         contentX = loggedIn ? width : 0
         passwordInput.focus = !loggedIn
         entryListView.focus = loggedIn
+
         if (!loggedIn) {
             entryStorage.getModel().clear()
+        } else {
+            mainContentFlickable.contentX = mainFlickable.width
         }
     }
 
@@ -119,9 +122,11 @@ Flickable {
                 id: mainContentFlickable
                 anchors.fill: parent
 
-                contentWidth: mainFlickable.width * 2
+                contentWidth: mainFlickable.width * 3
+                contentX: mainFlickable.width
                 flickableDirection: Flickable.HorizontalFlick
                 interactive: true
+                flickDeceleration: 10000
 
                 boundsBehavior: Flickable.DragOverBounds
                 property bool animationIsRunning: false
@@ -134,22 +139,31 @@ Flickable {
                 }
 
                 onContentXChanged: {
-                    mainContent.performLogOut = contentX < -logText.width - primaryFontSize
+                    mainContent.performLogOut = contentX < mainFlickable.width - logText.width - primaryFontSize
                 }
 
                 onMovementEnded: {
-                    console.log("Movement ended. contentX: " + contentX)
-                    if (contentX >= mainFlickable.width * 0.5) {
-                        contentX = mainFlickable.width
+                    if (contentX >= mainFlickable.width * 1.5) {
+                        contentX = mainFlickable.width * 2
                     } else {
-                        contentX = 0
+                        contentX = mainContentFlickable.width
                     }
+
+                    if (mainContent.performLogOut) {
+                        logOut()
+                    }
+                }
+
+                Item {
+                    id: dummyItem
+                    anchors{left: parent.left; top: parent.top; bottom: parent.bottom}
+                    width: mainFlickable.width
                 }
 
                 Rectangle {
                     id: entryListRectangle
 
-                    anchors{left: parent.left; top: parent.top; bottom: parent.bottom}
+                    anchors{left: dummyItem.right; top: parent.top; bottom: parent.bottom}
 
                     width: mainFlickable.width
 
