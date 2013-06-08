@@ -34,6 +34,8 @@ Flickable {
 
     onLoggedInChanged: {
         contentX = loggedIn ? width : 0
+        passwordInput.focus = !loggedIn
+        entryListView.focus = loggedIn
         if (!loggedIn) {
             entryStorage.getModel().clear()
         }
@@ -225,6 +227,18 @@ Flickable {
         }
     }
 
+    ConfirmationDialog {
+        id: deleteConfirmationDialog
+        parent: main
+        property int entryId: -1
+        property string entryName
+        titleText: "Delete '" + entryName + "'?"
+        message: "Are you sure you want to delete '" + entryName + "'?"
+        onAccepted: {
+            entryStorage.getModel().removeById(entryId)
+        }
+    }
+
     Menu {
         id: mainMenu
 
@@ -296,17 +310,6 @@ Flickable {
                 mainFlickable.aboutDialog.open()
                 mainMenu.close()
             }
-        }
-    }
-
-    Keys.onUpPressed:  listView.currentIndex--
-    Keys.onDownPressed: listView.currentIndex++
-    Keys.onRightPressed: mainContentFlickable.contentX = mainFlickable.width
-    Keys.onLeftPressed: {
-        if (mainContentFlickable.contentX === mainFlickable.width) {
-            mainContentFlickable.contentX = 0
-        } else {
-            loggedIn = false
         }
     }
 }

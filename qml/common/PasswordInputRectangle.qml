@@ -27,6 +27,7 @@ Rectangle{
     property alias text: passwordLabel.text
     property alias password: passwordField.text
     signal passwordEntered()
+    focus: true
 
     Component.onCompleted: {
         passwordButton.clicked.connect(passwordEntered)
@@ -83,7 +84,7 @@ Rectangle{
         anchors.topMargin: primaryFontSize * 0.4
         echoMode: TextInput.Password
         width: parent.width * 0.5
-        focus: true
+        focus: parent.focus
 
         Keys.onEnterPressed: passwordButton.clicked()
         Keys.onReturnPressed: passwordButton.clicked()

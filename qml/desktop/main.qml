@@ -24,7 +24,7 @@ import "../common"
 Rectangle {
     id: main
 
-    property int primaryFontSize: 24
+    property int primaryFontSize: 20
 
     onRotationChanged: {
         console.log("Rotation changed...");
@@ -58,18 +58,6 @@ Rectangle {
             id: mainFlickable
 
             anchors{top: header.bottom; left: parent.left; right: parent.right; bottom: parent.bottom}
-        }
-    }
-
-    ConfirmationDialog {
-        id: deleteConfirmationDialog
-        anchors.fill: main
-        property int entryId: -1
-        property string entryName
-        titleText: "Delete '" + entryName + "'?"
-        message: "Are you sure you want to delete '" + entryName + "'?"
-        onAccepted: {
-            mainFlickable.entryStorage.getModel().removeById(entryId)
         }
     }
 

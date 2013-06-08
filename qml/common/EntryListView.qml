@@ -128,4 +128,15 @@ Rectangle {
             }
         }
     }
+
+    Keys.onUpPressed:  listView.currentIndex--
+    Keys.onDownPressed: listView.currentIndex++
+    Keys.onRightPressed: mainContentFlickable.contentX = mainFlickable.width
+    Keys.onLeftPressed: {
+        if (mainContentFlickable.contentX === mainFlickable.width) {
+            mainContentFlickable.contentX = 0
+        } else {
+            loggedIn = false
+        }
+    }
 }

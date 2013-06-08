@@ -24,11 +24,6 @@ CommonDialog {
 
     property alias oldPassword: oldPasswordInput.text
 
-//    onClosed: {
-//        oldPasswordInput.text = ""
-//        newPasswordInput.text = ""
-//    }
-
     function resetFields() {
         oldPasswordInput.text = ""
         newPasswordInput.text = ""
