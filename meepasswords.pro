@@ -147,7 +147,9 @@ OTHER_FILES += \
     qml/harmattan/FastScroll.js \
     qml/common/MainFlickable.qml \
     qml/common/PasswordInputRectangle.qml \
-    qml/common/EditEntryRectangle.qml
+    qml/common/EditEntryRectangle.qml \
+    qml/common/AboutDialog.qml \
+    qml/common/Menu.qml
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)

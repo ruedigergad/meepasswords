@@ -12,5 +12,7 @@
         <file>qml/common/PasswordInputRectangle.qml</file>
         <file>qml/common/MeePasswordsToolBar.qml</file>
         <file>qml/common/EditEntryRectangle.qml</file>
+        <file>qml/common/AboutDialog.qml</file>
+        <file>qml/common/Menu.qml</file>
     </qresource>
 </RCC>
