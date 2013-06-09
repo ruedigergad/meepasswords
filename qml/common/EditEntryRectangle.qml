@@ -224,7 +224,9 @@ Rectangle {
                 iconSource: ":/icons/back.png"
                 opacity: enabled ? 1 : 0.5
                 onClicked: {
-                    resetContent()
+//                    resetContent()
+                    edit = false
+                    entryListView.focus = true
                     mainContentFlickable.contentX = mainFlickable.width
                 }
             }
@@ -254,6 +256,8 @@ Rectangle {
                                                              password,
                                                              notes,
                                                              index)
+                    edit = false
+                    entryListView.focus = true
                     mainContentFlickable.contentX = mainFlickable.width
                 }
             }
@@ -302,7 +306,7 @@ Rectangle {
 
         model: catModel
         title: "Category"
-        label: "Select a category."
+        label: "Please select a category."
 
         onAccepted: {
             categoryInput.text = catModel.get(selectedIndex).name
