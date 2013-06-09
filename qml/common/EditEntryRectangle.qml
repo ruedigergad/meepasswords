@@ -240,6 +240,8 @@ Rectangle {
                     edit = !edit
                     if (edit) {
                         nameInput.focus = true
+                    } else {
+                        entryListView.focus = true
                     }
                 }
                 color: edit ? "red" : "#0e65c8"
