@@ -28,12 +28,20 @@ Rectangle {
     property bool edit: false
     property bool newEntry: false
     property int index: -1
+    property bool isShown: false
 
     property alias name: nameInput.text
     property alias category: categoryInput.text
     property alias userName: userNameInput.text
     property alias password: passwordInput.text
     property alias notes: notesInput.text
+
+    function hide() {
+        edit = false
+        mainContentFlickable.contentX = mainFlickable.width
+        isShown = false
+        entryListView.focus = true
+    }
 
     function resetContent() {
         edit = false
@@ -46,8 +54,28 @@ Rectangle {
         notes = ""
     }
 
-    onNameChanged: {
-        nameInput.focus = true
+    function save() {
+        entryStorage.getModel().addOrUpdateEntry(name,
+                                                 category,
+                                                 userName,
+                                                 password,
+                                                 notes,
+                                                 index)
+        hide()
+    }
+
+    function show() {
+        mainContentFlickable.contentX = mainFlickable.width * 2
+        isShown = true
+    }
+
+    function toggleEdit() {
+        edit = !edit
+        if (edit) {
+            nameInput.focus = true
+        } else {
+            entryListView.focus = true
+        }
     }
 
 //    MessageDialog {
@@ -99,6 +127,19 @@ Rectangle {
                         Keys.onEnterPressed: userNameInput.focus = true
                         Keys.onReturnPressed: userNameInput.focus = true
                         Keys.onTabPressed: userNameInput.focus = true
+                        Keys.onBacktabPressed: notesInput.focus = true
+                        Keys.onEscapePressed: toggleEdit()
+                        Keys.onPressed: {
+                            switch (event.key) {
+                            case Qt.Key_S:
+                                if (event.modifiers & Qt.ControlModifier) {
+                                    save()
+                                }
+                                break
+                            default:
+                                break
+                            }
+                        }
                     }
                 }
 
@@ -151,6 +192,19 @@ Rectangle {
                         Keys.onEnterPressed: passwordInput.focus = true
                         Keys.onReturnPressed: passwordInput.focus = true
                         Keys.onTabPressed: passwordInput.focus = true
+                        Keys.onBacktabPressed: nameInput.focus = true
+                        Keys.onEscapePressed: toggleEdit()
+                        Keys.onPressed: {
+                            switch (event.key) {
+                            case Qt.Key_S:
+                                if (event.modifiers & Qt.ControlModifier) {
+                                    save()
+                                }
+                                break
+                            default:
+                                break
+                            }
+                        }
                     }
                     CommonButton {
                         id: userNameCopyButton
@@ -181,6 +235,19 @@ Rectangle {
                         Keys.onEnterPressed: notesInput.focus = true
                         Keys.onReturnPressed: notesInput.focus = true
                         Keys.onTabPressed: notesInput.focus = true
+                        Keys.onBacktabPressed: userNameInput.focus = true
+                        Keys.onEscapePressed: toggleEdit()
+                        Keys.onPressed: {
+                            switch (event.key) {
+                            case Qt.Key_S:
+                                if (event.modifiers & Qt.ControlModifier) {
+                                    save()
+                                }
+                                break
+                            default:
+                                break
+                            }
+                        }
                     }
                     CommonButton {
                         id: passwordCopyButton
@@ -203,6 +270,19 @@ Rectangle {
                     textFormat: Text.RichText
 
                     Keys.onTabPressed: nameInput.focus = true
+                    Keys.onBacktabPressed: passwordInput.focus = true
+                    Keys.onEscapePressed: toggleEdit()
+                    Keys.onPressed: {
+                        switch (event.key) {
+                        case Qt.Key_S:
+                            if (event.modifiers & Qt.ControlModifier) {
+                                save()
+                            }
+                            break
+                        default:
+                            break
+                        }
+                    }
                 }
             }
         }
@@ -226,10 +306,7 @@ Rectangle {
                 iconSource: ":/icons/back.png"
                 opacity: enabled ? 1 : 0.5
                 onClicked: {
-//                    resetContent()
-                    edit = false
-                    entryListView.focus = true
-                    mainContentFlickable.contentX = mainFlickable.width
+                    hide()
                 }
             }
             CommonButton {
@@ -239,12 +316,7 @@ Rectangle {
                 visible: !newEntry
                 opacity: 1
                 onClicked: {
-                    edit = !edit
-                    if (edit) {
-                        nameInput.focus = true
-                    } else {
-                        entryListView.focus = true
-                    }
+                    toggleEdit()
                 }
                 color: edit ? "red" : "#0e65c8"
             }
@@ -254,15 +326,7 @@ Rectangle {
                 text: "Save"
                 enabled: edit || newEntry
                 onClicked: {
-                    entryStorage.getModel().addOrUpdateEntry(name,
-                                                             category,
-                                                             userName,
-                                                             password,
-                                                             notes,
-                                                             index)
-                    edit = false
-                    entryListView.focus = true
-                    mainContentFlickable.contentX = mainFlickable.width
+                    save()
                 }
             }
         }

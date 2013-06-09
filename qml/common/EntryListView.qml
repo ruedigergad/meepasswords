@@ -129,14 +129,34 @@ Rectangle {
         }
     }
 
-    Keys.onUpPressed:  listView.currentIndex--
+    Keys.onUpPressed: listView.currentIndex--
     Keys.onDownPressed: listView.currentIndex++
-    Keys.onRightPressed: mainContentFlickable.contentX = mainFlickable.width * 2
+    Keys.onRightPressed: editEntryRectangle.show()
     Keys.onLeftPressed: {
-        if (mainContentFlickable.contentX === mainFlickable.width * 2) {
-            mainContentFlickable.contentX = mainFlickable.width
+        if (editEntryRectangle.isShown) {
+            editEntryRectangle.hide()
         } else {
             loggedIn = false
+        }
+    }
+    Keys.onPressed: {
+        switch (event.key) {
+        case Qt.Key_D:
+            if (!editEntryRectangle.isShown) {
+                deleteEntry()
+            }
+            break
+        case Qt.Key_A:
+        case Qt.Key_E:
+        case Qt.Key_I:
+            if (editEntryRectangle.isShown) {
+                editEntryRectangle.toggleEdit()
+            } else {
+                addEntry()
+            }
+            break
+        default:
+            break
         }
     }
 }

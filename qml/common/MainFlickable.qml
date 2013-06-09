@@ -40,7 +40,7 @@ Flickable {
         if (!loggedIn) {
             entryStorage.getModel().clear()
         } else {
-            mainContentFlickable.contentX = mainFlickable.width
+            editEntryRectangle.hide()
         }
     }
 
@@ -58,8 +58,9 @@ Flickable {
 
     function addEntry() {
         editEntryRectangle.resetContent()
+        editEntryRectangle.toggleEdit()
         editEntryRectangle.newEntry = true
-        mainContentFlickable.contentX = mainFlickable.width * 2
+        editEntryRectangle.show()
     }
 
     function deleteEntry() {
@@ -69,14 +70,14 @@ Flickable {
     }
 
     function editEntry() {
-        mainContentFlickable.contentX = mainFlickable.width * 2
+        editEntryRectangle.show()
     }
 
     function logOut() {
         entryStorage.getModel().clear();
         entryStorage.setPassword("");
         loggedIn = false
-        mainContentFlickable.contentX = mainFlickable.width
+        editEntryRectangle.hide()
     }
 
     Item {
@@ -144,9 +145,9 @@ Flickable {
 
                 onMovementEnded: {
                     if (contentX >= mainFlickable.width * 1.5) {
-                        contentX = mainFlickable.width * 2
+                        editEntryRectangle.show()
                     } else {
-                        contentX = mainContentFlickable.width
+                        editEntryRectangle.hide()
                     }
 
                     if (mainContent.performLogOut) {
@@ -255,6 +256,13 @@ Flickable {
         onAccepted: {
             entryStorage.getModel().removeById(entryId)
         }
+        onOpened: {
+            deleteConfirmationDialog.focus = true
+        }
+
+        Keys.onEscapePressed: reject()
+        Keys.onEnterPressed: accept()
+        Keys.onReturnPressed: accept()
     }
 
     Menu {
