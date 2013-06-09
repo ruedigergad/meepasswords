@@ -1,0 +1,64 @@
+diff --git a/qca.pro b/qca.pro
+index 42b0c84..1210439 100644
+--- a/qca.pro
++++ b/qca.pro
+@@ -1,13 +1,14 @@
+ TEMPLATE = subdirs
+-SUBDIRS = sub_src sub_tools sub_unittest sub_examples
++SUBDIRS = sub_src 
++# sub_tools sub_unittest sub_examples
+ 
+ sub_src.subdir = src
+-sub_tools.subdir = tools
+-sub_tools.depends = sub_src
+-sub_unittest.subdir = unittest
+-sub_unittest.depends = sub_src
+-sub_examples.subdir = examples
+-sub_examples.depends = sub_src
++#sub_tools.subdir = tools
++#sub_tools.depends = sub_src
++#sub_unittest.subdir = unittest
++#sub_unittest.depends = sub_src
++#sub_examples.subdir = examples
++#sub_examples.depends = sub_src
+ 
+ include(conf.pri)
+ 
+diff --git a/src/src.pro b/src/src.pro
+index 10e3cb1..13248a1 100644
+--- a/src/src.pro
++++ b/src/src.pro
+@@ -71,6 +71,7 @@ SOURCES += \
+ 	$$QCA_CPP/support/console.cpp
+ 
+ unix:!mac: {
++    DEFINES += QCA_SYSTEMSTORE_PATH=\\\"/etc/pki/tls/cert.pem\\\"
+ 	SOURCES += $$QCA_CPP/qca_systemstore_flatfile.cpp
+ }
+ windows: {
+@@ -109,9 +110,9 @@ unix: {
+ 	incfiles.files += $$QCA_INC/qca.h $$QCA_INC/QtCrypto
+ 	!lib_bundle:INSTALLS += incfiles
+ 
+-	manfiles.path = $$DATADIR/man/man1
+-	manfiles.files = $$QCA_BASE/man/qcatool2.1
+-	INSTALLS += manfiles
++#	manfiles.path = $$DATADIR/man/man1
++#	manfiles.files = $$QCA_BASE/man/qcatool2.1
++#	INSTALLS += manfiles
+ }
+ 
+ !debug_and_release|build_pass {
+diff --git a/src/support/console.cpp b/src/support/console.cpp
+index 8cb19dd..b6ffec6 100644
+--- a/src/support/console.cpp
++++ b/src/support/console.cpp
+@@ -30,7 +30,7 @@
+ #ifdef Q_OS_WIN
+ # include <windows.h>
+ #else
+-# include <sys/termios.h>
++# include <termios.h>
+ # include <unistd.h>
+ # include <fcntl.h>
+ #endif
