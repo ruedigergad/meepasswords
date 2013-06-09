@@ -97,8 +97,12 @@ Rectangle {
         highlightMoveDuration: 100
         highlight: Rectangle {
             anchors.fill: entryDelegate
-            color: "gray"
-            opacity: 0.5
+            radius: height / 4
+            border.width: primaryFontSize / 10
+            border.color: "red"
+            color: "transparent"
+//            color: "gray"
+//            opacity: 0.5
         }
 
         section {
