@@ -156,6 +156,7 @@ Rectangle {
                     CommonButton {
                         id: userNameCopyButton
                         anchors.right: parent.right
+                        height: parent.height
                         text: "Copy"
                     }
                 }
@@ -184,6 +185,7 @@ Rectangle {
                     CommonButton {
                         id: passwordCopyButton
                         anchors.right: parent.right
+                        height: parent.height
                         text: "Copy"
                     }
                 }
