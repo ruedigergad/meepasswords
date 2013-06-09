@@ -241,6 +241,10 @@ Flickable {
         }
     }
 
+    QClipboard{
+        id: clipboard
+    }
+
     ConfirmationDialog {
         id: deleteConfirmationDialog
         parent: main

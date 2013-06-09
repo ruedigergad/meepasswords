@@ -157,6 +157,7 @@ Rectangle {
                         anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
                         text: "Copy"
+                        onClicked: clipboard.setText(userName)
                     }
                 }
 
@@ -186,6 +187,7 @@ Rectangle {
                         anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
                         text: "Copy"
+                        onClicked: clipboard.setText(password)
                     }
                 }
 
