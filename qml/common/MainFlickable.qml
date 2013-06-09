@@ -259,6 +259,9 @@ Flickable {
         onOpened: {
             deleteConfirmationDialog.focus = true
         }
+        onClosed: {
+            entryListView.focus = true
+        }
 
         Keys.onEscapePressed: reject()
         Keys.onEnterPressed: accept()
