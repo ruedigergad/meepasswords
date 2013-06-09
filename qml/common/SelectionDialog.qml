@@ -20,11 +20,15 @@
 import QtQuick 1.1
 
 CommonDialog {
-    id: textInputDialog
+    id: selectionDialog
+
+    anchors.fill: parent
 
     property alias title: titleText.text
     property alias label: labelText.text
-    property alias input: inputField.text
+    property alias model: selectionlListView.model
+    property alias selectedIndex: selectionlListView.currentIndex
+    property alias selectedItem: selectionlListView.currentItem
 
     signal accepted
 
@@ -34,18 +38,15 @@ CommonDialog {
     }
 
     onOpening: {
-        input = ""
-        inputField.focus = true
     }
 
     content: Item {
-        anchors.centerIn: parent
-        width:parent.width
+        anchors.fill: parent
 
         Text {
             id: titleText
             font {pointSize: primaryFontSize; bold: true}
-            anchors {bottom: labelText.top; bottomMargin: primaryFontSize; horizontalCenter: parent.horizontalCenter}
+            anchors {bottom: labelText.top; bottomMargin: primaryFontSize * 0.25; horizontalCenter: parent.horizontalCenter}
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
@@ -54,29 +55,52 @@ CommonDialog {
 
         Text {
             id: labelText; font.pointSize: primaryFontSize * 0.75; color: "lightgray"
-            anchors {bottom: inputField.top; bottomMargin: primaryFontSize * 0.25}
+            anchors {bottom: selectionListViewRectangle.top; bottomMargin: primaryFontSize}
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
         }
 
-        CommonTextField {
-            id: inputField;
-            width: parent.width * 0.75;
-            anchors.centerIn: parent
-            focus: true
-        }
+        Rectangle {
+            id: selectionListViewRectangle
 
-        CommonButton{
-            id: okButton; text: "OK"
-            anchors {top: inputField.bottom; topMargin: primaryFontSize; horizontalCenter: parent.horizontalCenter}
-            width: cancelButton.width
-            onClicked: accept()
+            anchors.centerIn: parent
+            height: parent.height * 0.5
+            width: parent.width * 0.75;
+
+            opacity: 0.8
+            color: "darkgray"
+            radius: primaryFontSize * 0.5
+
+            ListView {
+                id: selectionlListView
+
+                anchors.fill: parent
+                clip: true
+
+                delegate: Text {
+                    width: parent.width
+                    text: name
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pointSize: primaryFontSize
+                    color: "white"
+
+                    property string itemName: name
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            selectionlListView.currentIndex = index
+                            selectionDialog.accept()
+                        }
+                    }
+                }
+            }
         }
 
         CommonButton{
             id: cancelButton; text: "Cancel"
-            anchors {top: okButton.bottom; topMargin: primaryFontSize * 0.5; horizontalCenter: parent.horizontalCenter}
+            anchors {top: selectionListViewRectangle.bottom; topMargin: primaryFontSize; horizontalCenter: parent.horizontalCenter}
             onClicked: reject()
         }
     }

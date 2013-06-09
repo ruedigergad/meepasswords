@@ -40,7 +40,7 @@ Rectangle {
         newEntry = false
         index = -1
         name = ""
-        category = ""
+        category = "Default"
         userName = ""
         password = ""
         notes = ""
@@ -96,9 +96,9 @@ Rectangle {
                         width: parent.width
                         enabled: edit || newEntry
 
-                        Keys.onEnterPressed: categoryInput.focus = true
-                        Keys.onReturnPressed: categoryInput.focus = true
-                        Keys.onTabPressed: categoryInput.focus = true
+                        Keys.onEnterPressed: userNameInput.focus = true
+                        Keys.onReturnPressed: userNameInput.focus = true
+                        Keys.onTabPressed: userNameInput.focus = true
                     }
                 }
 
@@ -114,14 +114,12 @@ Rectangle {
                     width: parent.width
                     height: nameInput.height
 
-                    CommonTextField {
+                    CommonButton {
                         id: categoryInput
-                        anchors{left: parent.left; right: addCategoryIcon.left; rightMargin: primaryFontSize * 0.25}
+                        anchors{left: parent.left; right: addCategoryIcon.left
+                                rightMargin: primaryFontSize * 0.25; verticalCenter: parent.verticalCenter}
                         enabled: edit || newEntry
-
-                        Keys.onEnterPressed: userNameInput.focus = true
-                        Keys.onReturnPressed: userNameInput.focus = true
-                        Keys.onTabPressed: userNameInput.focus = true
+                        onClicked: categorySelectionDialog.open()
                     }
 
                     CommonToolIcon {
@@ -129,6 +127,7 @@ Rectangle {
                         iconSource: ":/icons/add.png"
                         anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
+                        enabled: edit || newEntry
                         onClicked: newCategoryDialog.open()
                     }
                 }
@@ -207,16 +206,6 @@ Rectangle {
         }
     }
 
-    TextInputDialog {
-        id: newCategoryDialog
-
-        parent: main
-
-        title: "New Category"
-        label: "Category Name"
-        input: ""
-    }
-
     Rectangle {
         id: editToolBarRectangle
 
@@ -265,9 +254,58 @@ Rectangle {
                                                              password,
                                                              notes,
                                                              index)
-                    mainContentFlickable.contentX = 0
+                    mainContentFlickable.contentX = mainFlickable.width
                 }
             }
+        }
+    }
+
+    TextInputDialog {
+        id: newCategoryDialog
+
+        parent: main
+
+        title: "New Category"
+        label: "Category Name"
+        input: ""
+
+        onAccepted: {
+            if (input !== "") {
+                catModel.append({"name": input})
+            }
+        }
+    }
+
+    ListModel {
+        id: catModel
+    }
+
+    Connections {
+        target: entryStorage
+        onDecryptionSuccess: {
+            catModel.clear()
+            catModel.append({"name": "Default"})
+            var catList = entryStorage.getModel().getItemNames()
+            for (var i = 0; i < catList.length; i++) {
+                var cat = catList[i]
+                if (cat !== "Default") {
+                    catModel.append({"name": cat})
+                }
+            }
+        }
+    }
+
+    SelectionDialog {
+        id: categorySelectionDialog
+
+        parent: main
+
+        model: catModel
+        title: "Category"
+        label: "Select a category."
+
+        onAccepted: {
+            categoryInput.text = catModel.get(selectedIndex).name
         }
     }
 }

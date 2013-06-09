@@ -144,7 +144,8 @@ OTHER_FILES += \
     qml/common/EditEntryRectangle.qml \
     qml/common/AboutDialog.qml \
     qml/common/Menu.qml \
-    qml/common/TextInputDialog.qml
+    qml/common/TextInputDialog.qml \
+    qml/common/SelectionDialog.qml
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)
