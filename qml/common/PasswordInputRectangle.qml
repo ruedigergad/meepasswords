@@ -85,7 +85,7 @@ Rectangle{
         anchors.topMargin: primaryFontSize * 0.4
         echoMode: TextInput.Password
         width: parent.width * 0.5
-        focus: parent.focus
+        focus: passwordInputRectangle.focus
 
         Keys.onEnterPressed: passwordButton.clicked()
         Keys.onReturnPressed: passwordButton.clicked()

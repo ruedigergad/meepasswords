@@ -78,6 +78,7 @@ Flickable {
         entryStorage.setPassword("");
         loggedIn = false
         editEntryRectangle.hide()
+        passwordInput.focus = true
     }
 
     Item {
