@@ -16,5 +16,15 @@
         <file>qml/common/Menu.qml</file>
         <file>qml/common/TextInputDialog.qml</file>
         <file>qml/common/SelectionDialog.qml</file>
+        <file>icons/add.png</file>
+        <file>icons/add.svg</file>
+        <file>icons/back.png</file>
+        <file>icons/back.svg</file>
+        <file>icons/delete.png</file>
+        <file>icons/delete.svg</file>
+        <file>icons/menu.png</file>
+        <file>icons/menu.svg</file>
+        <file>icons/next.png</file>
+        <file>icons/next.svg</file>
     </qresource>
 </RCC>

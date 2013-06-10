@@ -9,15 +9,5 @@
         <file alias="qml/common/CommonToolBar.qml">qml/desktop/common/CommonToolBar.qml</file>
         <file alias="qml/common/CommonToolIcon.qml">qml/desktop/common/CommonToolIcon.qml</file>
         <file alias="qml/common/CommonButton.qml">qml/desktop/common/CommonButton.qml</file>
-        <file>icons/add.png</file>
-        <file>icons/add.svg</file>
-        <file>icons/back.png</file>
-        <file>icons/back.svg</file>
-        <file>icons/delete.png</file>
-        <file>icons/delete.svg</file>
-        <file>icons/menu.png</file>
-        <file>icons/menu.svg</file>
-        <file>icons/next.png</file>
-        <file>icons/next.svg</file>
     </qresource>
 </RCC>
