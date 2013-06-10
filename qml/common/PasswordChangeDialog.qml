@@ -55,9 +55,9 @@ CommonDialog {
         anchors.centerIn: parent
         width:parent.width
 
-        Text {id: name; text: "Change Password"; font.pixelSize: primaryFontSize; font.bold: true; anchors.bottom: oldPasswordLabel.top; anchors.bottomMargin: 30; anchors.horizontalCenter: parent.horizontalCenter; color: "white"}
+        Text {id: name; text: "Change Password"; font.pointSize: primaryFontSize; font.bold: true; anchors.bottom: oldPasswordLabel.top; anchors.bottomMargin: 30; anchors.horizontalCenter: parent.horizontalCenter; color: "white"}
 
-        Text {id: oldPasswordLabel; text: "Old Password: "; font.pixelSize: primaryFontSize * 0.75; color: "lightgray"; anchors.bottom: oldPasswordInput.top; anchors.horizontalCenter: parent.horizontalCenter}
+        Text {id: oldPasswordLabel; text: "Old Password: "; font.pointSize: primaryFontSize * 0.75; color: "lightgray"; anchors.bottom: oldPasswordInput.top; anchors.horizontalCenter: parent.horizontalCenter}
         CommonTextField {
             id: oldPasswordInput;
             width: parent.width * 0.5;
@@ -67,7 +67,7 @@ CommonDialog {
             echoMode: TextInput.Password
         }
 
-        Text {id: newPasswordLabel; text: "New Password: "; font.pixelSize: primaryFontSize * 0.75; color: "lightgray"; anchors.bottom: newPasswordInput.top; anchors.horizontalCenter: parent.horizontalCenter}
+        Text {id: newPasswordLabel; text: "New Password: "; font.pointSize: primaryFontSize * 0.75; color: "lightgray"; anchors.bottom: newPasswordInput.top; anchors.horizontalCenter: parent.horizontalCenter}
         CommonTextField {id: newPasswordInput;
             width: parent.width * 0.5;
             anchors.centerIn: parent;
@@ -76,7 +76,7 @@ CommonDialog {
 
         Text {
             id: confirmPasswordLabel
-            text: "Re-type new Password: "; font.pixelSize: primaryFontSize * 0.75; color: "lightgray";
+            text: "Re-type new Password: "; font.pointSize: primaryFontSize * 0.75; color: "lightgray";
             anchors {top: newPasswordInput.bottom; horizontalCenter: parent.horizontalCenter}
         }
         CommonTextField {id: confirmPasswordInput;

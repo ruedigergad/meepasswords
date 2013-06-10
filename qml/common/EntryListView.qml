@@ -116,7 +116,7 @@ Rectangle {
                     id: sectionText
                     anchors.right: parent.right
                     anchors.rightMargin: 10
-                    font.pixelSize: primaryFontSize
+                    font.pointSize: primaryFontSize
                     font.bold: true
                     text: section
                     color: "gray"

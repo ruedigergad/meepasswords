@@ -24,7 +24,7 @@ import "../common"
 Rectangle {
     id: main
 
-    property int primaryFontSize: 15
+    property int primaryFontSize: 11
 
     onRotationChanged: {
         console.log("Rotation changed...");
@@ -39,15 +39,16 @@ Rectangle {
 
         Rectangle {
             id: header
-            height: primaryFontSize * 2
+            height: headerText.height * 1.25
             color: "#0c61a8"
             anchors{left: parent.left; right: parent.right; top: parent.top}
 
             Text {
+                id: headerText
                 text: "MeePasswords"
                 color: "white"
                 font.family: "Nokia Pure Text Light"
-                font.pixelSize: primaryFontSize * 1.1
+                font.pointSize: primaryFontSize * 1.1
                 anchors.left: parent.left
                 anchors.leftMargin: primaryFontSize * 0.6
                 anchors.verticalCenter: parent.verticalCenter

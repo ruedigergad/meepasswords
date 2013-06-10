@@ -37,7 +37,7 @@ Rectangle{
     Text {
         id: appNameLabel
         text: "MeePasswords"
-        font.pixelSize: primaryFontSize * 1.5
+        font.pointSize: primaryFontSize
         font.bold: true
 
         anchors.horizontalCenter: parent.horizontalCenter
@@ -57,9 +57,10 @@ Rectangle{
     Text {
         id: descriptionLabel
         text: "Keep your passwords protected."
-        anchors.centerIn: parent
+        anchors.bottom: passwordLabel.top
+        anchors.bottomMargin: primaryFontSize * 0.75
         width: parent.width
-        font.pixelSize: primaryFontSize
+        font.pointSize: primaryFontSize
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
     }
@@ -68,11 +69,11 @@ Rectangle{
         id: passwordLabel
 
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: descriptionLabel.bottom
-        anchors.topMargin: primaryFontSize * 0.4
+        anchors.bottom: passwordField.top
+        anchors.bottomMargin: primaryFontSize * 0.4
         width: parent.width
 
-        font.pixelSize: primaryFontSize * 0.8
+        font.pointSize: primaryFontSize * 0.8
 
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
@@ -81,8 +82,8 @@ Rectangle{
     CommonTextField{
         id: passwordField
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: passwordLabel.bottom
-        anchors.topMargin: primaryFontSize * 0.4
+        anchors.bottom: passwordButton.top
+        anchors.bottomMargin: primaryFontSize * 0.4
         echoMode: TextInput.Password
         width: parent.width * 0.5
         focus: passwordInputRectangle.focus
@@ -94,8 +95,7 @@ Rectangle{
     CommonButton{
         id: passwordButton
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top: passwordField.bottom
-        anchors.topMargin: primaryFontSize * 0.4
+        anchors.centerIn: parent
         width: parent.width * 0.25
         text: qsTr("OK")
     }

@@ -45,7 +45,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
 
-        font.pointSize: 17
+        font.pointSize: primaryFontSize * 0.75
 
         color: "black"
         echoMode: textField.echoMode

@@ -58,7 +58,7 @@ CommonDialog {
         width: parent.width
         height: name.height + grid.height + notesLabel.height + notes.height
 
-        Text {id: name; font.pixelSize: 40; font.bold: true; anchors.horizontalCenter: parent.horizontalCenter; color: "white"}
+        Text {id: name; font.pointSize: 40; font.bold: true; anchors.horizontalCenter: parent.horizontalCenter; color: "white"}
 
         Grid{
             id: grid
@@ -70,16 +70,16 @@ CommonDialog {
             columns: 2
             spacing: 10
 
-            Text {text: "User Name: "; font.pixelSize: 30; color: "lightgray"}
-            Text {id: userName; font.pixelSize: 30; color: "white"; font.bold: true
+            Text {text: "User Name: "; font.pointSize: 30; color: "lightgray"}
+            Text {id: userName; font.pointSize: 30; color: "white"; font.bold: true
                 onLinkActivated: {
                     copyToClipboardDialog.content = link
                     copyToClipboardDialog.type = "user name"
                     copyToClipboardDialog.open()
                 }
             }
-            Text {text: "Password: "; font.pixelSize: 30; color: "lightgray"}
-            Text {id: password; font.pixelSize: 30; color: "white"; font.bold: true
+            Text {text: "Password: "; font.pointSize: 30; color: "lightgray"}
+            Text {id: password; font.pointSize: 30; color: "white"; font.bold: true
                 onLinkActivated: {
                     copyToClipboardDialog.content = link
                     copyToClipboardDialog.type = "password"
@@ -88,10 +88,10 @@ CommonDialog {
             }
         }
 
-        Text {id: notesLabel; text: "Notes"; anchors.top: grid.bottom; anchors.topMargin: 18; anchors.horizontalCenter: parent.horizontalCenter; font.pixelSize: 30; color: "lightgray"}
+        Text {id: notesLabel; text: "Notes"; anchors.top: grid.bottom; anchors.topMargin: 18; anchors.horizontalCenter: parent.horizontalCenter; font.pointSize: 30; color: "lightgray"}
         Text {id: notes
             anchors.horizontalCenter: parent.horizontalCenter; anchors.top: notesLabel.bottom; anchors.topMargin: 6;
-            font.pixelSize: 30; color: "white"
+            font.pointSize: 30; color: "white"
             textFormat: Text.RichText; horizontalAlignment: Text.AlignLeft; wrapMode: Text.NoWrap
             onLinkActivated: Qt.openUrlExternally(link)
         }
