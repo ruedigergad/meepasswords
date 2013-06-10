@@ -142,6 +142,7 @@ OTHER_FILES += \
     qml/harmattan/EditEntrySheet.qml \
     qml/harmattan/AboutDialog.qml \
     qml/harmattan/ErrorDialog.qml \
+    qml/bb10/main.qml \
     qml/desktop/main.qml \
     qml/desktop/common/Dialog.qml \
     qml/desktop/common/CommonDialog.qml \

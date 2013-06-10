@@ -47,6 +47,8 @@
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
+    qDebug("Starting MeePasswords...");
+
 #ifdef MEEGO_EDITION_HARMATTAN
 //    MApplication app(argc, argv);
     QApplication *app = MDeclarativeCache::qApplication(argc, argv);
@@ -61,6 +63,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QDeclarativeView *view = new QDeclarativeView();
 #endif
     qDebug() << "Qt Build Key: " << QLibraryInfo::buildKey() << "   Qt Build Date: " << QLibraryInfo::buildDate();
+
+    QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+    QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
 
     qmlRegisterType<Entry>("meepasswords", 1, 0, "Entry");
     qmlRegisterType<EntryListModel>("meepasswords", 1, 0, "EntryListModel");

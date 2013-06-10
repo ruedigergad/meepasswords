@@ -1,27 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
-    <id>com.example.meepasswords</id>
-    <name>meepasswords</name>
+    <id>com.ruedigergad.meepasswords</id>
+    <name>MeePasswords</name>
     <versionNumber>1.0.0</versionNumber>
-    <description>DESCRIPTION</description>
-
+    <description>MeePasswords is a simple tool to securely store short snippets of sensible or confidential data such as passwords and the like.</description>
     <initialWindow>
+        <aspectRatio>portrait</aspectRatio>
+        <autoOrients>false</autoOrients>
         <systemChrome>none</systemChrome>
         <transparent>false</transparent>
-        <autoOrients>true</autoOrients>
-        <aspectRatio>landscape</aspectRatio>
     </initialWindow>
-    <publisher>PUBLISHER</publisher>
+    <author>ruedigergad.com</author>
     <copyright>COPYRIGHT</copyright>
-    <env var="QML_IMPORT_PATH" value="app/native/imports:/usr/lib/qt4/imports"/>
-    <env var="QT_PLUGIN_PATH" value="app/native/plugins:/usr/lib/qt4/plugins"/>
-    <env var="LD_LIBRARY_PATH" value="app/native/lib:/usr/lib/qt4/lib/"/>
+    <env value="app/native/imports:/usr/lib/qt4/imports" var="QML_IMPORT_PATH"/>
+    <env value="app/native/plugins:app/native/lib:/usr/lib/qt4/plugins" var="QT_PLUGIN_PATH"/>
+    <env value="app/native/lib:/usr/lib/qt4/lib/" var="LD_LIBRARY_PATH"/>
     <arg>-style</arg>
     <arg>qnxlight</arg>
-
     <action system="true">run_native</action>
-
     <!-- meepasswords should point to the project binary, path can be relative -->
-    <asset entry="true" path="meepasswords" type="Qnx/Elf">meepasswords</asset>
-    <asset path="%SRC_DIR%/qml">qml</asset>
+    <asset path="meepasswords" type="Qnx/Elf" entry="true">meepasswords</asset>
+    <asset path="/home/rc/repositories/private/qt/meepasswords/logo_bb10.png">logo_bb10.png</asset>
+    <asset path="%SRC_DIR%/lib/build/bb10">lib</asset>
+    <authorId>gYAAgM1hVEHyVWp9kEL-6WK4ckQ</authorId>
+    <icon>
+        <image>logo_bb10.png</image>
+    </icon>
 </qnx>

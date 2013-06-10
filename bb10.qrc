@@ -1,1 +1,13 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/">
+        <file>qml/bb10/main.qml</file>
+        <file alias="qml/common/Dialog.qml">qml/desktop/common/Dialog.qml</file>
+        <file alias="qml/common/ConfirmationDialog.qml">qml/desktop/common/ConfirmationDialog.qml</file>
+        <file alias="qml/common/CommonDialog.qml">qml/desktop/common/CommonDialog.qml</file>
+        <file alias="qml/common/CommonTextArea.qml">qml/desktop/common/CommonTextArea.qml</file>
+        <file alias="qml/common/CommonTextField.qml">qml/desktop/common/CommonTextField.qml</file>
+        <file alias="qml/common/CommonToolBar.qml">qml/desktop/common/CommonToolBar.qml</file>
+        <file alias="qml/common/CommonToolIcon.qml">qml/desktop/common/CommonToolIcon.qml</file>
+        <file alias="qml/common/CommonButton.qml">qml/desktop/common/CommonButton.qml</file>
+    </qresource>
+</RCC>
