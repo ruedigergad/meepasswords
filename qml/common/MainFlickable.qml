@@ -74,11 +74,17 @@ Flickable {
     }
 
     function logOut() {
+        passwordInput.password = ""
         entryStorage.getModel().clear();
         entryStorage.setPassword("");
-        loggedIn = false
         editEntryRectangle.hide()
         passwordInput.focus = true
+        if (listView.count <= 0) {
+            passwordInput.state = "EnterPassword"
+        } else {
+            passwordInput.state = "NewPassword"
+        }
+        loggedIn = false
     }
 
     Item {
@@ -256,6 +262,11 @@ Flickable {
         message: "Are you sure you want to delete '" + entryName + "'?"
         onAccepted: {
             entryStorage.getModel().removeById(entryId)
+            if (listView.count > 0) {
+                listView.currentIndex = 0
+            } else {
+                listView.currentIndex = -1
+            }
         }
         onOpened: {
             deleteConfirmationDialog.focus = true

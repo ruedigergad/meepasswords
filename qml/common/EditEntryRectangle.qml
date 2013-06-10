@@ -38,9 +38,11 @@ Rectangle {
 
     function hide() {
         edit = false
+        newEntry = false
         mainContentFlickable.contentX = mainFlickable.width
         isShown = false
         entryListView.focus = true
+        inputFlickable.contentY = 0
     }
 
     function resetContent() {
@@ -71,6 +73,9 @@ Rectangle {
 
     function toggleEdit() {
         edit = !edit
+    }
+
+    onEditChanged: {
         if (edit) {
             nameInput.focus = true
         } else {
@@ -342,6 +347,11 @@ Rectangle {
 
     ListModel {
         id: catModel
+
+        Component.onCompleted: {
+            catModel.clear()
+            catModel.append({"name": "Default"})
+        }
     }
 
     Connections {
@@ -356,6 +366,10 @@ Rectangle {
                     catModel.append({"name": cat})
                 }
             }
+        }
+        onNewFileOpened: {
+            catModel.clear()
+            catModel.append({"name": "Default"})
         }
     }
 

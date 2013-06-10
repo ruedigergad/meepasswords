@@ -52,28 +52,6 @@ Rectangle {
         textFormat: textArea.textFormat
         wrapMode: TextEdit.WordWrap
 
-        Keys.onPressed: {
-            if (event.modifiers & Qt.AltModifier) {
-                event.accepted = true
-                keyPressed(event)
-            }
-        }
-
-        Keys.onEnterPressed: {
-            if (event.modifiers & Qt.ShiftModifier) {
-                event.accepted = false
-            } else {
-                enter()
-            }
-        }
-        Keys.onReturnPressed: {
-            if (event.modifiers & Qt.ShiftModifier) {
-                event.accepted = false
-            } else {
-                enter()
-            }
-        }
-
         onTextChanged: textArea.textChanged(text)
 
         onFocusChanged: {
@@ -85,5 +63,4 @@ Rectangle {
             }
         }
     }
-
 }
