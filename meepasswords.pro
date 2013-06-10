@@ -1,6 +1,5 @@
 # Add more folders to ship with the application, here
 
-#exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"):!contains(MEEGO_EDITION,harmattan): {
 exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     MEEGO_VERSION_MAJOR     = 1
     MEEGO_VERSION_MINOR     = 2
@@ -18,6 +17,33 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     RESOURCES += harmattan.qrc
     CONFIG += mobility
     MOBILITY += connectivity
+} else:exists($$QMAKE_INCDIR_QT"/../bbndk.h"): {
+    message(BB10 Build)
+
+    DEFINES += BB10_BUILD
+
+    RESOURCES += bb10.qrc
+
+    LIBS += -lbbdata -lbb -lbbcascades
+    QT += declarative xml opengl
+
+    INCLUDEPATH += \
+        lib/include \
+        lib/include/QtCrypto
+
+    LIBS += \
+        -L$$PWD/lib/link/bb10 \
+        -lqca
+
+    bb10Libs.source = lib/build/bb10
+    bb10Libs.target = lib
+
+    DEPLOYMENTFOLDERS += bb10Libs
+
+    barDescriptor.files = bar-descriptor.xml
+    barDescriptor.path = $${TARGET}
+
+    INSTALLS += barDescriptor
 } else {
     DEFINES += LINUX_DESKTOP
     RESOURCES += desktop.qrc
@@ -26,8 +52,10 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
 
 RESOURCES += common.qrc
 
-CONFIG += link_pkgconfig
-PKGCONFIG += qca2
+!contains(DEFINES, BB10_BUILD) {
+    CONFIG += link_pkgconfig
+    PKGCONFIG += qca2
+}
 
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
@@ -145,7 +173,8 @@ OTHER_FILES += \
     qml/common/AboutDialog.qml \
     qml/common/Menu.qml \
     qml/common/TextInputDialog.qml \
-    qml/common/SelectionDialog.qml
+    qml/common/SelectionDialog.qml \
+    bar-descriptor.xml
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)
@@ -155,10 +184,9 @@ splash.files = splash.png
 splash.path = /opt/meepasswords
 INSTALLS += splash
 
-# enable booster
-CONFIG += qdeclarative-boostable
-QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
-QMAKE_LFLAGS += -pie -rdynamic
-
-
-
+contains(DEFINES, QDECLARATIVE_BOOSTER): {
+    message(Enabling qdeclarative booster.)
+    CONFIG += qdeclarative-boostable
+    QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
+    QMAKE_LFLAGS += -pie -rdynamic
+}

@@ -35,7 +35,7 @@
 #include "nfctagwriter.h"
 #endif
 
-#if defined(LINUX_DESKTOP)
+#if defined(LINUX_DESKTOP) || defined(BB10_BUILD)
 #include <QGLWidget>
 #endif
 
@@ -56,12 +56,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 //    aegis_application_id(getpid(), &app_id);
 //    qDebug("Application Id: %s", app_id);
 #else
-    QApplication::setGraphicsSystem("raster");
+//    QApplication::setGraphicsSystem("raster");
     QApplication *app = new QApplication(argc, argv);
     QDeclarativeView *view = new QDeclarativeView();
-
-    qDebug() << "Qt Build Key: " << QLibraryInfo::buildKey() << "   Qt Build Date: " << QLibraryInfo::buildDate();
 #endif
+    qDebug() << "Qt Build Key: " << QLibraryInfo::buildKey() << "   Qt Build Date: " << QLibraryInfo::buildDate();
 
     qmlRegisterType<Entry>("meepasswords", 1, 0, "Entry");
     qmlRegisterType<EntryListModel>("meepasswords", 1, 0, "EntryListModel");
@@ -85,10 +84,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
      * However, painting on a QGLWidget resulted in a major performance loss,
      * at least on an N900 using the experimental Qt version.
      */
+#ifndef BB10_BUILD
     view->setAttribute(Qt::WA_OpaquePaintEvent);
     view->setAttribute(Qt::WA_NoSystemBackground);
     view->viewport()->setAttribute(Qt::WA_OpaquePaintEvent);
     view->viewport()->setAttribute(Qt::WA_NoSystemBackground);
+#endif
 
     view->setWindowTitle("MeePasswords");
 
@@ -98,18 +99,23 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 #elif defined(QT_SIMULATOR)
     view->setSource(QUrl("qrc:/qml/harmattan/main.qml"));
     view->showFullScreen();
+#elif defined(BB10_BUILD)
+    view->setViewport(new QGLWidget());
+    view->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+    view->setSource(QUrl("qrc:/qml/bb10/main.qml"));
+    view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
+    view->showMaximized();
 #else
     view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
     view->setViewport(new QGLWidget());
     view->setSource(QUrl("qrc:/qml/desktop/main.qml"));
+    view->resize(400, 500);
+    view->show();
 #endif
 
 #ifdef Q_WS_MAEMO_5
     view->setAttribute(Qt::WA_Maemo5AutoOrientation, true);
     view->resize(800, 424);
-    view->show();
-#else
-    view->resize(400, 500);
     view->show();
 #endif
 
