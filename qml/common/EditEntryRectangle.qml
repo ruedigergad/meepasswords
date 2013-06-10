@@ -87,9 +87,9 @@ Rectangle {
     Flickable {
         id: inputFlickable
 
-        anchors{top: parent.top; bottom: editToolBarRectangle.top; left: parent.left; right: parent.right; margins: primaryFontSize * 0.5}
+        anchors{top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right; margins: primaryFontSize * 0.5}
 
-        contentHeight: inputArea.height
+        contentHeight: inputArea.height * 1.75
         clip: true
 
         Item {
@@ -284,49 +284,41 @@ Rectangle {
                         }
                     }
                 }
-            }
-        }
-    }
 
-    Rectangle {
-        id: editToolBarRectangle
+                CommonToolBar {
+                    id: editToolBar
 
-        anchors{ left:parent.left; right: parent.right; bottom: parent.bottom }
-        height: editToolBar.height
-        color: "lightgray"
+                    width: parent.width
 
-        CommonToolBar {
-            id: editToolBar
-
-            width: parent.width
-
-            CommonToolIcon {
-                id: iconBack
-                anchors {right: editButton.left; rightMargin: primaryFontSize * 3}
-                iconSource: ":/icons/back.png"
-                opacity: enabled ? 1 : 0.5
-                onClicked: {
-                    hide()
-                }
-            }
-            CommonButton {
-                id: editButton
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: "Edit"
-                visible: !newEntry
-                opacity: 1
-                onClicked: {
-                    toggleEdit()
-                }
-                color: edit ? "red" : "#0e65c8"
-            }
-            CommonButton {
-                id: saveButton
-                anchors {left: editButton.right; leftMargin: primaryFontSize * 3}
-                text: "Save"
-                enabled: edit || newEntry
-                onClicked: {
-                    save()
+                    CommonToolIcon {
+                        id: iconBack
+                        anchors {right: editButton.left; rightMargin: primaryFontSize * 3}
+                        iconSource: ":/icons/back.png"
+                        opacity: enabled ? 1 : 0.5
+                        onClicked: {
+                            hide()
+                        }
+                    }
+                    CommonButton {
+                        id: editButton
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: "Edit"
+                        visible: !newEntry
+                        opacity: 1
+                        onClicked: {
+                            toggleEdit()
+                        }
+                        color: edit ? "red" : "#0e65c8"
+                    }
+                    CommonButton {
+                        id: saveButton
+                        anchors {left: editButton.right; leftMargin: primaryFontSize * 3}
+                        text: "Save"
+                        enabled: edit || newEntry
+                        onClicked: {
+                            save()
+                        }
+                    }
                 }
             }
         }
