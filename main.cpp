@@ -49,6 +49,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     qDebug("Starting MeePasswords...");
 
+#if defined(BB10_BUILD)
+    QApplication::setStartDragDistance(40);
+    QApplication::setStartDragTime(500);
+    QApplication::setDoubleClickInterval(400);
+#endif
+
 #ifdef MEEGO_EDITION_HARMATTAN
 //    MApplication app(argc, argv);
     QApplication *app = MDeclarativeCache::qApplication(argc, argv);
@@ -119,11 +125,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->show();
 #endif
 
-#ifdef Q_WS_MAEMO_5
-    view->setAttribute(Qt::WA_Maemo5AutoOrientation, true);
-    view->resize(800, 424);
-    view->show();
-#endif
+//#ifdef Q_WS_MAEMO_5
+//    view->setAttribute(Qt::WA_Maemo5AutoOrientation, true);
+//    view->resize(800, 424);
+//    view->show();
+//#endif
 
     return app->exec();
 }

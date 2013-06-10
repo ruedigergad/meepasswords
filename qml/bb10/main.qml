@@ -24,15 +24,14 @@ import "../common"
 Rectangle {
     id: main
 
-    property int primaryFontSize: 11
+    anchors.fill: parent
+    color: "lightgray"
+
+    property int primaryFontSize: 15
 
     onRotationChanged: {
         console.log("Rotation changed...");
     }
-
-    anchors.fill: parent
-
-    color: "lightgray"
 
     Item {
         anchors.fill: parent
@@ -48,9 +47,9 @@ Rectangle {
                 text: "MeePasswords"
                 color: "white"
                 font.family: "Nokia Pure Text Light"
-                font.pointSize: primaryFontSize * 1.1
+                font.pointSize: primaryFontSize
                 anchors.left: parent.left
-                anchors.leftMargin: primaryFontSize * 0.6
+                anchors.leftMargin: primaryFontSize * 0.75
                 anchors.verticalCenter: parent.verticalCenter
             }
         }

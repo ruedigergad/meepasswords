@@ -5,7 +5,7 @@ Text {
     width: parent.width
 
     text: name;
-    font.pointSize: primaryFontSize * 1.25
+    font.pointSize: primaryFontSize
     horizontalAlignment: Text.AlignHCenter
     color: mouseArea.pressed ? "gray" : "black"
 

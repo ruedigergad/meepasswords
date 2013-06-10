@@ -37,7 +37,7 @@ Rectangle{
     Text {
         id: appNameLabel
         text: "MeePasswords"
-        font.pointSize: primaryFontSize
+        font.pointSize: primaryFontSize * 0.8
         font.bold: true
 
         anchors.horizontalCenter: parent.horizontalCenter
@@ -60,7 +60,7 @@ Rectangle{
         anchors.bottom: passwordLabel.top
         anchors.bottomMargin: primaryFontSize * 0.75
         width: parent.width
-        font.pointSize: primaryFontSize
+        font.pointSize: primaryFontSize * 0.7
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
     }
@@ -73,7 +73,7 @@ Rectangle{
         anchors.bottomMargin: primaryFontSize * 0.4
         width: parent.width
 
-        font.pointSize: primaryFontSize * 0.8
+        font.pointSize: primaryFontSize * 0.6
 
         horizontalAlignment: Text.AlignHCenter
         wrapMode: Text.Wrap
