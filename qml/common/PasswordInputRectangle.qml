@@ -41,8 +41,8 @@ Rectangle{
         font.bold: true
 
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: meePasswordsIcon.top
-        anchors.bottomMargin: 0
+        anchors.top: parent.top
+        anchors.topMargin: primaryFontSize
     }
 
     Image {
@@ -50,15 +50,13 @@ Rectangle{
         source: "qrc:/meepasswords_150x150.png"
 
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: descriptionLabel.top
-        anchors.bottomMargin: 0
+        anchors.top: appNameLabel.bottom
     }
 
     Text {
         id: descriptionLabel
         text: "Keep your passwords protected."
-        anchors.bottom: passwordLabel.top
-        anchors.bottomMargin: primaryFontSize * 0.75
+        anchors.top: meePasswordsIcon.bottom
         width: parent.width
         font.pointSize: primaryFontSize * 0.7
         horizontalAlignment: Text.AlignHCenter
@@ -69,8 +67,8 @@ Rectangle{
         id: passwordLabel
 
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: passwordField.top
-        anchors.bottomMargin: primaryFontSize * 0.4
+        anchors.top: descriptionLabel.bottom
+        anchors.topMargin: primaryFontSize * 0.75
         width: parent.width
 
         font.pointSize: primaryFontSize * 0.6
@@ -82,8 +80,8 @@ Rectangle{
     CommonTextField{
         id: passwordField
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: passwordButton.top
-        anchors.bottomMargin: primaryFontSize * 0.4
+        anchors.top: passwordLabel.bottom
+        anchors.topMargin: primaryFontSize * 0.4
         echoMode: TextInput.Password
         width: parent.width * 0.5
         focus: passwordInputRectangle.focus
@@ -95,7 +93,8 @@ Rectangle{
     CommonButton{
         id: passwordButton
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.centerIn: parent
+        anchors.top: passwordField.bottom
+        anchors.topMargin: primaryFontSize * 0.4
         width: parent.width * 0.25
         text: qsTr("OK")
     }
