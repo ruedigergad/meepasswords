@@ -25,7 +25,8 @@ Rectangle {
 
     property alias listView: entryListView
 
-    color: "lightgoldenrodyellow"
+//    color: "lightgoldenrodyellow"
+    color: "white"
 
     Rectangle {
         id: placeHolder
@@ -96,7 +97,7 @@ Rectangle {
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 100
         highlight: Rectangle {
-            height: parent.height
+            height: delegate.height
             width: entryListView.width * 0.98
             anchors.horizontalCenter: parent.horizontalCenter
             radius: primaryBorderSize / 2
@@ -117,7 +118,7 @@ Rectangle {
                 Text {
                     id: sectionText
                     anchors.right: parent.right
-                    anchors.rightMargin: 10
+                    anchors.rightMargin: primaryBorderSize / 2
                     font.pointSize: primaryFontSize
                     font.bold: true
                     text: section
@@ -125,7 +126,7 @@ Rectangle {
                 }
 
                 Rectangle {
-                    height: 1
+                    height: primaryBorderSize / 10
                     color: "gray"
                     anchors.left: parent.left
                     anchors.right: parent.right

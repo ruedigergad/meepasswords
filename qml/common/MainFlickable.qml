@@ -39,6 +39,7 @@ Flickable {
 
         if (!loggedIn) {
             entryStorage.getModel().clear()
+            entryStorage.openStorage();
         } else {
             editEntryRectangle.hide()
         }

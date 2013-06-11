@@ -32,6 +32,7 @@ Rectangle {
 
     property alias text: textEdit.text
     property int textFormat: TextEdit.PlainText
+    property alias pointSize: textEdit.font.pointSize
 
     signal enter()
     signal keyPressed(variant event)

@@ -99,7 +99,8 @@ Rectangle {
 
         Item {
             id: inputArea
-            width: parent.width
+            width: parent.width * 0.975
+            anchors.horizontalCenter: parent.horizontalCenter
             height: column.height
 
             Column {
@@ -115,7 +116,7 @@ Rectangle {
                 Text {
                     id: nameText
                     anchors.left: parent.left
-                    font.pointSize: primaryFontSize * 0.75
+                    font.pointSize: primaryFontSize * 0.6
                     text: "Entry Name"
                 }
                 Row {
@@ -151,7 +152,7 @@ Rectangle {
                 Text {
                     id: categoryText
                     anchors.left: parent.left
-                    font.pointSize: primaryFontSize * 0.75
+                    font.pointSize: primaryFontSize * 0.6
                     text: "Category"
                 }
                 Row {
@@ -181,7 +182,7 @@ Rectangle {
                 Text {
                     id: userNameText
                     anchors.left: parent.left
-                    font.pointSize: primaryFontSize * 0.75
+                    font.pointSize: primaryFontSize * 0.6
                     text: "User Name"
                 }
                 Row {
@@ -224,7 +225,7 @@ Rectangle {
                 Text {
                     id: passwordText
                     anchors.left: parent.left
-                    font.pointSize: primaryFontSize * 0.75
+                    font.pointSize: primaryFontSize * 0.6
                     text: "Password"
                 }
                 Row {
@@ -266,7 +267,7 @@ Rectangle {
                 Text {
                     id: notesLabel
                     text: "Notes"
-                    font.pointSize: primaryFontSize * 0.75
+                    font.pointSize: primaryFontSize * 0.6
                 }
                 CommonTextArea{
                     id: notesInput
@@ -311,7 +312,7 @@ Rectangle {
 
                     CommonToolIcon {
                         id: iconBack
-                        anchors {right: editButton.left; rightMargin: primaryFontSize * 3}
+                        anchors {right: editButton.left; rightMargin: primaryBorderSize}
                         width: saveButton.width
                         iconSource: ":/icons/back.png"
                         opacity: enabled ? 1 : 0.5
@@ -332,7 +333,7 @@ Rectangle {
                     }
                     CommonButton {
                         id: saveButton
-                        anchors {left: editButton.right; leftMargin: primaryFontSize * 3}
+                        anchors {left: editButton.right; leftMargin: primaryBorderSize}
                         text: "Save"
                         enabled: edit || newEntry
                         onClicked: {
