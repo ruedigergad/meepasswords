@@ -52,40 +52,58 @@ CommonDialog {
     }
 
     content: Item {
-        anchors.centerIn: parent
+        anchors.top: parent.top
         width:parent.width
 
-        Text {id: name; text: "Change Password"; font.pointSize: primaryFontSize; font.bold: true; anchors.bottom: oldPasswordLabel.top; anchors.bottomMargin: 30; anchors.horizontalCenter: parent.horizontalCenter; color: "white"}
+        Text {
+            id: name; text: "Change Password"
+            font {pointSize: primaryFontSize * 0.75; bold: true}
+            anchors {top: parent.top; horizontalCenter: parent.horizontalCenter}
+            color: "white"
+        }
 
-        Text {id: oldPasswordLabel; text: "Old Password: "; font.pointSize: primaryFontSize * 0.75; color: "lightgray"; anchors.bottom: oldPasswordInput.top; anchors.horizontalCenter: parent.horizontalCenter}
+        Text {
+            id: oldPasswordLabel; text: "Old Password: "
+            font.pointSize: primaryFontSize * 0.6; color: "lightgray"
+            anchors {top: name.bottom; topMargin: primaryBorderSize / 3; horizontalCenter: parent.horizontalCenter}
+        }
         CommonTextField {
             id: oldPasswordInput;
             width: parent.width * 0.5;
-            anchors.bottom: newPasswordLabel.top;
-            anchors.bottomMargin: 10;
-            anchors.horizontalCenter: parent.horizontalCenter;
+            pointSize: primaryFontSize * 0.6
+            anchors {top: oldPasswordLabel.bottom; topMargin: primaryBorderSize / 8; horizontalCenter: parent.horizontalCenter}
             echoMode: TextInput.Password
         }
 
-        Text {id: newPasswordLabel; text: "New Password: "; font.pointSize: primaryFontSize * 0.75; color: "lightgray"; anchors.bottom: newPasswordInput.top; anchors.horizontalCenter: parent.horizontalCenter}
-        CommonTextField {id: newPasswordInput;
+        Text {
+            id: newPasswordLabel; text: "New Password: ";
+            font.pointSize: primaryFontSize * 0.6; color: "lightgray";
+            anchors {top: oldPasswordInput.bottom; topMargin: primaryBorderSize / 8; horizontalCenter: parent.horizontalCenter}
+        }
+        CommonTextField {
+            id: newPasswordInput;
             width: parent.width * 0.5;
-            anchors.centerIn: parent;
-            anchors.horizontalCenter: parent.horizontalCenter;
-            echoMode: TextInput.Password}
+            pointSize: primaryFontSize * 0.6
+            anchors {top: newPasswordLabel.bottom; topMargin: primaryBorderSize / 8; horizontalCenter: parent.horizontalCenter}
+            echoMode: TextInput.Password
+        }
 
         Text {
             id: confirmPasswordLabel
-            text: "Re-type new Password: "; font.pointSize: primaryFontSize * 0.75; color: "lightgray";
-            anchors {top: newPasswordInput.bottom; horizontalCenter: parent.horizontalCenter}
+            text: "Re-type new Password: "; font.pointSize: primaryFontSize * 0.6; color: "lightgray";
+            anchors {top: newPasswordInput.bottom; topMargin: primaryBorderSize / 8; horizontalCenter: parent.horizontalCenter}
         }
-        CommonTextField {id: confirmPasswordInput;
+        CommonTextField {
+            id: confirmPasswordInput;
             width: parent.width * 0.5;
-            anchors {top: confirmPasswordLabel.bottom; horizontalCenter: parent.horizontalCenter}
+            pointSize: primaryFontSize * 0.6
+            anchors {top: confirmPasswordLabel.bottom; topMargin: primaryBorderSize / 8; horizontalCenter: parent.horizontalCenter}
             echoMode: TextInput.Password
         }
 
-        CommonButton{id: okButton; text: "OK"; anchors.top: confirmPasswordInput.bottom; anchors.topMargin: 30; anchors.horizontalCenter: parent.horizontalCenter
+        CommonButton{
+            id: okButton; text: "OK";
+            anchors {top: confirmPasswordInput.bottom; topMargin: primaryBorderSize / 3; horizontalCenter: parent.horizontalCenter}
             width: cancelButton.width
             onClicked: {
                 if (newPasswordInput.text !== confirmPasswordInput.text) {
@@ -111,7 +129,9 @@ CommonDialog {
             }
         }
 
-        CommonButton{id: cancelButton; text: "Cancel"; anchors.top: okButton.bottom; anchors.topMargin: 15; anchors.horizontalCenter: parent.horizontalCenter
+        CommonButton{
+            id: cancelButton; text: "Cancel";
+            anchors {top: okButton.bottom; topMargin: primaryBorderSize / 8; horizontalCenter: parent.horizontalCenter}
             onClicked: {
                 passwordChangeDialog.close()
             }
