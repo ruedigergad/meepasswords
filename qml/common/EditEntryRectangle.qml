@@ -292,11 +292,11 @@ Rectangle {
 
                 Item {
                     width: parent.width
-                    height: primaryFontSize
+                    height: primaryBorderSize
 
                     Rectangle {
                         anchors.centerIn: parent
-                        height: primaryFontSize / 6
+                        height: primaryBorderSize / 6
                         width: parent.width
 
                         color: "darkgray"

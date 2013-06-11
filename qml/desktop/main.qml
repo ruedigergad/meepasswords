@@ -25,6 +25,7 @@ Rectangle {
     id: main
 
     property int primaryFontSize: 20
+    property int primaryBorderSize: primaryFontSize
 
     onRotationChanged: {
         console.log("Rotation changed...");

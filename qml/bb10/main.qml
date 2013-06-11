@@ -28,6 +28,7 @@ Rectangle {
     color: "lightgray"
 
     property int primaryFontSize: 15
+    property int primaryBorderSize: primaryFontSize * 3
 
     onRotationChanged: {
         console.log("Rotation changed...");

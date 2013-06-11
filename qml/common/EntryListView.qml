@@ -96,9 +96,11 @@ Rectangle {
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 100
         highlight: Rectangle {
-            anchors.fill: entryDelegate
-            radius: height / 4
-            border.width: primaryFontSize / 10
+            height: parent.height
+            width: entryListView.width * 0.98
+            anchors.horizontalCenter: parent.horizontalCenter
+            radius: primaryBorderSize / 2
+            border.width: primaryBorderSize / 10
             border.color: "red"
             color: "transparent"
 //            color: "gray"

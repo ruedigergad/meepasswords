@@ -32,10 +32,10 @@ Rectangle {
     width: text === "" ? height : textItem.width + (primaryFontSize * 2)
     height: textItem.height + (primaryFontSize / 2)
 //    border.width: 1
-    radius: primaryFontSize / 2
+    radius: primaryBorderSize / 2
     smooth: true
 
-    color: "#0e65c8"
+    color: mouseArea.pressed ? "#4ea5f8" : "#0e65c8"
 //    color: text === "" ? "transparent" : "#0e65c8" //"#9acfff"
 
     Text {
@@ -63,7 +63,7 @@ Rectangle {
     states: [
         State {
             name: "pressed"; when: mouseArea.pressed && mouseArea.containsMouse
-            PropertyChanges { target: commonButton; color: commonButton.text === "" ? "gray" : "#2e85d8" } //"#569ffd"
+//            PropertyChanges { target: commonButton; color: commonButton.text === "" ? "gray" : "#2e85d8" } //"#569ffd"
             PropertyChanges { target: textItem; x: textItem.x + 1; y: textItem.y + 1; explicit: true }
         },
         State {

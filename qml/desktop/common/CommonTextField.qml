@@ -25,10 +25,10 @@ Rectangle {
     width: parent.width
     height: textInput.height * 1.5
 
-    border.width: primaryFontSize / 8
+    border.width: primaryBorderSize / 8
     border.color: textInput.focus ? "#0e65c8" : "#4ea5f8"
-    color: enabled ? "white" : "#f0f0f0"
-    radius: primaryFontSize / 2
+    color: enabled ? "white" : "#e0e0e0"
+    radius: primaryBorderSize / 2
     smooth: true
 
     property int echoMode: TextInput.Normal
