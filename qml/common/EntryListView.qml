@@ -120,7 +120,7 @@ Rectangle {
                     anchors.right: parent.right
                     anchors.rightMargin: primaryBorderSize / 2
                     font.pointSize: primaryFontSize
-                    font.bold: true
+//                    font.bold: true
                     text: section
                     color: "gray"
                 }
