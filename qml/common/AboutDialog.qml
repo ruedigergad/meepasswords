@@ -44,7 +44,7 @@ CommonDialog {
            color: "lightgray"}
 
       Text {id: homepage;
-          text: "<a href=\"http://meepasswords.garage.maemo.org\"><img src=\"qrc:/meepasswords_100x100.png\" /></a><br /><a href=\"http://meepasswords.garage.maemo.org\" style=\"text-decoration:none; color:#78bfff\" >Home Page</a>";
+          text: "<a href=\"http://ruedigergad.github.io/meepasswords\"><img src=\"qrc:/meepasswords_100x100.png\" /></a><br /><a href=\"http://ruedigergad.github.io/meepasswords\" style=\"text-decoration:none; color:#78bfff\" >Home Page</a>";
           textFormat: Text.RichText;
           onLinkActivated: { Qt.openUrlExternally(link); }
           font.pointSize: primaryFontSize * 0.6; horizontalAlignment: Text.AlignHCenter;
