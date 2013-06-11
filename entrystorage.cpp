@@ -55,6 +55,7 @@ EntryStorage::EntryStorage(QObject *parent) :
     model = new EntryListModel(this);
     proxyModel = new EntrySortFilterProxyModel(this);
     proxyModel->setSourceModel(model);
+    connect(model, SIGNAL(countChanged(int)), proxyModel, SIGNAL(countChanged(int)));
 
     connect(model, SIGNAL(changed()), this, SLOT(storeModel()));
 

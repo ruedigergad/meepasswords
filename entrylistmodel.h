@@ -32,7 +32,7 @@ class EntryListModel : public QAbstractListModel
 {
     Q_OBJECT
     // Needed to make SectionScroller happy.
-    Q_PROPERTY(int count READ rowCount)
+    Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
 
 public:
     enum EntryRoles {
@@ -72,6 +72,7 @@ public:
 
 signals:
     void changed();
+    void countChanged(int count);
 
 private:
     QList<Entry> m_entries;

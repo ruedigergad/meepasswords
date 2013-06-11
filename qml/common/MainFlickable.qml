@@ -65,7 +65,7 @@ Flickable {
     }
 
     function deleteEntry() {
-        deleteConfirmationDialog.entryId = listView.currentItem.entryIndex
+        deleteConfirmationDialog.entryId = listView.currentItem.entryId
         deleteConfirmationDialog.entryName = listView.currentItem.entryName
         deleteConfirmationDialog.open()
     }
@@ -267,11 +267,11 @@ Flickable {
         message: "Are you sure you want to delete '" + entryName + "'?"
         onAccepted: {
             entryStorage.getModel().removeById(entryId)
-            if (listView.count > 0) {
-                listView.currentIndex = 0
-            } else {
-                listView.currentIndex = -1
-            }
+//            if (listView.count > 0) {
+//                listView.currentIndex = 0
+//            } else {
+//                listView.currentIndex = -1
+//            }
         }
         onOpened: {
             deleteConfirmationDialog.focus = true

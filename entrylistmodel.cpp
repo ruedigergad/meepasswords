@@ -50,6 +50,7 @@ void EntryListModel::add(Entry &entry){
     entry.setId(m_entries.length());
     m_entries << entry;
     endInsertRows();
+    emit countChanged(rowCount());
 }
 
 void EntryListModel::addEntry(Entry &entry){
@@ -100,6 +101,7 @@ void EntryListModel::clear(){
     beginResetModel();
     m_entries.clear();
     endResetModel();
+    emit countChanged(rowCount());
 }
 
 QVariant EntryListModel::data(const QModelIndex &index, int role) const{
@@ -126,6 +128,7 @@ void EntryListModel::remove(int index){
     beginRemoveRows(QModelIndex(), index, index);
     m_entries.removeAt(index);
     endRemoveRows();
+    emit countChanged(rowCount());
 }
 
 void EntryListModel::removeAt(int index){

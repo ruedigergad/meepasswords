@@ -31,7 +31,7 @@ Rectangle {
     Rectangle {
         id: placeHolder
         anchors.fill: parent
-        visible: entryListView.count <= 0
+        visible: entryListView.model.count <= 0
 
         Text {
             id: noEntriesText
@@ -59,34 +59,42 @@ Rectangle {
         anchors.fill: parent
         clip: true
         model: entryStorage.getModel()
-        visible: count > 0
+        visible: model.count
 
         function setData(){
-            editEntryRectangle.index = currentItem.entryIndex
-            editEntryRectangle.category = currentItem.entryCategory
-            editEntryRectangle.name = currentItem.entryName
-            editEntryRectangle.userName = currentItem.entryUserName
-            editEntryRectangle.password = currentItem.entryPassword
-    //            editEntryRectangle.userName = (userName !== "") ? createSimpleLink(userName) : " ";
-    //            editEntryRectangle.password = (password !== "") ? createSimpleLink(password) : " ";
-            editEntryRectangle.notes = currentItem.entryNotes
-    //            editEntryRectangle.notes = beautifyNotes(notes);
+            if (count > 0 && currentIndex >= 0) {
+                editEntryRectangle.index = currentItem.entryIndex
+                editEntryRectangle.category = currentItem.entryCategory
+                editEntryRectangle.name = currentItem.entryName
+                editEntryRectangle.userName = currentItem.entryUserName
+                editEntryRectangle.password = currentItem.entryPassword
+        //            editEntryRectangle.userName = (userName !== "") ? createSimpleLink(userName) : " ";
+        //            editEntryRectangle.password = (password !== "") ? createSimpleLink(password) : " ";
+                editEntryRectangle.notes = currentItem.entryNotes
+        //            editEntryRectangle.notes = beautifyNotes(notes);
+            } else {
+                editEntryRectangle.resetContent()
+            }
         }
 
         onCountChanged: console.log("countChanged: " + count)
         onCurrentIndexChanged: {
-            if (currentIndex < 0) {
-                currentIndex = 0
-            } else if (currentIndex >= count) {
+            if (currentIndex >= count) {
                 currentIndex = count - 1
             }
-            setData()
+
+            if (count > 0 && currentIndex >= 0) {
+                setData()
+            } else {
+                editEntryRectangle.resetContent()
+            }
         }
 
         delegate: EntryDelegate {
             id: entryDelegate
 
             property int entryIndex: index
+            property int entryId: id
             property string entryName: name
             property string entryCategory: category
             property string entryUserName: userName
@@ -97,7 +105,7 @@ Rectangle {
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 100
         highlight: Rectangle {
-            height: delegate.height
+            height: entryListView.delegate.height
             width: entryListView.width * 0.98
             anchors.horizontalCenter: parent.horizontalCenter
             radius: primaryBorderSize / 2

@@ -10,7 +10,7 @@ class EntrySortFilterProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
     // Needed to make SectionScroller happy.
-    Q_PROPERTY(int count READ rowCount)
+    Q_PROPERTY(int count READ rowCount NOTIFY countChanged)
 
 public:
     explicit EntrySortFilterProxyModel(QObject *parent = 0);
@@ -18,6 +18,7 @@ public:
     Q_INVOKABLE QStringList getItemNames() const;
     Q_INVOKABLE void addOrUpdateEntry(QString name, QString category, QString userName, QString password, QString notes, int id);
     Q_INVOKABLE void clear();
+    Q_INVOKABLE void removeAt(int index);
     Q_INVOKABLE void removeById(int id);
 
     // Needed to make SectionScroller happy.
@@ -25,6 +26,9 @@ public:
     Q_INVOKABLE int rowCount(const QModelIndex &parent = QModelIndex()) const {
         return ((EntryListModel*)sourceModel())->rowCount(parent);
     }
+
+signals:
+    void countChanged(int count);
 
 protected:
     bool lessThan(const QModelIndex &left, const QModelIndex &right) const;
