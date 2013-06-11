@@ -39,13 +39,14 @@ CommonDialog {
     }
 
     content: Item {
-        anchors.centerIn: parent
+        anchors.top: parent.top
+        anchors.topMargin: primaryBorderSize
         width:parent.width
 
         Text {
             id: titleText
             font {pointSize: primaryFontSize; bold: true}
-            anchors {bottom: labelText.top; bottomMargin: primaryFontSize; horizontalCenter: parent.horizontalCenter}
+            anchors {top: parent.top; horizontalCenter: parent.horizontalCenter}
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
@@ -54,7 +55,7 @@ CommonDialog {
 
         Text {
             id: labelText; font.pointSize: primaryFontSize * 0.75; color: "lightgray"
-            anchors {bottom: inputField.top; bottomMargin: primaryFontSize * 0.25}
+            anchors {top: titleText.bottom; topMargin: primaryFontSize; horizontalCenter: parent.horizontalCenter}
             width: parent.width
             horizontalAlignment: Text.AlignHCenter
             wrapMode: Text.WordWrap
@@ -63,7 +64,7 @@ CommonDialog {
         CommonTextField {
             id: inputField;
             width: parent.width * 0.75;
-            anchors.centerIn: parent
+            anchors {top: labelText.bottom; topMargin: primaryFontSize * 0.25; horizontalCenter: parent.horizontalCenter}
             focus: true
         }
 
