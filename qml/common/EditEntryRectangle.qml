@@ -27,7 +27,7 @@ Rectangle {
 
     property bool edit: false
     property bool newEntry: false
-    property int index: -1
+    property int entryId: -1
     property bool isShown: false
 
     property alias name: nameInput.text
@@ -48,7 +48,7 @@ Rectangle {
     function resetContent() {
         edit = false
         newEntry = false
-        index = -1
+        entryId = -1
         name = ""
         category = "Default"
         userName = ""
@@ -62,7 +62,7 @@ Rectangle {
                                                  userName,
                                                  password,
                                                  notes,
-                                                 index)
+                                                 entryId)
         hide()
     }
 

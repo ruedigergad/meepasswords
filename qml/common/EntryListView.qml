@@ -63,7 +63,7 @@ Rectangle {
 
         function setData(){
             if (count > 0 && currentIndex >= 0) {
-                editEntryRectangle.index = currentItem.entryIndex
+                editEntryRectangle.entryId = currentItem.entryId
                 editEntryRectangle.category = currentItem.entryCategory
                 editEntryRectangle.name = currentItem.entryName
                 editEntryRectangle.userName = currentItem.entryUserName
