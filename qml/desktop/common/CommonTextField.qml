@@ -23,11 +23,12 @@ Rectangle {
     id: textField
 
     width: parent.width
-    height: textInput.height * 1.8
+    height: textInput.height * 1.5
 
-    border.width: 3
-    border.color: "lightgrey"
-    radius: height/4
+    border.width: primaryFontSize / 8
+    border.color: textInput.focus ? "#0e65c8" : "#4ea5f8"
+    color: enabled ? "white" : "#f0f0f0"
+    radius: primaryFontSize / 2
     smooth: true
 
     property int echoMode: TextInput.Normal
@@ -51,14 +52,6 @@ Rectangle {
         echoMode: textField.echoMode
 
         onTextChanged: textField.textChanged(text)
-
-        onFocusChanged: {
-            if(focus){
-                textField.border.color = "#569ffd";
-            }else{
-                textField.border.color = "lightgray";
-            }
-        }
     }
 
 }

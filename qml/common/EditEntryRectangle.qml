@@ -23,7 +23,7 @@ import meepasswords 1.0
 Rectangle {
     id: editEntryRectangle
 
-    color: "lightgray"
+    color: "white"
 
     property bool edit: false
     property bool newEntry: false
@@ -290,6 +290,20 @@ Rectangle {
                     }
                 }
 
+                Item {
+                    width: parent.width
+                    height: primaryFontSize
+
+                    Rectangle {
+                        anchors.centerIn: parent
+                        height: primaryFontSize / 6
+                        width: parent.width
+
+                        color: "darkgray"
+
+                    }
+                }
+
                 CommonToolBar {
                     id: editToolBar
 
@@ -298,6 +312,7 @@ Rectangle {
                     CommonToolIcon {
                         id: iconBack
                         anchors {right: editButton.left; rightMargin: primaryFontSize * 3}
+                        width: saveButton.width
                         iconSource: ":/icons/back.png"
                         opacity: enabled ? 1 : 0.5
                         onClicked: {

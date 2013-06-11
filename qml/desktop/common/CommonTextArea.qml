@@ -25,8 +25,9 @@ Rectangle {
     height: textEdit.height + textEdit.font.pointSize
 
     border.width: primaryFontSize / 8
-    border.color: "lightgrey"
-    radius: textEdit.font.pointSize * 0.75
+    border.color: textEdit.focus ? "#0e65c8" : "#4ea5f8"
+    color: enabled ? "white" : "#f0f0f0"
+    radius: primaryFontSize / 2
     smooth: true
 
     property alias text: textEdit.text
@@ -56,10 +57,7 @@ Rectangle {
 
         onFocusChanged: {
             if(focus){
-                textArea.border.color = "#569ffd";
                 textEdit.cursorPosition = textEdit.text.length
-            }else{
-                textArea.border.color = "lightgray";
             }
         }
     }

@@ -184,12 +184,14 @@ Flickable {
                         id: toolBar
 
                         anchors {left: parent.left; right: parent.right; bottom: parent.bottom}
-                        height: meePasswordsToolBar.height
+                        height: meePasswordsToolBar.height * 1.25
 
                         color: "lightgray"
 
                         MeePasswordsToolBar {
                             id: meePasswordsToolBar
+                            width: parent.width * 0.9
+                            anchors.centerIn: parent
                         }
                     }
                 }
@@ -212,11 +214,13 @@ Flickable {
     AboutDialog {
         id: aboutDialog
         parent: main
+        onClosed: entryListView.focus = true
     }
 
     PasswordChangeDialog {
         id: passwordChangeDialog
         parent: main
+        onClosed: entryListView.focus = true
     }
 
     EntryStorage {
