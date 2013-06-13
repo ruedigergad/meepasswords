@@ -68,6 +68,8 @@ EntryStorage::~EntryStorage(){
     }
 #endif
 */
+    key.clear();
+
     if(initializer != NULL){
         delete initializer;
     }
@@ -124,24 +126,11 @@ void EntryStorage::loadAndDecryptData(){
     }
 
     if(storageFile.open(QIODevice::ReadOnly)){
-        QByteArray firstLine = storageFile.readLine();
-
-        if (! firstLine.startsWith(STORAGE_IDENTIFIER)) {
-            qDebug("No storage identifier found.");
-            useStorageIdentifier = false;
-            storageFile.reset();
+        if (hasStorageIdentifierLine()) {
+            qDebug("Storage identifier found. Skipping first line for loading encrypted data.");
+            storageFile.readLine();
         } else {
-            qDebug() << "Found storage identifier in first line: " << firstLine;
-            QList<QByteArray> identifierElements = firstLine.split('\t');
-
-            if (identifierElements.length() != 3) {
-                emit operationFailed("Decryption failed! Storage identifier length not 3.");
-                return;
-            }
-
-            useStorageIdentifier = true;
-            passwordSalt = QCA::InitializationVector(identifierElements.at(1));
-            cbcIv = QCA::InitializationVector(identifierElements.at(2));
+            qDebug("No storage identifier found.");
         }
 
         encryptedData = storageFile.readAll();
@@ -157,11 +146,16 @@ void EntryStorage::loadAndDecryptData(){
     QCA::MemoryRegion tempInput(encryptedData);
 
     qDebug("Create cipher for decrypting.");
-    QCA::Cipher cipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Decode, key);
+    QCA::Cipher *cipher;
+    if (useStorageIdentifier) {
+        cipher = new QCA::Cipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Decode, key, cbcIv);
+    } else {
+        cipher = new QCA::Cipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Decode, key);
+    }
 
     qDebug("Perform decryption.");
-    QByteArray decrypted = cipher.process(tempInput).toByteArray();
-    if(!cipher.ok()){
+    QByteArray decrypted = cipher->process(tempInput).toByteArray();
+    if(!cipher->ok()){
         QString msg = "Decryption failed.";
         qErrnoWarning(msg.toUtf8().constData());
         emit decryptionFailed();
@@ -232,6 +226,61 @@ void EntryStorage::migrateSymmetricKey(QString password){
     qDebug("SymmetricKey migration: nothing to do.");
 }
 
+void EntryStorage::migrateStorageIdentifier(QString password){
+    if (hasStorageIdentifierLine()) {
+        qDebug("Storage identifier line found, not migrating.");
+        return;
+    }
+
+    QByteArray encryptedData;
+
+    qDebug("StorageIdentifier migration: Opening storage file for reading...");
+#ifdef MEEGO_EDITION_HARMATTAN
+    QString storagePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString(DEFAULT_STORAGE) + ENCRYPTED_FILE;
+#else
+    QString storagePath = QDir::homePath() + "/." + DEFAULT_STORAGE + ENCRYPTED_FILE;
+#endif
+    qDebug("StorageIdentifier migration: using file: %s", storagePath.toUtf8().constData());
+    QFile storageFile(storagePath);
+
+    if(! storageFile.exists()){
+        qDebug("StorageIdentifier migration: we have a new file...");
+        return;
+    }
+
+    if(storageFile.open(QIODevice::ReadOnly)){
+        encryptedData = storageFile.readAll();
+        storageFile.close();
+    }else{
+        qDebug("StorageIdentifier migration: Failed to open storage file for reading...");
+        emit storageOpenError();
+        return;
+    }
+    qDebug("StorageIdentifier migration: file successfully read.");
+    qDebug("StorageIdentifier migration: read %d bytes.", encryptedData.size());
+    QCA::MemoryRegion tempInput(encryptedData);
+
+    qDebug("Checking if we need to migrate the password.");
+    qDebug("StorageIdentifier migration: symmetric key the old way.");
+    key = QCA::SymmetricKey(hashPassword(password));
+
+    qDebug("StorageIdentifier migration: create old cipher for decrypting.");
+    QCA::Cipher oldCipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Decode, key);
+    qDebug("StorageIdentifier migration: perform decryption.");
+    QByteArray oldDecrypted = oldCipher.process(tempInput).toByteArray();
+    if(oldCipher.ok()){
+        qDebug("StorageIdentifier migration: decryption succeeded. We are now going to store the data using the new key.");
+        passwordSalt = QCA::InitializationVector(KEY_GEN_IV_LENGTH);
+        key = QCA::PBKDF2().makeKey(hashPassword(password), passwordSalt, KEY_GEN_LENGTH, KEY_GEN_ITERATIONS);
+        useStorageIdentifier = true;
+        encryptAndStoreData(oldDecrypted);
+        qDebug("StorageIdentifier migration: done.");
+        return;
+    }
+
+    qDebug("StorageIdentifier migration: nothing to do.");
+}
+
 void EntryStorage::openStorage(){
 
 #ifdef MEEGO_EDITION_HARMATTAN
@@ -255,8 +304,16 @@ void EntryStorage::openStorage(){
 }
 
 void EntryStorage::setPassword(QString password){
+    if (password.isEmpty() || password == "") {
+        qDebug("Clearing key.");
+        key.clear();
+        return;
+    }
+
     qDebug("Creating password hash.");
     QCA::SecureArray passwordHash = hashPassword(password);
+
+    useStorageIdentifier = hasStorageIdentifierLine();
 
     qDebug("Creating symmetric key.");
     if (useStorageIdentifier) {
@@ -264,8 +321,8 @@ void EntryStorage::setPassword(QString password){
         key = QCA::PBKDF2().makeKey(passwordHash, passwordSalt, KEY_GEN_LENGTH, KEY_GEN_ITERATIONS);
         qDebug() << "Generated key with size: " << key.size();
     } else {
-        qDebug("Using old password method hash only.");
-        key = QCA::SymmetricKey(passwordHash);
+        qDebug("Migrating the storage.");
+        migrateStorageIdentifier(password);
     }
 }
 
@@ -290,11 +347,17 @@ void EntryStorage::encryptAndStoreData(const QByteArray rawData){
     QCA::MemoryRegion data(rawData);
 
     qDebug("Create cipher.");
-    QCA::Cipher cipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Encode, key);
+    QCA::Cipher *cipher;
+    if (useStorageIdentifier) {
+        cbcIv = QCA::InitializationVector(CBC_IV_LENGTH);
+        cipher = new QCA::Cipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Encode, key, cbcIv);
+    } else {
+        cipher = new QCA::Cipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Encode, key);
+    }
 
     qDebug("Encrypt data.");
-    QByteArray encrypted = cipher.process(data).toByteArray();
-    if(!cipher.ok()){
+    QByteArray encrypted = cipher->process(data).toByteArray();
+    if(!cipher->ok()){
         QString msg = "Encryption failed.";
         qErrnoWarning(msg.toUtf8().constData());
         emit operationFailed(msg);
@@ -310,6 +373,18 @@ void EntryStorage::encryptAndStoreData(const QByteArray rawData){
 #endif
     if(storageFile.isOpen() || storageFile.open(QIODevice::ReadWrite)){
         storageFile.resize(0);
+
+        if (useStorageIdentifier) {
+            qDebug("Writing storage identifier line.");
+            storageFile.write(STORAGE_IDENTIFIER);
+            storageFile.write("\t");
+            storageFile.write(passwordSalt.toByteArray().toBase64());
+            storageFile.write("\t");
+            storageFile.write(cbcIv.toByteArray().toBase64());
+            storageFile.write(CSV_NL);
+            qDebug("Wrote storage identifier line.");
+        }
+
         int count = storageFile.write(encrypted);
         qDebug("%d bytes written.", count);
         storageFile.close();
@@ -377,4 +452,47 @@ bool EntryStorage::canDecrypt(QString password){
     qDebug("canDecrypt(): Perform decryption.");
     cipher.process(tempInput).toByteArray();
     return cipher.ok();
+}
+
+bool EntryStorage::hasStorageIdentifierLine() {
+    qDebug("Checking existance of storage identifier line...");
+    bool ret = false;
+
+#ifdef MEEGO_EDITION_HARMATTAN
+    QString storagePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString(DEFAULT_STORAGE) + ENCRYPTED_FILE;
+#else
+    QString storagePath = QDir::homePath() + "/." + DEFAULT_STORAGE + ENCRYPTED_FILE;
+#endif
+    qDebug("Using file: %s", storagePath.toUtf8().constData());
+    QFile storageFile(storagePath);
+
+    if(! storageFile.exists()){
+        qDebug("Seems we have a new file...");
+        return false;
+    }
+
+    if(storageFile.open(QIODevice::ReadOnly)){
+        QByteArray firstLine = storageFile.readLine();
+
+        if (! firstLine.startsWith(STORAGE_IDENTIFIER)) {
+            qDebug("No storage identifier found.");
+            ret = false;
+        } else {
+            qDebug() << "Found storage identifier in first line: " << firstLine;
+            QList<QByteArray> identifierElements = firstLine.split('\t');
+
+            if (identifierElements.length() != 3) {
+                emit operationFailed("Failed! Storage identifier length not 3.");
+                return false;
+            }
+
+            ret = true;
+            useStorageIdentifier = true;
+            passwordSalt = QCA::InitializationVector(QByteArray::fromBase64(identifierElements.at(1)));
+            cbcIv = QCA::InitializationVector(QByteArray::fromBase64(identifierElements.at(2)));
+        }
+    }
+    storageFile.close();
+
+    return ret;
 }

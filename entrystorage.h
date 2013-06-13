@@ -45,6 +45,8 @@
 #define STORAGE_IDENTIFIER "meepasswords_storage"
 #define KEY_GEN_ITERATIONS 10000
 #define KEY_GEN_LENGTH 16
+#define KEY_GEN_IV_LENGTH 16
+#define CBC_IV_LENGTH 32
 
 class EntryStorage : public QObject
 {
@@ -65,6 +67,8 @@ public:
     Q_INVOKABLE bool canDecrypt(QString password);
 
     Q_INVOKABLE void loadAndDecryptData();
+
+    Q_INVOKABLE void migrateStorageIdentifier(QString password);
 
 signals:
     void decryptionFailed();
@@ -92,8 +96,8 @@ private:
 #endif
 */
     void encryptAndStoreData(const QByteArray rawData);
+    bool hasStorageIdentifierLine();
     void migrateSymmetricKey(QString password);
-    void migrateStorageIdentifier(QString password);
 
     bool useStorageIdentifier;
     QCA::InitializationVector passwordSalt;
