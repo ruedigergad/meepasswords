@@ -112,6 +112,7 @@ Rectangle {
             border.width: primaryBorderSize / 10
             border.color: "red"
             color: "transparent"
+            smooth: true
 //            color: "gray"
 //            opacity: 0.5
         }
@@ -121,12 +122,13 @@ Rectangle {
             criteria: ViewSection.FullString
             delegate: Item {
                 width: parent.width
-                height: sectionText.height
+                height: sectionText.height * 1.25
 
                 Text {
                     id: sectionText
                     anchors.right: parent.right
                     anchors.rightMargin: primaryBorderSize / 2
+                    anchors.bottom: underLine.top
                     font.pointSize: primaryFontSize
 //                    font.bold: true
                     text: section
@@ -134,6 +136,7 @@ Rectangle {
                 }
 
                 Rectangle {
+                    id: underLine
                     height: primaryBorderSize / 10
                     color: "gray"
                     anchors.left: parent.left

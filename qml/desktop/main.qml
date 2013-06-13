@@ -24,7 +24,7 @@ import "../common"
 Rectangle {
     id: main
 
-    property int primaryFontSize: 20
+    property int primaryFontSize: 16
     property int primaryBorderSize: primaryFontSize
 
     onRotationChanged: {
