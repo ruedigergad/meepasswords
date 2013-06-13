@@ -33,7 +33,8 @@
 #include "keepassxmlstreamwriter.h"
 
 EntryStorage::EntryStorage(QObject *parent) :
-    QObject(parent)
+    QObject(parent),
+    useStorageIdentifier(false)
 {
 /*
 #ifdef MEEGO_EDITION_HARMATTAN
@@ -105,6 +106,7 @@ void EntryStorage::loadAndDecryptDataUsingHash(QString hash){
 void EntryStorage::loadAndDecryptDataUsingPassword(QString password){
     setPassword(password);
     migrateSymmetricKey(password);
+    migrateStorageIdentifier(password);
     loadAndDecryptData();
 }
 
@@ -126,7 +128,7 @@ void EntryStorage::loadAndDecryptData(){
     }
 
     if(storageFile.open(QIODevice::ReadOnly)){
-        if (hasStorageIdentifierLine()) {
+        if (useStorageIdentifier) {
             qDebug("Storage identifier found. Skipping first line for loading encrypted data.");
             storageFile.readLine();
         } else {
