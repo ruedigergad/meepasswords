@@ -171,6 +171,10 @@ void EntryStorage::loadAndDecryptData(){
     qDebug("Going to add entries to model...");
     model->addFromByteArray(decrypted);
 
+    qDebug("Decryption successful, creating backup, just in case.");
+    QFile::remove(storagePath + BACKUP_SUFFIX);
+    QFile::copy(storagePath, storagePath + BACKUP_SUFFIX);
+
     qDebug("Emitting decryptionSuccess() signal...");
     emit decryptionSuccess();
 }

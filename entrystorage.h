@@ -34,6 +34,7 @@
 #include "entrylistmodel.h"
 #include "entrysortfilterproxymodel.h"
 
+#define BACKUP_SUFFIX ".backup"
 #define DEFAULT_STORAGE "MeePasswords_DefaultStorage"
 #define ENCRYPTED_FILE "/encrypted.raw"
 #define CIPHER_TYPE "aes256"
