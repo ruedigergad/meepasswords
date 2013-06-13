@@ -273,7 +273,7 @@ Rectangle {
                     id: notesInput
                     width: parent.width
                     enabled: edit || newEntry
-                    textFormat: Text.RichText
+                    textFormat: Text.PlainText
 
                     Keys.onTabPressed: nameInput.focus = true
                     Keys.onBacktabPressed: passwordInput.focus = true
