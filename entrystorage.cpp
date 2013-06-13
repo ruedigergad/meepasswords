@@ -58,8 +58,6 @@ EntryStorage::EntryStorage(QObject *parent) :
     connect(model, SIGNAL(countChanged(int)), proxyModel, SIGNAL(countChanged(int)));
 
     connect(model, SIGNAL(changed()), this, SLOT(storeModel()));
-
-    key = NULL;
 }
 
 EntryStorage::~EntryStorage(){
@@ -70,9 +68,6 @@ EntryStorage::~EntryStorage(){
     }
 #endif
 */
-    if(key != NULL){
-        delete key;
-    }
     if(initializer != NULL){
         delete initializer;
     }
@@ -83,11 +78,11 @@ EntryStorage::~EntryStorage(){
 }
 
 bool EntryStorage::equalsStoredHash(QString hash){
-    return (key != NULL && *key == QCA::SymmetricKey(QByteArray::fromBase64(QByteArray().append(hash))));
+    return (key == QCA::SymmetricKey(QByteArray::fromBase64(QByteArray().append(hash))));
 }
 
 bool EntryStorage::equalsStoredPassword(QString password){
-    return (key != NULL && *key == QCA::SymmetricKey(hashPassword(password)));
+    return (key == QCA::SymmetricKey(hashPassword(password)));
 }
 
 QString EntryStorage::getBase64Hash(QString password){
@@ -99,12 +94,8 @@ QCA::SecureArray EntryStorage::hashPassword(QString password){
 }
 
 void EntryStorage::loadAndDecryptDataUsingHash(QString hash){
-    if(key != NULL){
-        delete key;
-    }
-
     qDebug("Creating symmetric key from given hash.");
-    key = new QCA::SymmetricKey(QByteArray::fromBase64(QByteArray().append(hash)));
+    key = QCA::SymmetricKey(QByteArray::fromBase64(QByteArray().append(hash)));
 
     loadAndDecryptData();
 }
@@ -137,9 +128,20 @@ void EntryStorage::loadAndDecryptData(){
 
         if (! firstLine.startsWith(STORAGE_IDENTIFIER)) {
             qDebug("No storage identifier found.");
+            useStorageIdentifier = false;
             storageFile.reset();
         } else {
             qDebug() << "Found storage identifier in first line: " << firstLine;
+            QList<QByteArray> identifierElements = firstLine.split('\t');
+
+            if (identifierElements.length() != 3) {
+                emit operationFailed("Decryption failed! Storage identifier length not 3.");
+                return;
+            }
+
+            useStorageIdentifier = true;
+            passwordSalt = QCA::InitializationVector(identifierElements.at(1));
+            cbcIv = QCA::InitializationVector(identifierElements.at(2));
         }
 
         encryptedData = storageFile.readAll();
@@ -155,7 +157,7 @@ void EntryStorage::loadAndDecryptData(){
     QCA::MemoryRegion tempInput(encryptedData);
 
     qDebug("Create cipher for decrypting.");
-    QCA::Cipher cipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Decode, *key);
+    QCA::Cipher cipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Decode, key);
 
     qDebug("Perform decryption.");
     QByteArray decrypted = cipher.process(tempInput).toByteArray();
@@ -253,14 +255,18 @@ void EntryStorage::openStorage(){
 }
 
 void EntryStorage::setPassword(QString password){
-    if(key != NULL){
-        delete key;
-    }
-
     qDebug("Creating password hash.");
     QCA::SecureArray passwordHash = hashPassword(password);
+
     qDebug("Creating symmetric key.");
-    key = new QCA::SymmetricKey(passwordHash);
+    if (useStorageIdentifier) {
+        qDebug("Creating key via PBKDF2.");
+        key = QCA::PBKDF2().makeKey(passwordHash, passwordSalt, KEY_GEN_LENGTH, KEY_GEN_ITERATIONS);
+        qDebug() << "Generated key with size: " << key.size();
+    } else {
+        qDebug("Using old password method hash only.");
+        key = QCA::SymmetricKey(passwordHash);
+    }
 }
 
 
@@ -275,7 +281,7 @@ void EntryStorage::storeModel(){
 void EntryStorage::encryptAndStoreData(const QByteArray rawData){
     qDebug("Entering encryptAndStoreData...");
 
-    if(*key == QCA::SymmetricKey(hashPassword(""))){
+    if(key == QCA::SymmetricKey(hashPassword(""))){
         qDebug("Warning: attempted to store data with an unset or empty password.\nData will not be saved.");
         return;
     }
@@ -284,7 +290,7 @@ void EntryStorage::encryptAndStoreData(const QByteArray rawData){
     QCA::MemoryRegion data(rawData);
 
     qDebug("Create cipher.");
-    QCA::Cipher cipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Encode, *key);
+    QCA::Cipher cipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Encode, key);
 
     qDebug("Encrypt data.");
     QByteArray encrypted = cipher.process(data).toByteArray();
@@ -366,7 +372,7 @@ bool EntryStorage::canDecrypt(QString password){
     QCA::MemoryRegion tempInput(encryptedData);
 
     qDebug("canDecrypt(): Create cipher for decrypting.");
-    QCA::Cipher cipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Decode, *key);
+    QCA::Cipher cipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Decode, key);
 
     qDebug("canDecrypt(): Perform decryption.");
     cipher.process(tempInput).toByteArray();

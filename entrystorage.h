@@ -43,6 +43,8 @@
 #define PASSWORD_HASH_ALGORITHM "sha256"
 #define RANDOM_KEY_LENGTH 16
 #define STORAGE_IDENTIFIER "meepasswords_storage"
+#define KEY_GEN_ITERATIONS 10000
+#define KEY_GEN_LENGTH 16
 
 class EntryStorage : public QObject
 {
@@ -91,11 +93,16 @@ private:
 */
     void encryptAndStoreData(const QByteArray rawData);
     void migrateSymmetricKey(QString password);
+    void migrateStorageIdentifier(QString password);
+
+    bool useStorageIdentifier;
+    QCA::InitializationVector passwordSalt;
+    QCA::InitializationVector cbcIv;
 
     QCA::SecureArray hashPassword(QString password);
 
     QCA::Initializer *initializer;
-    QCA::SymmetricKey *key;
+    QCA::SymmetricKey key;
 
     EntryListModel *model;
     EntrySortFilterProxyModel *proxyModel;
