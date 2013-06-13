@@ -193,6 +193,7 @@ void EntryStorage::migrateSymmetricKey(QString password){
         storageFile.close();
     }else{
         qDebug("Failed to open storage file for reading...");
+        emit storageOpenError();
         return;
     }
     qDebug("SymmetricKey migration: file successfully read.");

@@ -67,6 +67,7 @@ signals:
 
     void operationFailed(QString message);
 
+    void storageOpenError();
     void storageOpenSuccess();
     void storageOpenSuccessNewPassword();
 
