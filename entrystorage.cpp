@@ -36,12 +36,6 @@ EntryStorage::EntryStorage(QObject *parent) :
     QObject(parent),
     useStorageIdentifier(false)
 {
-/*
-#ifdef MEEGO_EDITION_HARMATTAN
-    aegisStorage = NULL;
-#endif
-*/
-
     qDebug("Initializing QCA...");
     initializer = new QCA::Initializer(QCA::Practical, 256);
     qDebug("QCA initialized.");
@@ -62,13 +56,6 @@ EntryStorage::EntryStorage(QObject *parent) :
 }
 
 EntryStorage::~EntryStorage(){
-/*
-#ifdef MEEGO_EDITION_HARMATTAN
-    if(aegisStorage != NULL){
-        delete aegisStorage;
-    }
-#endif
-*/
     key.clear();
 
     if(initializer != NULL){
