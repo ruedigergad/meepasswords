@@ -68,11 +68,11 @@ EntryStorage::~EntryStorage(){
 }
 
 bool EntryStorage::equalsStoredHash(QString hash){
-    return (key == QCA::SymmetricKey(QByteArray::fromBase64(QByteArray().append(hash))));
+    return (key == QCA::PBKDF2().makeKey(hash.toAscii(), passwordSalt, KEY_GEN_LENGTH, KEY_GEN_ITERATIONS));
 }
 
 bool EntryStorage::equalsStoredPassword(QString password){
-    return (key == QCA::SymmetricKey(hashPassword(password)));
+    return (key == QCA::PBKDF2().makeKey(hashPassword(password), passwordSalt, KEY_GEN_LENGTH, KEY_GEN_ITERATIONS));
 }
 
 QString EntryStorage::getBase64Hash(QString password){
