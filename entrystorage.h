@@ -41,6 +41,7 @@
 #define CIPHER_PADDING QCA::Cipher::PKCS7
 #define PASSWORD_HASH_ALGORITHM "sha256"
 #define RANDOM_KEY_LENGTH 16
+#define STORAGE_IDENTIFIER "meepasswords_storage"
 
 class EntryStorage : public QObject
 {

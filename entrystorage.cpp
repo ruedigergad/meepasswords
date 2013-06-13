@@ -133,6 +133,15 @@ void EntryStorage::loadAndDecryptData(){
     }
 
     if(storageFile.open(QIODevice::ReadOnly)){
+        QByteArray firstLine = storageFile.readLine();
+
+        if (! firstLine.startsWith(STORAGE_IDENTIFIER)) {
+            qDebug("No storage identifier found.");
+            storageFile.reset();
+        } else {
+            qDebug() << "Found storage identifier in first line: " << firstLine;
+        }
+
         encryptedData = storageFile.readAll();
         storageFile.close();
     }else{
