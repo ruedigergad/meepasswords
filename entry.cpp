@@ -24,7 +24,8 @@ Entry::Entry(QObject *parent) :
 {
 }
 
-Entry::Entry(QString name, QString category, QString userName, QString password, QString notes, int id, QObject *parent) :
+Entry::Entry(QString name, QString category, QString userName, QString password,
+             QString notes, int id, QUuid uuid, QDateTime mtime, QObject *parent) :
     QObject(parent)
 {
     m_name = name.trimmed();
@@ -33,6 +34,8 @@ Entry::Entry(QString name, QString category, QString userName, QString password,
     m_password = password.trimmed();
     m_notes = notes;
     m_id = id;
+    m_uuid = uuid;
+    m_mtime = mtime;
 }
 
 Entry::Entry(const Entry &obj, QObject *parent) :

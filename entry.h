@@ -22,6 +22,8 @@
 
 #include <QObject>
 #include <QString>
+#include <QUuid>
+#include <QDateTime>
 
 class Entry : public QObject
 {
@@ -32,10 +34,14 @@ class Entry : public QObject
     Q_PROPERTY(QString notes READ notes WRITE setNotes NOTIFY notesChanged)
     Q_PROPERTY(QString userName READ userName WRITE setUserName NOTIFY userNameChanged)
     Q_PROPERTY(int id READ id NOTIFY idChanged)
+    Q_PROPERTY(QString uuid READ uuid)
+    Q_PROPERTY(QString mtime READ mtime NOTIFY mtimeChanged)
 
 public:
     Entry(QObject *parent = 0);
-    Entry(QString name, QString category, QString userName, QString password, QString notes, int id, QObject *parent = 0);
+    Entry(QString name, QString category, QString userName, QString password,
+          QString notes, int id, QUuid uuid = QUuid(), QDateTime mtime = QDateTime::currentDateTimeUtc(),
+          QObject *parent = 0);
     Entry(const Entry &obj, QObject *parent = 0);
 
     Entry& operator = (const Entry &e);
@@ -46,30 +52,44 @@ public:
     QString name() const { return m_name; }
     QString userName() const { return m_userName; }
     int id() const { return m_id; }
+    QString uuid() const { return m_uuid.toString(); }
+    QString mtime() const { return m_mtime.toString(Qt::ISODate); }
 
     void setCategory(QString category){
         m_category = category;
+        m_mtime = QDateTime::currentDateTimeUtc();
         emit categoryChanged(category);
+        emit mtimeChanged(mtime());
     }
     void setPassword(QString password){
         m_password = password;
+        m_mtime = QDateTime::currentDateTimeUtc();
         emit passwordChanged(password);
+        emit mtimeChanged(mtime());
     }
     void setName(QString name){
         m_name = name;
+        m_mtime = QDateTime::currentDateTimeUtc();
         emit nameChanged(name);
+        emit mtimeChanged(mtime());
     }
     void setNotes(QString notes){
         m_notes = notes;
+        m_mtime = QDateTime::currentDateTimeUtc();
         emit notesChanged(notes);
+        emit mtimeChanged(mtime());
     }
     void setUserName(QString userName){
         m_userName = userName;
+        m_mtime = QDateTime::currentDateTimeUtc();
         emit userNameChanged(userName);
+        emit mtimeChanged(mtime());
     }
     void setId(int id){
         m_id = id;
+        m_mtime = QDateTime::currentDateTimeUtc();
         emit idChanged(id);
+        emit mtimeChanged(mtime());
     }
 
 signals:
@@ -79,6 +99,7 @@ signals:
     void notesChanged(QString);
     void userNameChanged(QString);
     void idChanged(int);
+    void mtimeChanged(QString);
 
 private:
     QString m_category;
@@ -87,6 +108,8 @@ private:
     QString m_notes;
     QString m_userName;
     int m_id;
+    QUuid m_uuid;
+    QDateTime m_mtime;
 
 };
 

@@ -37,11 +37,13 @@ class EntryListModel : public QAbstractListModel
 public:
     enum EntryRoles {
         NameRole = Qt::UserRole + 1,
-        CategoryRole = Qt::UserRole + 2,
-        UserNameRole = Qt::UserRole + 3,
-        PasswordRole = Qt::UserRole + 4,
-        NotesRole = Qt::UserRole + 5,
-        IdRole = Qt::UserRole + 6
+        CategoryRole,
+        UserNameRole,
+        PasswordRole,
+        NotesRole,
+        IdRole,
+        UuidRole,
+        MtimeRole
     };
 
     EntryListModel(QObject *parent = 0);

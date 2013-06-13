@@ -42,6 +42,8 @@ EntryListModel::EntryListModel(QObject *parent) :
     roles[PasswordRole] = "password";
     roles[NotesRole] = "notes";
     roles[IdRole] = "id";
+    roles[UuidRole] = "uuid";
+    roles[MtimeRole] = "mtime";
     setRoleNames(roles);
 }
 
@@ -121,6 +123,10 @@ QVariant EntryListModel::data(const QModelIndex &index, int role) const{
         return entry.notes();
     else if (role == IdRole)
         return entry.id();
+    else if (role == UuidRole)
+        return entry.uuid();
+    else if (role == MtimeRole)
+        return entry.mtime();
     return QVariant();
 }
 
