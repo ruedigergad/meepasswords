@@ -61,6 +61,8 @@ public:
     Q_INVOKABLE QString getRandomKeyAsString();
     Q_INVOKABLE bool canDecrypt(QString password);
 
+    Q_INVOKABLE void loadAndDecryptData();
+
 signals:
     void decryptionFailed();
     void decryptionSuccess();
@@ -88,7 +90,6 @@ private:
 */
     void encryptAndStoreData(const QByteArray rawData);
     void migrateSymmetricKey(QString password);
-    void loadAndDecryptData();
 
     QCA::SecureArray hashPassword(QString password);
 

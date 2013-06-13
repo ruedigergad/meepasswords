@@ -101,11 +101,11 @@ Flickable {
             width: mainFlickable.width
 
             onPasswordEntered: {
+                entryStorage.setPassword(password)
                 if (newStorage) {
-                    entryStorage.setPassword(password)
                     loggedIn = true
                 } else {
-                    entryStorage.loadAndDecryptDataUsingPassword(password)
+                    entryStorage.loadAndDecryptData()
                 }
             }
         }
