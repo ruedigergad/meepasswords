@@ -209,85 +209,17 @@ void EntryStorage::migrateSymmetricKey(QString password){
     if(oldCipher.ok()){
         qDebug("SymmetricKey migration: decryption succeeded. We are now going to store the data using the new key.");
         encryptAndStoreData(oldDecrypted);
-    }else{
-        qDebug("SymmetricKey migration: nothing to do.");
+        qDebug("SymmetricKey migration: done.");
+        return;
     }
-    qDebug("SymmetricKey migration: done.");
+
+    qDebug("SymmetricKey migration: nothing to do.");
 }
-
-/*
-#ifdef MEEGO_EDITION_HARMATTAN
-bool EntryStorage::migrateStorage(){
-    QByteArray encryptedData;
-
-    void *raw_data;
-    size_t length;
-
-    int ret = aegisStorage->get_file(ENCRYPTED_FILE, &raw_data, &length);
-    if(ret != 0){
-        QString msg;
-        QTextStream(&msg) << "Error opening encrypted file from storage for data migration: " << ret;
-        qErrnoWarning(msg.toUtf8().constData());
-        emit operationFailed(msg);
-        return false;
-    }else if(length == 0){
-        qDebug("Empty file...");
-        emit newFileOpened();
-        return false;
-    }
-
-    encryptedData = QByteArray((char *) raw_data, length);
-    qDebug("Read %d bytes of data. Going to store data at new location.", length);
-
-    QFile storageFile(QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString("/") + QString(DEFAULT_STORAGE) + QString(ENCRYPTED_FILE));
-
-    if(storageFile.isOpen() || storageFile.open(QIODevice::ReadWrite)){
-        storageFile.resize(0);
-        int count = storageFile.write(encryptedData);
-        qDebug("%d bytes written to new location.", count);
-        storageFile.close();
-    }else{
-        QString msg = "Failed to open storage file for writing during migration...";
-        qErrnoWarning(msg.toUtf8().constData());
-        emit operationFailed(msg);
-        return false;
-    }
-    qDebug("Data successfully migrated.");
-    return true;
-}
-#endif
-*/
 
 void EntryStorage::openStorage(){
 
 #ifdef MEEGO_EDITION_HARMATTAN
     QString storageDirPath = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString(DEFAULT_STORAGE);
-
-//    QDir storageDir(storageDirPath);
-
-//    if(! storageDir.exists()){
-//        /*
-//         * Going to migrate data from Aegis to a location in the file system.
-//         * This operation is quite risky as we are messing with live data and probably have only one shot.
-//         */
-//        QDir().mkpath(storageDirPath);
-//        aegisStorage = new aegis::storage(DEFAULT_STORAGE, NULL, aegis::storage::vis_private, aegis::storage::prot_encrypted);
-
-//        if(aegisStorage->status() == aegis::storage::writable){
-//            qDebug("Success opening storage for writing.");
-
-//            if(aegisStorage->contains_file(ENCRYPTED_FILE)){
-//                qDebug("Found existing file. Going to migrate file to new location.");
-
-//                /*
-//                 * Remove directory if an error occured to notify us on the next start that we need to try again.
-//                 */
-//                if(! migrateStorage()){
-//                    QDir().rmdir(storageDirPath);
-//                }
-//            }
-//        }
-//    }
 #else
     QString storageDirPath = QDir::home().absolutePath() + QString("/.") + QString(DEFAULT_STORAGE);
 #endif
