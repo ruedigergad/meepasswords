@@ -78,6 +78,7 @@ signals:
 
 private:
     QList<Entry> m_entries;
+    QStringList m_deleted;
 
     /**
       * Adds an entry to the list. While updating the model this method does <b>not</b> emit the changed() signal.

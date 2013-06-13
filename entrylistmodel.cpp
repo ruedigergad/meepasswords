@@ -82,8 +82,17 @@ void EntryListModel::addFromByteArray(QByteArray &data){
         return;
     }
 
-    qDebug("Beginning to insert data into model.");
+    qDebug("Looking for list of deleted entries.");
+    if (line.startsWith("deleted:")) {
+        line.remove(0, QString("deleted:").length());
 
+        m_deleted << line.split(CSV_SEP);
+        qDebug() << "Got list of deleted entries: " << m_deleted;
+
+        line = in.readLine();
+    }
+
+    qDebug("Beginning to insert data into model.");
     bool forceRewrite = false;
     QRegExp xhtmlLineFeed("<br/>|<br />");
     while(line != 0 && line.length() > 0){
@@ -96,7 +105,6 @@ void EntryListModel::addFromByteArray(QByteArray &data){
             add(entry);
             forceRewrite = true;
         } else {
-            qDebug() << line;
             Entry entry(list.at(0), list.at(1), list.at(2), list.at(3),
                         notes.replace(xhtmlLineFeed, "\n"), -1,
                         QUuid::fromRfc4122(QByteArray::fromBase64(list.at(5).toAscii())),
@@ -119,6 +127,7 @@ Entry* EntryListModel::at(int index){
 void EntryListModel::clear(){
     beginResetModel();
     m_entries.clear();
+    m_deleted.clear();
     endResetModel();
     emit countChanged(rowCount());
 }
@@ -149,6 +158,8 @@ QVariant EntryListModel::data(const QModelIndex &index, int role) const{
 
 void EntryListModel::remove(int index){
     beginRemoveRows(QModelIndex(), index, index);
+    Entry *e = at(index);
+    m_deleted << e->uuid();
     m_entries.removeAt(index);
     endRemoveRows();
     emit countChanged(rowCount());
@@ -177,6 +188,8 @@ QByteArray EntryListModel::toByteArray(){
     qDebug("Writing data into QByteArray...");
     QByteArray ret;
     QTextStream out(&ret);
+
+    out << "deleted:" << m_deleted.join(CSV_SEP) << CSV_NL;
 
     for(int i = 0; i < m_entries.size(); i++){
         Entry e = m_entries.at(i);
