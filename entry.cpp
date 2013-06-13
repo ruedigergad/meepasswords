@@ -47,6 +47,8 @@ Entry::Entry(const Entry &obj, QObject *parent) :
     m_password = obj.password();
     m_notes = obj.notes();
     m_id = obj.id();
+    m_uuid = obj.m_uuid;
+    m_mtime = obj.m_mtime;
 }
 
 Entry& Entry::operator = (const Entry &e) {
@@ -56,6 +58,8 @@ Entry& Entry::operator = (const Entry &e) {
     m_password = e.m_password;
     m_notes = e.m_notes;
     m_id = e.m_id;
+    m_uuid = e.m_uuid;
+    m_mtime = e.m_mtime;
     return *this;
 }
 

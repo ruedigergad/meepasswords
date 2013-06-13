@@ -84,14 +84,31 @@ void EntryListModel::addFromByteArray(QByteArray &data){
 
     qDebug("Beginning to insert data into model.");
 
+    bool forceRewrite = false;
     QRegExp xhtmlLineFeed("<br/>|<br />");
     while(line != 0 && line.length() > 0){
 //        qDebug() << "Adding: "  << line;
         QStringList list = line.split(CSV_SEP, QString::KeepEmptyParts);
         QString notes = list.at(4);
-        Entry entry(list.at(0), list.at(1), list.at(2), list.at(3), notes.replace(xhtmlLineFeed, "\n"), -1);
-        add(entry);
+        if (list.length() == 5) {
+            qDebug("Adding entry with default uuid and mtime. Forcing rewrite.");
+            Entry entry(list.at(0), list.at(1), list.at(2), list.at(3), notes.replace(xhtmlLineFeed, "\n"), -1);
+            add(entry);
+            forceRewrite = true;
+        } else {
+            qDebug() << line;
+            Entry entry(list.at(0), list.at(1), list.at(2), list.at(3),
+                        notes.replace(xhtmlLineFeed, "\n"), -1,
+                        QUuid::fromRfc4122(QByteArray::fromBase64(list.at(5).toAscii())),
+                        QDateTime::fromString(list.at(6), Qt::ISODate));
+            add(entry);
+        }
+
         line = in.readLine();
+    }
+
+    if (forceRewrite) {
+        emit changed();
     }
 }
 
@@ -163,7 +180,9 @@ QByteArray EntryListModel::toByteArray(){
 
     for(int i = 0; i < m_entries.size(); i++){
         Entry e = m_entries.at(i);
-        out << e.name() << CSV_SEP << e.category() << CSV_SEP << e.userName() << CSV_SEP << e.password() << CSV_SEP << e.notes().replace("\n", "<br />") << CSV_NL;
+        out << e.name() << CSV_SEP << e.category() << CSV_SEP << e.userName()
+            << CSV_SEP << e.password() << CSV_SEP << e.notes().replace("\n", "<br />")
+            << CSV_SEP << e.uuid() << CSV_SEP << e.mtime() << CSV_NL;
     }
 
     out.flush();

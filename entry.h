@@ -40,7 +40,7 @@ class Entry : public QObject
 public:
     Entry(QObject *parent = 0);
     Entry(QString name, QString category, QString userName, QString password,
-          QString notes, int id, QUuid uuid = QUuid(), QDateTime mtime = QDateTime::currentDateTimeUtc(),
+          QString notes, int id, QUuid uuid = QUuid::createUuid(), QDateTime mtime = QDateTime::currentDateTimeUtc(),
           QObject *parent = 0);
     Entry(const Entry &obj, QObject *parent = 0);
 
@@ -52,7 +52,7 @@ public:
     QString name() const { return m_name; }
     QString userName() const { return m_userName; }
     int id() const { return m_id; }
-    QString uuid() const { return m_uuid.toString(); }
+    QString uuid() const { return QString(m_uuid.toRfc4122().toBase64()); }
     QString mtime() const { return m_mtime.toString(Qt::ISODate); }
 
     void setCategory(QString category){
