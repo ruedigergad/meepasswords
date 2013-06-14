@@ -1,5 +1,5 @@
 /*
- *  Copyright 2011 Ruediger Gad
+ *  Copyright 2011 - 2013 Ruediger Gad
  *
  *  This file is part of MeePasswords.
  *
@@ -85,11 +85,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<EntrySortFilterProxyModel>("meepasswords", 1, 0, "EntrySortFilterProxyModel");
     qmlRegisterType<EntryStorage>("meepasswords", 1, 0, "EntryStorage");
 
-    qmlRegisterType<FileHelper>("meepasswords", 1, 0, "FileHelper");
 #ifdef SYNC_TO_IMAP_SUPPORT
-    qmlRegisterType<ImapAccountHelper>("meepasswords", 1, 0, "ImapAccountHelper");
-    qmlRegisterType<ImapAccountListModel>("meepasswords", 1, 0, "ImapAccountListModel");
-    qmlRegisterType<ImapStorage>("meepasswords", 1, 0, "ImapStorage");
+    qmlRegisterType<FileHelper>("SyncToImap", 1, 0, "FileHelper");
+    qmlRegisterType<ImapAccountHelper>("SyncToImap", 1, 0, "ImapAccountHelper");
+    qmlRegisterType<ImapAccountListModel>("SyncToImap", 1, 0, "ImapAccountListModel");
+    qmlRegisterType<ImapStorage>("SyncToImap", 1, 0, "ImapStorage");
 #endif
 
 #ifdef NFC_ENABLED

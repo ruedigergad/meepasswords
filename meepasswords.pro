@@ -197,6 +197,11 @@ OTHER_FILES += \
     qml/common/Menu.qml \
     qml/common/TextInputDialog.qml \
     qml/common/SelectionDialog.qml \
+    qml/common/ImapAccountSettingsSheet.qml \
+    qml/common/SyncToImapBase.qml \
+    qml/common/SyncDirToImap.qml \
+    qml/common/SyncFileToImap.qml \
+    qml/common/ProgressDialog.qml \
     bar-descriptor.xml
 
 # Please do not modify the following two lines. Required for deployment.
