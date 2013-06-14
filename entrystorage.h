@@ -63,6 +63,7 @@ public:
     Q_INVOKABLE bool canDecrypt(QString password);
 
     Q_INVOKABLE void loadAndDecryptData();
+    Q_INVOKABLE void loadAndDecryptData(QString path);
 
     Q_INVOKABLE void migrateStorageIdentifier(QString password);
 

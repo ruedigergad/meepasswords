@@ -109,14 +109,13 @@ void EntryStorage::loadAndDecryptDataUsingPassword(QString password){
     loadAndDecryptData();
 }
 
-void EntryStorage::loadAndDecryptData(){
+void EntryStorage::loadAndDecryptData() {
+    loadAndDecryptData(getStorageFilePath());
+}
+
+void EntryStorage::loadAndDecryptData(QString storagePath){
     QByteArray encryptedData;
     qDebug("Opening storage file for reading...");
-#ifdef MEEGO_EDITION_HARMATTAN
-    QString storagePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString(DEFAULT_STORAGE) + ENCRYPTED_FILE;
-#else
-    QString storagePath = QDir::homePath() + "/." + DEFAULT_STORAGE + ENCRYPTED_FILE;
-#endif
     qDebug("Using file: %s", storagePath.toUtf8().constData());
     QFile storageFile(storagePath);
 
