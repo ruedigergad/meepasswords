@@ -20,6 +20,7 @@ public:
     Q_INVOKABLE void clear();
     Q_INVOKABLE bool containsUuid(QString uuid);
     Q_INVOKABLE QStringList deletedUuids();
+    Q_INVOKABLE int indexOfUuid(QString uuid);
     Q_INVOKABLE void removeAt(int index);
     Q_INVOKABLE void removeById(int id);
     Q_INVOKABLE void removeByUuid(QString uuid);

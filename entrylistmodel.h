@@ -60,6 +60,7 @@ public:
 
     Q_INVOKABLE bool containsUuid(QString uuid);
     Q_INVOKABLE QStringList deletedUuids();
+    Q_INVOKABLE int indexOfUuid(QString uuid);
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     Q_INVOKABLE int rowCount(const QModelIndex &parent = QModelIndex()) const;

@@ -170,6 +170,16 @@ QStringList EntryListModel::deletedUuids() {
     return m_deleted;
 }
 
+int EntryListModel::indexOfUuid(QString uuid) {
+    for (int i = 0; i <= m_entries.size(); i++) {
+        Entry e = m_entries[i];
+        if (e.uuid() == uuid) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 void EntryListModel::remove(int index){
     beginRemoveRows(QModelIndex(), index, index);
     Entry *e = at(index);
