@@ -36,6 +36,7 @@ class Entry : public QObject
     Q_PROPERTY(int id READ id NOTIFY idChanged)
     Q_PROPERTY(QString uuid READ uuid)
     Q_PROPERTY(QString mtime READ mtime NOTIFY mtimeChanged)
+    Q_PROPERTY(QString mtimeInt READ mtimeInt)
 
 public:
     Entry(QObject *parent = 0);
@@ -54,6 +55,7 @@ public:
     int id() const { return m_id; }
     QString uuid() const { return QString(m_uuid.toRfc4122().toBase64()); }
     QString mtime() const { return m_mtime.toString(Qt::ISODate); }
+    qint64 mtimeInt() const { return m_mtime.toMSecsSinceEpoch(); }
 
     void setCategory(QString category){
         m_category = category;

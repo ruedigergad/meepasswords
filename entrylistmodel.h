@@ -43,7 +43,8 @@ public:
         NotesRole,
         IdRole,
         UuidRole,
-        MtimeRole
+        MtimeRole,
+        MtimeIntRole
     };
 
     EntryListModel(QObject *parent = 0);
