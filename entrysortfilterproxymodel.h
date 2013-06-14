@@ -20,6 +20,7 @@ public:
     Q_INVOKABLE void clear();
     Q_INVOKABLE void removeAt(int index);
     Q_INVOKABLE void removeById(int id);
+    Q_INVOKABLE void removeByUuid(int uuid);
 
     // Needed to make SectionScroller happy.
     Q_INVOKABLE Entry* get(int index);

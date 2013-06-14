@@ -62,7 +62,8 @@ public:
     Q_INVOKABLE int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
     Q_INVOKABLE void removeAt(int index);
-    void removeById(int id);
+    Q_INVOKABLE void removeById(int id);
+    Q_INVOKABLE void removeByUuid(String uuid);
     QByteArray toByteArray();
     Q_INVOKABLE void updateEntryAt(int index, QString name, QString category, QString userName, QString password, QString notes);
 

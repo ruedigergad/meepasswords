@@ -180,6 +180,16 @@ void EntryListModel::removeById(int id){
     }
 }
 
+void EntryListModel::removeByUuid(QString uuid){
+    for (int i = 0; i <= m_entries.size(); i++) {
+        Entry e = m_entries[i];
+        if (e.uuid() == uuid) {
+            removeAt(i);
+            return;
+        }
+    }
+}
+
 int EntryListModel::rowCount(const QModelIndex &/*parent*/) const{
     return m_entries.size();
 }
