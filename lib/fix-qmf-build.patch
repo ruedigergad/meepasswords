@@ -1,0 +1,33 @@
+diff --git a/messagingframework.pro b/messagingframework.pro
+index 6aeb4bd..2cce997 100644
+--- a/messagingframework.pro
++++ b/messagingframework.pro
+@@ -9,7 +9,6 @@ SUBDIRS = src/libraries/qmfclient \
+           src/plugins/messageservices/qmfsettings \
+           src/plugins/contentmanagers/qmfstoragemanager \
+           src/tools/messageserver \
+-          tests \
+           examples/qtmail/libs/qmfutil \
+           examples/qtmail/app \
+           examples/qtmail/plugins/viewers/generic \
+diff --git a/src/tools/messageserver/messageserver.cpp b/src/tools/messageserver/messageserver.cpp
+index 5796e1b..09aede6 100644
+--- a/src/tools/messageserver/messageserver.cpp
++++ b/src/tools/messageserver/messageserver.cpp
+@@ -470,14 +470,14 @@ void MessageServer::hupSignalHandler(int)
+ {
+     // Can't call Qt code. Write to the socket and the notifier will fire from the Qt event loop
+     char a = 1;
+-    ::write(sighupFd[0], &a, sizeof(a));
++//    ::write(sighupFd[0], &a, sizeof(a));
+ }
+ 
+ void MessageServer::handleSigHup()
+ {
+     snHup->setEnabled(false);
+     char tmp;
+-    ::read(sighupFd[1], &tmp, sizeof(tmp));
++//    ::read(sighupFd[1], &tmp, sizeof(tmp));
+ 
+     // This is ~/.config/Nokia/Messageserver.conf
+     qMailLoggersRecreate("Nokia", "Messageserver", "Msgsrv");

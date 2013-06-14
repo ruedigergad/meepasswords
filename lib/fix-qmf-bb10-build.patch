@@ -1,0 +1,379 @@
+diff --git a/common.pri b/common.pri
+index 29b396d..649dd90 100644
+--- a/common.pri
++++ b/common.pri
+@@ -2,6 +2,7 @@ CONFIG(debug,debug|release) {
+     DEFINES += QMF_ENABLE_LOGGING
+ }
+ 
++DEFINES += Q_OS_MAC
+ 
+ win32 | macx {
+ 
+diff --git a/examples/messagingaccounts/messagingaccounts.pro b/examples/messagingaccounts/messagingaccounts.pro
+index d43190d..bd35357 100644
+--- a/examples/messagingaccounts/messagingaccounts.pro
++++ b/examples/messagingaccounts/messagingaccounts.pro
+@@ -3,6 +3,8 @@ TARGET = messagingaccounts
+ target.path += $$QMF_INSTALL_ROOT/bin
+ CONFIG += qmfclient qmfmessageserver
+ 
++QT += network sql
++
+ DEPENDPATH += .
+ 
+ QTMAIL_EXAMPLE=../qtmail
+diff --git a/messagingframework.pro b/messagingframework.pro
+index 2cce997..8e7323d 100644
+--- a/messagingframework.pro
++++ b/messagingframework.pro
+@@ -9,17 +9,17 @@ SUBDIRS = src/libraries/qmfclient \
+           src/plugins/messageservices/qmfsettings \
+           src/plugins/contentmanagers/qmfstoragemanager \
+           src/tools/messageserver \
+-          examples/qtmail/libs/qmfutil \
+-          examples/qtmail/app \
+-          examples/qtmail/plugins/viewers/generic \
+-          examples/qtmail/plugins/composers/email \
++#          examples/qtmail/libs/qmfutil \
++#          examples/qtmail/app \
++#          examples/qtmail/plugins/viewers/generic \
++#          examples/qtmail/plugins/composers/email \
+           examples/messagingaccounts \
+-          examples/serverobserver
++#          examples/serverobserver
+           
+ # disable benchmark test on mac until ported
+ !macx {
+     !SERVER_AS_DLL {
+-          SUBDIRS += benchmarks
++#          SUBDIRS += benchmarks
+     }
+ }
+ 
+diff --git a/src/libraries/qmfclient/locks.cpp b/src/libraries/qmfclient/locks.cpp
+index 6cc58bd..22f9211 100644
+--- a/src/libraries/qmfclient/locks.cpp
++++ b/src/libraries/qmfclient/locks.cpp
+@@ -48,6 +48,7 @@
+ #include <sys/sem.h>
+ #include <errno.h>
+ 
++#include <QSystemSemaphore>
+ 
+ #if !defined(Q_OS_SYMBIAN) & !defined(Q_OS_MAC)
+ union semun {
+@@ -55,155 +56,17 @@ union semun {
+ };
+ #endif
+ 
+-namespace {
+-
+-int pathIdentifier(const QString &filePath, int id)
+-{
+-    return static_cast<int>(::ftok(filePath.toAscii(), id));
+-}
+-
+-class Semaphore
+-{
+-    int m_id;
+-    bool m_remove;
+-    int m_semId;
+-    int m_initialValue;
+-
+-    void operation(struct sembuf *op);
+-
+-public:
+-    Semaphore(int id, bool remove, int initial);
+-    ~Semaphore();
+-
+-    void decrement();
+-    void increment();
+-
+-    void waitForZero();
+-};
+-
+-Semaphore::Semaphore(int id, bool remove, int initial)
+-    : m_id(id),
+-      m_remove(false),
+-      m_semId(-1),
+-      m_initialValue(initial)
+-{
+-    m_semId = ::semget(m_id, 1, 0);
+-
+-    if (m_semId == -1) {
+-        if (errno == ENOENT) {
+-            // This lock does not exist
+-            m_semId = ::semget(m_id, 1, IPC_CREAT | IPC_EXCL | S_IRWXU);
+-            if (m_semId == -1) {
+-                if (errno == EEXIST) {
+-                    // Someone else won the race to create
+-                    m_semId = ::semget(m_id, 1, 0);
+-                }
+-
+-                if (m_semId == -1) {
+-                    qMailLog(Messaging) << "Semaphore: Unable to create semaphore ID:" << m_id << ":" << ::strerror(errno);
+-                }
+-            } else {
+-                // We created the semaphore
+-                m_remove = remove;
+-
+-                union semun arg;
+-                arg.val = m_initialValue;
+-                int status = ::semctl(m_semId, 0, SETVAL, arg);
+-                if (status == -1) {
+-                    m_semId = -1;
+-                    qMailLog(Messaging) << "Semaphore: Unable to initialize semaphore ID:" << m_id << ":" << ::strerror(errno);
+-                }
+-            }
+-        } else {
+-            qMailLog(Messaging) << "Semaphore: Unable to get semaphore ID:" << m_id << ":" << ::strerror(errno);
+-        }
+-    }
+-}
+-
+-Semaphore::~Semaphore()
+-{
+-    if (m_remove) {
+-        int status = ::semctl(m_semId, 0, GETVAL);
+-        if (status == -1) {
+-            qMailLog(Messaging) << "Semaphore: Unable to get value of semaphore ID:" << m_id << ":" << ::strerror(errno);
+-        } else { 
+-            if (status == m_initialValue) {
+-                // No other holder of this semaphore
+-                status = ::semctl(m_semId, 0, IPC_RMID);
+-                if (status == -1) {
+-                    qMailLog(Messaging) << "Semaphore: Unable to destroy semaphore ID:" << m_id << ":" << ::strerror(errno);
+-                }
+-            } else {
+-                qMailLog(Messaging) << "Semaphore: semaphore ID:" << m_id << "still active:" << status;
+-            }
+-        }
+-    }
+-}
+-
+-void Semaphore::decrement()
+-{
+-    if (m_semId != -1) {
+-        struct sembuf op;
+-        op.sem_num = 0;
+-        op.sem_op = -1;
+-        op.sem_flg = SEM_UNDO;
+-
+-        operation(&op);
+-    } else {
+-        qMailLog(Messaging) << "Semaphore: Unable to decrement invalid semaphore ID:" << m_id;
+-    }
+-}
+-
+-void Semaphore::increment()
+-{
+-    if (m_semId != -1) {
+-        struct sembuf op;
+-        op.sem_num = 0;
+-        op.sem_op = 1;
+-        op.sem_flg = SEM_UNDO;
+-
+-        operation(&op);
+-    } else {
+-        qMailLog(Messaging) << "Semaphore: Unable to increment invalid semaphore ID:" << m_id;
+-    }
+-}
+-
+-void Semaphore::waitForZero()
+-{
+-    if (m_semId != -1) {
+-        struct sembuf op;
+-        op.sem_num = 0;
+-        op.sem_op = 0;
+-        op.sem_flg = 0;
+-
+-        operation(&op);
+-    } else {
+-        qMailLog(Messaging) << "Semaphore: Unable to wait for zero on invalid semaphore ID:" << m_id;
+-    }
+-}
+-
+-void Semaphore::operation(struct sembuf *op)
+-{
+-    if(::semop(m_semId, op, 1) != 0) {
+-        qMailLog(Messaging) << "Semaphore operation had an error" << errno;
+-    }
+-
+-}
+-
+-}
+-
+-
+-class ProcessMutexPrivate : private Semaphore
++class ProcessMutexPrivate : private QSystemSemaphore
+ {
+ public:
+-    ProcessMutexPrivate(int id) : Semaphore(id, false, 1) {}
++    ProcessMutexPrivate(const QString &key) : QSystemSemaphore(key, 1) {}
+ 
+-    void lock() { decrement(); }
+-    void unlock() { increment(); }
++    void lock() { acquire(); }
++    void unlock() { release(); }
+ };
+ 
+ ProcessMutex::ProcessMutex(const QString &path, int id)
+-    : d(new ProcessMutexPrivate(pathIdentifier(path, id)))
++    : d(new ProcessMutexPrivate(path))
+ {
+ }
+ 
+@@ -223,19 +86,19 @@ void ProcessMutex::unlock()
+ }
+ 
+ 
+-class ProcessReadLockPrivate : private Semaphore
++class ProcessReadLockPrivate : private QSystemSemaphore
+ {
+ public:
+-    ProcessReadLockPrivate(int id) : Semaphore(id, false, 0) {}
++    ProcessReadLockPrivate(const QString &key) : QSystemSemaphore(key, 0) {}
+ 
+-    void lock() { increment(); }
+-    void unlock() { decrement(); }
++    void lock() { acquire(); }
++    void unlock() { release(); }
+ 
+-    void wait() { waitForZero(); }
++    void wait() { qDebug("ProcessReadLockPrivate::wait is a no-op."); }
+ };
+ 
+ ProcessReadLock::ProcessReadLock(const QString &path, int id)
+-    : d(new ProcessReadLockPrivate(pathIdentifier(path, id)))
++    : d(new ProcessReadLockPrivate(path))
+ {
+ }
+ 
+diff --git a/src/libraries/qmfclient/longstream.cpp b/src/libraries/qmfclient/longstream.cpp
+index cab48d9..007d8bb 100644
+--- a/src/libraries/qmfclient/longstream.cpp
++++ b/src/libraries/qmfclient/longstream.cpp
+@@ -235,9 +235,9 @@ bool LongStream::freeSpace( const QString &path, int min)
+     
+     return result;
+ #elif !defined(Q_OS_WIN)
+-    struct statfs stats;
++    struct statvfs stats;
+ 
+-    while (statfs(partitionPath.toLocal8Bit(), &stats) == -1) {
++    while (statvfs(partitionPath.toLocal8Bit(), &stats) == -1) {
+         if (errno != EINTR) {
+             qWarning() << "Could not stat filesystem";
+             return true;
+diff --git a/src/libraries/qmfclient/support/qloggers.h b/src/libraries/qmfclient/support/qloggers.h
+index 1e57294..bf4bebc 100644
+--- a/src/libraries/qmfclient/support/qloggers.h
++++ b/src/libraries/qmfclient/support/qloggers.h
+@@ -44,7 +44,7 @@
+ 
+ #include <qlogsystem.h>
+ #include <qglobal.h>
+-#if (!defined(Q_OS_WIN) && !defined(Q_OS_SYMBIAN))
++#if (!defined(Q_OS_WIN) && !defined(Q_OS_SYMBIAN) && !defined(Q_OS_MAC))
+ #include <syslog.h>
+ #endif
+ 
+@@ -327,7 +327,7 @@ inline void FileLogger<Prefix>::doLog(const LogLevel /*lvl*/, const char* fmt, v
+     };
+ }
+ 
+-#if (!defined(Q_OS_WIN) && !defined(Q_OS_SYMBIAN))
++#if (!defined(Q_OS_WIN) && !defined(Q_OS_SYMBIAN) && !defined(Q_OS_MAC))
+ 
+ /**********************************************************************************************************/
+ /************************************ SysLogger implementation ********************************************/
+diff --git a/src/libraries/qmfclient/support/qmaillog.cpp b/src/libraries/qmfclient/support/qmaillog.cpp
+index e0a8ad6..9b32c17 100644
+--- a/src/libraries/qmfclient/support/qmaillog.cpp
++++ b/src/libraries/qmfclient/support/qmaillog.cpp
+@@ -49,7 +49,7 @@
+ #include <QStringList>
+ 
+ #include <sys/types.h>
+-#if (!defined(Q_OS_WIN) && !defined(Q_OS_SYMBIAN))
++#if (!defined(Q_OS_WIN) && !defined(Q_OS_SYMBIAN) && !defined(Q_OS_MAC))
+ #include <sys/socket.h>
+ #endif
+ 
+@@ -91,7 +91,7 @@ namespace
+ QMF_EXPORT
+ void qMailLoggersRecreate(const QString& organization, const QString& application, const char* ident)
+ {
+-#ifndef Q_OS_SYMBIAN
++#if !defined(Q_OS_SYMBIAN) && !defined(Q_OS_MAC)
+     QSettings settings(organization, application);
+ #else
+     Q_UNUSED(organization);
+@@ -109,7 +109,7 @@ void qMailLoggersRecreate(const QString& organization, const QString& applicatio
+ 
+     const bool syslogEnabled = settings.value("Syslog/Enabled", false).toBool();
+     const bool stderrEnabled = settings.value("StdStreamLog/Enabled", defaultStdError).toBool();
+-#ifndef Q_OS_SYMBIAN
++#if !defined(Q_OS_SYMBIAN) && !defined(Q_OS_MAC)
+     const QString filePath = settings.value("FileLog/Path").toString();
+     const bool fileEnabled = settings.value("FileLog/Enabled", false).toBool() && !filePath.isEmpty();
+ #else
+@@ -120,7 +120,7 @@ void qMailLoggersRecreate(const QString& organization, const QString& applicatio
+     LogSystem& loggers = LogSystem::getInstance();
+     loggers.clear();
+ 
+-#ifndef Q_OS_SYMBIAN
++#if !defined(Q_OS_SYMBIAN) && !defined(Q_OS_MAC)
+     if(syslogEnabled) {
+         SysLogger<LvlLogPrefix>* sl = new SysLogger<LvlLogPrefix>(ident, LOG_PID, LOG_LOCAL7);
+         addLoggerIfReady(sl);
+diff --git a/src/libraries/qmfclient/support/qmailpluginmanager.cpp b/src/libraries/qmfclient/support/qmailpluginmanager.cpp
+index 444e185..ba3e370 100644
+--- a/src/libraries/qmfclient/support/qmailpluginmanager.cpp
++++ b/src/libraries/qmfclient/support/qmailpluginmanager.cpp
+@@ -120,7 +120,7 @@ QStringList pluginFilePatterns()
+ #elif defined(Q_OS_WIN)
+ 	return QStringList() << QString("*%1.dll").arg(debugSuffix) << QString("*%1.DLL").arg(debugSuffix);
+ #elif defined(Q_OS_MAC)
+-	return QStringList() << "*.dylib";
++	return QStringList() << "*.so";
+ #else
+ 	return QStringList() << QString("*%1.so*").arg(debugSuffix);
+ #endif
+diff --git a/src/tools/messageserver/messageserver.cpp b/src/tools/messageserver/messageserver.cpp
+index 09aede6..601e307 100644
+--- a/src/tools/messageserver/messageserver.cpp
++++ b/src/tools/messageserver/messageserver.cpp
+@@ -88,7 +88,7 @@ MessageServer::MessageServer(QObject *parent)
+     hup.sa_handler = MessageServer::hupSignalHandler;
+     sigemptyset(&hup.sa_mask);
+     hup.sa_flags = 0;
+-    hup.sa_flags |= SA_RESTART;
++//    hup.sa_flags |= SA_RESTART;
+     if (sigaction(SIGHUP, &hup, 0) > 0)
+         qFatal("Couldn't register HUP handler");
+ #endif // defined(Q_OS_UNIX), Q_OS_SYMBIAN
+diff --git a/src/tools/messageserver/messageserver.pro b/src/tools/messageserver/messageserver.pro
+index f24d0ba..4bafbfd 100644
+--- a/src/tools/messageserver/messageserver.pro
++++ b/src/tools/messageserver/messageserver.pro
+@@ -11,7 +11,7 @@ SERVER_AS_DLL: {
+ }
+ TARGET = messageserver
+ CONFIG += qmfmessageserver qmfclient
+-QT = core
++QT = core sql network
+ !contains(DEFINES,QMF_NO_MESSAGE_SERVICE_EDITOR):QT += gui
+ 
+ target.path += $$QMF_INSTALL_ROOT/bin
+@@ -23,7 +23,8 @@ INCLUDEPATH += . ../../libraries/qmfclient \
+                  ../../libraries/qmfmessageserver
+ 
+ LIBS += -L../../libraries/qmfmessageserver/build \
+-        -L../../libraries/qmfclient/build
++        -L../../libraries/qmfclient/build \
++        -lsocket
+ macx:LIBS += -F../../libraries/qmfmessageserver/build \
+         -F../../libraries/qmfclient/build
+ 
