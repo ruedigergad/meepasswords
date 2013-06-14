@@ -132,6 +132,16 @@ void EntryListModel::clear(){
     emit countChanged(rowCount());
 }
 
+bool EntryListModel::containsUuid(QString uuid) {
+    for (int i = 0; i <= m_entries.size(); i++) {
+        Entry e = m_entries[i];
+        if (e.uuid() == uuid) {
+            return true;
+        }
+    }
+    return false;
+}
+
 QVariant EntryListModel::data(const QModelIndex &index, int role) const{
     if (index.row() < 0 || index.row() > m_entries.count())
         return QVariant();

@@ -18,10 +18,11 @@ public:
     Q_INVOKABLE QStringList getItemNames() const;
     Q_INVOKABLE void addOrUpdateEntry(QString name, QString category, QString userName, QString password, QString notes, int id);
     Q_INVOKABLE void clear();
+    Q_INVOKABLE bool containsUuid(QString uuid);
     Q_INVOKABLE QStringList deletedUuids();
     Q_INVOKABLE void removeAt(int index);
     Q_INVOKABLE void removeById(int id);
-    Q_INVOKABLE void removeByUuid(int uuid);
+    Q_INVOKABLE void removeByUuid(QString uuid);
 
     // Needed to make SectionScroller happy.
     Q_INVOKABLE Entry* get(int index);

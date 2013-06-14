@@ -44,6 +44,10 @@ void EntrySortFilterProxyModel::clear()
     ((EntryListModel*)sourceModel())->clear();
 }
 
+bool EntrySortFilterProxyModel::containsUuid(QString uuid) {
+    return ((EntryListModel*)sourceModel())->containsUuid(uuid);
+}
+
 QStringList EntrySortFilterProxyModel::deletedUuids() {
     return ((EntryListModel*)sourceModel())->deletedUuids();
 }
@@ -60,7 +64,7 @@ void EntrySortFilterProxyModel::removeById(int id)
     ((EntryListModel*)sourceModel())->removeById(id);
 }
 
-void EntrySortFilterProxyModel::removeByUuid(int uuid)
+void EntrySortFilterProxyModel::removeByUuid(QString uuid)
 {
     ((EntryListModel*)sourceModel())->removeByUuid(uuid);
 }
