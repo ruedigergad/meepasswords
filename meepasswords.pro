@@ -50,7 +50,8 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     QT += opengl
 }
 
-RESOURCES += common.qrc
+RESOURCES += common.qrc \
+    synctoimap.qrc
 
 !contains(DEFINES, BB10_BUILD) {
     CONFIG += link_pkgconfig
