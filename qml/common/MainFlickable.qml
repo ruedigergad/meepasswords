@@ -27,8 +27,10 @@ Flickable {
     focus: true
 
     property alias aboutDialog: aboutDialog
+    property alias deleteConfirmationDialog: deleteConfirmationDialog
     property alias entryStorage: entryStorage
     property bool newStorage: false
+    property alias passwordChangeDialog: passwordChangeDialog
     property alias listView: entryListView.listView
     property bool loggedIn: false
 
@@ -285,79 +287,5 @@ Flickable {
         Keys.onEscapePressed: reject()
         Keys.onEnterPressed: accept()
         Keys.onReturnPressed: accept()
-    }
-
-    Menu {
-        id: mainMenu
-
-        parent: main
-//        anchors.bottomMargin: commonTools.height
-//        onClosed: commonTools.enabled = true
-//        onOpened: commonTools.enabled = false
-
-        CommonButton{
-            id: changePassword
-            anchors.bottom: about.top
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "Change Password"
-            onClicked: {
-                passwordChangeDialog.open()
-                mainMenu.close()
-            }
-        }
-
-//        CommonButton{
-//            id: syncToImap
-//            anchors.bottom: syncSketchesToImap.top
-//            anchors.bottomMargin: primaryFontSize / 3
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            width: parent.width - primaryFontSize
-//            text: "Sync To-Do List"
-//            onClicked: {
-//                mainRectangle.confirmSyncToImapDialog.open()
-//                mainMenu.close()
-//            }
-//        }
-
-//        CommonButton{
-//            id: syncSketchesToImap
-//            anchors.bottom: syncAccountSettings.top
-//            anchors.bottomMargin: primaryFontSize / 3
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            width: parent.width - primaryFontSize
-//            text: "Sync Sketches"
-//            onClicked: {
-//                mainRectangle.confirmSyncSketchesToImapDialog.open()
-//                mainMenu.close()
-//            }
-//        }
-
-//        CommonButton{
-//            id: syncAccountSettings
-//            anchors.bottom: about.top
-//            anchors.bottomMargin: primaryFontSize / 3
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            width: parent.width - primaryFontSize
-//            text: "Sync Account Settings"
-//            onClicked: {
-//                imapAccountSettings.open()
-//                mainMenu.close()
-//            }
-//        }
-
-        CommonButton{
-            id: about
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "About"
-            onClicked: {
-                mainFlickable.aboutDialog.open()
-                mainMenu.close()
-            }
-        }
     }
 }

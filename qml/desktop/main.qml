@@ -62,104 +62,92 @@ Rectangle {
         }
     }
 
-//    Component.onCompleted: {
-//        console.debug("Opening storage...")
-//        entryStorage.openStorage();
-//    }
+    Menu {
+        id: mainMenu
 
-//    Component.onDestruction: {
-//        console.debug("Shutting down...");
-//    }
+        parent: main
+//        anchors.bottomMargin: commonTools.height
+//        onClosed: commonTools.enabled = true
+//        onOpened: commonTools.enabled = false
 
-//    onStateChanged: {
-//        console.log("State changed: " + state);
-//    }
+        CommonButton{
+            id: changePassword
+            anchors.bottom: exportKeePassXml.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Change Password"
+            onClicked: {
+                mainFlickable.passwordChangeDialog.open()
+                mainMenu.close()
+            }
+        }
 
-//    states: [
-//        State {
-//            name: "NewPassword"
-//            PropertyChanges {target: passwordInputPage;
-//                visible: true;
-//                text: qsTr("Please enter a new password. "
-//                           + "Please keep the password at a safe place. "
-//                           + "There is no way to recover a lost password.");
-//                password: "";
-//                onClicked: {
-//                    entryStorage.setPassword(passwordInputPage.password);
-//                    main.state = "LoginSuccess";
-//                }
-//            }
-//            PropertyChanges {
-//                target: mainPage;
-//                visible: false;
-//            }
-//        },
-//        State {
-//            name: "EnterPassword"
-//            PropertyChanges {target: passwordInputPage;
-//                visible: true;
-//                text: qsTr("Enter Password:");
-//                password: "";
-//                onClicked: {
-//                    entryStorage.loadAndDecryptDataUsingPassword(passwordInputPage.password);
-//                }
-//            }
-//            PropertyChanges {
-//                target: mainPage;
-//                visible: false;
-//            }
-//        },
-//        State {
-//            name: "WrongPassword"
-//            PropertyChanges {target: passwordInputPage;
-//                visible: true;
-//                text: qsTr("You entered a wrong password. Please reenter Password:");
-//                password: "";
-//                onClicked: {
-//                    entryStorage.loadAndDecryptDataUsingPassword(passwordInputPage.password);
-//                }
-//            }
-//            PropertyChanges {
-//                target: mainPage;
-//                visible: false;
-//            }
-//        },
-//        State {
-//            name: "LoginSuccess"
-//            PropertyChanges {
-//                target: passwordInputPage;
-//                visible: false;
-//            }
-//            PropertyChanges {
-//                target: mainPage;
-//                visible: true;
+//        CommonButton{
+//            id: syncToImap
+//            anchors.bottom: syncSketchesToImap.top
+//            anchors.bottomMargin: primaryFontSize / 3
+//            anchors.horizontalCenter: parent.horizontalCenter
+//            width: parent.width - primaryFontSize
+//            text: "Sync"
+//            onClicked: {
+//                mainRectangle.confirmSyncToImapDialog.open()
+//                mainMenu.close()
 //            }
 //        }
 
-//    ]
-
-//    PasswordInputPage{
-//        id: passwordInputPage
-//    }
-
-
-
-//    EntryStorage {
-//        id: entryStorage
-
-//        onStorageOpenSuccess: state = "EnterPassword"
-//        onStorageOpenSuccessNewPassword: state = "NewPassword"
-
-//        onDecryptionFailed: state = "WrongPassword"
-//        onDecryptionSuccess: state = "LoginSuccess"
-//        onNewFileOpened: state = "LoginSuccess"
-
-//        onOperationFailed: {
-//            errorDialog.message = message;
-//            errorDialog.open();
+//        CommonButton{
+//            id: syncAccountSettings
+//            anchors.bottom: about.top
+//            anchors.bottomMargin: primaryFontSize / 3
+//            anchors.horizontalCenter: parent.horizontalCenter
+//            width: parent.width - primaryFontSize
+//            text: "Sync Account Settings"
+//            onClicked: {
+//                imapAccountSettings.open()
+//                mainMenu.close()
+//            }
 //        }
-//    }
 
+        CommonButton{
+            id: exportKeePassXml
+            anchors.bottom: importKeePassXml.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Export"
+            onClicked: {
+                mainFlickable.entryStorage.exportKeePassXml()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton{
+            id: importKeePassXml
+            anchors.bottom: about.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Import"
+            onClicked: {
+                mainFlickable.entryStorage.importKeePassXml()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton{
+            id: about
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "About"
+            onClicked: {
+                mainFlickable.aboutDialog.open()
+                mainMenu.close()
+            }
+        }
+    }
 }
 
 
