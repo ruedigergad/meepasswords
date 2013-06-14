@@ -44,6 +44,10 @@ void EntrySortFilterProxyModel::clear()
     ((EntryListModel*)sourceModel())->clear();
 }
 
+QStringList EntrySortFilterProxyModel::deletedUuids() {
+    return ((EntryListModel*)sourceModel())->deletedUuids();
+}
+
 void EntrySortFilterProxyModel::removeAt(int index)
 {
     QModelIndex idx = this->index(index, 0);

@@ -156,6 +156,10 @@ QVariant EntryListModel::data(const QModelIndex &index, int role) const{
     return QVariant();
 }
 
+QStringList EntryListModel::deletedUuids() {
+    return m_deleted;
+}
+
 void EntryListModel::remove(int index){
     beginRemoveRows(QModelIndex(), index, index);
     Entry *e = at(index);

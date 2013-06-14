@@ -58,6 +58,8 @@ public:
 
     Q_INVOKABLE void clear();
 
+    Q_INVOKABLE QStringList deletedUuids();
+
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     Q_INVOKABLE int rowCount(const QModelIndex &parent = QModelIndex()) const;
 
