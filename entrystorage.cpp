@@ -79,6 +79,18 @@ QString EntryStorage::getBase64Hash(QString password){
     return QString(hashPassword(password).toByteArray().toBase64());
 }
 
+QString EntryStorage::getStorageDirPath() {
+#ifdef MEEGO_EDITION_HARMATTAN
+    return QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString(DEFAULT_STORAGE);
+#else
+    return QDir::homePath() + "/." + DEFAULT_STORAGE;
+#endif
+}
+
+QString EntryStorage::getStorageFilePath() {
+    return getStorageDirPath() + ENCRYPTED_FILE;
+}
+
 QCA::SecureArray EntryStorage::hashPassword(QString password){
     return QCA::Hash(PASSWORD_HASH_ALGORITHM).hash(QCA::SecureArray(QByteArray(password.toUtf8().constData())));
 }
@@ -173,11 +185,7 @@ void EntryStorage::migrateSymmetricKey(QString password){
     qDebug("SymmetricKey migration: Opening storage file for reading...");
     QByteArray encryptedData;
 
-#ifdef MEEGO_EDITION_HARMATTAN
-    QString storagePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString(DEFAULT_STORAGE) + ENCRYPTED_FILE;
-#else
-    QString storagePath = QDir::homePath() + "/." + DEFAULT_STORAGE + ENCRYPTED_FILE;
-#endif
+    QString storagePath = getStorageFilePath();
     qDebug("SymmetricKey migration: using file: %s", storagePath.toUtf8().constData());
     QFile storageFile(storagePath);
 
@@ -224,11 +232,7 @@ void EntryStorage::migrateStorageIdentifier(QString password){
     QByteArray encryptedData;
 
     qDebug("StorageIdentifier migration: Opening storage file for reading...");
-#ifdef MEEGO_EDITION_HARMATTAN
-    QString storagePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString(DEFAULT_STORAGE) + ENCRYPTED_FILE;
-#else
-    QString storagePath = QDir::homePath() + "/." + DEFAULT_STORAGE + ENCRYPTED_FILE;
-#endif
+    QString storagePath = getStorageFilePath();
     qDebug("StorageIdentifier migration: using file: %s", storagePath.toUtf8().constData());
     QFile storageFile(storagePath);
 
@@ -271,12 +275,7 @@ void EntryStorage::migrateStorageIdentifier(QString password){
 }
 
 void EntryStorage::openStorage(){
-
-#ifdef MEEGO_EDITION_HARMATTAN
-    QString storageDirPath = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString(DEFAULT_STORAGE);
-#else
-    QString storageDirPath = QDir::home().absolutePath() + QString("/.") + QString(DEFAULT_STORAGE);
-#endif
+    QString storageDirPath = getStorageDirPath();
     QDir().mkpath(storageDirPath);
 
     QString storagePath = storageDirPath + QString(ENCRYPTED_FILE);
@@ -355,11 +354,7 @@ void EntryStorage::encryptAndStoreData(const QByteArray rawData){
     qDebug("Successfully encrypted data.");
 
     qDebug("Opening storage file for writing...");
-#ifdef MEEGO_EDITION_HARMATTAN
-    QFile storageFile(QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString("/") + QString(DEFAULT_STORAGE) + QString(ENCRYPTED_FILE));
-#else
-    QFile storageFile(QDir::homePath() + QString("/.") + QString(DEFAULT_STORAGE) + QString(ENCRYPTED_FILE));
-#endif
+    QFile storageFile(getStorageFilePath());
     if(storageFile.isOpen() || storageFile.open(QIODevice::ReadWrite)){
         storageFile.resize(0);
 
@@ -408,11 +403,7 @@ bool EntryStorage::canDecrypt(QString password){
 
     QByteArray encryptedData;
     qDebug("canDecrypt(): Opening storage file for reading...");
-#ifdef MEEGO_EDITION_HARMATTAN
-    QString storagePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString(DEFAULT_STORAGE) + ENCRYPTED_FILE;
-#else
-    QString storagePath = QDir::homePath() + "/." + DEFAULT_STORAGE + ENCRYPTED_FILE;
-#endif
+    QString storagePath = getStorageFilePath();
     qDebug("canDecrypt(): Using file: %s", storagePath.toUtf8().constData());
     QFile storageFile(storagePath);
 
@@ -447,11 +438,7 @@ bool EntryStorage::hasStorageIdentifierLine() {
     qDebug("Checking existance of storage identifier line...");
     bool ret = false;
 
-#ifdef MEEGO_EDITION_HARMATTAN
-    QString storagePath = QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString(DEFAULT_STORAGE) + ENCRYPTED_FILE;
-#else
-    QString storagePath = QDir::homePath() + "/." + DEFAULT_STORAGE + ENCRYPTED_FILE;
-#endif
+    QString storagePath = getStorageFilePath();
     qDebug("Using file: %s", storagePath.toUtf8().constData());
     QFile storageFile(storagePath);
 

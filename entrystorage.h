@@ -52,6 +52,8 @@ public:
     Q_INVOKABLE bool equalsStoredHash(QString hash);
     Q_INVOKABLE bool equalsStoredPassword(QString password);
     Q_INVOKABLE QString getBase64Hash(QString password);
+    Q_INVOKABLE QString getStorageDirPath();
+    Q_INVOKABLE QString getStorageFilePath();
     Q_INVOKABLE EntrySortFilterProxyModel* getModel() { return proxyModel; }
 
     Q_INVOKABLE void exportKeePassXml();
