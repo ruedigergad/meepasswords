@@ -18,7 +18,6 @@
  */
 
 #ifdef MEEGO_EDITION_HARMATTAN
-//#include <aegis_crypto.h>
 #include <applauncherd/MDeclarativeCache>
 #else
 #include <QDebug>
@@ -41,9 +40,16 @@
 
 //#include "mcomboboxqmladapter.h"
 //#include "mtexteditqmladapter.h"
-#include "qcomboboxqmladapter.h"
+//#include "qcomboboxqmladapter.h"
 #include "qmlclipboardadapter.h"
 //#include "qlineeditqmladapter.h"
+
+#include "filehelper.h"
+#ifdef SYNC_TO_IMAP_SUPPORT
+#include "imapaccounthelper.h"
+#include "imapaccountlistmodel.h"
+#include "imapstorage.h"
+#endif
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -79,15 +85,18 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<EntrySortFilterProxyModel>("meepasswords", 1, 0, "EntrySortFilterProxyModel");
     qmlRegisterType<EntryStorage>("meepasswords", 1, 0, "EntryStorage");
 
+    qmlRegisterType<FileHelper>("meepasswords", 1, 0, "FileHelper");
+#ifdef SYNC_TO_IMAP_SUPPORT
+    qmlRegisterType<ImapAccountHelper>("meepasswords", 1, 0, "ImapAccountHelper");
+    qmlRegisterType<ImapAccountListModel>("meepasswords", 1, 0, "ImapAccountListModel");
+    qmlRegisterType<ImapStorage>("meepasswords", 1, 0, "ImapStorage");
+#endif
+
 #ifdef NFC_ENABLED
     qmlRegisterType<NfcTagWriter>("meepasswords", 1, 0, "NfcTagWriter");
 #endif
 
-//    qmlRegisterType<MComboBoxQmlAdapter>("meepasswords", 1, 0, "MComboBox");
-//    qmlRegisterType<MTextEditQmlAdapter>("meepasswords", 1, 0, "MTextEdit");
-    qmlRegisterType<QComboBoxQmlAdapter>("meepasswords", 1, 0, "QComboBox");
     qmlRegisterType<QmlClipboardAdapter>("meepasswords", 1, 0, "QClipboard");
-//    qmlRegisterType<QLineEditQmlAdapter>("meepasswords", 1, 0, "QLineEdit");
 
     /*
      * Well, according to

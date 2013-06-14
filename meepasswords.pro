@@ -20,7 +20,7 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
 } else:exists($$QMAKE_INCDIR_QT"/../bbndk.h"): {
     message(BB10 Build)
 
-    DEFINES += BB10_BUILD
+    DEFINES += BB10_BUILD SYNC_TO_IMAP_SUPPORT
 
     RESOURCES += bb10.qrc
 
@@ -34,6 +34,7 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     LIBS += \
         -L$$PWD/lib/link/bb10 \
         -lqca
+        -lqmfclient
 
     bb10Libs.source = lib/build/bb10
     bb10Libs.target = lib
@@ -45,9 +46,14 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
 
     INSTALLS += barDescriptor
 } else {
-    DEFINES += LINUX_DESKTOP
+    DEFINES += LINUX_DESKTOP SYNC_TO_IMAP_SUPPORT
     RESOURCES += desktop.qrc
     QT += opengl
+
+    LIBS += \
+        -Llib/build/linux/x86_64 \
+        -Llib/link/linux/x86_64 \
+        -lqmfclient \
 }
 
 RESOURCES += common.qrc \
@@ -56,6 +62,19 @@ RESOURCES += common.qrc \
 !contains(DEFINES, BB10_BUILD) {
     CONFIG += link_pkgconfig
     PKGCONFIG += qca2
+}
+
+contains(DEFINES, SYNC_TO_IMAP_SUPPORT): {
+    message(Building sync support...)
+    HEADERS += \
+        imapstorage.h \
+        imapaccountlistmodel.h \
+        imapaccounthelper.h
+    SOURCES += \
+        imapstorage.cpp \
+        imapaccountlistmodel.cpp \
+        imapaccounthelper.cpp
+    RESOURCES += synctoimap.qrc
 }
 
 # Additional import path used to resolve QML modules in Creator's code model
@@ -84,27 +103,29 @@ HEADERS += \
     entry.h \
     entrystorage.h \
     entrylistmodel.h \
-    qlineeditqmladapter.h \
+#    qlineeditqmladapter.h \
 #    mtexteditqmladapter.h \
 #    mcomboboxqmladapter.h \
-    qcomboboxqmladapter.h \
+#    qcomboboxqmladapter.h \
     keepassxmlstreamreader.h \
     keepassxmlstreamwriter.h \
     qmlclipboardadapter.h \
-    entrysortfilterproxymodel.h
+    entrysortfilterproxymodel.h \
+    filehelper.h
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     entry.cpp \
     entrystorage.cpp \
     entrylistmodel.cpp \
-    qlineeditqmladapter.cpp \
+#    qlineeditqmladapter.cpp \
 #    mtexteditqmladapter.cpp \
 #    mcomboboxqmladapter.cpp \
-    qcomboboxqmladapter.cpp \
+#    qcomboboxqmladapter.cpp \
     keepassxmlstreamreader.cpp \
     keepassxmlstreamwriter.cpp \
-    entrysortfilterproxymodel.cpp
+    entrysortfilterproxymodel.cpp \
+    filehelper.cpp
 
 contains(DEFINES, NFC_ENABLED) {
     HEADERS += nfctagwriter.h
