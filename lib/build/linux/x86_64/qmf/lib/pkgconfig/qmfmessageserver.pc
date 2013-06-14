@@ -1,0 +1,13 @@
+prefix=/usr/lib64/qt4
+exec_prefix=${prefix}
+libdir=/lib
+includedir=/include/qmfmessageserver
+qt_config=include_source_dir lex yacc warn_on uic resources qt warn_on release incremental link_prl gdb_dwarf_index def_files_disabled exceptions no_mocdepend release stl qt_no_framework warn_on qmfclient create_pc create_prl moc thread dll
+
+Name: Qmfmessageserver
+Description: Qmfmessageserver Library
+Version: 1.0.0
+Libs: -L${libdir} -lqmfmessageserver 
+Libs.private: -L/usr/lib64  -L../qmfclient/build -lqmfclient -lQtGui -lQtNetwork -lQtCore -lpthread   
+Cflags:  -I${includedir}
+
