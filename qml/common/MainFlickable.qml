@@ -29,6 +29,7 @@ Flickable {
     property alias aboutDialog: aboutDialog
     property alias deleteConfirmationDialog: deleteConfirmationDialog
     property alias entryStorage: entryStorage
+    property alias meePasswordsToolBar: meePasswordsToolBar
     property bool newStorage: false
     property alias passwordChangeDialog: passwordChangeDialog
     property alias listView: entryListView.listView

@@ -66,9 +66,9 @@ Rectangle {
         id: mainMenu
 
         parent: main
-//        anchors.bottomMargin: commonTools.height
-//        onClosed: commonTools.enabled = true
-//        onOpened: commonTools.enabled = false
+        anchors.bottomMargin: mainFlickable.meePasswordsToolBar.height
+        onClosed: mainFlickable.meePasswordsToolBar.enabled = true
+        onOpened: mainFlickable.meePasswordsToolBar.enabled = false
 
         CommonButton{
             id: changePassword
