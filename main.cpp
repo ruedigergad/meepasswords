@@ -55,7 +55,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     qDebug("Starting MeePasswords...");
 
-#if defined(BB10_BUILD)
+#ifdef WINDOWS_DESKTOP
+    putenv("QMF_PLUGINS=plugins");
+    putenv("QML_IMPORT_PATH=imports");
+#elif defined(BB10_BUILD)
     QApplication::setStartDragDistance(40);
     QApplication::setStartDragTime(500);
     QApplication::setDoubleClickInterval(400);
@@ -76,9 +79,46 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 #endif
     qDebug() << "Qt Build Key: " << QLibraryInfo::buildKey() << "   Qt Build Date: " << QLibraryInfo::buildDate();
 
+    QCoreApplication::setOrganizationName("ruedigergad.com");
+    QCoreApplication::setOrganizationDomain("ruedigergad.com");
+    QCoreApplication::setApplicationName("meepasswords");
+
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
     QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
+
+    /*
+     * Some versions may need to start messageserver.
+     */
+#ifdef WINDOWS_DESKTOP
+    QString messageServerRunningQuery = "tasklist | find /N \"messageserver.exe\"";
+    QString messageServerExecutable = "messageserver.exe";
+#endif
+#ifdef LINUX_DESKTOP
+    QString messageServerRunningQuery = "ps -el | grep messageserver";
+    QString messageServerExecutable = QCoreApplication::applicationDirPath() + "/lib/qmf/bin/messageserver";
+#endif
+#if defined(LINUX_DESKTOP) || defined(WINDOWS_DESKTOP)
+    QProcess queryMessageServerRunning;
+    queryMessageServerRunning.start(messageServerRunningQuery);
+    queryMessageServerRunning.waitForFinished(-1);
+
+    bool messageServerStarted = false;
+    QProcess messageServerProcess;
+    if (queryMessageServerRunning.exitCode() != 0) {
+        qDebug("Starting messageserver...");
+        qDebug() << "messageserver executable: " << messageServerExecutable;
+        messageServerProcess.start(messageServerExecutable);
+        messageServerStarted = true;
+    } else {
+        qDebug("Messageserver is already running.");
+    }
+#endif
+#ifdef BB10_BUILD
+    QProcess messageServerProcess;
+    qDebug("Starting messageserver...");
+    messageServerProcess.start("app/native/lib/qmf/bin/messageserver");
+#endif
 
     qmlRegisterType<Entry>("meepasswords", 1, 0, "Entry");
     qmlRegisterType<EntryListModel>("meepasswords", 1, 0, "EntryListModel");
@@ -140,5 +180,18 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 //    view->show();
 //#endif
 
-    return app->exec();
+    int ret = app->exec();
+
+#if defined(LINUX_DESKTOP) || defined(WINDOWS_DESKTOP)
+    if (messageServerStarted) {
+        qDebug("Stopping messageserver...");
+        messageServerProcess.kill();
+    }
+#endif
+#ifdef BB10_BUILD
+    qDebug("Stopping messageserver...");
+    messageServerProcess.kill();
+#endif
+
+    return ret;
 }

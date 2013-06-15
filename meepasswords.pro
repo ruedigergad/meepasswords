@@ -54,6 +54,14 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
         -Llib/build/linux/x86_64 \
         -Llib/link/linux/x86_64 \
         -lqmfclient \
+
+    # TODO: Dynamically determine architecture.
+    arch = x86_64
+    os = linux
+    qmfLibs.source = lib/build/$${os}/$${arch}/qmf
+    qmfLibs.target = lib
+
+    DEPLOYMENTFOLDERS += qmfLibs
 }
 
 RESOURCES += common.qrc \

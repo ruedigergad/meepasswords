@@ -51,12 +51,12 @@ Rectangle {
     function close(){
         closing()
         opacity = 0
-        commonTools.enabled = true
+        mainFlickable.meePasswordsToolBar.enabled = true
     }
 
     function open(){
         opening()
-        commonTools.enabled = false
+        mainFlickable.meePasswordsToolBar.enabled = false
         opacity = 0.9
     }
 

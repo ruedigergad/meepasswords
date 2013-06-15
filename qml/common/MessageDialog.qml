@@ -22,15 +22,33 @@ import QtQuick 1.1
 CommonDialog {
     id: messageDialog
 
-    property alias text: message.text
+    property alias title: titleText.text
+    property alias message: message.text
 
-    content: Text{
-        id:message
-        anchors.centerIn: parent
-        width: parent.width
-        color: "white"
-        font.pointSize: 25
-        horizontalAlignment: Text.AlignHCenter
-        wrapMode: Text.Wrap
+    content: Item {
+      anchors.fill: parent
+        Text {
+            id: titleText
+            anchors.bottom: message.top
+            anchors.margins: primaryFontSize
+            width: parent.width
+            color: "white"
+            font.pointSize: primaryFontSize * 1.5
+            font.bold: true
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.Wrap
+        }
+
+        Text {
+            id: message
+
+            anchors.centerIn: parent
+
+            width: parent.width
+            color: "white"
+            font.pointSize: primaryFontSize
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.Wrap
+        }
     }
 }
