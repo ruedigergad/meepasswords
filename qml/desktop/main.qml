@@ -19,6 +19,7 @@
 
 import QtQuick 1.1
 import meepasswords 1.0
+import SyncToImap 1.0
 import "../common"
 
 Rectangle {
@@ -72,7 +73,7 @@ Rectangle {
 
         CommonButton{
             id: changePassword
-            anchors.bottom: exportKeePassXml.top
+            anchors.bottom: syncToImap.top
             anchors.bottomMargin: primaryFontSize / 3
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - primaryFontSize
@@ -83,31 +84,31 @@ Rectangle {
             }
         }
 
-//        CommonButton{
-//            id: syncToImap
-//            anchors.bottom: syncSketchesToImap.top
-//            anchors.bottomMargin: primaryFontSize / 3
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            width: parent.width - primaryFontSize
-//            text: "Sync"
-//            onClicked: {
-//                mainRectangle.confirmSyncToImapDialog.open()
-//                mainMenu.close()
-//            }
-//        }
+        CommonButton{
+            id: syncToImap
+            anchors.bottom: syncAccountSettings.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Sync"
+            onClicked: {
+                confirmSyncToImapDialog.open()
+                mainMenu.close()
+            }
+        }
 
-//        CommonButton{
-//            id: syncAccountSettings
-//            anchors.bottom: about.top
-//            anchors.bottomMargin: primaryFontSize / 3
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            width: parent.width - primaryFontSize
-//            text: "Sync Account Settings"
-//            onClicked: {
-//                imapAccountSettings.open()
-//                mainMenu.close()
-//            }
-//        }
+        CommonButton{
+            id: syncAccountSettings
+            anchors.bottom: exportKeePassXml.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Sync Account Settings"
+            onClicked: {
+                imapAccountSettings.open()
+                mainMenu.close()
+            }
+        }
 
         CommonButton{
             id: exportKeePassXml
@@ -147,6 +148,38 @@ Rectangle {
                 mainMenu.close()
             }
         }
+    }
+
+    ConfirmationDialog {
+        id: confirmSyncToImapDialog
+
+        titleText: "Sync password list?"
+        message: "This may take some time."
+
+        onOpened: mainFlickable.meePasswordsToolBar.enabled = false
+        onRejected: mainFlickable.meePasswordsToolBar.enabled = true
+
+        onAccepted: {
+            syncFileToImap.syncFile(mainFlickable.entryStorage.getStorageDirPath(), "encrypted.raw")
+        }
+    }
+
+    SyncFileToImap {
+        id: syncFileToImap
+
+        imapFolderName: "meepasswords"
+        merger: merger
+
+        onFinished: mainFlickable.meePasswordsToolBar.enabled = true
+        onStarted: mainFlickable.meePasswordsToolBar.enabled = false
+    }
+
+    Merger {
+        id: merger
+    }
+
+    ImapAccountSettingsSheet {
+        id: imapAccountSettings
     }
 }
 

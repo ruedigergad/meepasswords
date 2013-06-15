@@ -5,5 +5,6 @@
         <file>qml/common/SyncFileToImap.qml</file>
         <file>qml/common/SyncToImapBase.qml</file>
         <file>qml/common/ProgressDialog.qml</file>
+        <file>qml/common/Merger.qml</file>
     </qresource>
 </RCC>

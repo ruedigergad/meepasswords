@@ -202,7 +202,9 @@ OTHER_FILES += \
     qml/common/SyncDirToImap.qml \
     qml/common/SyncFileToImap.qml \
     qml/common/ProgressDialog.qml \
-    bar-descriptor.xml
+    bar-descriptor.xml \
+    qml/common/Merger.qml \
+    qml/desktop/common/CommonFlickable.qml
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)
