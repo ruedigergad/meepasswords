@@ -117,8 +117,4 @@ Rectangle{
             }
         }
     ]
-
-    onStateChanged: {
-        password = ""
-    }
 }

@@ -29,19 +29,77 @@ Item {
     function mergeFile (syncFileName) {
         console.log("Merging sync file: " + syncFileName)
 
-//        if (rootElementModel.rowCount() === 0) {
-//            console.log("Initial sync, reloading storage...")
-//            fileHelper.rm(fileHelper.home() + "/to-do-o/default.xml")
-//            console.log("Copying " + syncFileName + " to " + fileHelper.home() + "/to-do-o/default.xml")
-//            fileHelper.cp(syncFileName, fileHelper.home() + "/to-do-o/default.xml")
-//            fileHelper.rm(syncFileName)
-//            storage.open()
-//            return false
-//        } else {
-//            mergeTodoStorage(syncFileName)
-//            fileHelper.rm(syncFileName)
-//            storage.open()
-//            return true
-//        }
+        incomingStorageFile.setStoragePath(syncFileName)
+        incomingStorageFile.setPassword(mainFlickable.entryStorage.getPassword())
+        if (!incomingStorageFile.loadAndDecryptData()) {
+            return false;
+        }
+
+        var incomingModel = incomingStorageFile.getModel()
+        var ownModel = mainFlickable.entryStorage.getModel()
+
+        // Remove deleted entries first.
+        var deletedUuids = incomingModel.deletedUuids()
+        console.log("Removing deleted entries from own model: " + deletedUuids)
+        console.log("deletedUuids.length: " + deletedUuids.length)
+        if (deletedUuids && deletedUuids.length >  0) {
+            for (var i = 0; i < deletedUuids.length; i++) {
+                var uuid = deletedUuids[i]
+                if (uuid === "") {
+                    continue
+                }
+                if (ownModel.containsUuid(uuid)) {
+                    console.log("Deleting: " + uuid)
+                    ownModel.removeByUuid(uuid)
+                }
+            }
+        }
+        deletedUuids = ownModel.deletedUuids()
+        console.log("Removing deleted entries from incoming model: " + deletedUuids)
+        console.log("deletedUuids.length: " + deletedUuids.length)
+        if (deletedUuids && deletedUuids.length >  0) {
+            for (i = 0; i < deletedUuids.length; i++) {
+                uuid = deletedUuids[i]
+                if (uuid === "") {
+                    continue
+                }
+                if (incomingModel.containsUuid(uuid)) {
+                    console.log("Deleting: " + uuid)
+                    incomingModel.removeByUuid(uuid)
+                }
+            }
+        }
+
+        console.log("Iterating over incoming model.")
+        var index = 0
+        while (index < incomingModel.count) {
+            console.log("Index: " + index)
+
+            var incomingEntry = incomingModel.get(index)
+            var ownIndex = ownModel.indexOfUuid(incomingEntry.uuid)
+
+            if (ownIndex > -1) {
+                console.log("Found two matching entries.")
+                var incomingMtime = incomingEntry.mtimeInt
+                var ownMtime = ownModel.get(ownIndex).mtimeInt
+
+                if (ownMtime < incomingMtime) {
+                    console.log("Own entry is older, updating...")
+                    ownModel.updateEntryAt(ownIndex, incomingEntry.name, incomingEntry.category,
+                                           incomingEntry.userName, incomingEntry.password,
+                                           incomingEntry.notes)
+                }
+            } else {
+                console.log("Entry not found, adding new.")
+                ownModel.addEntry(incomingEntry.name, incomingEntry.category,
+                                  incomingEntry.userName, incomingEntry.password,
+                                  incomingEntry.notes, incomingEntry.uuid)
+            }
+            index++
+        }
+    }
+
+    EntryStorage {
+        id: incomingStorageFile
     }
 }

@@ -16,6 +16,7 @@ public:
     explicit EntrySortFilterProxyModel(QObject *parent = 0);
 
     Q_INVOKABLE QStringList getItemNames() const;
+    Q_INVOKABLE void addEntry(QString name, QString category, QString userName, QString password, QString notes, QString uuid);
     Q_INVOKABLE void addOrUpdateEntry(QString name, QString category, QString userName, QString password, QString notes, int id);
     Q_INVOKABLE void clear();
     Q_INVOKABLE bool containsUuid(QString uuid);
@@ -24,6 +25,7 @@ public:
     Q_INVOKABLE void removeAt(int index);
     Q_INVOKABLE void removeById(int id);
     Q_INVOKABLE void removeByUuid(QString uuid);
+    Q_INVOKABLE void updateEntryAt(int index, QString name, QString category, QString userName, QString password, QString notes);
 
     // Needed to make SectionScroller happy.
     Q_INVOKABLE Entry* get(int index);

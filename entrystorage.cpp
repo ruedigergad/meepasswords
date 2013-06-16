@@ -36,6 +36,8 @@ EntryStorage::EntryStorage(QObject *parent) :
     QObject(parent),
     useStorageIdentifier(false)
 {
+    setStoragePath(getStorageFilePath());
+
     qDebug("Initializing QCA...");
     initializer = new QCA::Initializer(QCA::Practical, 256);
     qDebug("QCA initialized.");
@@ -109,20 +111,16 @@ void EntryStorage::loadAndDecryptDataUsingPassword(QString password){
     loadAndDecryptData();
 }
 
-void EntryStorage::loadAndDecryptData() {
-    loadAndDecryptData(getStorageFilePath());
-}
-
-void EntryStorage::loadAndDecryptData(QString storagePath){
+bool EntryStorage::loadAndDecryptData() {
     QByteArray encryptedData;
     qDebug("Opening storage file for reading...");
-    qDebug("Using file: %s", storagePath.toUtf8().constData());
-    QFile storageFile(storagePath);
+    qDebug("Using file: %s", m_storagePath.toUtf8().constData());
+    QFile storageFile(m_storagePath);
 
     if(! storageFile.exists()){
         qDebug("Seems we have a new file...");
         emit newFileOpened();
-        return;
+        return false;
     }
 
     if(storageFile.open(QIODevice::ReadOnly)){
@@ -139,7 +137,7 @@ void EntryStorage::loadAndDecryptData(QString storagePath){
         QString msg = "Failed to open storage file for reading...";
         qErrnoWarning(msg.toUtf8().constData());
         emit operationFailed(msg);
-        return;
+        return false;
     }
     qDebug("File successfully read.");
     qDebug("Read %d bytes.", encryptedData.size());
@@ -159,7 +157,7 @@ void EntryStorage::loadAndDecryptData(QString storagePath){
         QString msg = "Decryption failed.";
         qErrnoWarning(msg.toUtf8().constData());
         emit decryptionFailed();
-        return;
+        return false;
     }
     qDebug("Successfully decrypted.");
 
@@ -168,11 +166,12 @@ void EntryStorage::loadAndDecryptData(QString storagePath){
     model->addFromByteArray(decrypted);
 
     qDebug("Decryption successful, creating backup, just in case.");
-    QFile::remove(storagePath + BACKUP_SUFFIX);
-    QFile::copy(storagePath, storagePath + BACKUP_SUFFIX);
+    QFile::remove(m_storagePath + BACKUP_SUFFIX);
+    QFile::copy(m_storagePath, m_storagePath + BACKUP_SUFFIX);
 
     qDebug("Emitting decryptionSuccess() signal...");
     emit decryptionSuccess();
+    return true;
 }
 
 /*
@@ -184,9 +183,8 @@ void EntryStorage::migrateSymmetricKey(QString password){
     qDebug("SymmetricKey migration: Opening storage file for reading...");
     QByteArray encryptedData;
 
-    QString storagePath = getStorageFilePath();
-    qDebug("SymmetricKey migration: using file: %s", storagePath.toUtf8().constData());
-    QFile storageFile(storagePath);
+    qDebug("SymmetricKey migration: using file: %s", m_storagePath.toUtf8().constData());
+    QFile storageFile(m_storagePath);
 
     if(! storageFile.exists()){
         qDebug("SymmetricKey migration: we have a new file...");
@@ -231,9 +229,8 @@ void EntryStorage::migrateStorageIdentifier(QString password){
     QByteArray encryptedData;
 
     qDebug("StorageIdentifier migration: Opening storage file for reading...");
-    QString storagePath = getStorageFilePath();
-    qDebug("StorageIdentifier migration: using file: %s", storagePath.toUtf8().constData());
-    QFile storageFile(storagePath);
+    qDebug("StorageIdentifier migration: using file: %s", m_storagePath.toUtf8().constData());
+    QFile storageFile(m_storagePath);
 
     if(! storageFile.exists()){
         qDebug("StorageIdentifier migration: we have a new file...");
@@ -277,9 +274,8 @@ void EntryStorage::openStorage(){
     QString storageDirPath = getStorageDirPath();
     QDir().mkpath(storageDirPath);
 
-    QString storagePath = storageDirPath + QString(ENCRYPTED_FILE);
-    qDebug("Path to storage file: %s", storagePath.toUtf8().constData());
-    QFile storageFile(storagePath);
+    qDebug("Path to storage file: %s", m_storagePath.toUtf8().constData());
+    QFile storageFile(m_storagePath);
     if(storageFile.exists()){
         emit storageOpenSuccess();
     }else{
@@ -298,6 +294,7 @@ void EntryStorage::setPassword(QString password){
     }
 
     qDebug("Creating password hash.");
+    m_password = password;
     QCA::SecureArray passwordHash = hashPassword(password);
 
     useStorageIdentifier = hasStorageIdentifierLine();
@@ -402,9 +399,8 @@ bool EntryStorage::canDecrypt(QString password){
 
     QByteArray encryptedData;
     qDebug("canDecrypt(): Opening storage file for reading...");
-    QString storagePath = getStorageFilePath();
-    qDebug("canDecrypt(): Using file: %s", storagePath.toUtf8().constData());
-    QFile storageFile(storagePath);
+    qDebug("canDecrypt(): Using file: %s", m_storagePath.toUtf8().constData());
+    QFile storageFile(m_storagePath);
 
     if(! storageFile.exists()){
         qDebug("canDecrypt(): Seems we have a new file...");
@@ -437,13 +433,12 @@ bool EntryStorage::hasStorageIdentifierLine() {
     qDebug("Checking existance of storage identifier line...");
     bool ret = false;
 
-    QString storagePath = getStorageFilePath();
-    qDebug("Using file: %s", storagePath.toUtf8().constData());
-    QFile storageFile(storagePath);
+    qDebug("Using file: %s", m_storagePath.toUtf8().constData());
+    QFile storageFile(m_storagePath);
 
     if(! storageFile.exists()){
         qDebug("Seems we have a new file...");
-        return false;
+        return true;
     }
 
     if(storageFile.open(QIODevice::ReadOnly)){
@@ -470,4 +465,12 @@ bool EntryStorage::hasStorageIdentifierLine() {
     storageFile.close();
 
     return ret;
+}
+
+QString EntryStorage::getPassword() {
+    return m_password;
+}
+
+void EntryStorage::setStoragePath(QString path) {
+    m_storagePath = path;
 }

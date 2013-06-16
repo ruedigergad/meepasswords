@@ -81,3 +81,11 @@ Entry* EntrySortFilterProxyModel::get(int index){
             ? ((EntryListModel*) sourceModel())->get(srcIdx.row())
             : ((EntryListModel*) sourceModel())->get(index);
 }
+
+void EntrySortFilterProxyModel::updateEntryAt(int index, QString name, QString category, QString userName, QString password, QString notes) {
+    ((EntryListModel*)sourceModel())->updateEntryAt(index, name, category, userName, password, notes);
+}
+
+void EntrySortFilterProxyModel::addEntry(QString name, QString category, QString userName, QString password, QString notes, QString uuid) {
+    ((EntryListModel*)sourceModel())->addEntry(name, category, userName, password, notes, uuid);
+}

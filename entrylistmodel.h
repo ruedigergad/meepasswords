@@ -51,6 +51,7 @@ public:
 
     Q_INVOKABLE void addEntry(Entry &entry);
     Q_INVOKABLE void addEntry(QString name, QString category, QString userName, QString password, QString notes);
+    Q_INVOKABLE void addEntry(QString name, QString category, QString userName, QString password, QString notes, QString uuid);
     Q_INVOKABLE void addFromByteArray(QByteArray &data);
 
     Q_INVOKABLE Entry* at(int index);

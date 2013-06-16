@@ -46,6 +46,8 @@ EntryListModel::EntryListModel(QObject *parent) :
     roles[MtimeRole] = "mtime";
     roles[MtimeIntRole] = "mtimeInt";
     setRoleNames(roles);
+
+    m_deleted.clear();
 }
 
 void EntryListModel::add(Entry &entry){
@@ -70,6 +72,12 @@ void EntryListModel::addEntry(Entry &entry){
 
 void EntryListModel::addEntry(QString name, QString category, QString userName, QString password, QString notes){
     Entry entry(name, category, userName, password, notes, -1);
+    addEntry(entry);
+}
+
+void EntryListModel::addEntry(QString name, QString category, QString userName, QString password, QString notes, QString uuid){
+    Entry entry(name, category, userName, password, notes, -1,
+                QUuid::fromRfc4122(QByteArray::fromBase64(uuid.toAscii())));
     addEntry(entry);
 }
 
@@ -134,7 +142,7 @@ void EntryListModel::clear(){
 }
 
 bool EntryListModel::containsUuid(QString uuid) {
-    for (int i = 0; i <= m_entries.size(); i++) {
+    for (int i = 0; i < m_entries.size(); i++) {
         Entry e = m_entries[i];
         if (e.uuid() == uuid) {
             return true;
@@ -174,7 +182,7 @@ QStringList EntryListModel::deletedUuids() {
 }
 
 int EntryListModel::indexOfUuid(QString uuid) {
-    for (int i = 0; i <= m_entries.size(); i++) {
+    for (int i = 0; i < m_entries.size(); i++) {
         Entry e = m_entries[i];
         if (e.uuid() == uuid) {
             return i;
@@ -198,7 +206,7 @@ void EntryListModel::removeAt(int index){
 }
 
 void EntryListModel::removeById(int id){
-    for (int i = 0; i <= m_entries.size(); i++) {
+    for (int i = 0; i < m_entries.size(); i++) {
         Entry e = m_entries[i];
         if (e.id() == id) {
             removeAt(i);
@@ -208,7 +216,7 @@ void EntryListModel::removeById(int id){
 }
 
 void EntryListModel::removeByUuid(QString uuid){
-    for (int i = 0; i <= m_entries.size(); i++) {
+    for (int i = 0; i < m_entries.size(); i++) {
         Entry e = m_entries[i];
         if (e.uuid() == uuid) {
             removeAt(i);

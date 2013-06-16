@@ -62,10 +62,13 @@ public:
     Q_INVOKABLE QString getRandomKeyAsString();
     Q_INVOKABLE bool canDecrypt(QString password);
 
-    Q_INVOKABLE void loadAndDecryptData();
-    Q_INVOKABLE void loadAndDecryptData(QString path);
+    Q_INVOKABLE bool loadAndDecryptData();
 
     Q_INVOKABLE void migrateStorageIdentifier(QString password);
+
+    Q_INVOKABLE QString getPassword();
+
+    Q_INVOKABLE void setStoragePath(QString path);
 
 signals:
     void decryptionFailed();
@@ -93,6 +96,9 @@ private:
     bool useStorageIdentifier;
     QCA::InitializationVector passwordSalt;
     QCA::InitializationVector cbcIv;
+
+    QString m_password;
+    QString m_storagePath;
 
     QCA::SecureArray hashPassword(QString password);
 
