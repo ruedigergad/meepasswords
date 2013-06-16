@@ -35,6 +35,7 @@ Item {
             return false;
         }
 
+        var changed = false
         var incomingModel = incomingStorageFile.getModel()
         var ownModel = mainFlickable.entryStorage.getModel()
 
@@ -51,6 +52,7 @@ Item {
                 if (ownModel.containsUuid(uuid)) {
                     console.log("Deleting: " + uuid)
                     ownModel.removeByUuid(uuid)
+                    changed = true
                 }
             }
         }
@@ -66,6 +68,7 @@ Item {
                 if (incomingModel.containsUuid(uuid)) {
                     console.log("Deleting: " + uuid)
                     incomingModel.removeByUuid(uuid)
+                    changed = true
                 }
             }
         }
@@ -88,15 +91,18 @@ Item {
                     ownModel.updateEntryAt(ownIndex, incomingEntry.name, incomingEntry.category,
                                            incomingEntry.userName, incomingEntry.password,
                                            incomingEntry.notes)
+                    changed = true
                 }
             } else {
                 console.log("Entry not found, adding new.")
                 ownModel.addEntry(incomingEntry.name, incomingEntry.category,
                                   incomingEntry.userName, incomingEntry.password,
                                   incomingEntry.notes, incomingEntry.uuid)
+                changed = true
             }
             index++
         }
+        return changed
     }
 
     EntryStorage {
