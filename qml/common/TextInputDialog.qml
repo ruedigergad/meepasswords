@@ -25,6 +25,7 @@ CommonDialog {
     property alias title: titleText.text
     property alias label: labelText.text
     property alias input: inputField.text
+    property alias echoMode: inputField.echoMode
 
     signal accepted
 
@@ -62,7 +63,7 @@ CommonDialog {
         }
 
         CommonTextField {
-            id: inputField;
+            id: inputField
             width: parent.width * 0.75;
             anchors {top: labelText.bottom; topMargin: primaryFontSize * 0.25; horizontalCenter: parent.horizontalCenter}
             focus: true

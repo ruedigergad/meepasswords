@@ -163,18 +163,35 @@ Rectangle {
         }
     }
 
-    ConfirmationDialog {
+    TextInputDialog {
         id: confirmSyncToImapDialog
 
-        titleText: "Sync password list?"
-        message: "This may take some time."
+        title: "Enter Password for Sync."
+        label: "Please enter the password for decrypting the sync data. Note that for syncing you have to use the same password on all devices."
+
+        echoMode: TextInput.Password
 
         onOpened: mainFlickable.meePasswordsToolBar.enabled = false
         onRejected: mainFlickable.meePasswordsToolBar.enabled = true
 
         onAccepted: {
-            syncFileToImap.syncFile(mainFlickable.entryStorage.getStorageDirPath(), "encrypted.raw")
+            if (mainFlickable.entryStorage.canDecrypt(input)) {
+                merger.setPassword(input)
+                input = ""
+                syncFileToImap.syncFile(mainFlickable.entryStorage.getStorageDirPath(), "encrypted.raw")
+            } else {
+                messageDialog.title = "Decryption Failed"
+                messageDialog.message = "The decryption failed with the entered password. Please make sure you enter the correct password."
+                messageDialog.open()
+            }
         }
+    }
+
+    MessageDialog {
+        id: messageDialog
+
+        onOpened: mainFlickable.meePasswordsToolBar.enabled = false
+        onRejected: mainFlickable.meePasswordsToolBar.enabled = true
     }
 
     SyncFileToImap {
@@ -224,5 +241,3 @@ Rectangle {
         onStarted: mainFlickable.meePasswordsToolBar.enabled = false
     }
 }
-
-

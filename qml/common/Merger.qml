@@ -22,6 +22,13 @@ import meepasswords 1.0
 import SyncToImap 1.0
 
 Item {
+
+    property string _password
+
+    function setPassword(p) {
+        _password = p
+    }
+
     function mergeDir (dirName) {
         console.log("Merging directory: " + dirName)
     }
@@ -31,8 +38,9 @@ Item {
 
         incomingStorageFile.getModel().clear()
         incomingStorageFile.setStoragePath(syncFileName)
-        incomingStorageFile.setPassword(mainFlickable.entryStorage.getPassword())
+        incomingStorageFile.setPassword(_password)
         if (!incomingStorageFile.loadAndDecryptData()) {
+            _password = ""
             return false;
         }
 
@@ -126,6 +134,7 @@ Item {
         }
 
         incomingStorageFile.getModel().clear()
+        _password = ""
         return changed
     }
 

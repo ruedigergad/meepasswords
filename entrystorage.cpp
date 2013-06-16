@@ -408,6 +408,7 @@ bool EntryStorage::canDecrypt(QString password){
     }
 
     if(storageFile.open(QIODevice::ReadOnly)){
+        storageFile.readLine();
         encryptedData = storageFile.readAll();
         storageFile.close();
     }else{
@@ -421,14 +422,14 @@ bool EntryStorage::canDecrypt(QString password){
     QCA::MemoryRegion tempInput(encryptedData);
 
     qDebug("canDecrypt(): Create key for decrypting.");
-    QCA::SecretKey tempKey = QCA::PBKDF2().makeKey(hashPassword(password), passwordSalt,
+    QCA::SymmetricKey tempKey = QCA::PBKDF2().makeKey(hashPassword(password), passwordSalt,
                                                 KEY_GEN_LENGTH, KEY_GEN_ITERATIONS);
 
     qDebug("canDecrypt(): Create cipher for decrypting.");
     QCA::Cipher cipher(CIPHER_TYPE, CIPHER_MODE, CIPHER_PADDING, QCA::Decode, tempKey);
 
     qDebug("canDecrypt(): Perform decryption.");
-    cipher.process(tempInput).toByteArray();
+    cipher.process(tempInput);
     return cipher.ok();
 }
 
