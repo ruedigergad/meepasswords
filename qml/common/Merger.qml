@@ -29,6 +29,7 @@ Item {
     function mergeFile (syncFileName) {
         console.log("Merging sync file: " + syncFileName)
 
+        incomingStorageFile.getModel().clear()
         incomingStorageFile.setStoragePath(syncFileName)
         incomingStorageFile.setPassword(mainFlickable.entryStorage.getPassword())
         if (!incomingStorageFile.loadAndDecryptData()) {
@@ -85,6 +86,7 @@ Item {
                 console.log("Found two matching entries. own: " + ownIndex + " incoming: " + index)
                 var incomingMtime = incomingEntry.mtime
                 var ownMtime = ownModel.get(ownIndex).mtime
+                console.log("Own mtime: " + ownMtime + " Incoming mtime: " + incomingMtime)
 
                 if (ownMtime < incomingMtime) {
                     console.log("Own entry is older, updating...")
@@ -118,6 +120,12 @@ Item {
             }
             index++
         }
+
+        if (changed) {
+            mainFlickable.entryStorage.storeModel()
+        }
+
+        incomingStorageFile.getModel().clear()
         return changed
     }
 

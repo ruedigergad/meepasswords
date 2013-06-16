@@ -89,9 +89,7 @@ public:
     }
     void setId(int id){
         m_id = id;
-        m_mtime = QDateTime::currentDateTimeUtc();
         emit idChanged(id);
-        emit mtimeChanged(mtime());
     }
 
 signals:

@@ -249,6 +249,7 @@ QByteArray EntryListModel::toByteArray(){
 }
 
 void EntryListModel::updateEntryAt(int index, QString name, QString category, QString userName, QString password, QString notes){
+    beginResetModel();
     if (index >= 0 && index < m_entries.length()) {
         qDebug("updateEntriesAt: updating...");
         Entry e = m_entries.at(index);
@@ -265,6 +266,7 @@ void EntryListModel::updateEntryAt(int index, QString name, QString category, QS
         Entry newEntry(name, category, userName, password, notes, -1);
         add(newEntry);
     }
+    endResetModel();
     emit changed();
 }
 
@@ -292,6 +294,7 @@ QStringList EntryListModel::getItemNames() const {
 
 void EntryListModel::addOrUpdateEntry(QString name, QString category, QString userName, QString password, QString notes, int id)
 {
+    beginResetModel();
     for (int i = 0; i < m_entries.length(); i++) {
         Entry entry = m_entries[i];
         if (entry.id() == id) {
@@ -312,5 +315,6 @@ void EntryListModel::addOrUpdateEntry(QString name, QString category, QString us
     qDebug("addOrUpdateEntry: adding...");
     Entry newEntry(name, category, userName, password, notes, id);
     addEntry(newEntry);
+    endResetModel();
     emit changed();
 }
