@@ -25,6 +25,9 @@ import "../common"
 Rectangle {
     id: main
 
+    anchors.fill: parent
+    color: "lightgray"
+
     property int primaryFontSize: 16
     property int primaryBorderSize: primaryFontSize
 
@@ -32,9 +35,14 @@ Rectangle {
         console.log("Rotation changed...");
     }
 
-    anchors.fill: parent
+    Component.onCompleted: {
+        cleanOldFiles()
+    }
 
-    color: "lightgray"
+    function cleanOldFiled() {
+        console.log("Cleaning left overs from last run.")
+        fileHelper.rmAll(mainFlickable.entryStorage.getStorageDirPath(), ".encrypted.");
+    }
 
     Item {
         anchors.fill: parent
@@ -227,6 +235,7 @@ Rectangle {
 
         onAccepted: {
             syncMessageDeleter.deleteMessage("encrypted.raw")
+            cleanOldFiled()
         }
     }
 
@@ -240,5 +249,9 @@ Rectangle {
             mainFlickable.listView.focus = true
         }
         onStarted: mainFlickable.meePasswordsToolBar.enabled = false
+    }
+
+    FileHelper {
+        id: fileHelper
     }
 }
