@@ -82,15 +82,18 @@ Item {
             var ownIndex = ownModel.indexOfUuid(incomingEntry.uuid)
 
             if (ownIndex > -1) {
-                console.log("Found two matching entries.")
-                var incomingMtime = incomingEntry.mtimeInt
-                var ownMtime = ownModel.get(ownIndex).mtimeInt
+                console.log("Found two matching entries. own: " + ownIndex + " incoming: " + index)
+                var incomingMtime = incomingEntry.mtime
+                var ownMtime = ownModel.get(ownIndex).mtime
 
                 if (ownMtime < incomingMtime) {
                     console.log("Own entry is older, updating...")
                     ownModel.updateEntryAt(ownIndex, incomingEntry.name, incomingEntry.category,
                                            incomingEntry.userName, incomingEntry.password,
                                            incomingEntry.notes)
+                    changed = true
+                } else if (incomingMtime < ownMtime) {
+                    console.log("Own entry is newer. Forcing update.")
                     changed = true
                 }
             } else {
