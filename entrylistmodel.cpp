@@ -248,9 +248,20 @@ QByteArray EntryListModel::toByteArray(){
 }
 
 void EntryListModel::updateEntryAt(int index, QString name, QString category, QString userName, QString password, QString notes){
-    remove(index);
-    Entry entry(name, category, userName, password, notes, -1);
-    add(entry);
+    if (index > 0 && index < m_entries.length() - 1) {
+        Entry e = m_entries.at(index);
+
+        e.setName(name);
+        e.setCategory(category);
+        e.setUserName(userName);
+        e.setPassword(password);
+        e.setNotes(notes);
+
+        m_entries.replace(index, e);
+    } else {
+        Entry newEntry(name, category, userName, password, notes, -1);
+        add(newEntry);
+    }
     emit changed();
 }
 
@@ -278,12 +289,15 @@ QStringList EntryListModel::getItemNames() const {
 
 void EntryListModel::addOrUpdateEntry(QString name, QString category, QString userName, QString password, QString notes, int id)
 {
-    Entry newEntry(name, category, userName, password, notes, id);
-
     for (int i = 0; i < m_entries.length(); i++) {
         Entry entry = m_entries[i];
-        if (entry.id() == newEntry.id()) {
-            m_entries.replace(i, newEntry);
+        if (entry.id() == id) {
+            entry.setName(name);
+            entry.setCategory(category);
+            entry.setUserName(userName);
+            entry.setPassword(password);
+            entry.setNotes(notes);
+            m_entries.replace(i, entry);
             emit dataChanged(index(i), index(i));
             emit changed();
             return;
@@ -291,5 +305,7 @@ void EntryListModel::addOrUpdateEntry(QString name, QString category, QString us
     }
 
     // No entry found. Add new entry.
+    Entry newEntry(name, category, userName, password, notes, id);
     addEntry(newEntry);
+    emit changed();
 }
