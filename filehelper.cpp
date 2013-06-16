@@ -106,7 +106,7 @@ QString FileHelper::mtimeString(const QString &fileName) {
 }
 
 bool FileHelper::rm(const QString &file){
-    return QFile(file).remove();
+    return QFile::remove(file);
 }
 
 bool FileHelper::rmdir(const QString &dir){
