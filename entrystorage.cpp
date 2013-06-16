@@ -294,7 +294,6 @@ void EntryStorage::setPassword(QString password){
     }
 
     qDebug("Creating password hash.");
-    m_password = password;
     QCA::SecureArray passwordHash = hashPassword(password);
 
     useStorageIdentifier = hasStorageIdentifierLine();
@@ -469,10 +468,6 @@ bool EntryStorage::hasStorageIdentifierLine() {
     storageFile.close();
 
     return ret;
-}
-
-QString EntryStorage::getPassword() {
-    return m_password;
 }
 
 void EntryStorage::setStoragePath(QString path) {

@@ -66,8 +66,6 @@ public:
 
     Q_INVOKABLE void migrateStorageIdentifier(QString password);
 
-    Q_INVOKABLE QString getPassword();
-
     Q_INVOKABLE void setStoragePath(QString path);
 
 signals:
@@ -97,7 +95,6 @@ private:
     QCA::InitializationVector passwordSalt;
     QCA::InitializationVector cbcIv;
 
-    QString m_password;
     QString m_storagePath;
 
     QCA::SecureArray hashPassword(QString password);
