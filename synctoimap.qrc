@@ -6,5 +6,6 @@
         <file>qml/common/SyncToImapBase.qml</file>
         <file>qml/common/ProgressDialog.qml</file>
         <file>qml/common/Merger.qml</file>
+        <file>qml/common/SyncMessageDeleter.qml</file>
     </qresource>
 </RCC>

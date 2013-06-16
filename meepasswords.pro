@@ -212,7 +212,8 @@ OTHER_FILES += \
     qml/common/ProgressDialog.qml \
     bar-descriptor.xml \
     qml/common/Merger.qml \
-    qml/desktop/common/CommonFlickable.qml
+    qml/desktop/common/CommonFlickable.qml \
+    qml/common/SyncMessageDeleter.qml
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)

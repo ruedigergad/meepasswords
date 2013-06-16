@@ -99,13 +99,26 @@ Rectangle {
 
         CommonButton{
             id: syncAccountSettings
-            anchors.bottom: exportKeePassXml.top
+            anchors.bottom: syncDeleteMessage.top
             anchors.bottomMargin: primaryFontSize / 3
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - primaryFontSize
             text: "Sync Account Settings"
             onClicked: {
                 imapAccountSettings.open()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton{
+            id: syncDeleteMessage
+            anchors.bottom: exportKeePassXml.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Clear Sync Data"
+            onClicked: {
+                confirmDeleteSyncMessage.open()
                 mainMenu.close()
             }
         }
@@ -180,6 +193,30 @@ Rectangle {
 
     ImapAccountSettingsSheet {
         id: imapAccountSettings
+    }
+
+
+    ConfirmationDialog {
+        id: confirmDeleteSyncMessage
+
+        titleText: "Clear sync data?"
+        message: "This may take some time."
+
+        onOpened: mainFlickable.meePasswordsToolBar.enabled = false
+        onRejected: mainFlickable.meePasswordsToolBar.enabled = true
+
+        onAccepted: {
+            syncMessageDeleter.deleteMessage("encrypted.raw")
+        }
+    }
+
+    SyncMessageDeleter {
+        id: syncMessageDeleter
+
+        imapFolderName: "meepasswords"
+
+        onFinished: mainFlickable.meePasswordsToolBar.enabled = true
+        onStarted: mainFlickable.meePasswordsToolBar.enabled = false
     }
 }
 
