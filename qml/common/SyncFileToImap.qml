@@ -76,7 +76,6 @@ SyncToImapBase {
 
     onMessageAdded: {
         _fileHelper.rm(_imapSyncFile)
-        _fileHelper.rm(_imapSyncFile + ".backup")
         _reportSuccess()
     }
 

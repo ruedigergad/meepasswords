@@ -203,6 +203,7 @@ Rectangle {
         onFinished: {
             mainFlickable.meePasswordsToolBar.enabled = true
             mainFlickable.listView.focus = true
+            _fileHelper.rm(_imapSyncFile + ".backup")
         }
         onStarted: mainFlickable.meePasswordsToolBar.enabled = false
     }
