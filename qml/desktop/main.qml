@@ -183,7 +183,10 @@ Rectangle {
         imapFolderName: "meepasswords"
         merger: merger
 
-        onFinished: mainFlickable.meePasswordsToolBar.enabled = true
+        onFinished: {
+            mainFlickable.meePasswordsToolBar.enabled = true
+            mainFlickable.listView.focus = true
+        }
         onStarted: mainFlickable.meePasswordsToolBar.enabled = false
     }
 
@@ -194,7 +197,6 @@ Rectangle {
     ImapAccountSettingsSheet {
         id: imapAccountSettings
     }
-
 
     ConfirmationDialog {
         id: confirmDeleteSyncMessage
@@ -215,7 +217,10 @@ Rectangle {
 
         imapFolderName: "meepasswords"
 
-        onFinished: mainFlickable.meePasswordsToolBar.enabled = true
+        onFinished: {
+            mainFlickable.meePasswordsToolBar.enabled = true
+            mainFlickable.listView.focus = true
+        }
         onStarted: mainFlickable.meePasswordsToolBar.enabled = false
     }
 }

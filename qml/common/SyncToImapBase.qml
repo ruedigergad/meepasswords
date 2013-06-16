@@ -224,6 +224,7 @@ Item {
     MessageDialog {
         id: _messageDialog
         parent: syncToImapBase.parent
+        onClosed: mainFlickable.listView.focus = true
     }
 
     ImapAccountHelper {

@@ -248,7 +248,7 @@ QByteArray EntryListModel::toByteArray(){
 }
 
 void EntryListModel::updateEntryAt(int index, QString name, QString category, QString userName, QString password, QString notes){
-    if (index > 0 && index < m_entries.length() - 1) {
+    if (index >= 0 && index < m_entries.length()) {
         qDebug("updateEntriesAt: updating...");
         Entry e = m_entries.at(index);
 
