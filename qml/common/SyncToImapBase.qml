@@ -31,6 +31,7 @@ Item {
     signal finished
     signal messageAdded
     signal messageDeleted
+    signal messageDialogClosed
     signal messageIdsQueried
     signal messageRetrieved
     signal messageUpdated
@@ -224,7 +225,7 @@ Item {
     MessageDialog {
         id: _messageDialog
         parent: syncToImapBase.parent
-        onClosed: mainFlickable.listView.focus = true
+        onClosed: syncToImapBase.messageDialogClosed()
     }
 
     ImapAccountHelper {

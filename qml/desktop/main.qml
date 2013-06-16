@@ -214,6 +214,7 @@ Rectangle {
             _fileHelper.rm(_imapSyncFile + ".backup")
         }
         onStarted: mainFlickable.meePasswordsToolBar.enabled = false
+        onMessageDialogClosed: mainFlickable.listView.focus = true
     }
 
     Merger {
