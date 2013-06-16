@@ -249,6 +249,7 @@ QByteArray EntryListModel::toByteArray(){
 
 void EntryListModel::updateEntryAt(int index, QString name, QString category, QString userName, QString password, QString notes){
     if (index > 0 && index < m_entries.length() - 1) {
+        qDebug("updateEntriesAt: updating...");
         Entry e = m_entries.at(index);
 
         e.setName(name);
@@ -259,6 +260,7 @@ void EntryListModel::updateEntryAt(int index, QString name, QString category, QS
 
         m_entries.replace(index, e);
     } else {
+        qDebug("updateEntriesAt: adding...");
         Entry newEntry(name, category, userName, password, notes, -1);
         add(newEntry);
     }
@@ -292,6 +294,7 @@ void EntryListModel::addOrUpdateEntry(QString name, QString category, QString us
     for (int i = 0; i < m_entries.length(); i++) {
         Entry entry = m_entries[i];
         if (entry.id() == id) {
+            qDebug("addOrUpdateEntry: updating...");
             entry.setName(name);
             entry.setCategory(category);
             entry.setUserName(userName);
@@ -305,6 +308,7 @@ void EntryListModel::addOrUpdateEntry(QString name, QString category, QString us
     }
 
     // No entry found. Add new entry.
+    qDebug("addOrUpdateEntry: adding...");
     Entry newEntry(name, category, userName, password, notes, id);
     addEntry(newEntry);
     emit changed();

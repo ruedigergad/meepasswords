@@ -102,6 +102,19 @@ Item {
             }
             index++
         }
+
+        console.log("Checking for additions in own model.")
+        index = 0
+        while (index < ownModel.count) {
+            console.log("Index: " + index)
+
+            var ownEntry = ownModel.get(index)
+            if (!incomingModel.containsUuid(ownEntry.uuid)) {
+                console.log("Found new entry. Forcing upload.")
+                changed = true
+            }
+            index++
+        }
         return changed
     }
 

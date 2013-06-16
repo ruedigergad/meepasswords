@@ -64,6 +64,8 @@ SyncToImapBase {
                 _imapStorage.deleteMessage(_imapMessageId)
             } else {
                 console.log("No changes reported by merger. Sync finished successfully.")
+                _fileHelper.rm(_imapSyncFile)
+                _fileHelper.rm(_imapSyncFile + ".backup")
                 _reportSuccess()
             }
         } else {
@@ -72,7 +74,11 @@ SyncToImapBase {
         }
     }
 
-    onMessageAdded: _reportSuccess()
+    onMessageAdded: {
+        _fileHelper.rm(_imapSyncFile)
+        _fileHelper.rm(_imapSyncFile + ".backup")
+        _reportSuccess()
+    }
 
     onMessageDeleted: {
         _imapStorage.addMessage(_imapAccountId, imapFolderName, _imapMessageSubject, _baseDir + "/" + _localFileName)
