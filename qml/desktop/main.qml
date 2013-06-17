@@ -94,7 +94,7 @@ Rectangle {
 
         CommonButton{
             id: syncToImap
-            anchors.bottom: syncAccountSettings.top
+            anchors.bottom: syncDeleteMessage.top
             anchors.bottomMargin: primaryFontSize / 3
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - primaryFontSize
@@ -106,27 +106,27 @@ Rectangle {
         }
 
         CommonButton{
-            id: syncAccountSettings
-            anchors.bottom: syncDeleteMessage.top
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "Sync Account Settings"
-            onClicked: {
-                imapAccountSettings.open()
-                mainMenu.close()
-            }
-        }
-
-        CommonButton{
             id: syncDeleteMessage
-            anchors.bottom: exportKeePassXml.top
+            anchors.bottom: syncAccountSettings.top
             anchors.bottomMargin: primaryFontSize / 3
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - primaryFontSize
             text: "Clear Sync Data"
             onClicked: {
                 confirmDeleteSyncMessage.open()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton{
+            id: syncAccountSettings
+            anchors.bottom: exportKeePassXml.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Sync Account Settings"
+            onClicked: {
+                imapAccountSettings.open()
                 mainMenu.close()
             }
         }
