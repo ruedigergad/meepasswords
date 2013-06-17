@@ -66,13 +66,13 @@ Rectangle {
         id: mainMenu
 
         parent: main
-//        anchors.bottomMargin: commonTools.height
-//        onClosed: commonTools.enabled = true
-//        onOpened: commonTools.enabled = false
+        anchors.bottomMargin: mainFlickable.meePasswordsToolBar.height
+        onClosed: mainFlickable.meePasswordsToolBar.enabled = true
+        onOpened: mainFlickable.meePasswordsToolBar.enabled = false
 
         CommonButton{
             id: changePassword
-            anchors.bottom: about.top
+            anchors.bottom: syncToImap.top
             anchors.bottomMargin: primaryFontSize / 3
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - primaryFontSize
@@ -83,31 +83,44 @@ Rectangle {
             }
         }
 
-//        CommonButton{
-//            id: syncToImap
-//            anchors.bottom: syncSketchesToImap.top
-//            anchors.bottomMargin: primaryFontSize / 3
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            width: parent.width - primaryFontSize
-//            text: "Sync"
-//            onClicked: {
-//                mainRectangle.confirmSyncToImapDialog.open()
-//                mainMenu.close()
-//            }
-//        }
+        CommonButton{
+            id: syncToImap
+            anchors.bottom: syncDeleteMessage.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Sync"
+            onClicked: {
+                mainFlickable.confirmSyncToImapDialog.open()
+                mainMenu.close()
+            }
+        }
 
-//        CommonButton{
-//            id: syncAccountSettings
-//            anchors.bottom: about.top
-//            anchors.bottomMargin: primaryFontSize / 3
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            width: parent.width - primaryFontSize
-//            text: "Sync Account Settings"
-//            onClicked: {
-//                imapAccountSettings.open()
-//                mainMenu.close()
-//            }
-//        }
+        CommonButton{
+            id: syncDeleteMessage
+            anchors.bottom: syncAccountSettings.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Clear Sync Data"
+            onClicked: {
+                mainFlickable.confirmDeleteSyncMessage.open()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton{
+            id: syncAccountSettings
+            anchors.bottom: about.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Sync Account Settings"
+            onClicked: {
+                mainFlickable.imapAccountSettings.open()
+                mainMenu.close()
+            }
+        }
 
         CommonButton{
             id: about
@@ -124,5 +137,3 @@ Rectangle {
     }
 
 }
-
-
