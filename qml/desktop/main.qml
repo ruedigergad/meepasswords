@@ -100,7 +100,7 @@ Rectangle {
             width: parent.width - primaryFontSize
             text: "Sync"
             onClicked: {
-                confirmSyncToImapDialog.open()
+                mainFlickable.confirmSyncToImapDialog.open()
                 mainMenu.close()
             }
         }
@@ -113,7 +113,7 @@ Rectangle {
             width: parent.width - primaryFontSize
             text: "Clear Sync Data"
             onClicked: {
-                confirmDeleteSyncMessage.open()
+                mainFlickable.confirmDeleteSyncMessage.open()
                 mainMenu.close()
             }
         }
@@ -126,7 +126,7 @@ Rectangle {
             width: parent.width - primaryFontSize
             text: "Sync Account Settings"
             onClicked: {
-                imapAccountSettings.open()
+                mainFlickable.imapAccountSettings.open()
                 mainMenu.close()
             }
         }
@@ -169,90 +169,5 @@ Rectangle {
                 mainMenu.close()
             }
         }
-    }
-
-    TextInputDialog {
-        id: confirmSyncToImapDialog
-
-        title: "Enter Password for Sync."
-        label: "Please enter the password for decrypting the sync data. Note that for syncing you have to use the same password on all devices."
-
-        echoMode: TextInput.Password
-
-        onOpened: mainFlickable.meePasswordsToolBar.enabled = false
-        onRejected: mainFlickable.meePasswordsToolBar.enabled = true
-
-        onAccepted: {
-            if (mainFlickable.entryStorage.canDecrypt(input)) {
-                merger.setPassword(input)
-                input = ""
-                syncFileToImap.syncFile(mainFlickable.entryStorage.getStorageDirPath(), "encrypted.raw")
-            } else {
-                messageDialog.title = "Decryption Failed"
-                messageDialog.message = "The decryption failed with the entered password. Please make sure you enter the correct password."
-                messageDialog.open()
-            }
-        }
-    }
-
-    MessageDialog {
-        id: messageDialog
-
-        onOpened: mainFlickable.meePasswordsToolBar.enabled = false
-        onRejected: mainFlickable.meePasswordsToolBar.enabled = true
-    }
-
-    SyncFileToImap {
-        id: syncFileToImap
-
-        imapFolderName: "meepasswords"
-        merger: merger
-
-        onFinished: {
-            mainFlickable.meePasswordsToolBar.enabled = true
-            mainFlickable.listView.focus = true
-            _fileHelper.rm(_imapSyncFile + ".backup")
-        }
-        onStarted: mainFlickable.meePasswordsToolBar.enabled = false
-        onMessageDialogClosed: mainFlickable.listView.focus = true
-    }
-
-    Merger {
-        id: merger
-    }
-
-    ImapAccountSettingsSheet {
-        id: imapAccountSettings
-    }
-
-    ConfirmationDialog {
-        id: confirmDeleteSyncMessage
-
-        titleText: "Clear sync data?"
-        message: "This may take some time."
-
-        onOpened: mainFlickable.meePasswordsToolBar.enabled = false
-        onRejected: mainFlickable.meePasswordsToolBar.enabled = true
-
-        onAccepted: {
-            syncMessageDeleter.deleteMessage("encrypted.raw")
-            cleanOldFiled()
-        }
-    }
-
-    SyncMessageDeleter {
-        id: syncMessageDeleter
-
-        imapFolderName: "meepasswords"
-
-        onFinished: {
-            mainFlickable.meePasswordsToolBar.enabled = true
-            mainFlickable.listView.focus = true
-        }
-        onStarted: mainFlickable.meePasswordsToolBar.enabled = false
-    }
-
-    FileHelper {
-        id: fileHelper
     }
 }
