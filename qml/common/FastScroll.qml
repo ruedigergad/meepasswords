@@ -76,7 +76,7 @@ Item {
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            width: 70
+            width: primaryFontSize * 3
             drag.target: magnifier
             drag.axis: Drag.YAxis
             drag.minimumY: 0 // listView.y
@@ -143,7 +143,7 @@ Item {
             opacity: rail.dragging ? 0.7 : 0
             anchors.left: parent.left
             anchors.right: parent.right
-            height: primaryFontSize * 7
+            height: primaryFontSize * 4
             color: "gray"
 
             function positionAtY(yCoord) {
@@ -154,8 +154,8 @@ Item {
                 id: magnifierLabel
                 objectName: "magnifierLabel"
                 opacity: rail.dragging ? 1 : 0
-                x: 14
-                y: 40
+                x: primaryFontSize
+                y: magnifier.height / 4
 
                 font.pointSize: primaryFontSize * 1.5
                 //font.family: "Nokia Pure Text Bold"
