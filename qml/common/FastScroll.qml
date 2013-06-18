@@ -76,7 +76,7 @@ Item {
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            width: primaryFontSize * 3
+            width: primaryFontSize * 2
             drag.target: magnifier
             drag.axis: Drag.YAxis
             drag.minimumY: 0 // listView.y
@@ -114,7 +114,7 @@ Item {
                     when: listView.moving || rail.dragging
                     PropertyChanges {
                         target: rail
-                        opacity: 0.7
+                        opacity: 0.4
                     }
                 }
 
@@ -140,10 +140,10 @@ Item {
         Rectangle {
             id: magnifier
             objectName: "popup"
-            opacity: rail.dragging ? 0.7 : 0
+            opacity: rail.dragging ? 0.4 : 0
             anchors.left: parent.left
             anchors.right: parent.right
-            height: primaryFontSize * 4
+            height: magnifierLabel.height * 1.5
             color: "gray"
 
             function positionAtY(yCoord) {
@@ -155,7 +155,7 @@ Item {
                 objectName: "magnifierLabel"
                 opacity: rail.dragging ? 1 : 0
                 x: primaryFontSize
-                y: magnifier.height / 4
+                anchors.verticalCenter: magnifier.verticalCenter
 
                 font.pointSize: primaryFontSize * 1.5
                 //font.family: "Nokia Pure Text Bold"
