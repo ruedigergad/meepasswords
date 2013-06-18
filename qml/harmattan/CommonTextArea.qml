@@ -21,4 +21,6 @@ import com.nokia.meego 1.0
 
 TextArea{
     id: commonTextArea
+
+    property alias pointSize: commonTextArea.font.pointSize
 }

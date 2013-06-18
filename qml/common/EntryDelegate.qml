@@ -6,6 +6,7 @@ Text {
 
     text: name;
     font.pointSize: primaryFontSize
+    wrapMode: Text.WordWrap
     horizontalAlignment: Text.AlignHCenter
     color: mouseArea.pressed ? "gray" : "black"
 

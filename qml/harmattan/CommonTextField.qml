@@ -21,4 +21,6 @@ import com.nokia.meego 1.0
 
 TextField{
     id: commonTextField
+
+    property alias pointSize: commonTextField.font.pointSize
 }

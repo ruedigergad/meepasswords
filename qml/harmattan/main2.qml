@@ -18,6 +18,7 @@
  */
 
 import QtQuick 1.1
+import QtMobility.systeminfo 1.2
 import com.nokia.meego 1.0
 import meepasswords 1.0
 import SyncToImap 1.0
@@ -30,7 +31,7 @@ PageStackWindow {
     color: "lightgray"
 
     property int primaryFontSize: 30
-    property int primaryBorderSize: primaryFontSize
+    property int primaryBorderSize: 20
 
     initialPage: main
 
@@ -150,6 +151,17 @@ PageStackWindow {
             onClicked: {
                 mainFlickable.aboutDialog.open()
                 mainMenu.close()
+            }
+        }
+    }
+
+    DeviceInfo {
+        id: deviceInfo
+
+        monitorLockStatusChanges: true
+        onLockStatusChanged: {
+            if(lockStatus !== 0){
+                mainFlickable.logOut()
             }
         }
     }
