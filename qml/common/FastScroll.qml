@@ -92,7 +92,7 @@ Item {
 
             Rectangle {
                 id: rail
-                color: "black"
+                color: "gray"
                 opacity: 0
                 anchors.fill: parent
 
@@ -102,8 +102,10 @@ Item {
                     id: handle
                     opacity: !rail.dragging ? 1 : 0
                     anchors.horizontalCenter: parent.horizontalCenter
-                    color: "red"
-                    height: 18
+                    color: "black"
+                    height: rail.width / 4
+                    width: height
+                    radius: height / 2
                     y: 18 + (rail.height - 36 - height)/(1.0 - listView.visibleArea.heightRatio) * listView.visibleArea.yPosition
                 }
 
@@ -112,7 +114,7 @@ Item {
                     when: listView.moving || rail.dragging
                     PropertyChanges {
                         target: rail
-                        opacity: 0.4
+                        opacity: 0.7
                     }
                 }
 
@@ -138,11 +140,11 @@ Item {
         Rectangle {
             id: magnifier
             objectName: "popup"
-            opacity: rail.dragging ? 0.4 : 0
+            opacity: rail.dragging ? 0.7 : 0
             anchors.left: parent.left
             anchors.right: parent.right
-            height: 100
-            color: "black"
+            height: primaryFontSize * 7
+            color: "gray"
 
             function positionAtY(yCoord) {
                 magnifier.y = Math.max(dragArea.drag.minimumY, Math.min(yCoord - magnifier.height/2, dragArea.drag.maximumY));
@@ -155,7 +157,7 @@ Item {
                 x: 14
                 y: 40
 
-                font.pointSize: primaryFontSize
+                font.pointSize: primaryFontSize * 1.5
                 //font.family: "Nokia Pure Text Bold"
                 color: "black"
 
