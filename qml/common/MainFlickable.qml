@@ -190,11 +190,6 @@ Flickable {
                         anchors{top: parent.top; left: parent.left; right: parent.right; bottom: toolBar.top}
                     }
 
-                    FastScroll {
-                        id: sectionScroller
-                        listView: entryListView.listView
-                    }
-
                     Rectangle {
                         id: toolBar
 

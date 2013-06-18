@@ -28,6 +28,5 @@
         <file>icons/next.svg</file>
         <file>qml/common/FastScroll.js</file>
         <file>qml/common/FastScroll.qml</file>
-        <file>qml/common/FastScrollStyle.qml</file>
     </qresource>
 </RCC>

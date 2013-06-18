@@ -147,6 +147,11 @@ Rectangle {
         }
     }
 
+    FastScroll {
+        id: sectionScroller
+        listView: entryListView
+    }
+
     Keys.onUpPressed: listView.currentIndex--
     Keys.onDownPressed: listView.currentIndex++
     Keys.onRightPressed: editEntryRectangle.show()
