@@ -151,7 +151,7 @@ Item {
             onClicked: imapAccountSettingsSheet.close();
         }
 
-        Text {id: entryLabel; text: "Sync Accounts"; font.pointSize: primaryFontSize * 0.75
+        Text {id: entryLabel; text: "Accounts"; font.pointSize: primaryFontSize * 0.75
               font.capitalization: Font.SmallCaps; font.bold: true; anchors.centerIn: parent}
 
         CommonButton{
