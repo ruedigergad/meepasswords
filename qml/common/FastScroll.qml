@@ -73,7 +73,7 @@ Item {
         MouseArea {
             id: dragArea
             objectName: "dragArea"
-            anchors.right: parent.right
+            anchors.left: parent.left
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             width: primaryBorderSize * 2.5
@@ -154,7 +154,7 @@ Item {
                 id: magnifierLabel
                 objectName: "magnifierLabel"
                 opacity: rail.dragging ? 1 : 0
-                x: primaryBorderSize
+                x: rail.width + primaryBorderSize
                 anchors.verticalCenter: magnifier.verticalCenter
 
                 font.pointSize: primaryFontSize * 1.5
