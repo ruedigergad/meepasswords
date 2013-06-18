@@ -114,7 +114,7 @@ void EntryListModel::addFromByteArray(QByteArray &data){
             add(entry);
             forceRewrite = true;
         } else {
-            qDebug("Adding entry with known uuid and mtime.");
+//            qDebug("Adding entry with known uuid and mtime.");
             Entry entry(list.at(0), list.at(1), list.at(2), list.at(3),
                         notes.replace(xhtmlLineFeed, "\n"), -1,
                         QUuid(list.at(5)),

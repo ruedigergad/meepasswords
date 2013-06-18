@@ -77,7 +77,6 @@ Rectangle {
             }
         }
 
-        onCountChanged: console.log("countChanged: " + count)
         onCurrentIndexChanged: {
             if (currentIndex >= count) {
                 currentIndex = count - 1
