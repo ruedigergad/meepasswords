@@ -2,7 +2,9 @@
  * Credits go to ph5.
  * As there was no explicitly mentioned licensing or copyright notice I assume
  * this code to be released to the public domain.
- * Following is an exact copy of the file taken from above forum thread.
+ *
+ * Please note that this was changed in order to work on all QML platforms not only Harmattan.
+ * Essentially, this means removing platformStyle and using semi-transparent Rectangles instead of Images.
  */
 
 // FastScroll.js - this is just SectionScroller.js with a fix for
