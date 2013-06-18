@@ -49,7 +49,7 @@ public:
     Q_INVOKABLE bool mkdir(const QString &dir);
     Q_INVOKABLE QString mtimeString(const QString &fileName);
     Q_INVOKABLE bool rm(const QString &file);
-    Q_INVOKABLE bool rmAll(const QString &path, const QString &name);
+    Q_INVOKABLE void rmAll(const QString &path, const QString &name);
     Q_INVOKABLE bool rmdir(const QString &dir);
     Q_INVOKABLE QString sha1sum(const QString &fileName);
 

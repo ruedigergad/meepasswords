@@ -318,7 +318,7 @@ Item {
                 }
             }
 
-            CommonFlickable {
+            Flickable {
                 id: inputFlickable
 
                 anchors {top: actionButtonRow.bottom; topMargin: primaryFontSize * 0.5

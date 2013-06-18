@@ -76,7 +76,7 @@ Item {
             anchors.right: parent.right
             anchors.top: parent.top
             anchors.bottom: parent.bottom
-            width: primaryFontSize * 2
+            width: primaryBorderSize * 2.5
             drag.target: magnifier
             drag.axis: Drag.YAxis
             drag.minimumY: 0 // listView.y
@@ -154,7 +154,7 @@ Item {
                 id: magnifierLabel
                 objectName: "magnifierLabel"
                 opacity: rail.dragging ? 1 : 0
-                x: primaryFontSize
+                x: primaryBorderSize
                 anchors.verticalCenter: magnifier.verticalCenter
 
                 font.pointSize: primaryFontSize * 1.5

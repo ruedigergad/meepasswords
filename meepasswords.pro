@@ -37,7 +37,7 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
 
     LIBS += \
         -L$$PWD/lib/link/bb10 \
-        -lqca
+        -lqca \
         -lqmfclient
 
     bb10Libs.source = lib/build/bb10
@@ -49,6 +49,26 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     barDescriptor.path = $${TARGET}
 
     INSTALLS += barDescriptor
+}  else:win32 {
+    message(Windows Build)
+
+    DEFINES += WINDOWS_DESKTOP
+    DEFINES += _UNICODE
+
+#    CONFIG += console
+
+    INCLUDEPATH += \
+        lib/include \
+        lib/include/QtCrypto
+
+    LIBS += \
+        -Llib/build/windows/x86 \
+        -lqmfclient \
+        -lqca
+
+    RC_FILE = qtc_packaging/windows/meepasswords.rc
+
+    RESOURCES += desktop.qrc
 } else {
     message(Linux Desktop Build)
     DEFINES += LINUX_DESKTOP SYNC_TO_IMAP_SUPPORT

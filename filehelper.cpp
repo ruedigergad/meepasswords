@@ -109,7 +109,7 @@ bool FileHelper::rm(const QString &file){
     return QFile::remove(file);
 }
 
-bool FileHelper::rmAll(const QString &path, const QString &name){
+void FileHelper::rmAll(const QString &path, const QString &name){
     QStringList files = ls(path);
     for (int i = 0; i < files.length(); i++) {
         if (files.at(i).contains(name)) {

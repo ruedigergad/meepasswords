@@ -9,6 +9,5 @@
         <file alias="qml/common/CommonToolBar.qml">qml/desktop/common/CommonToolBar.qml</file>
         <file alias="qml/common/CommonToolIcon.qml">qml/desktop/common/CommonToolIcon.qml</file>
         <file alias="qml/common/CommonButton.qml">qml/desktop/common/CommonButton.qml</file>
-        <file alias="qml/common/CommonFlickable.qml">qml/desktop/common/CommonFlickable.qml</file>
     </qresource>
 </RCC>
