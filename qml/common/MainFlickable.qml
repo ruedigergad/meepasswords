@@ -128,10 +128,10 @@ Flickable {
             property bool performLogOut
 
             Text {
-                id: logText
+                id: logOutText
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
-                text: "Log out."
+                text: "Pull to Log out."
                 font.pointSize: primaryFontSize
                 color: mainContent.performLogOut ? "black" : "gray"
             }
@@ -157,7 +157,7 @@ Flickable {
                 }
 
                 onContentXChanged: {
-                    mainContent.performLogOut = contentX < mainFlickable.width - logText.width - primaryFontSize
+                    mainContent.performLogOut = contentX < mainFlickable.width - (logOutText.width * 1.25)
                 }
 
                 onMovementEnded: {
