@@ -31,7 +31,7 @@ PageStackWindow {
     color: "lightgray"
 
     property int primaryFontSize: 30
-    property int primaryBorderSize: 20
+    property int primaryBorderSize: 25
 
     initialPage: main
 
