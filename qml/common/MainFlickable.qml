@@ -34,6 +34,7 @@ Flickable {
     property alias entryStorage: entryStorage
     property alias imapAccountSettings: imapAccountSettings
     property alias meePasswordsToolBar: meePasswordsToolBar
+    property alias toolBar: toolBar
     property bool newStorage: false
     property alias passwordChangeDialog: passwordChangeDialog
     property alias listView: entryListView.listView

@@ -75,7 +75,7 @@ Rectangle {
         id: mainMenu
 
         parent: main
-        anchors.bottomMargin: mainFlickable.meePasswordsToolBar.height
+        anchors.bottomMargin: mainFlickable.toolBar.height
         onClosed: mainFlickable.meePasswordsToolBar.enabled = true
         onOpened: mainFlickable.meePasswordsToolBar.enabled = false
 
