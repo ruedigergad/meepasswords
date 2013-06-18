@@ -158,7 +158,7 @@ Flickable {
                 }
 
                 onContentXChanged: {
-                    mainContent.performLogOut = contentX < mainFlickable.width - (logOutText.width * 1.25)
+                    mainContent.performLogOut = contentX < mainFlickable.width - logOutText.width
                 }
 
                 onMovementEnded: {
