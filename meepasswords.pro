@@ -143,7 +143,8 @@ HEADERS += \
     keepassxmlstreamwriter.h \
     qmlclipboardadapter.h \
     entrysortfilterproxymodel.h \
-    filehelper.h
+    filehelper.h \
+    settingsadapter.h
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
@@ -157,7 +158,8 @@ SOURCES += main.cpp \
     keepassxmlstreamreader.cpp \
     keepassxmlstreamwriter.cpp \
     entrysortfilterproxymodel.cpp \
-    filehelper.cpp
+    filehelper.cpp \
+    settingsadapter.cpp
 
 contains(DEFINES, NFC_ENABLED) {
     HEADERS += nfctagwriter.h

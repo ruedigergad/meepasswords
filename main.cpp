@@ -42,6 +42,7 @@
 //#include "mtexteditqmladapter.h"
 //#include "qcomboboxqmladapter.h"
 #include "qmlclipboardadapter.h"
+#include "settingsadapter.h"
 //#include "qlineeditqmladapter.h"
 
 #include "filehelper.h"
@@ -114,6 +115,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     } else {
         qDebug("Messageserver is already running.");
     }
+
+    SettingsAdapter().setFastScrollAnchor("right");
 #endif
 #ifdef BB10_BUILD
     QProcess messageServerProcess;
@@ -138,6 +141,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 #endif
 
     qmlRegisterType<QmlClipboardAdapter>("meepasswords", 1, 0, "QClipboard");
+    qmlRegisterType<SettingsAdapter>("meepasswords", 1, 0, "SettingsAdapter");
 
     /*
      * Well, according to

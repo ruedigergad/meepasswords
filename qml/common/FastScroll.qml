@@ -73,7 +73,9 @@ Item {
         MouseArea {
             id: dragArea
             objectName: "dragArea"
-            anchors.left: parent.left
+
+            x: settingsAdapter.fastScrollAnchor === "left" ? parent.x : parent.x + parent.width - width
+
             anchors.top: parent.top
             anchors.bottom: parent.bottom
             width: primaryBorderSize * 2.5
@@ -154,7 +156,7 @@ Item {
                 id: magnifierLabel
                 objectName: "magnifierLabel"
                 opacity: rail.dragging ? 1 : 0
-                x: rail.width + primaryBorderSize
+                x: settingsAdapter.fastScrollAnchor === "left" ? magnifier.width + primaryBorderSize : primaryBorderSize
                 anchors.verticalCenter: magnifier.verticalCenter
 
                 font.pointSize: primaryFontSize * 1.5

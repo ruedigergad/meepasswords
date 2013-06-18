@@ -111,7 +111,7 @@ Rectangle {
 
         CommonButton{
             id: syncAccountSettings
-            anchors.bottom: about.top
+            anchors.bottom: fastScrollAnchorSetting.top
             anchors.bottomMargin: primaryFontSize / 3
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - primaryFontSize
@@ -119,6 +119,22 @@ Rectangle {
             onClicked: {
                 mainFlickable.imapAccountSettings.open()
                 mainMenu.close()
+            }
+        }
+
+        CommonButton{
+            id: fastScrollAnchorSetting
+            anchors.bottom: about.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: mainFlickable.settingsAdapter.fastScrollAnchor === "left" ? "Scroll Bar: Left" : "Scroll Bar: Right"
+            onClicked: {
+                if (mainFlickable.settingsAdapter.fastScrollAnchor === "left") {
+                    mainFlickable.settingsAdapter.fastScrollAnchor = "right"
+                } else {
+                    mainFlickable.settingsAdapter.fastScrollAnchor = "left"
+                }
             }
         }
 

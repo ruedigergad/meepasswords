@@ -32,11 +32,13 @@ Flickable {
     property alias confirmSyncToImapDialog: confirmSyncToImapDialog
     property alias deleteConfirmationDialog: deleteConfirmationDialog
     property alias entryStorage: entryStorage
+    property alias fileHelper: fileHelper
     property alias imapAccountSettings: imapAccountSettings
     property alias meePasswordsToolBar: meePasswordsToolBar
     property alias toolBar: toolBar
     property bool newStorage: false
     property alias passwordChangeDialog: passwordChangeDialog
+    property alias settingsAdapter: settingsAdapter
     property alias listView: entryListView.listView
     property bool loggedIn: false
 
@@ -389,5 +391,9 @@ Flickable {
 
     FileHelper {
         id: fileHelper
+    }
+
+    SettingsAdapter {
+        id: settingsAdapter
     }
 }
