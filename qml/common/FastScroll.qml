@@ -7,7 +7,6 @@
 
 // FastScroll.qml
 import QtQuick 1.1
-import com.nokia.meego 1.0 // for Style
 import "FastScroll.js" as Sections
 
 Item {
@@ -24,7 +23,7 @@ Item {
 
     property int __hideTimeout: 500
 
-    property Style platformStyle: FastScrollStyle {}
+//    property Style platformStyle: FastScrollStyle {}
 
     // This function ensures that we always anchor the decorator correctly according
     // to the page margins.
@@ -89,19 +88,20 @@ Item {
                 internal.adjustContentPosition(dragArea.mouseY);
             }
 
-            Image {
+            Rectangle {
                 id: rail
-                source: platformStyle.railImage
+                color: "black"
                 opacity: 0
                 anchors.fill: parent
 
                 property bool dragging: dragArea.drag.active
 
-                Image {
+                Rectangle {
                     id: handle
                     opacity: !rail.dragging ? 1 : 0
                     anchors.horizontalCenter: parent.horizontalCenter
-                    source: platformStyle.handleImage
+                    color: "red"
+                    height: 18
                     y: 18 + (rail.height - 36 - height)/(1.0 - listView.visibleArea.heightRatio) * listView.visibleArea.yPosition
                 }
 
@@ -110,7 +110,7 @@ Item {
                     when: listView.moving || rail.dragging
                     PropertyChanges {
                         target: rail
-                        opacity: 1
+                        opacity: 0.4
                     }
                 }
 
@@ -133,14 +133,14 @@ Item {
             }
         }
 
-        Image {
+        Rectangle {
             id: magnifier
             objectName: "popup"
-            opacity: rail.dragging ? 1 : 0
+            opacity: rail.dragging ? 0.4 : 0
             anchors.left: parent.left
             anchors.right: parent.right
-            height: 150
-            source: platformStyle.magnifierImage
+            height: 100
+            color: "black"
 
             function positionAtY(yCoord) {
                 magnifier.y = Math.max(dragArea.drag.minimumY, Math.min(yCoord - magnifier.height/2, dragArea.drag.maximumY));
@@ -149,12 +149,13 @@ Item {
             Text {
                 id: magnifierLabel
                 objectName: "magnifierLabel"
+                opacity: rail.dragging ? 1 : 0
                 x: 14
                 y: 40
 
-                font.pixelSize: platformStyle.fontPixelSize
+                font.pointSize: primaryFontSize
                 //font.family: "Nokia Pure Text Bold"
-                color: platformStyle.textColor
+                color: "black"
 
                 text: internal.currentSection
             }

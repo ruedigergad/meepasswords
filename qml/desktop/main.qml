@@ -41,7 +41,7 @@ Rectangle {
 
     function cleanOldFiles() {
         console.log("Cleaning left overs from last run.")
-        fileHelper.rmAll(mainFlickable.entryStorage.getStorageDirPath(), ".encrypted.");
+        mainFlickable.fileHelper.rmAll(mainFlickable.entryStorage.getStorageDirPath(), ".encrypted.");
     }
 
     Item {

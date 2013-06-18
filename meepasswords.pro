@@ -199,9 +199,9 @@ OTHER_FILES += \
     qml/harmattan/LabeledInput.qml \
     qml/harmattan/ShowEntryPage.qml \
     qml/harmattan/EntryLabel.qml \
-    qml/harmattan/FastScroll.qml \
-    qml/harmattan/FastScrollStyle.qml \
-    qml/harmattan/FastScroll.js \
+    qml/common/FastScroll.qml \
+    qml/common/FastScrollStyle.qml \
+    qml/common/FastScroll.js \
     qml/common/MainFlickable.qml \
     qml/common/PasswordInputRectangle.qml \
     qml/common/EditEntryRectangle.qml \
