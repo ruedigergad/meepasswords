@@ -77,7 +77,7 @@ void EntryListModel::addEntry(QString name, QString category, QString userName, 
 
 void EntryListModel::addEntry(QString name, QString category, QString userName, QString password, QString notes, QString uuid){
     Entry entry(name, category, userName, password, notes, -1,
-                QUuid::fromRfc4122(QByteArray::fromBase64(uuid.toAscii())));
+                QUuid(uuid));
     addEntry(entry);
 }
 
@@ -117,7 +117,7 @@ void EntryListModel::addFromByteArray(QByteArray &data){
             qDebug("Adding entry with known uuid and mtime.");
             Entry entry(list.at(0), list.at(1), list.at(2), list.at(3),
                         notes.replace(xhtmlLineFeed, "\n"), -1,
-                        QUuid::fromRfc4122(QByteArray::fromBase64(list.at(5).toAscii())),
+                        QUuid(list.at(5)),
                         QDateTime::fromString(list.at(6), Qt::ISODate));
             add(entry);
         }

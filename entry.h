@@ -53,7 +53,7 @@ public:
     QString name() const { return m_name; }
     QString userName() const { return m_userName; }
     int id() const { return m_id; }
-    QString uuid() const { return QString(m_uuid.toRfc4122().toBase64()); }
+    QString uuid() const { return QString(m_uuid.toString()); }
     QString mtime() const { return m_mtime.toString(Qt::ISODate); }
     qint64 mtimeInt() const { return m_mtime.toMSecsSinceEpoch(); }
 

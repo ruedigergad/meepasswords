@@ -156,7 +156,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->setWindowTitle("MeePasswords");
 
 #if defined(MEEGO_EDITION_HARMATTAN)
-    view->setSource(QUrl("qrc:/qml/harmattan/main.qml"));
+    view->setSource(QUrl("qrc:/qml/harmattan/main2.qml"));
     view->showFullScreen();
 #elif defined(QT_SIMULATOR)
     view->setSource(QUrl("qrc:/qml/harmattan/main.qml"));

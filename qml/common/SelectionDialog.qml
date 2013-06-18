@@ -37,9 +37,6 @@ CommonDialog {
         accepted()
     }
 
-    onOpening: {
-    }
-
     content: Item {
         anchors.fill: parent
 

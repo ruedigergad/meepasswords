@@ -1,3 +1,9 @@
+meepasswords (1.9.3) unstable; urgency=low
+
+  * Foo
+
+ -- Ruediger Gad <r.c.g@gmx.de>  Tue, 22 May 2012 21:14:00 +0200
+
 meepasswords (1.9.2) unstable; urgency=low
 
   * Fix issue when logged out while edit entry sheet is shown.

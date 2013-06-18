@@ -1,17 +1,21 @@
 # Add more folders to ship with the application, here
 
 exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
+    message(Harmattan Build)
     MEEGO_VERSION_MAJOR     = 1
     MEEGO_VERSION_MINOR     = 2
     MEEGO_VERSION_PATCH     = 0
     MEEGO_EDITION           = harmattan
 
-    DEFINES += MEEGO_EDITION_HARMATTAN NFC_ENABLED
+    DEFINES += MEEGO_EDITION_HARMATTAN NFC_ENABLED SYNC_TO_IMAP_SUPPORT QDECLARATIVE_BOOSTER
     #PKGCONFIG += aegis-crypto
-    RESOURCES += harmattan.qrc
+    RESOURCES += harmattan2.qrc desktop.qrc
 
     CONFIG += mobility
     MOBILITY += connectivity
+
+    CONFIG += link_pkgconfig
+    PKGCONFIG += qmfclient
 } else:simulator {
     DEFINES += NFC_ENABLED
     RESOURCES += harmattan.qrc
@@ -46,6 +50,7 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
 
     INSTALLS += barDescriptor
 } else {
+    message(Linux Desktop Build)
     DEFINES += LINUX_DESKTOP SYNC_TO_IMAP_SUPPORT
     RESOURCES += desktop.qrc
     QT += opengl
@@ -64,8 +69,7 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     DEPLOYMENTFOLDERS += qmfLibs
 }
 
-RESOURCES += common.qrc \
-    synctoimap.qrc
+RESOURCES += common.qrc
 
 !contains(DEFINES, BB10_BUILD) {
     CONFIG += link_pkgconfig
@@ -213,7 +217,8 @@ OTHER_FILES += \
     bar-descriptor.xml \
     qml/common/Merger.qml \
     qml/desktop/common/CommonFlickable.qml \
-    qml/common/SyncMessageDeleter.qml
+    qml/common/SyncMessageDeleter.qml \
+    qml/harmattan/main2.qml
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)

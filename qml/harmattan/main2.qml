@@ -18,18 +18,21 @@
  */
 
 import QtQuick 1.1
+import com.nokia.meego 1.0
 import meepasswords 1.0
 import SyncToImap 1.0
 import "../common"
 
-Rectangle {
-    id: main
+PageStackWindow {
+    id: pageStackWindow
 
     anchors.fill: parent
     color: "lightgray"
 
-    property int primaryFontSize: 16
+    property int primaryFontSize: 30
     property int primaryBorderSize: primaryFontSize
+
+    initialPage: main
 
     onRotationChanged: {
         console.log("Rotation changed...");
@@ -44,30 +47,36 @@ Rectangle {
         fileHelper.rmAll(mainFlickable.entryStorage.getStorageDirPath(), ".encrypted.");
     }
 
-    Item {
-        anchors.fill: parent
+    Page {
+        id: main
 
-        Rectangle {
-            id: header
-            height: primaryFontSize * 2
-            color: "#0c61a8"
-            anchors{left: parent.left; right: parent.right; top: parent.top}
+        orientationLock: PageOrientation.LockPortrait
 
-            Text {
-                text: "MeePasswords"
-                color: "white"
-                font.family: "Nokia Pure Text Light"
-                font.pointSize: primaryFontSize * 0.75
-                anchors.left: parent.left
-                anchors.leftMargin: primaryFontSize * 0.6
-                anchors.verticalCenter: parent.verticalCenter
+        Item {
+            anchors.fill: parent
+
+            Rectangle {
+                id: header
+                height: primaryFontSize * 2
+                color: "#0c61a8"
+                anchors{left: parent.left; right: parent.right; top: parent.top}
+
+                Text {
+                    text: "MeePasswords"
+                    color: "white"
+                    font.family: "Nokia Pure Text Light"
+                    font.pointSize: primaryFontSize * 0.75
+                    anchors.left: parent.left
+                    anchors.leftMargin: primaryFontSize * 0.6
+                    anchors.verticalCenter: parent.verticalCenter
+                }
             }
-        }
 
-        MainFlickable {
-            id: mainFlickable
+            MainFlickable {
+                id: mainFlickable
 
-            anchors{top: header.bottom; left: parent.left; right: parent.right; bottom: parent.bottom}
+                anchors{top: header.bottom; left: parent.left; right: parent.right; bottom: parent.bottom}
+            }
         }
     }
 
@@ -120,39 +129,13 @@ Rectangle {
 
         CommonButton{
             id: syncAccountSettings
-            anchors.bottom: exportKeePassXml.top
+            anchors.bottom: about.top
             anchors.bottomMargin: primaryFontSize / 3
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width - primaryFontSize
             text: "Sync Account Settings"
             onClicked: {
                 mainFlickable.imapAccountSettings.open()
-                mainMenu.close()
-            }
-        }
-
-        CommonButton{
-            id: exportKeePassXml
-            anchors.bottom: importKeePassXml.top
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "Export"
-            onClicked: {
-                mainFlickable.entryStorage.exportKeePassXml()
-                mainMenu.close()
-            }
-        }
-
-        CommonButton{
-            id: importKeePassXml
-            anchors.bottom: about.top
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "Import"
-            onClicked: {
-                mainFlickable.entryStorage.importKeePassXml()
                 mainMenu.close()
             }
         }
