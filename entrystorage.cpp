@@ -83,7 +83,7 @@ QString EntryStorage::getBase64Hash(QString password){
 
 QString EntryStorage::getStorageDirPath() {
 #ifdef MEEGO_EDITION_HARMATTAN
-    return QDesktopServices::storageLocation(QDesktopServices::DataLocation) + QString(DEFAULT_STORAGE);
+    return QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #else
     return QDir::homePath() + "/." + DEFAULT_STORAGE;
 #endif

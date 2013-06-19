@@ -19,9 +19,9 @@
 
 #ifdef MEEGO_EDITION_HARMATTAN
 #include <applauncherd/MDeclarativeCache>
-#else
-#include <QDebug>
 #endif
+
+#include <QDebug>
 
 #include <QtCore/QtGlobal>
 #include <QtDeclarative>
@@ -160,6 +160,13 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->setWindowTitle("MeePasswords");
 
 #if defined(MEEGO_EDITION_HARMATTAN)
+    // Hack to automatically copy the data from an old installation.
+    if (FileHelper().exists("/home/user/.local/share/data/MeePasswords_DefaultStorage/encrpyted.raw")) {
+        qDebug("Copying old storage.");
+        FileHelper().mkdir("/home/user/.local/share/data/ruedigergad.com/meepasswords");
+        FileHelper().cp("/home/user/.local/share/data/MeePasswords_DefaultStorage/encrpyted.raw", "/home/user/.local/share/data/ruedigergad.com/meepasswords/encrpyted.raw");
+    }
+
     view->setSource(QUrl("qrc:/qml/harmattan/main2.qml"));
     view->showFullScreen();
 #elif defined(QT_SIMULATOR)
