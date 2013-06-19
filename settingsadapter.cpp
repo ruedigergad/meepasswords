@@ -22,7 +22,7 @@
 SettingsAdapter::SettingsAdapter(QObject *parent) :
     QObject(parent)
 {
-    m_fastScrollAnchor = QSettings().value("fastScrollAnchor", "left").toString();
+    m_fastScrollAnchor = QSettings().value("fastScrollAnchor", "right").toString();
 }
 
 QString SettingsAdapter::fastScrollAnchor() {
