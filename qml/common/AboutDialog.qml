@@ -51,7 +51,7 @@ CommonDialog {
           anchors.horizontalCenter: parent.horizontalCenter; anchors.bottom: author.top; anchors.bottomMargin: primaryFontSize * 0.5 }
 
       Text {id: author;
-          text: "Author: Ruediger Gad <a href=\"mailto:r.c.g@gmx.de\" style=\"text-decoration:none; color:#78bfff\" >r.c.g@gmx.de</a><br />Contributor: Cornelius Hald (Harmattan UI Improvements)";
+          text: "Author: Ruediger Gad <a href=\"mailto:r.c.g@gmx.de\" style=\"text-decoration:none; color:#78bfff\" >r.c.g@gmx.de</a><br />Contributor: Cornelius Hald (v1.9.3 Harmattan UI Improvements)";
           textFormat: Text.RichText;
           onLinkActivated: { Qt.openUrlExternally(link); }
           width: parent.width

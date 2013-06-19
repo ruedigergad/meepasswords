@@ -104,9 +104,7 @@ Rectangle{
             name: "NewPassword"
             PropertyChanges {
                 target: passwordLabel
-                text: qsTr("Please enter a new password. "
-                           + "Please keep the password at a safe place. "
-                           + "There is no way to recover a lost password.")
+                text: qsTr("Please enter a new password.")
             }
         },
         State {
