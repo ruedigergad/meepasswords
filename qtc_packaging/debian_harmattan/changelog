@@ -1,8 +1,10 @@
-meepasswords (1.9.3) unstable; urgency=low
+meepasswords (2.0.0) unstable; urgency=low
 
-  * Foo
+  * Add sync support.
+  * New UI
+  * Use FastScroll on all platforms.
 
- -- Ruediger Gad <r.c.g@gmx.de>  Tue, 22 May 2012 21:14:00 +0200
+ -- Ruediger Gad <r.c.g@gmx.de>  Wed, 19 Jun 2013 21:14:00 +0200
 
 meepasswords (1.9.2) unstable; urgency=low
 
