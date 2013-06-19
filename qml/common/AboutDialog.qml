@@ -38,7 +38,7 @@ CommonDialog {
             anchors{horizontalCenter: parent.horizontalCenter; bottom: version.top; bottomMargin: primaryFontSize * 0.5}
             color: "white"}
 
-      Text {id: version; text: "Version: 1.9.3"
+      Text {id: version; text: "Version: 2.0.0"
            font {pointSize: primaryFontSize * 0.6; bold: true}
            anchors {horizontalCenter: parent.horizontalCenter; bottom: homepage.top; bottomMargin: primaryFontSize * 0.5}
            color: "lightgray"}
