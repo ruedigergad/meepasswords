@@ -34,7 +34,7 @@
 #include "nfctagwriter.h"
 #endif
 
-#if defined(LINUX_DESKTOP) || defined(BB10_BUILD)
+#if defined(LINUX_DESKTOP) || defined(WINDOWS_DESKTOP) || defined(BB10_BUILD)
 #include <QGLWidget>
 #endif
 

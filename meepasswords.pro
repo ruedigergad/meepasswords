@@ -92,7 +92,7 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
 
 RESOURCES += common.qrc
 
-!contains(DEFINES, BB10_BUILD) {
+!contains(DEFINES, BB10_BUILD) && !contains(DEFINES, WINDOWS_DESKTOP) {
     CONFIG += link_pkgconfig
     PKGCONFIG += qca2
 }
