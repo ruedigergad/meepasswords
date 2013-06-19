@@ -52,10 +52,11 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
 }  else:win32 {
     message(Windows Build)
 
-    DEFINES += WINDOWS_DESKTOP
+    DEFINES += WINDOWS_DESKTOP SYNC_TO_IMAP_SUPPORT
     DEFINES += _UNICODE
 
 #    CONFIG += console
+    QT += opengl
 
     INCLUDEPATH += \
         lib/include \
