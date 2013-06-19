@@ -79,9 +79,6 @@ Item {
         currentAccountId = -1
         editAccount = false
         newAccount = false
-        accountListView.currentIndex = -1
-
-        imapAccountListModel.reload()
 
         state = "open"
     }
