@@ -156,7 +156,7 @@ Item {
                 id: magnifierLabel
                 objectName: "magnifierLabel"
                 opacity: rail.dragging ? 1 : 0
-                x: settingsAdapter.fastScrollAnchor === "left" ? magnifier.width + primaryBorderSize : primaryBorderSize
+                x: settingsAdapter.fastScrollAnchor === "left" ? rail.width + primaryBorderSize : primaryBorderSize
                 anchors.verticalCenter: magnifier.verticalCenter
 
                 font.pointSize: primaryFontSize * 1.5
