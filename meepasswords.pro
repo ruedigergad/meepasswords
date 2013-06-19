@@ -56,7 +56,6 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     DEFINES += _UNICODE
 
 #    CONFIG += console
-    QT += opengl
 
     INCLUDEPATH += \
         lib/include \
