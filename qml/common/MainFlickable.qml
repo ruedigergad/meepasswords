@@ -266,6 +266,7 @@ Flickable {
 
         onDecryptionFailed: {
             console.log("Decryption failed.")
+            passwordInput.state = "DecryptionFailed"
         }
 
         onDecryptionSuccess: {

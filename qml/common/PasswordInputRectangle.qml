@@ -115,6 +115,13 @@ Rectangle{
                 target: passwordLabel
                 text: qsTr("Enter Password:")
             }
+        },
+        State {
+            name: "DecryptionFailed"
+            PropertyChanges {
+                target: passwordLabel
+                text: qsTr("Decryption failed. Please make sure the password is correct.")
+            }
         }
     ]
 }
