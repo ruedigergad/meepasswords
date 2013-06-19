@@ -15,7 +15,7 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     MOBILITY += connectivity
 
     CONFIG += link_pkgconfig
-    PKGCONFIG += qmfclient
+    PKGCONFIG += qmfclient qca2
 } else:simulator {
     DEFINES += NFC_ENABLED
     RESOURCES += harmattan.qrc
@@ -88,14 +88,12 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     qmfLibs.target = lib
 
     DEPLOYMENTFOLDERS += qmfLibs
-}
 
-RESOURCES += common.qrc
-
-!contains(DEFINES, BB10_BUILD) && !contains(DEFINES, WINDOWS_DESKTOP) {
     CONFIG += link_pkgconfig
     PKGCONFIG += qca2
 }
+
+RESOURCES += common.qrc
 
 contains(DEFINES, SYNC_TO_IMAP_SUPPORT): {
     message(Building sync support...)
