@@ -38,7 +38,7 @@
 
 <p>MeePasswords is a simple tool to securely store short snippets of sensible or confidential data such as passwords and the like. MeePasswords is available for BlackBerry (BB10) Z10, Q10, and Q5, MeeGo/Harmattan (Nokia N9), Mer (Nemomobile, Plasma Active), and Desktops (both Linux and Windows). It features a clear, simple, and easy to use user interface.</p>
 
-<p>You can easily synchronize the password list with your desktop or other MeePasswords installations. Please note that you need to have an e-mail account that supports IMAP and the Q To-Do desktop version for this.</p>
+<p>You can easily synchronize the password list with your desktop or other MeePasswords installations. Please note that you need to have an e-mail account that supports IMAP and, optionally, the MeePasswords desktop version for this.</p>
 
 <p> MeePasswords encrypts the stored data with a freely choosable master password. It uses sophisticated AES encryption (AES256CBC) for encrypting the data. For more details on how it works see the <a href="#how_it_works">How it works</a> section.</p>
 
@@ -60,14 +60,16 @@
 </ul>
 
 <h1>Screenshots<a name="screenshots"></a></h1>
+Starting with MeePasswords 2.0.0, the user interface is very much identical for all platforms.
 
-<h2>Nokia N9</h2>
+<h2>BB10</h2>
+Below, exemplarily, screenshots of the BB10 version are shown.
+
 <p>
-<img src="screenshot_n9_empty_list.png" alt="N9 Version: Empty List">
-<img src="screenshot_n9_new_to-do.png" alt="N9 Version: New Entry">
-<img src="screenshot_n9_new_sketch.png" alt="N9 Version: New Sketch">
-<img src="screenshot_n9_list_with_content.png" alt="N9 Version: List with Content">
-<img src="screenshot_n9_level_indicator.png" alt="N9 Version: The dot indicator in the titlebar shows the currently displayed level.">
+<img src="bb10_password_input.png" alt="BB10 Version: Password Input">
+<img src="bb10_empty_list.png" alt="BB10 Version: Empty List">
+<img src="bb10_view_entry.png" alt="BB10 Version: Show Entry">
+<img src="bb10_filled_list.png" alt="BB10 Version: List with Content">
 </p>
 
 <h1>Download/Installation<a name="download"></a></h1>
@@ -77,7 +79,20 @@
 <p> The BB10 version can be installed via <a href="appworld.blackberry.com/webstore/content/29929891">BlackBerry World</a>. </p>
 
 <h2>Nokia N9 (MeeGo/Harmattan)</h2>
-<p> The MeeGo/Harmattan version can be installed via the <a href="TODO">Nokia Store</a>.</p>
+<p> For Nokia N9 (MeeGo/Harmattan), two versions exist: version 2.0.0 and up and version 1.9.3. </p>
+
+<p>
+Versions 2.0.0 and up come with sync support, the new user interface as shown on the screenshots, and the latest improvements.
+Version 1.9.3 does not offer sync support and was last updated in mid 2012.
+</p>
+
+<p> Version 1.9.3 is free.
+Versions 2.0.0+ cost a small price.
+The actual price may differ depending on your country. </p>
+
+<p> Both versions can be installed via the Nokia Store.
+You can get the 2.0.0+ versions from 
+The 1.9.3 version can be downloaded from </p>
 
 <h2>Mer (Nemomobile, Plasma Active)</h2>
 <p>The Mer version can be found in the Mer apps repository. To install it simply run &quot;zypper in qtodo&quot; as root on your Mer device. Please note: if you have problems installing MeePasswords on Plasma Active you need the &quot;nemo-compatibility&quot; package.</p>
@@ -138,6 +153,21 @@ If you happen to have issues with setting up the synchronization feature, feel f
 To do this open the menu and click &quot;Sync Account Settings&quot;.
 From the list select the account you want to use and press &quot;OK&quot;. </p>
 
+<h1> <a name="how_it_works"></a>How it Works</h1>
+<p>MeePasswords uses 256 bit AES encryption in chain block cipher (CBC) mode for encrypting the password file.
+The access to this file is protected by a user given password.</p>
+<p> Please note that there is no way to recover a lost password.
+So if the password is lost all entries stored in MeePasswords are lost as well. </p>
+<p>
+For the encryption in CBC mode a randomly generated initialization vector is used.
+For each encryption run a new, randomly generated initialization vector is generated.
+</p>
+<p>
+From the password, first a hash (SHA256) is generated.
+Afterwards, for the actual generation of the encryption key, the PBKDF2 algorithm is used.
+The SHA256 hash is fed into PBKDF2 and is processed in 10,000 rounds.
+</p>
+
 <h1>License<a name="license"></a></h1>
 <p>This section is intended to give an overview of the software and technologies used in MeePasswords. Additionally, a list of licenses, copyrights, and trademarks is given. Though, no claim for completeness is made.</p>
 
@@ -152,15 +182,9 @@ From the list select the account you want to use and press &quot;OK&quot;. </p>
 
 <h2>Libraries</h2>
 
-<p>Except of the standard C and C++ libraries, MeePasswords, depending on the actual platform and version, makes use of the following libraries: LibQxt, OpenSSL, qmlcanvas, Qt, the Qt Cryptographic Architecture (QCA), and the Qt Messaging Framework (QMF).</p>
-
-<p>LibQxt (Qt Extension Library), Copyright (C) 2007 Qxt Foundation, is licensed under the terms of either the Common Public License (CPL) version 1.0 or the GNU Lesser General Public License (LGPL) version 2.1. See also the homepage: <a href="http://dev.libqxt.org/libqxt/wiki/Home">http://dev.libqxt.org/libqxt/wiki/Home</a></p>
+<p>Except of the standard C and C++ libraries, MeePasswords, depending on the actual platform and version, makes use of the following libraries: OpenSSL, Qt, the Qt Cryptographic Architecture (QCA), and the Qt Messaging Framework (QMF).</p>
 
 <p>Note that compiled OpenSSL libraries are only included for the Windows version. Please see also the remarks about the Windows version below. Following is an excerpt of the OpenSSL licensing explanation: "... The OpenSSL toolkit is licensed under an Apache-style licence which basically means that you are free to get and use it for commercial and non-commercial purposes. ...". See also: <a href="http://www.openssl.org/about/">http://www.openssl.org/about/</a></p>
-
-<p>
-qmlcanvas, Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies), is licensed under the term of the BSD license.  See also the qmlcanvas gitorious page: <a href='https://qt.gitorious.org/qt-labs/qmlcanvas'> https://qt.gitorious.org/qt-labs/qmlcanvas </a>
-</p>
 
 <p>
 The Qt Toolkit is Copyright (C) 2012 Digia Plc and/or its subsidiary(-ies) and other contributors. Qt is licensed either under a commercial license agreement, the GNU Lesser General Public License (LGPL) version 2.1, or the GNU General Public License (GPL) version 3.0.  See also: <a href='http://qt-project.org/doc/qt-4.8/licensing.html'> http://qt-project.org/doc/qt-4.8/licensing.html </a>
@@ -171,7 +195,7 @@ The Qt Messaging Framework (QMF), Copyright (C) 2010 Nokia Corporation and/or it
 </p>
 
 <p>
-The Windows version of Q To-Do also ships with libraries part of the MinGW runtime. These libraries are public domain, and are not governed by copyright.  See also: http://www.mingw.org. All libraries based on GNU tools are licensed under the terms of the GPL. Furthermore, the Windows version ships with libraries from the OpenSSL project. The compiled OpenSSL libraries had been extracted from pre-compiled packages of OpenSSL that had been downloaded from: <a href='http://slproweb.com/products/Win32OpenSSL.html'> http://slproweb.com/products/Win32OpenSSL.html </a>
+The Windows version of MeePasswords also ships with libraries part of the MinGW runtime. These libraries are public domain, and are not governed by copyright.  See also: http://www.mingw.org. All libraries based on GNU tools are licensed under the terms of the GPL. Furthermore, the Windows version ships with libraries from the OpenSSL project. The compiled OpenSSL libraries had been extracted from pre-compiled packages of OpenSSL that had been downloaded from: <a href='http://slproweb.com/products/Win32OpenSSL.html'> http://slproweb.com/products/Win32OpenSSL.html </a>
 </p>
 
 
@@ -180,7 +204,7 @@ The Windows version of Q To-Do also ships with libraries part of the MinGW runti
 </h2>
 
 <p>
-Additionally to above mentioned libraries the git repository of Q To-Do contains unmodified header files of LibQxt and QMF. For the detailed licenses etc. please see the respective header files.
+Additionally to above mentioned libraries the git repository of MeePasswords contains unmodified header files of QCA and QMF. For the detailed licenses etc. please see the respective header files.
 </p>
 
 
@@ -188,14 +212,9 @@ Additionally to above mentioned libraries the git repository of Q To-Do contains
     Packaging
 </h2>
 
-<p>The Windows version ships with dynamic link libraries (DLLs) and executables taken from LibQxt, MinGW, OpenSSL, qmlcanvas, Qt, and QMF. The LibQxt, qmlcanvas, and QMF binaries and executables had been compiled from the source tarballs that can be found in the Q To-Do repository. </p>
-
-<p>The Linux version ships with libraries and executables taken from LibQxt, qmlcanvas, and QMF. The LibQxt, qmlcanvas, and QMF binaries and executables had been compiled from the  source tarballs that can be found in the Q To-Do repository. For running Q To-Do, additionally, Qt is required. For installing Qt please refer to the manual of your Linux distribution. </p>
-
-<p>The Harmattan version of Q To-Do ships with the qmlcanvas library. The qmlcanvas library had been compiled from the source tarball that can be found in the Q To-Do repository. </p>
+<p>The Windows version ships with dynamic link libraries (DLLs) and executables taken from MinGW, OpenSSL, qmlcanvas, QCA, Qt, and QMF. The QCA and QMF binaries and executables had been compiled from the source tarballs that can be found in the MeePasswords repository. </p>
 
 <p>The Mer version (e.g. the version that ships with Nemomobile) does not ship with additional libraries. All required libraries are shipped with Mer. </p>
-
 
 <h2> Trademarks </h2>
 
