@@ -65,7 +65,7 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     LIBS += \
         -Llib/build/windows/x86 \
         -lqmfclient \
-        -lqca
+        -lqca2
 
     RC_FILE = qtc_packaging/windows/meepasswords.rc
 
