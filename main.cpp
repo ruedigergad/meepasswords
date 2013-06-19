@@ -34,7 +34,7 @@
 #include "nfctagwriter.h"
 #endif
 
-#if defined(LINUX_DESKTOP) || defined(WINDOWS_DESKTOP) || defined(BB10_BUILD)
+#if defined(BB10_BUILD)
 #include <QGLWidget>
 #endif
 
@@ -173,7 +173,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->showMaximized();
 #else
     view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
-    view->setViewport(new QGLWidget());
     view->setSource(QUrl("qrc:/qml/desktop/main.qml"));
     view->resize(400, 500);
     view->show();
