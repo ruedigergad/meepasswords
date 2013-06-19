@@ -37,7 +37,6 @@ public:
     explicit ImapAccountListModel(QObject *parent = 0);
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
-    Q_INVOKABLE void reload();
     Q_INVOKABLE int rowCount(const QModelIndex &parent = QModelIndex()) const;
     
 signals:

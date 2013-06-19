@@ -53,19 +53,6 @@ QVariant ImapAccountListModel::data(const QModelIndex &index, int role) const{
     return QVariant();
 }
 
-void ImapAccountListModel::reload() {
-    beginResetModel();
-    if (accountListModel != NULL) {
-        delete accountListModel;
-        accountListModel = NULL;
-    }
-
-    accountListModel = new QMailAccountListModel();
-    accountListModel->setSynchronizeEnabled(true);
-    setSourceModel(accountListModel);
-    endResetModel();
-}
-
 int ImapAccountListModel::rowCount(const QModelIndex &parent) const{
     return accountListModel->rowCount(parent);
 }
