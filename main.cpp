@@ -161,7 +161,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
 #if defined(MEEGO_EDITION_HARMATTAN)
     // Hack to automatically copy the data from an old installation.
-    if (!FileHelper.exists("/home/user/.local/share/data/ruedigergad.com/meepasswords/encrypted.raw")
+    if (!FileHelper().exists("/home/user/.local/share/data/ruedigergad.com/meepasswords/encrypted.raw")
             && FileHelper().exists("/home/user/.local/share/data/MeePasswords_DefaultStorage/encrypted.raw")) {
         qDebug("Copying old storage.");
         FileHelper().mkdir("/home/user/.local/share/data/ruedigergad.com/meepasswords");
