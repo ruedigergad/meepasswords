@@ -55,6 +55,14 @@ Flickable {
         }
     }
 
+    onWidthChanged: {
+        if (loggedIn) {
+            contentX = width
+        } else {
+            contentX = 0
+        }
+    }
+
     flickableDirection: Flickable.HorizontalFlick
     interactive: false
     boundsBehavior: Flickable.StopAtBounds
@@ -156,6 +164,14 @@ Flickable {
                     SequentialAnimation {
                         PropertyAnimation { duration: 120 }
                         ScriptAction { script: mainContentFlickable.animationIsRunning = false }
+                    }
+                }
+
+                onWidthChanged: {
+                    if (editEntryRectangle.isShown) {
+                        contentX = 2 * width
+                    } else {
+                        contentX = width
                     }
                 }
 
