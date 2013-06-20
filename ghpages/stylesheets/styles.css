@@ -46,6 +46,10 @@ a {
   text-decoration:none;
 }
 
+section a {
+  font-weight:bold;
+}
+
 a small {
   font-size:11px;
   color:#777;
