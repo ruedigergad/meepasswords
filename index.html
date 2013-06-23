@@ -1,405 +1,241 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>MeePasswords by ruedigergad</title>
 
-        <meta name="google-site-verification" content="qAyq4KJ7zb39YfhtjE6IQOAlj4h1Sj2DeXqSme4pCgc" />
-        <meta name="y_key" content="3729ee77e8f70982" />
-        <meta name="msvalidate.01" content="98C7681E094C5ADA03968C3A68B11E12" />
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+        <header>
+        <img src="logo.png" alt="MeePasswords Logo"/>
+        <h1>MeePasswords</h1>
+        <p>Keep your passwords protected.</p>
+        <h2><a href="#about">About</a></h2>
+        <h2><a href="#screenshots">Screenshots</a></h2>
+        <h2><a href="#download">Download/Installation</a></h2>
+        <h2><a href="#usage">Usage</a></h2>
+        <h2><a href="#how_it_works">How it works</a></h2>
+        <h2><a href="#license">License</a></h2>
+        <p class="view"><a href="https://github.com/ruedigergad/meepasswords">View the Project on GitHub <small>ruedigergad/meepasswords</small></a></p>
 
-        <link rel="stylesheet" type="text/css" href="style.css"/>
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
-
-        <title>
-            MeePasswords
-        </title>
-    </head>
-
-    <body>
-
-        <div class="top">
-            <h1>
-              <img src="meepasswords.png" alt="MeePasswords Icon" /><br />
-              MeePasswords - Keep your passwords protected.
-            </h1>
-        </div>
-
-    <div class="cont">
-       <h2 class="release"> 
-            Current Version: 1.5.0 (Fremantle) / 1.9.2 (Harmattan)
-      </h2>
-      <h1>
-          Content
-      </h1>
-      <ul>
-        <li><h3><a href="#Description">Description</a></h3></li>
-        <li><h3><a href="#Supported_OS">Supported Operating Systems</a></h3></li>
-        <li><h3><a href="#Features">Features</a></h3></li>
-        <!--        <li><h3><a href="#Download">Download</a></h3></li>-->
-        <li><h3><a href="#Screenshots_Introduction">Screenshots / Introduction</a></h3></li>
-        <li><h3><a href="#FAQ">FAQ</a></h3></li>
-        <li><h3><a href="#Under_the_Hood">Under the Hood</a></h3></li>
-        <li><h3><a href="#Changes_History">Changes / History</a></h3></li>
-        <li><h3><a href="#License">License</a></h3></li>
-        <li><h3><a href="#Trademarks">Trademarks</a></h3></li>
-        <li><h3><a href="#Contact">Contact</a></h3></li>
+<!--        <ul>
+          <li><a href="https://github.com/ruedigergad/meepasswords/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/ruedigergad/meepasswords/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/ruedigergad/meepasswords">View On <strong>GitHub</strong></a></li>
       </ul>
+-->
+      </header>
+      <section>
+<h1>About<a name="about"></a></h1>
 
-      <br/><hr/><br/>
+<p>MeePasswords is a simple tool to securely store short snippets of sensible or confidential data such as passwords and the like. MeePasswords is available for BlackBerry (BB10) Z10, Q10, and Q5, MeeGo/Harmattan (Nokia N9), Mer (Nemomobile, Plasma Active), and Desktops (both Linux and Windows). It features a clear, simple, and easy to use user interface.</p>
 
-      <h3>
-            <a name="Description">Description</a>
-      </h3>
-      <p>
-      MeePasswords is a simple tool to securely store short snippets of sensible or confidential data such as passwords and the like.<br />
-      Currently MeePasswords is available for MeeGo Harmattan and Fremantle (N900). 
-      Ports to other systems supported by Qt are considered.<br />
-      If you like to get an idea of how it works and what security measures are taken please have a look at the <a href="#Under_the_Hood">Under the Hood</a> section.
-      </p>
+<p>You can easily synchronize the password list with your desktop or other MeePasswords installations. Please note that you need to have an e-mail account that supports IMAP and, optionally, the MeePasswords desktop version for this.</p>
 
-      <br/><hr/><br/>
+<p> MeePasswords encrypts the stored data with a freely choosable master password. It uses sophisticated AES encryption (AES256CBC) for encrypting the data. For more details on how it works see the <a href="#how_it_works">How it works</a> section.</p>
 
-      <h3>
-            <a name="Supported_OS">Supported Operating Systems</a>
-      </h3>
-      <p>
-      Currently, MeeGo Harmattan and Fremantle (N900) are supported.
-      Ports to other systems are currently considered.
-      </p>
+<h2>Features</h2>
+<p>The main features of MeePasswords are:</p>
 
-      <br/><hr/><br/>
+<ul>
+    <li>AES256CBC encryption </li>
+    <li>Synchronization between Different Installations, e.g., Smartphone and Desktop (Requires an e-mail account with IMAP support.)</li>
+    <li>Simple and Easy to Use User Interface</li>
+    <li>Available for Smartphones (BlackBerry (BB10) Z10, Q10, and Q5, Nokia N9, and Nemomobile), Tablets (Plasma Active), and Desktops (Linux, Windows)</li>
+    <li>Changeable master password </li>
+    <li>Possibility to conveniently copy stored data </li>
+    <li>Import and export of KeePassX XML files (Desktop Version) </li>
+    <li>Automatic logout when screen is locked </li>
+    <li>Support for Touch Screens and &quot;Normal&quot; Mouse/Keyboard Control</li>
+    <li>Intuitive Swipe Gestures in all Versions</li>
+    <li>Keyboard Shortcuts for Desktop Version</li>
+</ul>
 
-      <h3>
-            <a name="Features">Features</a>
-      </h3>
-      <p>
-      Feature Overview:
-      </p>
-      <ul><li>256 bit <span class="caps">AES</span> <span class="caps">CBC</span> encryption</li><li>Simple, intuitive and easy to use touch UI</li><li>Import and export of KeePassX <span class="caps">XML</span> files</li><li>Changeable master password</li><li>Harmattan/MeeGo and Fremantle (N900) versions available</li><li>Copy user names and passwords to clipboard.</li><li>Entries are automatically ordered by name and categroy.</li><li>URLs in notes are displayed as clickable links.</li></ul>
+<h1>Screenshots<a name="screenshots"></a></h1>
+Starting with MeePasswords 2.0.0, the user interface is very much identical for all platforms.
 
-      <br/><hr/><br/>
+<h2>BB10</h2>
+Below, exemplarily, screenshots of the BB10 version are shown.
 
-      <!--
-      <h3>
-          <a name="Download">Download</a>
-      </h3>
-      <p>
-      The Fremantle (N900) version can be installed from the Fremantle <a href="http://maemo.org/packages/view/meepasswords">extras-devel</a> repository.<br />
-      Since 1.2.0 the Fremantle version does not rely on the experimental Qt versions. 
-      Hence, MeePasswords can now also be downloaded from extras-testing and may be promoted to extras if enough people vote for it.
-      <br />
-      <br />
-      The Harmattan / MeeGo version can be installed from the in-official <a href="http://wiki.meego.com/N950_landing_page#Development_Repositories">Harmattan Community Repository</a>.<br />
-      <br />
-      Alternatively, you can install MeePasswords for Harmattan / MeeGo using the following file:<br />
-      <a href="meepasswords_1.9.0_armel.deb">meepasswords_1.9.0_armel.deb</a><br />
-      <a href="meepasswords_1.6.1_armel.deb">meepasswords_1.6.1_armel.deb</a><br />
-      <a href="meepasswords_1.6.0_armel.deb">meepasswords_1.6.0_armel.deb</a><br />
-      <a href="meepasswords_1.5.1_armel.deb">meepasswords_1.5.1_armel.deb</a><br />
-      <a href="meepasswords_1.4.0_armel.deb">meepasswords_1.4.0_armel.deb</a><br />
-      <a href="meepasswords_1.3.0_armel.deb">meepasswords_1.3.0_armel.deb</a><br />
-      <a href="meepasswords_1.2.0_armel.deb">meepasswords_1.2.0_armel.deb</a><br />
-      <a href="meepasswords_1.1.0_armel.deb">meepasswords_1.1.0_armel.deb</a><br />
-      <a href="meepasswords_1.0.0_armel.deb">meepasswords_1.0.0_armel.deb</a>
-      </p>
-      
-      <br/><hr/><br/>
-      -->
+<p>
+<img src="bb10_password_input.png" alt="BB10 Version: Password Input">
+<img src="bb10_empty_list.png" alt="BB10 Version: Empty List">
+<img src="bb10_view_entry.png" alt="BB10 Version: Show Entry">
+<img src="bb10_filled_list.png" alt="BB10 Version: List with Content">
+</p>
 
-      <h3>
-            <a name="Screenshots_Introduction">Screenshots / Introduction</a>
-      </h3>
-      <h4>The following screenshots are taken from the Harmattan / MeeGo version.</h4>
-      <table>
-        <colgroup><col width="240" /><col width="240" /><col width="240" /><col width="240" /></colgroup>
-        <tr>
-          <td>Login Screen: On the first login you set the password. Later on you can only login with that password. Keep the password safe.</td>
-          <td>After the first login the storage is empty. Adding new entries is easy. Simply use the &quot;+&quot; button in the toolbar. Use the button showing the pen symbol to edit existing entries.</td>
-          <td>New entries are added via a &quot;form&quot;. The entry name is mandatory. You must fill the name field to be able to click &quot;OK&quot; and store the entry.</td>
-          <td>Enter any data you like. All fields except the entry name are optional.</td>
-        </tr>
-        <tr>
-          <td><img src="login.png" alt="MeePasswords Login Scree" /></td>
-          <td><img src="empty_storage.png" alt="The empty storage shows information how to add entries" /></td>
-          <td><img src="add_new_entry.png" alt="New entries are added via a form." /></td>
-          <td><img src="add_edit_entry_sample.png" alt="A form with some sample data" /></td>
-        </tr>
-        <tr>
-          <td>After confirming the data (click &quot;OK&quot; in the form) the new entry is shown in the list. Note that the data is written to the storage immediately.</td>
-          <td>To view the content of an entry either double click the entry in the list or perform a &quot;hold and press&quot; on it.</td>
-          <td>Multiple entries are ordered alphabetically, first by category then by name.</td>
-          <td>More functionality like deleting entries or changing the storage password is available via the menu.</td>
-        </tr>
-        <tr>
-          <td><img src="list_with_one_entry.png" alt="MeePasswords list with one entry" /></td>
-          <td><img src="show_entry.png" alt="Entries are quickly shown via dialogs." /></td>
-          <td><img src="list_with_multiple_entries.png" alt="Entries are ordered by category and name." /></td>
-          <td><img src="menu.png" alt="More functionality is available via the menu." /></td>
-        </tr>
-      </table>
-      <br />
-      <br />
-      <h4>The following screenshots are taken from the Fremantle (N900) version and show the same situations as the screenshots depicted above.</h4>
-      <table>
-        <colgroup><col width="400" /><col width="400" /></colgroup>
-        <tr>
-          <td><img src="n900_login.png" alt="MeePasswords Login Scree" /></td>
-          <td><img src="n900_empty_storage.png" alt="The empty storage shows information how to add entries" /></td>
-        </tr>
-        <tr>
-          <td><img src="n900_new_entry.png" alt="New entries are added via a form." /></td>
-          <td><img src="n900_edit_entry_sample.png" alt="A form with some sample data" /></td>
-        </tr>
-        <tr>
-          <td><img src="n900_list_with_one_entry.png" alt="MeePasswords list with one entry" /></td>
-          <td><img src="n900_show_entry.png" alt="Entries are quickly shown via dialogs." /></td>
-        </tr>
-        <tr>
-          <td><img src="n900_list_with_multiple_entries.png" alt="Entries are ordered by category and name." /></td>
-          <td><img src="n900_menu.png" alt="More functionality is available via the menu." /></td>
-        </tr>
-      </table>
+<h1>Download/Installation<a name="download"></a></h1>
+<p>MeePasswords is currently available for BlackBerry (BB10) Z10, Q10, and Q5, Nokia N9 (MeeGo/Harmattan), Mer (Nemomobile, Plasma Active), and Desktops (Linux, Windows).</p>
 
-      <br/><hr/><br/>
+<h2>BlackBerry (BB10) Z10, Q10, and Q5</h2>
+<p> The BB10 version can be installed via <a href="http://appworld.blackberry.com/webstore/content/29929891">BlackBerry World</a>. </p>
+
+<h2>Nokia N9 (MeeGo/Harmattan)</h2>
+<p> For Nokia N9 (MeeGo/Harmattan), two versions exist: version 2.0.0 and up and version 1.9.3. </p>
+
+<p>
+Versions 2.0.0 and up come with sync support, the new user interface as shown on the screenshots, and the latest improvements.
+Version 1.9.3 does not offer sync support and was last updated in mid 2012.
+</p>
+
+<p> Version 1.9.3 is free.
+Versions 2.0.0+ cost a small price.
+The actual price may differ depending on your country. </p>
+
+<p> Both versions can be installed via the Nokia Store.
+The 2.0.0+ version is currently in review for being published via the store.
+The 1.9.3 version can be downloaded from <a href='http://store.ovi.com/content/284594'> http://store.ovi.com/content/284594 </a></p>
+
+<h2>Mer (Nemomobile, Plasma Active)</h2>
+<p>The Mer version can be found in the Mer apps repository. To install it simply run &quot;zypper in qtodo&quot; as root on your Mer device. Please note: if you have problems installing MeePasswords on Plasma Active you need the &quot;nemo-compatibility&quot; package.</p>
+
+<h2> Desktop (Linux, Windows) </h2>
+<p> The Desktop Linux and Windows versions can be downloaded from here: </p>
+
+<ul>
+    <li><a href="TODO" alt="Desktop Linux Version Download Link">Desktop Linux Version</a></li>
+    <li><a href="TODO" alt="Desktop Windows Version Download Link">Desktop Windows Version</a></li>
+</ul>
+
+<p> These files are archives, which can be simply extracted in any place. In order to run MeePasswords execute &quot;meepasswords.exe&quot; (Windows Version) or &quot;meepasswords.sh&quot; (Linux Version). </p>
+
+<h1>Usage<a name="usage"></a></h1>
+
+<h2>Getting Started</h2>
+<p>On the first start you have to set the master password. This password is used to encrypt the data. Please make sure to remember your password as there is no way to access or recover the stored data when the password is lost.</p>
+
+<p> After the master password was entered the list view is displayed. On the first start it will be empty. Use &quot;+&quot; to add new entries. </p>
+
+<h2>Navigation</h2>
+<p> For navigating in MeePasswords swipe gestures are encouraged. To scroll in the list of stored entries swipe up and down. </p>
+
+<p> In order to view a stored entry, select it from the list and then swipe left by moving from right to left. This will display the selected entry. </p>
+
+<h2>Synchronization</h2>
+<p>MeePasswords offers a synchronization feature. With this synchronization feature it is possible to synchronize data between different MeePasswords instances. The probably most common use case for the synchronization feature is to synchronize to-dos between smartphones and desktop computers. However, synchronizing between different desktop computers, e.g., at home and at work, is also very handy.</p>
+
+<p> Before the synchronization feature can be used some requirements must be fulfilled and settings need to be set up. Below are the instructions for setting up the synchronization functionality. </p>
+
+<h3>General Requirements</h3>
+<p> MeePasswords uses the IMAP protocol for its synchronization feature. IMAP is most commonly used in the context of e-mails. So, the basic requirement for using the MeePasswords synchronization functionality is an e-mail account with IMAP support. </p>
+
+<h3> BlackBerry (BB10) Z10, Q10, and Q5, and Desktop (Linux, Windows) </h3>
+<p> In order to be able to use the synchronization feature, the account details (server address, username, and password) need to be set up first.
+To do this, open the menu in MeePasswords and choose the point &quot;Sync Account Settings&quot;. </p>
+
+<p> To add a new account click &quot;New&quot;.
+Then you can insert the account details.
+The account name is a freely choosable name that is only used for identifying the account within MeePasswords.
+The user name is the user name of your e-mail account, the password is the according e-mail account password and server is the address of the e-mail server you are using.
+The other settings like port number etc. are already set to default values.
+If you have problems logging in please notify me via e-mail.
+I will try to assist you in this case. </p>
+
+<p> Once you have finished entering the account details, click &quot;Save&quot;.
+The newly created account should appear in the account list.
+Select the newly created account and click &quot;OK&quot;. </p>
+
+<p> I hope the pre-defined default values make sense for most e-mail providers out there.
+If you happen to have issues with setting up the synchronization feature, feel free to contact me via e-mail. </p>
+
+<h3>Nokia N9 (MeeGo/Harmattan)</h3>
+<p> In order to use the synchronization feature on the Nokia N9 (MeeGo/Harmattan) it is required to set up an e-mail account that supports IMAP. This is done via the Nokia N9 accounts app. Once an e-mail account with support for the IMAP protocol was set up, the synchronization feature can be used out of the box. </p>
+
+<p> In case you have multiple e-mail accounts with support for the IMAP protocol, you need to select one for synchronization.
+To do this open the menu and click &quot;Sync Account Settings&quot;.
+From the list select the account you want to use and press &quot;OK&quot;. </p>
+
+<h1> <a name="how_it_works"></a>How it works</h1>
+<p>MeePasswords uses 256 bit AES encryption in chain block cipher (CBC) mode for encrypting the password file.
+The access is protected by a user given password.</p>
+<p> Please note that there is no way to recover a lost password.
+So, if the password is lost all entries stored in MeePasswords are lost as well. </p>
+<p>
+For the encryption in CBC mode, a randomly generated initialization vector is used.
+For each encryption run, a new, randomly generated initialization vector is generated.
+</p>
+<p>
+From the password, first a hash (SHA256) is generated.
+Afterwards, for the actual generation of the encryption key, the PBKDF2 algorithm is used.
+The SHA256 hash is fed into PBKDF2 and is processed in 10,000 rounds.
+</p>
+
+<h1>License<a name="license"></a></h1>
+<p>This section is intended to give an overview of the software and technologies used in MeePasswords. Additionally, a list of licenses, copyrights, and trademarks is given. Though, no claim for completeness is made.</p>
+
+<h2>MeePasswords</h2>
+<p>Copyright 2011-2013, Ruediger Gad &lt;r.c.g@gmx.de&gt; </p>
+
+<p>MeePasswords is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</p>
+
+<p>MeePasswords is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p>
+
+<p>You should have received a copy of the GNU General Public License along with MeePasswords.  If not, see <a href="http://www.gnu.org/licenses/"></a>http://www.gnu.org/licenses/.</p>
+
+<h2>Libraries</h2>
+
+<p>Except of the standard C and C++ libraries, MeePasswords, depending on the actual platform and version, makes use of the following libraries: OpenSSL, Qt, the Qt Cryptographic Architecture (QCA), and the Qt Messaging Framework (QMF).</p>
+
+<p>Note that compiled OpenSSL libraries are only included for the Windows version. Please see also the remarks about the Windows version below. Following is an excerpt of the OpenSSL licensing explanation: "... The OpenSSL toolkit is licensed under an Apache-style licence which basically means that you are free to get and use it for commercial and non-commercial purposes. ...". See also: <a href="http://www.openssl.org/about/">http://www.openssl.org/about/</a></p>
+
+<p>
+The Qt Toolkit is Copyright (C) 2012 Digia Plc and/or its subsidiary(-ies) and other contributors. Qt is licensed either under a commercial license agreement, the GNU Lesser General Public License (LGPL) version 2.1, or the GNU General Public License (GPL) version 3.0.  See also: <a href='http://qt-project.org/doc/qt-4.8/licensing.html'> http://qt-project.org/doc/qt-4.8/licensing.html </a>
+</p>
+
+<p>
+The Qt Messaging Framework (QMF), Copyright (C) 2010 Nokia Corporation and/or its subsidiary(-ies) and later Copyright (C) 2013 Digia Plc and/or its subsidiary(-ies) (Please refer to the actual QMF version for the actual licensing/copyright information.), is licensed under the terms of the GNU Lesser General Public License (LGPL) version 2.1.  See also the QMF gitorious page: <a href='http://qt.gitorious.org/qt-labs/messagingframework'> http://qt.gitorious.org/qt-labs/messagingframework </a>
+</p>
+
+<p>
+The Windows version of MeePasswords also ships with libraries part of the MinGW runtime. These libraries are public domain, and are not governed by copyright.  See also: http://www.mingw.org. All libraries based on GNU tools are licensed under the terms of the GPL. Furthermore, the Windows version ships with libraries from the OpenSSL project. The compiled OpenSSL libraries had been extracted from pre-compiled packages of OpenSSL that had been downloaded from: <a href='http://slproweb.com/products/Win32OpenSSL.html'> http://slproweb.com/products/Win32OpenSSL.html </a>
+</p>
 
 
-      <h3>
-          <a name="FAQ">FAQ</a>
-      </h3>
-      <h4>
-      Q: &quot;MeePasswords&quot;? What kind of silly name is this?
-      </h4>
-      <p>
-      A: Author's Note: Well choosing a name for some piece of software can be a little cumbersome. 
-      The way MeePasswords got it name was a little bit like this: &quot;Hmm, I want some way to store my password on MeeGo... My passwords, MeeGo?.. why not call it MeePasswords?!?&quot;
-      That is actually not the full story but gives away the chain of though pretty well.
-      </p>
-      <h4>
-      Q: Ain't there already enough of these apps out there?
-      </h4>
-      <p>
-      A: Yes and no. Yes if you consider other operating systems. 
-      No if you look at MeeGo Harmattan. 
-      At least the author did not find any versions for MeeGo Harmattan so MeePasswords was created.
-      </p>
-      <h4>
-      Q: Features x, y, and z are missing!
-      </h4>
-      <p>
-      A: The primary goal of MeePasswords is to keep the user interface as simple and intuitive to use as possible.
-      Hence, the functionality is (for now?) reduced to the minimum needed to organize passwords and the like.
-      Feel free to send your feature requests to the author, though.
-      Maybe in some future versions the features you are looking for might be implemented.
-      </p>
-      <h4>
-      Q: So, is it really absolutely secure?
-      </h4>
-      <p>
-      A: Well, there is no such thing as &quot;absolute, 100% security&quot;.
-      There are many ways data could be stolen from electronic devices, e.g.:
-      cryptographic algorithms can be broken or could be badly implemented, data might be decrypted by brute force, or applications might contain implementation errors that allow access to sensible data (to name just a few).<br />
-      If you want to know more about the internals of MeePasswords please have a look at the <a href="#Under_the_Hood">Under the Hood</a> section or at the source code itself.
-      Please also note that MeePasswords is &quot;... distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&quot;
-      For more details on licensing etc. see <a href="#License">License</a> below.<br />
-      </p>
+<h2>
+    Header Files
+</h2>
 
-      <br/><hr/><br/>
+<p>
+Additionally to above mentioned libraries the git repository of MeePasswords contains unmodified header files of QCA and QMF. For the detailed licenses etc. please see the respective header files.
+</p>
 
-      <h3>
-            <a name="Under_the_Hood">Under the Hood</a>
-      </h3>
-      <p>
-      MeePasswords uses 256 bit AES encryption in chain block cipher (CBC) mode for encrypting the actual passwords file.
-      The access to this file is protected by a user given password.<br />
-      Please note that there is no way to recover a lost password.
-      So if the password is lost all entries stored in MeePasswords are lost as well.<br />
-      For more details please have a look at the MeePasswords source code.<br />
-      Due to the lack of a special secured storage the Fremantle version uses just a file that is encrypted via AES256-CBC.
-      </p>
 
-      <br/><hr/><br/>
+<h2>
+    Packaging
+</h2>
 
-      <h3>
-            <a name="Changes_History">Changes / History</a>
-      </h3>
-      <h4>
-          February 19, 2012
-      </h4>
-      <p>
-        1.9.0 (Harmattan Version -- Cumulative Changelog since 1.5.1
-      </p>
-      <pre>
-  * New UI by Connerlius. Thanks a lot, that's really a very nice UI!!
-  * Do not show confirmation dialog on logout.
-  * Fix logout when entry is shown.
-  * Use "harmattanified" SectionScroller as published by ph5:
-    http://forum.meego.com/showthread.php?t=4600
+<p>The Windows version ships with dynamic link libraries (DLLs) and executables taken from MinGW, OpenSSL, qmlcanvas, QCA, Qt, and QMF. The QCA and QMF binaries and executables had been compiled from the source tarballs that can be found in the MeePasswords repository. </p>
 
- (1.8.0)
+<p>The Mer version (e.g. the version that ships with Nemomobile) does not ship with additional libraries. All required libraries are shipped with Mer. </p>
 
-  * Add option for using randomly generated passwords as proposed in:
-    http://forum.meego.com/showpost.php?p=37578&postcount=16
-  * Old password in password change dialog can also be set via NFC.
+<h2> Trademarks </h2>
 
- (1.7.0) 
+<p>Linux is a registered trademark of Linus Torvalds. </p>
 
-  * Logout when device is locked (standby screen/screen saver is activated).
-  * Use password hash for creating the symmetric key.
-  * Clear input fields in password change dialog on exit.
-  * Explicitly set password to empty string when logging out.
-  * Add functionality for writing and authenticating with NFC tags.
-  * Fix button style for password change dialog.
-  * Clear fields in change dialog when dialog is closed.
+<p>Nokia and respective logos are trademarks of Nokia Corporation in Finland and/or other countries worldwide. </p>
 
- (1.6.1) 
+<p>Digia, Qt, and the Qt logo are registered trademarks of Digia plc and/or its subsidiaries and is used pursuant to a license from Digia plc and/or its subsidiaries. </p>
 
-  * Lock view in portrait mode.
-  * Do not disable "OK" button in input sheet.
+<p>Windows is a registered trademark of Microsoft Corporation in the United States and other countries. </p>
 
- (1.6.0) 
+<p>All other trademarks are property of their respective owners. </p>
 
-  * Store encrypted file in filesystem instead of Aegis storage.
 
- (1.5.2) 
-
-  * Add version number to about dialog.
-  * Minor fixes in desktop file.
-      </pre>
-
-      <h4>
-          August 22, 2011
-      </h4>
-      <p>
-        1.5.1
-      </p>
-      <pre>
-- Fix section scroller (Harmattan version) implementation.
-      </pre>
-
-      <h4>
-          August 13, 2011
-      </h4>
-      <p>
-        1.5.0
-      </p>
-      <pre>
-- Add a section scroller (Harmattan version).
-- Use highlightMoveDuration instead of speed.
-      </pre>
-
-      <h4>
-          August 03, 2011
-      </h4>
-      <p>
-        1.4.0
-      </p>
-      <pre>
-- Add pwman3 XML import.
-      </pre>
-
-      <h4>
-          July 31, 2011
-      </h4>
-      <p>
-        1.3.0
-      </p>
-      <pre>
-- Add functionality to copy user name and password to clipboard.
-- Highlight URLs in notes as links.
-      </pre>
-
-      <h4>
-          July 30, 2011
-      </h4>
-      <p>
-        1.2.0
-      </p>
-      <pre>
-- Add export of KeePassX XML files.
-- Add multi line edit for notes in Fremantle Version (Harmattan version alread has multi line notes).
-- Fix handling of multi line notes.
-- Enable promotion to extras-testing for Fremantle version.
-      </pre>
-
-      <h4>
-          July 29, 2011
-      </h4>
-      <p>
-        1.1.0
-      </p>
-      <pre>
-- Add import of KeePassX XML files.
-      </pre>
-
-      <h4>
-          July 28, 2011
-      </h4>
-      <p>
-        1.0.0
-      </p>
-      <pre>
-- First official release
-      </pre>
-
-      <h4>
-          July 24, 2011
-      </h4>
-      <p>
-        No version has been officially released yet.
-      </p>
-      <pre>
-      </pre>
-      
-      <br/><hr/><br/>
-
-      <h3>
-          <a name="License">License</a>
-      </h3>
-      <pre>
-Copyright 2011 Ruediger Gad
-
-MeePasswords is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-MeePasswords is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with MeePasswords.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
-      </pre>
-
-      <br/><hr/><br/>
-
-      <h3>
-        <a name="Trademarks">Trademarks</a>
-      </h3>
-      <p>
-        Linux is a registered trademark of Linus Torvalds.<br/>
-        Nokia, Qt and their respective logos are trademarks of Nokia Corporation in
-        Finland and/or other countries worldwide.<br/>
-        All other trademarks are property of their respective owners.
-      </p>
-
-      <br/><hr/><br/>
-
-      <h3>
-          <a name="Contact">Contact</a>
-      </h3>
-      <p>
-      Feel free to contact me under the following e-mail address <a href="mailto:r.c.g@gmx.de">r.c.g@gmx.de</a>.
-      </p>
-
-      <p>
-      <a href="http://jigsaw.w3.org/css-validator/"><img style="border:0;width:88px;height:31px" src="vcss-blue.png" alt="Valid CSS!"/></a>
-      <a href="http://validator.w3.org/check?uri=referer"><img src="valid-xhtml10-blue.png" alt="Valid HTML 4.01 Strict" height="31" width="88"/></a>
-      <a href="http://www.vim.org"><img src="vim_created.gif" alt="This site has been created with Vim"/></a>
-      </p>
-
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="http://ruedigergad.com">ruedigergad</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme based on minimal by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
     </div>
-    </body>
-</html>
+    <script src="javascripts/scale.fix.js"></script>
 
+  </body>
+</html>

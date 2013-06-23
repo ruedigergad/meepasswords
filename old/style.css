@@ -1,0 +1,42 @@
+div.top {
+		position: absolute;
+		left: 20px;
+		top: 20px;
+		height: 220px;
+		right: 30px;
+		background-color: #efefef;
+		vertical-align: middle;
+		text-align: center;
+}
+div.cont {
+		position: absolute;
+		left: 20px;
+		top: 255px;
+		right: 30px;
+		background-color: #efefef;
+}
+
+img {
+		border-width: 0px;
+}
+
+body {
+		font-family: Arial, sans-serif;
+}
+
+a:link { 
+		text-decoration: none; 
+		color: #558eec; 
+}
+a:visited { 
+		text-decoration: none; 
+		color: #456aa2; 
+}
+
+h2.release {
+		text-align: center;
+}
+
+td {
+  text-align: center;
+}
