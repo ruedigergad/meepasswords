@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/common/ImapAccountSettingsSheet.qml</file>
         <file>qml/common/SyncDirToImap.qml</file>
         <file>qml/common/SyncFileToImap.qml</file>
         <file>qml/common/SyncToImapBase.qml</file>

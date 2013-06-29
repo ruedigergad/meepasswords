@@ -10,5 +10,6 @@
         <file alias="qml/common/CommonToolIcon.qml">qml/desktop/common/CommonToolIcon.qml</file>
         <file alias="qml/common/CommonButton.qml">qml/desktop/common/CommonButton.qml</file>
         <file>qml/harmattan/main3.qml</file>
+        <file alias="qml/common/ImapAccountSettingsSheet.qml">qml/harmattan/ImapAccountSettingsSheet.qml</file>
     </qresource>
 </RCC>
