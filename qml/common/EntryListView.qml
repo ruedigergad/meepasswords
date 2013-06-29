@@ -90,21 +90,23 @@ Rectangle {
         }
 
         delegate: Rectangle {
+            id: entryRectangle
+
             width: parent.width
             height: entryDelegate.height
 
             color: entryDelegate.mouseArea.pressed ? "lightgray" : "transparent"
 
+            property int entryIndex: index
+            property int entryId: id
+            property string entryName: name
+            property string entryCategory: category
+            property string entryUserName: userName
+            property string entryPassword: password
+            property string entryNotes: notes
+
             EntryDelegate {
                 id: entryDelegate
-
-                property int entryIndex: index
-                property int entryId: id
-                property string entryName: name
-                property string entryCategory: category
-                property string entryUserName: userName
-                property string entryPassword: password
-                property string entryNotes: notes
             }
         }
 
