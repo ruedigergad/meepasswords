@@ -196,7 +196,7 @@ Item {
 
                 border.color: "gray"
                 border.width: primaryFontSize * 0.1
-                radius: primaryFontSize * 0.25
+//                radius: primaryFontSize * 0.25
 
                 ListView {
                     id: accountListView
@@ -423,8 +423,8 @@ Item {
 
                         Text {
                             id: serverPortText
-                            height: serverPortTextField.height
-                            width: parent.width / 6
+                            height: portRow.height
+                            width: parent.width / 6 - portSpacer.width
                             text: "Port"
                             font.pointSize: primaryFontSize * 0.75
                             horizontalAlignment: Text.AlignHLeft
@@ -434,8 +434,16 @@ Item {
                         CommonTextField {
                             id: serverPortTextField
                             width: parent.width / 6
+                            anchors.verticalCenter: portRow.verticalCenter
                             pointSize: primaryFontSize * 0.5
                             enabled: editAccount
+                        }
+
+                        Rectangle {
+                            id: portSpacer
+                            color: "transparent"
+                            height: portRow.height
+                            width: primaryBorderSize * 0.5
                         }
 
                         CommonButton {
