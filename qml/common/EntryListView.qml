@@ -89,31 +89,39 @@ Rectangle {
             }
         }
 
-        delegate: EntryDelegate {
-            id: entryDelegate
+        delegate: Rectangle {
+            width: parent.width
+            height: entryDelegate.height
 
-            property int entryIndex: index
-            property int entryId: id
-            property string entryName: name
-            property string entryCategory: category
-            property string entryUserName: userName
-            property string entryPassword: password
-            property string entryNotes: notes
+            color: entryDelegate.mouseArea.pressed ? "lightgray" : "transparent"
+
+            EntryDelegate {
+                id: entryDelegate
+
+                property int entryIndex: index
+                property int entryId: id
+                property string entryName: name
+                property string entryCategory: category
+                property string entryUserName: userName
+                property string entryPassword: password
+                property string entryNotes: notes
+            }
         }
 
         highlightFollowsCurrentItem: true
         highlightMoveDuration: 100
         highlight: Rectangle {
-            height: entryListView.delegate.height
-            width: entryListView.width * 0.98
-            anchors.horizontalCenter: parent.horizontalCenter
-            radius: primaryBorderSize / 2
-            border.width: primaryBorderSize / 10
-            border.color: "red"
-            color: "transparent"
+            anchors.fill: entryListView.delegate
+//            height: entryListView.delegate.height
+//            width: entryListView.width * 0.98
+//            anchors.horizontalCenter: parent.horizontalCenter
+//            radius: primaryBorderSize / 2
+//            border.width: primaryBorderSize / 10
+//            border.color: "red"
+//            color: "transparent"
             smooth: true
-//            color: "gray"
-//            opacity: 0.5
+            color: "gray"
+            opacity: 0.5
         }
 
         section {

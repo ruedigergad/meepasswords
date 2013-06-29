@@ -8,7 +8,10 @@ Text {
     font.pointSize: primaryFontSize
     wrapMode: Text.WordWrap
     horizontalAlignment: Text.AlignHCenter
-    color: mouseArea.pressed ? "gray" : "black"
+//    color: mouseArea.pressed ? "gray" : "black"
+    color: "black"
+
+    property alias mouseArea: mouseArea
 
     MouseArea{
         id: mouseArea
@@ -34,8 +37,8 @@ Text {
             entryListView.currentIndex = index
             editEntry()
         }
-        onPressAndHold: {
-            entryListView.currentIndex = index
-        }
+//        onPressAndHold: {
+//            entryListView.currentIndex = index
+//        }
     }
 }
