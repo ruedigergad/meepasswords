@@ -28,20 +28,25 @@ class SettingsAdapter : public QObject
     Q_OBJECT
 
     Q_PROPERTY(QString fastScrollAnchor READ fastScrollAnchor WRITE setFastScrollAnchor NOTIFY fastScrollAnchorChanged)
+    Q_PROPERTY(bool clickToOpen READ clickToOpen WRITE setClickToOpen NOTIFY clickToOpenChanged)
 
 public:
     explicit SettingsAdapter(QObject *parent = 0);
     
+    Q_INVOKABLE bool clickToOpen();
     Q_INVOKABLE QString fastScrollAnchor();
 
+    Q_INVOKABLE void setClickToOpen(bool val);
     Q_INVOKABLE void setFastScrollAnchor(QString anchor);
 
 signals:
     void fastScrollAnchorChanged(QString anchor);
+    void clickToOpenChanged(bool val);
     
 public slots:
     
 private:
+    bool m_clickToOpen;
     QString m_fastScrollAnchor;
 
 };

@@ -22,11 +22,22 @@
 SettingsAdapter::SettingsAdapter(QObject *parent) :
     QObject(parent)
 {
+    m_clickToOpen = QSettings().value("clickToOpen", false).toBool();
     m_fastScrollAnchor = QSettings().value("fastScrollAnchor", "right").toString();
+}
+
+bool SettingsAdapter::clickToOpen() {
+    return m_clickToOpen;
 }
 
 QString SettingsAdapter::fastScrollAnchor() {
     return m_fastScrollAnchor;
+}
+
+void SettingsAdapter::setClickToOpen(bool val) {
+    m_clickToOpen = val;
+    QSettings().setValue("clickToOpen", m_clickToOpen);
+    emit clickToOpenChanged(m_clickToOpen);
 }
 
 void SettingsAdapter::setFastScrollAnchor(QString anchor) {

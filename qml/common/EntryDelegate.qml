@@ -31,6 +31,9 @@ Text {
 
         onClicked: {
             entryListView.currentIndex = index
+            if (settingsAdapter.clickToOpen) {
+                editEntry()
+            }
         }
 
         onDoubleClicked: {
