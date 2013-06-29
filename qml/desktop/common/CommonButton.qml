@@ -32,7 +32,7 @@ Rectangle {
     width: text === "" ? height : textItem.width + (primaryFontSize * 2)
     height: textItem.height + (primaryFontSize / 2)
 //    border.width: 1
-    radius: primaryBorderSize / 2
+//    radius: primaryBorderSize / 2
     smooth: true
 
     color: mouseArea.pressed ? "#4ea5f8" : "#0e65c8"

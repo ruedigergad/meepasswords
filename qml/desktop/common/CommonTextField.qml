@@ -28,7 +28,7 @@ Rectangle {
     border.width: primaryBorderSize / 8
     border.color: textInput.focus ? "#0e65c8" : "#4ea5f8"
     color: enabled ? "white" : "#e0e0e0"
-    radius: primaryBorderSize / 2
+//    radius: primaryBorderSize / 2
     smooth: true
 
     property int echoMode: TextInput.Normal
