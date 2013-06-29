@@ -168,7 +168,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         FileHelper().cp("/home/user/.local/share/data/MeePasswords_DefaultStorage/encrypted.raw", "/home/user/.local/share/data/ruedigergad.com/meepasswords/encrypted.raw");
     }
 
-    view->setSource(QUrl("qrc:/qml/harmattan/main2.qml"));
+    view->setSource(QUrl("qrc:/qml/harmattan/main3.qml"));
     view->showFullScreen();
 #elif defined(QT_SIMULATOR)
     view->setSource(QUrl("qrc:/qml/harmattan/main.qml"));

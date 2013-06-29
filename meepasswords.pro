@@ -238,7 +238,8 @@ OTHER_FILES += \
     qml/common/Merger.qml \
     qml/desktop/common/CommonFlickable.qml \
     qml/common/SyncMessageDeleter.qml \
-    qml/harmattan/main2.qml
+    qml/harmattan/main2.qml \
+    qml/harmattan/main3.qml
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)
