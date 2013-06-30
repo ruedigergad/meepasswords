@@ -37,7 +37,6 @@ Rectangle {
 
     signal textChanged(string text)
 
-
     TextInput {
         id: textInput
 
@@ -52,6 +51,14 @@ Rectangle {
         echoMode: textField.echoMode
 
         onTextChanged: textField.textChanged(text)
+
+        onFocusChanged: {
+            if (focus) {
+                openSoftwareInputPanel()
+            } else {
+                closeSoftwareInputPanel()
+            }
+        }
     }
 
 }

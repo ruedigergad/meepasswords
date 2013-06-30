@@ -59,6 +59,9 @@ Rectangle {
         onFocusChanged: {
             if(focus){
                 textEdit.cursorPosition = textEdit.text.length
+                openSoftwareInputPanel()
+            } else {
+                closeSoftwareInputPanel()
             }
         }
     }
