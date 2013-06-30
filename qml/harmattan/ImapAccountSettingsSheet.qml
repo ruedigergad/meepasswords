@@ -157,6 +157,7 @@ Item {
             anchors.right: parent.right
             anchors.rightMargin: 16
             anchors.verticalCenter: parent.verticalCenter
+            width: rejectButton.width
             text: "OK"
             onClicked: {
                 if (currentAccountId >= 0) {
@@ -374,11 +375,18 @@ Item {
                         Text {
                             id: serverPortText
                             height: portRow.height
-                            width: parent.width / 6 - portSpacer.width
+                            width: parent.width / 6
                             text: "Port"
                             font.pointSize: primaryFontSize * 0.75
                             horizontalAlignment: Text.AlignHLeft
                             verticalAlignment: Text.AlignVCenter
+                        }
+
+                        Rectangle {
+                            id: portSpacer
+                            color: "transparent"
+                            height: portRow.height
+                            width: primaryBorderSize * 0.5
                         }
 
                         CommonTextField {
@@ -390,23 +398,23 @@ Item {
                         }
 
                         Rectangle {
-                            id: portSpacer
+                            id: portSpacer2
                             color: "transparent"
                             height: portRow.height
-                            width: primaryBorderSize * 0.5
+                            width: portSpacer.width
                         }
 
                         CommonButton {
                             id: sslButton
                             text: "SSL"
-                            width: parent.width / 3
+                            width: parent.width / 6
                             enabled: encryptionSetting != 1
                         }
 
                         CommonButton {
                             id: startTlsButton
                             text: "STARTTLS"
-                            width: parent.width / 3
+                            width: parent.width / 2 - 2 * portSpacer.width
                             enabled: encryptionSetting != 2
                         }
                     }

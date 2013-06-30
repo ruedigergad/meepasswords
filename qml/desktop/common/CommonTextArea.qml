@@ -46,7 +46,7 @@ Rectangle {
         id: textEdit
 
         anchors.centerIn: parent
-        width: parent.width - (2 * font.pointSize)
+        width: parent.width - primaryBorderSize
         focus: parent.focus
 
         font.pointSize: primaryFontSize * 0.75

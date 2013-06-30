@@ -41,7 +41,7 @@ Rectangle {
         id: textInput
 
         focus: textField.focus
-        width: parent.width - (2 * font.pointSize)
+        width: parent.width - primaryBorderSize
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
 

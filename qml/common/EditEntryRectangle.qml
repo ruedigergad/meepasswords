@@ -164,7 +164,7 @@ Rectangle {
                     CommonButton {
                         id: categoryInput
                         anchors{left: parent.left; right: addCategoryIcon.left
-                                rightMargin: primaryFontSize * 0.25; verticalCenter: parent.verticalCenter}
+                                rightMargin: primaryBorderSize * 0.4; verticalCenter: parent.verticalCenter}
                         enabled: edit || newEntry
                         onClicked: categorySelectionDialog.open()
                     }
@@ -192,8 +192,9 @@ Rectangle {
 
                     CommonTextField {
                         id: userNameInput
-                        anchors{left: parent.left; right: userNameCopyButton.left; rightMargin: primaryFontSize * 0.5}
+                        anchors{left: parent.left; right: userNameCopyButton.left; rightMargin: primaryBorderSize * 0.4}
                         enabled: edit || newEntry
+//                        pointSize: primaryFontSize * 0.6
 
                         Keys.onEnterPressed: passwordInput.focus = true
                         Keys.onReturnPressed: passwordInput.focus = true
@@ -216,6 +217,8 @@ Rectangle {
                         id: userNameCopyButton
                         anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
+                        height: userNameInput.height
+                        font.pointSize: primaryFontSize * 0.6
                         text: "Copy"
                         onClicked: clipboard.setText(userName)
                     }
@@ -235,7 +238,8 @@ Rectangle {
 
                     CommonTextField {
                         id: passwordInput
-                        anchors{left: parent.left; right: passwordCopyButton.left; rightMargin: primaryFontSize * 0.5}
+                        anchors{left: parent.left; right: passwordCopyButton.left; rightMargin: primaryBorderSize * 0.4}
+//                        pointSize: primaryFontSize * 0.6
                         enabled: edit || newEntry
 
                         Keys.onEnterPressed: notesInput.focus = true
@@ -259,6 +263,8 @@ Rectangle {
                         id: passwordCopyButton
                         anchors.right: parent.right
                         anchors.verticalCenter: parent.verticalCenter
+                        height: passwordInput.height
+                        font.pointSize: primaryFontSize * 0.6
                         text: "Copy"
                         onClicked: clipboard.setText(password)
                     }
@@ -309,23 +315,21 @@ Rectangle {
                     id: editToolBar
 
                     width: parent.width
+                    spacing: primaryBorderSize
 
                     CommonToolIcon {
                         id: iconBack
-                        anchors {right: editButton.left; rightMargin: primaryBorderSize}
-                        width: saveButton.width
+                        width: parent.width / 3 - 2/3 * parent.spacing
                         iconSource: ":/icons/back.png"
-                        opacity: enabled ? 1 : 0.5
                         onClicked: {
                             hide()
                         }
                     }
                     CommonButton {
                         id: editButton
-                        anchors.horizontalCenter: parent.horizontalCenter
+                        width: parent.width / 3 - 2/3 * parent.spacing
                         text: "Edit"
                         visible: !newEntry
-                        opacity: 1
                         onClicked: {
                             toggleEdit()
                         }
@@ -333,7 +337,8 @@ Rectangle {
                     }
                     CommonButton {
                         id: saveButton
-                        anchors {left: editButton.right; leftMargin: primaryBorderSize}
+                        width: parent.width / 3 - 2/3 * parent.spacing
+                        anchors.right: parent.right
                         text: "Save"
                         enabled: edit || newEntry
                         onClicked: {
