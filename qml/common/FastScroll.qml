@@ -107,7 +107,7 @@ Item {
                     color: "black"
                     height: rail.width / 4
                     width: height
-                    radius: height / 2
+//                    radius: height / 2
                     y: 18 + (rail.height - 36 - height)/(1.0 - listView.visibleArea.heightRatio) * listView.visibleArea.yPosition
                 }
 
