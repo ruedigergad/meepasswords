@@ -95,6 +95,7 @@ Item {
     MouseArea {
         anchors.fill: parent
         z: -1
+        onClicked: focus = true
     }
 
     ConfirmationDialog {

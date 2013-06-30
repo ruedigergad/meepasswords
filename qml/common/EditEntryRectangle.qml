@@ -342,6 +342,14 @@ Rectangle {
                     }
                 }
             }
+
+            MouseArea {
+                anchors.fill: parent
+                z: -1
+                onClicked: {
+                    parent.focus = true
+                }
+            }
         }
     }
 

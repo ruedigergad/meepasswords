@@ -219,7 +219,7 @@ Flickable {
 
                         MeePasswordsToolBar {
                             id: meePasswordsToolBar
-                            width: parent.width * 0.9
+                            width: parent.width - (primaryBorderSize / 2)
                             anchors.centerIn: parent
                         }
                     }

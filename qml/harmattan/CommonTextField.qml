@@ -1,5 +1,5 @@
 /*
- *  Copyright 2011 Ruediger Gad
+ *  Copyright 2012, 2013 Ruediger Gad
  *
  *  This file is part of MeePasswords.
  *
@@ -17,10 +17,48 @@
  *  along with MeePasswords.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import com.nokia.meego 1.0
+import QtQuick 1.1
 
-TextField{
-    id: commonTextField
+Rectangle {
+    id: textField
 
-    property alias pointSize: commonTextField.font.pointSize
+    width: parent.width
+    height: textInput.height * 1.5
+
+    border.width: primaryBorderSize / 8
+    border.color: textInput.focus ? "#0e65c8" : "#4ea5f8"
+    color: enabled ? "white" : "#e0e0e0"
+//    radius: primaryBorderSize / 2
+    smooth: true
+
+    property int echoMode: TextInput.Normal
+    property alias pointSize: textInput.font.pointSize
+    property alias text: textInput.text
+
+    signal textChanged(string text)
+
+    TextInput {
+        id: textInput
+
+        focus: textField.focus
+        width: parent.width - (2 * font.pointSize)
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        font.pointSize: primaryFontSize * 0.75
+
+        color: "black"
+        echoMode: textField.echoMode
+
+        onTextChanged: textField.textChanged(text)
+
+        onFocusChanged: {
+            if (focus) {
+                openSoftwareInputPanel()
+            } else {
+                closeSoftwareInputPanel()
+            }
+        }
+    }
+
 }

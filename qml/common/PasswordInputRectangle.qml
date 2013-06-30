@@ -27,7 +27,6 @@ Rectangle{
     property alias text: passwordLabel.text
     property alias password: passwordField.text
     signal passwordEntered()
-    focus: true
 
     Component.onCompleted: {
         passwordButton.clicked.connect(passwordEntered)
@@ -84,10 +83,13 @@ Rectangle{
         anchors.topMargin: primaryFontSize * 0.4
         echoMode: TextInput.Password
         width: parent.width * 0.5
-        focus: passwordInputRectangle.focus
 
         Keys.onEnterPressed: passwordButton.clicked()
         Keys.onReturnPressed: passwordButton.clicked()
+
+        Component.onCompleted: {
+            focus = true
+        }
     }
 
     CommonButton{
@@ -97,6 +99,12 @@ Rectangle{
         anchors.topMargin: primaryFontSize * 0.4
         width: parent.width * 0.25
         text: qsTr("OK")
+    }
+
+    MouseArea {
+        anchors.fill: parent
+        z: -1
+        onClicked: parent.forceActiveFocus()
     }
 
     states: [
