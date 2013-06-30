@@ -2,7 +2,7 @@
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
     <id>com.ruedigergad.meepasswords</id>
     <name>Passwords</name>
-    <versionNumber>1.9.3</versionNumber>
+    <versionNumber>2.1.0</versionNumber>
     <description>(Mee-)Passwords is a simple tool to securely store short snippets of sensible or confidential data such as passwords and the like.</description>
     <initialWindow>
         <aspectRatio>portrait</aspectRatio>
@@ -11,7 +11,7 @@
         <transparent>false</transparent>
     </initialWindow>
     <author>ruedigergad.com</author>
-    <copyright>COPYRIGHT</copyright>
+    <copyright>Ruediger Gad, r.c.g@gmx.de, ruedigergad.com</copyright>
     <env value="app/native/imports:/usr/lib/qt4/imports" var="QML_IMPORT_PATH"/>
     <env value="app/native/plugins:app/native/lib:/usr/lib/qt4/plugins" var="QT_PLUGIN_PATH"/>
     <env value="app/native/lib:app/native/lib/qmf/lib:/usr/lib/qt4/lib/" var="LD_LIBRARY_PATH"/>
