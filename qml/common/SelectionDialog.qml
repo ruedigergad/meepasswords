@@ -67,7 +67,7 @@ CommonDialog {
 
             opacity: 0.8
             color: "darkgray"
-            radius: primaryFontSize * 0.5
+//            radius: primaryFontSize * 0.5
 
             ListView {
                 id: selectionlListView
