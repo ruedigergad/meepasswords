@@ -368,6 +368,7 @@ Rectangle {
         input: ""
 
         onAccepted: {
+            console.log("Accepted new category: " + input)
             if (input !== "") {
                 catModel.append({"name": input})
             }

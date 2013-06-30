@@ -73,7 +73,10 @@ CommonDialog {
             id: okButton; text: "OK"
             anchors {top: inputField.bottom; topMargin: primaryFontSize; horizontalCenter: parent.horizontalCenter}
             width: cancelButton.width
-            onClicked: accept()
+            onClicked: {
+                parent.focus = true
+                accept()
+            }
         }
 
         CommonButton{
