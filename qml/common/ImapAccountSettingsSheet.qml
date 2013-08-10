@@ -291,6 +291,7 @@ Item {
                     width: parent.width / 4
                     enabled: editAccount || newAccount
                     onClicked: {
+                        imapAccountSettingsSheet.focus = true
                         if (newAccount) {
                             console.log("Creating new account...")
                             imapAccountHelper.addAccount(accountNameTextField.text, userNameTextField.text,

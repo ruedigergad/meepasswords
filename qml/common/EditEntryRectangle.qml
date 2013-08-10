@@ -57,6 +57,7 @@ Rectangle {
     }
 
     function save() {
+        focus = true
         entryStorage.getModel().addOrUpdateEntry(name,
                                                  category,
                                                  userName,
