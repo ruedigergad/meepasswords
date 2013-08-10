@@ -2,7 +2,7 @@
 <qnx xmlns="http://www.qnx.com/schemas/application/1.0">
     <id>com.ruedigergad.meepasswords</id>
     <name>Passwords</name>
-    <versionNumber>2.1.0</versionNumber>
+    <versionNumber>2.1.1</versionNumber>
     <description>(Mee-)Passwords is a simple tool to securely store short snippets of sensible or confidential data such as passwords and the like.</description>
     <initialWindow>
         <aspectRatio>portrait</aspectRatio>
