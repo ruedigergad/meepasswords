@@ -5,5 +5,6 @@ mv qtc_packaging/debian_harmattan debian
 find . -name ".svn" -exec rm -rf {} \;
 find . -name ".git" -exec rm -rf {} \;
 rm -rf qtc_packaging
+rm -rf lib
 fakeroot dpkg-buildpackage -sa
 
