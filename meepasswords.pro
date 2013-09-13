@@ -94,6 +94,12 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
             lib/qt5/include \
             lib/qt5/include/QtCrypto
 
+        LIBS += \
+            -L$$PWD/lib/qt5/build/linux/x86_64 \
+            -lqca-qt5 \
+            -L$$PWD/lib/qt5/build/linux/x86_64/qmf/lib \
+            -lqmfclient5
+
         QT += qml quick
 
         qmfLibs.source = lib/qt5/build/$${os}/$${arch}/qmf
