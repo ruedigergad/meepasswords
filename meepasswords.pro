@@ -76,9 +76,12 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     QT += opengl
 
     LIBS += \
-        -Llib/build/linux/x86_64 \
-        -Llib/link/linux/x86_64 \
+        -L$$PWD/lib/link/linux/x86_64 \
         -lqmfclient \
+        -Wl,-rpath lib/qmf/lib
+
+    INCLUDEPATH += \
+        lib/include
 
     # TODO: Dynamically determine architecture.
     arch = x86_64
