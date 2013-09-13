@@ -54,8 +54,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
 #ifdef WINDOWS_DESKTOP
     putenv("QMF_PLUGINS=plugins");
-#elif defined(LINUX_DESKTOP)
-    putenv("QMF_PLUGINS=lib/qmf/plugins");
 #elif defined(BB10_BUILD)
     QApplication::setStartDragDistance(40);
     QApplication::setStartDragTime(500);
