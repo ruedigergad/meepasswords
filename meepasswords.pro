@@ -1,5 +1,7 @@
 # Add more folders to ship with the application, here
 
+message(Building with Qt version: $$QT_VERSION)
+
 exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     message(Harmattan Build)
     MEEGO_VERSION_MAJOR     = 1
@@ -75,24 +77,32 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     RESOURCES += desktop.qrc
     QT += opengl
 
-    LIBS += \
-        -L$$PWD/lib/link/linux/x86_64 \
-        -lqmfclient \
-        -Wl,-rpath lib/qmf/lib
+    greaterThan($$QT_MAJOR_VERSION, 4) {
+        message(Qt5 Build)
 
-    INCLUDEPATH += \
-        lib/include
+        DEFINES += QT5_BUILD
 
-    # TODO: Dynamically determine architecture.
-    arch = x86_64
-    os = linux
-    qmfLibs.source = lib/build/$${os}/$${arch}/qmf
-    qmfLibs.target = lib
+    } else {
+        message(Qt4 Build)
+        LIBS += \
+            -L$$PWD/lib/link/linux/x86_64 \
+            -lqmfclient \
+            -Wl,-rpath lib/qmf/lib
 
-    DEPLOYMENTFOLDERS += qmfLibs
+        INCLUDEPATH += \
+            lib/include
 
-    CONFIG += link_pkgconfig
-    PKGCONFIG += qca2
+        # TODO: Dynamically determine architecture.
+        arch = x86_64
+        os = linux
+        qmfLibs.source = lib/build/$${os}/$${arch}/qmf
+        qmfLibs.target = lib
+
+        DEPLOYMENTFOLDERS += qmfLibs
+
+        CONFIG += link_pkgconfig
+        PKGCONFIG += qca2
+    }
 }
 
 RESOURCES += common.qrc
