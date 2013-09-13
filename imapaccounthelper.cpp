@@ -45,7 +45,7 @@ QMailAccountConfiguration::ServiceConfiguration ImapAccountHelper::imapConfig(qu
 }
 
 QString ImapAccountHelper::imapPassword(qulonglong accId) {
-    return QString(QByteArray::fromBase64(imapConfig(accId).value("password").toAscii()));
+    return QString(QByteArray::fromBase64(imapConfig(accId).value("password").toLatin1()));
 }
 
 QString ImapAccountHelper::imapPort(qulonglong accId) {
@@ -76,7 +76,7 @@ void ImapAccountHelper::addAccount(QString accountName, QString userName, QStrin
     QMailAccountConfiguration::ServiceConfiguration serviceConfig = accountConfig->serviceConfiguration("imap4");
 
     serviceConfig.setValue("username", userName);
-    serviceConfig.setValue("password", QString(password.toAscii().toBase64()));
+    serviceConfig.setValue("password", QString(password.toLatin1().toBase64()));
     serviceConfig.setValue("server", server);
     serviceConfig.setValue("port", port);
     serviceConfig.setValue("encryption", QString::number(encryptionSetting));
@@ -103,7 +103,7 @@ void ImapAccountHelper::updateAccount(qulonglong accId, QString userName, QStrin
     QMailAccountConfiguration::ServiceConfiguration serviceConfig = accountConfig->serviceConfiguration("imap4");
 
     serviceConfig.setValue("username", userName);
-    serviceConfig.setValue("password", QString(password.toAscii().toBase64()));
+    serviceConfig.setValue("password", QString(password.toLatin1().toBase64()));
     serviceConfig.setValue("server", server);
     serviceConfig.setValue("port", port);
     serviceConfig.setValue("encryption", QString::number(encryptionSetting));

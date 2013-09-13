@@ -70,7 +70,7 @@ EntryStorage::~EntryStorage(){
 }
 
 bool EntryStorage::equalsStoredHash(QString hash){
-    return (key == QCA::PBKDF2().makeKey(hash.toAscii(), passwordSalt, KEY_GEN_LENGTH, KEY_GEN_ITERATIONS));
+    return (key == QCA::PBKDF2().makeKey(hash.toLatin1(), passwordSalt, KEY_GEN_LENGTH, KEY_GEN_ITERATIONS));
 }
 
 bool EntryStorage::equalsStoredPassword(QString password){
