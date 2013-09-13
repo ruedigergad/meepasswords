@@ -98,7 +98,8 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
             -L$$PWD/lib/qt5/build/linux/x86_64 \
             -lqca-qt5 \
             -L$$PWD/lib/qt5/build/linux/x86_64/qmf/lib \
-            -lqmfclient5
+            -lqmfclient5 \
+            -Wl,-rpath lib
 
         QT += qml quick
 
