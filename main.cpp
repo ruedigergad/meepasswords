@@ -38,12 +38,8 @@
 #include <QGLWidget>
 #endif
 
-//#include "mcomboboxqmladapter.h"
-//#include "mtexteditqmladapter.h"
-//#include "qcomboboxqmladapter.h"
 #include "qmlclipboardadapter.h"
 #include "settingsadapter.h"
-//#include "qlineeditqmladapter.h"
 
 #include "filehelper.h"
 #ifdef SYNC_TO_IMAP_SUPPORT
@@ -67,15 +63,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 #endif
 
 #ifdef MEEGO_EDITION_HARMATTAN
-//    MApplication app(argc, argv);
     QApplication *app = MDeclarativeCache::qApplication(argc, argv);
     QDeclarativeView *view = MDeclarativeCache::qDeclarativeView();
-
-//    char *app_id;
-//    aegis_application_id(getpid(), &app_id);
-//    qDebug("Application Id: %s", app_id);
 #else
-//    QApplication::setGraphicsSystem("raster");
     QApplication *app = new QApplication(argc, argv);
     QDeclarativeView *view = new QDeclarativeView();
 #endif
@@ -185,12 +175,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->resize(400, 500);
     view->show();
 #endif
-
-//#ifdef Q_WS_MAEMO_5
-//    view->setAttribute(Qt::WA_Maemo5AutoOrientation, true);
-//    view->resize(800, 424);
-//    view->show();
-//#endif
 
     int ret = app->exec();
 

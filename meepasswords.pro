@@ -136,10 +136,6 @@ HEADERS += \
     entry.h \
     entrystorage.h \
     entrylistmodel.h \
-#    qlineeditqmladapter.h \
-#    mtexteditqmladapter.h \
-#    mcomboboxqmladapter.h \
-#    qcomboboxqmladapter.h \
     keepassxmlstreamreader.h \
     keepassxmlstreamwriter.h \
     qmlclipboardadapter.h \
@@ -152,10 +148,6 @@ SOURCES += main.cpp \
     entry.cpp \
     entrystorage.cpp \
     entrylistmodel.cpp \
-#    qlineeditqmladapter.cpp \
-#    mtexteditqmladapter.cpp \
-#    mcomboboxqmladapter.cpp \
-#    qcomboboxqmladapter.cpp \
     keepassxmlstreamreader.cpp \
     keepassxmlstreamwriter.cpp \
     entrysortfilterproxymodel.cpp \
