@@ -19,13 +19,12 @@
 
 import QtQuick 2.0
 
-CommonToolBar {
+Row {
     id: toolBar
 
-    property int minWidth: iconAdd.width + iconNext.width + iconDelete.width + iconBack.width + iconMenu.width
-    height: 40
+    height: iconMenu.height * 1.05
 
-    spacing: (width - minWidth) / 4
+    spacing: 10
 
     CommonToolIcon {
         id: iconBack
@@ -56,7 +55,6 @@ CommonToolBar {
     CommonToolIcon {
         id: iconMenu
         iconSource: "qrc:/icons/menu.png"
-        anchors.right: parent === undefined ? undefined : parent.right
         onClicked: ! mainMenu.isOpen ? mainMenu.open() : mainMenu.close()
         opacity: enabled ? 1 : 0.5
     }
