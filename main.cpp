@@ -26,6 +26,7 @@
 
 #ifdef QT5_BUILD
 #include <QCoreApplication>
+#include <QGuiApplication>
 #include <QQuickView>
 #include <QProcess>
 #include <QtQml>
@@ -71,7 +72,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QApplication *app = MDeclarativeCache::qApplication(argc, argv);
     QDeclarativeView *view = MDeclarativeCache::qDeclarativeView();
 #elif defined(QT5_BUILD)
-    QCoreApplication *app = new QCoreApplication(argc, argv);
+    QGuiApplication *app = new QGuiApplication(argc, argv);
     QQuickView *view = new QQuickView();
 #else
     QApplication *app = new QApplication(argc, argv);
@@ -163,6 +164,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
 #ifdef QT5_BUILD
 //TODO
+    app->setApplicationName("MeePasswords");
+    app->setApplicationDisplayName("MeePasswords");
 #else
     view->setWindowTitle("MeePasswords");
 #endif

@@ -17,7 +17,7 @@
  *  along with MeePasswords.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
+import QtQuick 2.0
 
 Rectangle {
     id: textField
@@ -35,7 +35,7 @@ Rectangle {
     property alias pointSize: textInput.font.pointSize
     property alias text: textInput.text
 
-    signal textChanged(string text)
+//    signal textChanged(string text)
 
     TextInput {
         id: textInput

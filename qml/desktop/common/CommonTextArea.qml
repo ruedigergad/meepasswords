@@ -17,7 +17,7 @@
  *  along with MeePasswords.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
+import QtQuick 2.0
 
 Rectangle {
     id: textArea
@@ -36,7 +36,7 @@ Rectangle {
 
     signal enter()
     signal keyPressed(variant event)
-    signal textChanged(string text)
+//    signal textChanged(string text)
 
     function forceActiveFocus() {
         textEdit.forceActiveFocus()

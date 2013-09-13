@@ -17,7 +17,7 @@
  *  along with MeePasswords.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 1.1
+import QtQuick 2.0
 import QtMobility.systeminfo 1.2
 import com.nokia.meego 1.0
 import meepasswords 1.0
