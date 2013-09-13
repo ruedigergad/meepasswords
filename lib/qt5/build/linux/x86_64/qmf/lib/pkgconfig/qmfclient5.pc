@@ -1,0 +1,13 @@
+prefix=/home/rc/Qt5.1.1/5.1.1/gcc_64
+exec_prefix=${prefix}
+libdir=/lib
+includedir=/include/qmfclient5
+
+
+Name: Qmfclient5
+Description: Qmfclient5 Library
+Version: 1.0.0
+Libs: -L${libdir} -lqmfclient5 
+Libs.private: -L/home/rc/Qt5.1.1/5.1.1/gcc_64/lib -lQt5Network -lQt5Sql -lQt5Core -lpthread   
+Cflags: -I${includedir}
+

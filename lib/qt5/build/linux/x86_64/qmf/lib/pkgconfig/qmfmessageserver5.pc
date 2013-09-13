@@ -1,0 +1,13 @@
+prefix=/home/rc/Qt5.1.1/5.1.1/gcc_64
+exec_prefix=${prefix}
+libdir=/lib
+includedir=/include/qmfmessageserver5
+
+
+Name: Qmfmessageserver5
+Description: Qmfmessageserver5 Library
+Version: 1.0.0
+Libs: -L${libdir} -lqmfmessageserver5 
+Libs.private: -lqmfclient5 -L../qmfclient/build -L/home/rc/Qt5.1.1/5.1.1/gcc_64/lib -lQt5Widgets -lQt5Gui -lQt5Network -lQt5Core -lGL -lpthread   
+Cflags: -I${includedir}
+
