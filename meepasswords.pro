@@ -77,9 +77,6 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     RESOURCES += desktop.qrc
     QT += opengl
 
-    INCLUDEPATH += \
-        lib/include
-
     LIBS += \
         -Wl,-rpath lib/qmf/lib
 
@@ -88,16 +85,23 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     os = linux
     qmfLibs.target = lib
 
-    greaterThan($$QT_MAJOR_VERSION, 4) {
+    isEqual(QT_MAJOR_VERSION, 5) {
         message(Qt5 Build)
 
         DEFINES += QT5_BUILD
+
+        INCLUDEPATH += \
+            lib/qt5/include \
+            lib/qt5/include/QtCrypto
 
         QT += qml quick
 
         qmfLibs.source = lib/qt5/build/$${os}/$${arch}/qmf
     } else {
         message(Qt4 Build)
+
+        INCLUDEPATH += \
+            lib/include
 
         LIBS += \
             -L$$PWD/lib/link/linux/x86_64 \

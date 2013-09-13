@@ -29,23 +29,21 @@ EntryListModel::EntryListModel(QObject *parent) :
     QAbstractListModel(parent)
 {
     qDebug("EntryListModel constructor.");
-    QHash<int, QByteArray> roles;
-    roles[NameRole] = "name";
+    m_roles[NameRole] = "name";
     /*
      * Needed to make SectionScroller happy.
      * Take care to give the property used for naming the
      * section in the ListView the same name as in the
      * model element class (here Entry, see entry.h).
      */
-    roles[CategoryRole] = "category";
-    roles[UserNameRole] = "userName";
-    roles[PasswordRole] = "password";
-    roles[NotesRole] = "notes";
-    roles[IdRole] = "id";
-    roles[UuidRole] = "uuid";
-    roles[MtimeRole] = "mtime";
-    roles[MtimeIntRole] = "mtimeInt";
-    setRoleNames(roles);
+    m_roles[CategoryRole] = "category";
+    m_roles[UserNameRole] = "userName";
+    m_roles[PasswordRole] = "password";
+    m_roles[NotesRole] = "notes";
+    m_roles[IdRole] = "id";
+    m_roles[UuidRole] = "uuid";
+    m_roles[MtimeRole] = "mtime";
+    m_roles[MtimeIntRole] = "mtimeInt";
 
     m_deleted.clear();
 }

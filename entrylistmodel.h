@@ -49,6 +49,8 @@ public:
 
     EntryListModel(QObject *parent = 0);
 
+    virtual QHash<int, QByteArray> roleNames() const { return m_roles; }
+
     Q_INVOKABLE void addEntry(Entry &entry);
     Q_INVOKABLE void addEntry(QString name, QString category, QString userName, QString password, QString notes);
     Q_INVOKABLE void addEntry(QString name, QString category, QString userName, QString password, QString notes, QString uuid);
@@ -86,6 +88,7 @@ signals:
 private:
     QList<Entry> m_entries;
     QStringList m_deleted;
+    QHash<int, QByteArray> m_roles;
 
     /**
       * Adds an entry to the list. While updating the model this method does <b>not</b> emit the changed() signal.

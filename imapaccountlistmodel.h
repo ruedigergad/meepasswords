@@ -38,6 +38,8 @@ public:
 
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     Q_INVOKABLE int rowCount(const QModelIndex &parent = QModelIndex()) const;
+
+    virtual QHash<int, QByteArray> roleNames() const { return m_roles; }
     
 signals:
     
@@ -45,7 +47,8 @@ public slots:
 
 private:
     QMailAccountListModel *accountListModel;
-    
+    QHash<int, QByteArray> m_roles;
+
 };
 
 #endif // IMAPACCOUNTLISTMODEL_H

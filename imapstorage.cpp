@@ -100,7 +100,7 @@ void ImapStorage::addMessage(qulonglong accId, QString folder, QString subject, 
 
 void ImapStorage::createFolder(qulonglong accId, QString name) {
     currentAction = CreateFolderAction;
-#if defined(MER_EDITION_SAILFISH) || defined(MER_EDITION_NEMO)
+#if defined(MER_EDITION_SAILFISH) || defined(MER_EDITION_NEMO) || defined(QT5_BUILD)
     storageAction->onlineCreateFolder(name, QMailAccountId(accId), QMailFolderId());
 #else
     storageAction->createFolder(name, QMailAccountId(accId), QMailFolderId());
@@ -110,7 +110,7 @@ void ImapStorage::createFolder(qulonglong accId, QString name) {
 void ImapStorage::deleteMessage(qulonglong msgId) {
     qDebug() << "Deleting message with id: " << msgId;
     currentAction = DeleteMessageAction;
-#if defined(MER_EDITION_SAILFISH) || defined(MER_EDITION_NEMO)
+#if defined(MER_EDITION_SAILFISH) || defined(MER_EDITION_NEMO) || defined(QT5_BUILD)
     storageAction->onlineDeleteMessages(QMailMessageIdList() << QMailMessageId(msgId));
 #else
     storageAction->deleteMessages(QMailMessageIdList() << QMailMessageId(msgId));

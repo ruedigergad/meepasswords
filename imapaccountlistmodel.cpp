@@ -27,10 +27,8 @@ ImapAccountListModel::ImapAccountListModel(QObject *parent) :
     accountListModel->setSynchronizeEnabled(true);
     setSourceModel(accountListModel);
 
-    QHash<int, QByteArray> roles;
-    roles[AccountNameRole] = "accountName";
-    roles[AccountIdRole] = "accountId";
-    setRoleNames(roles);
+    m_roles[AccountNameRole] = "accountName";
+    m_roles[AccountIdRole] = "accountId";
 }
 
 QVariant ImapAccountListModel::data(const QModelIndex &index, int role) const{

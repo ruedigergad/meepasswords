@@ -22,9 +22,16 @@
 #endif
 
 #include <QDebug>
-
 #include <QtCore/QtGlobal>
+
+#ifdef QT5_BUILD
+#include <QCoreApplication>
+#include <QQuickView>
+#include <QProcess>
+#include <QtQml>
+#else
 #include <QtDeclarative>
+#endif
 
 #include "entry.h"
 #include "entrylistmodel.h"
@@ -63,19 +70,24 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 #ifdef MEEGO_EDITION_HARMATTAN
     QApplication *app = MDeclarativeCache::qApplication(argc, argv);
     QDeclarativeView *view = MDeclarativeCache::qDeclarativeView();
+#elif defined(QT5_BUILD)
+    QCoreApplication *app = new QCoreApplication(argc, argv);
+    QQuickView *view = new QQuickView();
 #else
     QApplication *app = new QApplication(argc, argv);
     QDeclarativeView *view = new QDeclarativeView();
-#endif
     qDebug() << "Qt Build Key: " << QLibraryInfo::buildKey() << "   Qt Build Date: " << QLibraryInfo::buildDate();
+#endif    
 
     QCoreApplication::setOrganizationName("ruedigergad.com");
     QCoreApplication::setOrganizationDomain("ruedigergad.com");
     QCoreApplication::setApplicationName("meepasswords");
 
+#ifndef QT5_BUILD
     QTextCodec::setCodecForCStrings(QTextCodec::codecForName("UTF-8"));
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
     QTextCodec::setCodecForTr(QTextCodec::codecForName("UTF-8"));
+#endif
 
     /*
      * Some versions may need to start messageserver.
@@ -142,14 +154,18 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
      * However, painting on a QGLWidget resulted in a major performance loss,
      * at least on an N900 using the experimental Qt version.
      */
-#ifndef BB10_BUILD
+#if ! defined(BB10_BUILD) && ! defined(QT5_BUILD)
     view->setAttribute(Qt::WA_OpaquePaintEvent);
     view->setAttribute(Qt::WA_NoSystemBackground);
     view->viewport()->setAttribute(Qt::WA_OpaquePaintEvent);
     view->viewport()->setAttribute(Qt::WA_NoSystemBackground);
 #endif
 
+#ifdef QT5_BUILD
+//TODO
+#else
     view->setWindowTitle("MeePasswords");
+#endif
 
 #if defined(MEEGO_EDITION_HARMATTAN)
     // Hack to automatically copy the data from an old installation.
@@ -171,6 +187,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->setSource(QUrl("qrc:/qml/bb10/main.qml"));
     view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
     view->showMaximized();
+#elif defined(QT5_BUILD)
+    view->setResizeMode(QQuickView::SizeRootObjectToView);
+    view->setSource(QUrl("qrc:/qml/desktop/main.qml"));
+    view->resize(400, 500);
+    view->show();
 #else
     view->setResizeMode(QDeclarativeView::SizeRootObjectToView);
     view->setSource(QUrl("qrc:/qml/desktop/main.qml"));
