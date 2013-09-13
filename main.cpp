@@ -100,8 +100,13 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QString messageServerExecutable = "messageserver.exe";
 #endif
 #ifdef LINUX_DESKTOP
+#ifdef QT5_BUILD
+    QString messageServerRunningQuery = "ps -el | grep messageserver5";
+    QString messageServerExecutable = QCoreApplication::applicationDirPath() + "/lib/qmf/bin/messageserver5";
+#else
     QString messageServerRunningQuery = "ps -el | grep messageserver";
     QString messageServerExecutable = QCoreApplication::applicationDirPath() + "/lib/qmf/bin/messageserver";
+#endif
 #endif
 #if defined(LINUX_DESKTOP) || defined(WINDOWS_DESKTOP)
     QProcess queryMessageServerRunning;
