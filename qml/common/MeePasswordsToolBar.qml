@@ -23,38 +23,39 @@ CommonToolBar {
     id: toolBar
 
     property int minWidth: iconAdd.width + iconNext.width + iconDelete.width + iconBack.width + iconMenu.width
+    height: 40
 
     spacing: (width - minWidth) / 4
 
     CommonToolIcon {
         id: iconBack
-        iconSource: ":/icons/back.png"
+        iconSource: "qrc:/icons/back.png"
         opacity: enabled ? 1 : 0.5
         onClicked: logOut()
     }
     CommonToolIcon {
         id: iconAdd
-        iconSource: ":/icons/add.png"
+        iconSource: "qrc:/icons/add.png"
         opacity: enabled ? 1 : 0.5
         onClicked: addEntry()
     }
     CommonToolIcon {
         id: iconDelete
-        iconSource: ":/icons/delete.png"
+        iconSource: "qrc:/icons/delete.png"
         enabled: listView.currentIndex > -1
         opacity: enabled ? 1 : 0.5
         onClicked: deleteEntry()
     }
     CommonToolIcon {
         id: iconNext
-        iconSource: ":/icons/next.png"
+        iconSource: "qrc:/icons/next.png"
         enabled: listView.currentIndex > -1
         opacity: enabled ? 1 : 0.5
         onClicked: editEntry()
     }
     CommonToolIcon {
         id: iconMenu
-        iconSource: ":/icons/menu.png"
+        iconSource: "qrc:/icons/menu.png"
         anchors.right: parent === undefined ? undefined : parent.right
         onClicked: ! mainMenu.isOpen ? mainMenu.open() : mainMenu.close()
         opacity: enabled ? 1 : 0.5
