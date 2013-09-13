@@ -1,0 +1,11 @@
+prefix=/usr/local
+exec_prefix=/usr/local
+libdir=lib64
+includedir=/usr/local/include/qt5/QtCrypto
+
+Name: QCA
+Description: Qt Cryptographic Architecture library
+Version: 2.0.3
+Requires: QtCore
+Libs: -L${libdir} -lqca-qt5
+Cflags: -I${includedir}
