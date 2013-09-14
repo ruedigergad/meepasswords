@@ -75,23 +75,6 @@ Flickable {
         }
     }
 
-    function addEntry() {
-        editEntryRectangle.resetContent()
-        editEntryRectangle.toggleEdit()
-        editEntryRectangle.newEntry = true
-        editEntryRectangle.show()
-    }
-
-    function deleteEntry() {
-        deleteConfirmationDialog.entryId = listView.currentItem.entryId
-        deleteConfirmationDialog.entryName = listView.currentItem.entryName
-        deleteConfirmationDialog.open()
-    }
-
-    function editEntry() {
-        editEntryRectangle.show()
-    }
-
     function logOut() {
         passwordInput.password = ""
         entryStorage.getModel().clear();

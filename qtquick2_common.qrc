@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>meepasswords_150x150.png</file>
         <file>qml/qtquick2_common/EntryListView.qml</file>
-        <file>qml/qtquick2_common/EntryShowDialog.qml</file>
         <file>qml/qtquick2_common/MessageDialog.qml</file>
         <file>qml/qtquick2_common/PasswordChangeDialog.qml</file>
         <file>meepasswords_100x100.png</file>

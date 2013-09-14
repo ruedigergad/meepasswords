@@ -31,7 +31,6 @@ Rectangle {
     color: enabled ? "white" : "#e0e0e0"
     height: textInput.height * 1.5
     smooth: true
-    width: parent.width
 
     TextInput {
         id: textInput

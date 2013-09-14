@@ -23,26 +23,22 @@ import meepasswords 1.0
 Rectangle {
     id: editEntryRectangle
 
+    property alias category: categoryInput.text
+    property bool edit: false
+    property int entryId: -1
+    property alias name: nameInput.text
+    property bool newEntry: false
+    property alias notes: notesInput.text
+    property alias password: passwordInput.text
+    property alias userName: userNameInput.text
+
     color: "white"
 
-    property bool edit: false
-    property bool newEntry: false
-    property int entryId: -1
-    property bool isShown: false
-
-    property alias name: nameInput.text
-    property alias category: categoryInput.text
-    property alias userName: userNameInput.text
-    property alias password: passwordInput.text
-    property alias notes: notesInput.text
-
-    function hide() {
-        edit = false
-        newEntry = false
-        mainContentFlickable.contentX = mainFlickable.width
-        isShown = false
+    function close() {
+        resetContent()
         entryListView.focus = true
         inputFlickable.contentY = 0
+        stackView.pop()
     }
 
     function resetContent() {
@@ -64,12 +60,7 @@ Rectangle {
                                                  password,
                                                  notes,
                                                  entryId)
-        hide()
-    }
-
-    function show() {
-        mainContentFlickable.contentX = mainFlickable.width * 2
-        isShown = true
+        close()
     }
 
     function toggleEdit() {
@@ -93,109 +84,109 @@ Rectangle {
     Flickable {
         id: inputFlickable
 
-        anchors{top: parent.top; bottom: parent.bottom; left: parent.left; right: parent.right; margins: primaryFontSize * 0.5}
-
-        contentHeight: inputArea.height * 1.75
+        anchors{top: parent.top; bottom: parent.bottom; left: parent.left
+                right: parent.right; margins: primaryFontSize * 0.5}
         clip: true
+        contentHeight: inputArea.height * 1.75
 
         Item {
             id: inputArea
-            width: parent.width * 0.975
+
             anchors.horizontalCenter: parent.horizontalCenter
             height: column.height
+            width: parent.width * 0.975
 
             Column {
                 id: column
 
+                anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
                 anchors.topMargin: 10
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width
-
                 spacing: primaryFontSize * 0.25
+                width: parent.width
 
                 Text {
                     id: nameText
-                    anchors.left: parent.left
+
                     font.pointSize: primaryFontSize * 0.6
                     text: "Entry Name"
                 }
-                Row {
-                    id: nameRow
 
+                CommonTextField {
+                    id: nameInput
+
+                    enabled: edit || newEntry
                     width: parent.width
-                    height: nameInput.height
 
-                    CommonTextField {
-                        id: nameInput
-                        width: parent.width
-                        enabled: edit || newEntry
-
-                        Keys.onEnterPressed: userNameInput.focus = true
-                        Keys.onReturnPressed: userNameInput.focus = true
-                        Keys.onTabPressed: userNameInput.focus = true
-                        Keys.onBacktabPressed: notesInput.focus = true
-                        Keys.onEscapePressed: toggleEdit()
-                        Keys.onPressed: {
-                            switch (event.key) {
-                            case Qt.Key_S:
-                                if (event.modifiers & Qt.ControlModifier) {
-                                    save()
-                                }
-                                break
-                            default:
-                                break
+                    Keys.onEnterPressed: userNameInput.focus = true
+                    Keys.onReturnPressed: userNameInput.focus = true
+                    Keys.onTabPressed: userNameInput.focus = true
+                    Keys.onBacktabPressed: notesInput.focus = true
+                    Keys.onEscapePressed: toggleEdit()
+                    Keys.onPressed: {
+                        switch (event.key) {
+                        case Qt.Key_S:
+                            if (event.modifiers & Qt.ControlModifier) {
+                                save()
                             }
+                            break
+                        default:
+                            break
                         }
                     }
                 }
 
                 Text {
                     id: categoryText
-                    anchors.left: parent.left
+
                     font.pointSize: primaryFontSize * 0.6
                     text: "Category"
                 }
+
                 Row {
                     id: categoryRow
 
-                    width: parent.width
                     height: nameInput.height
+                    spacing: primaryBorderSize * 0.5
+                    width: parent.width
 
                     CommonButton {
                         id: categoryInput
-                        anchors{left: parent.left; right: addCategoryIcon.left
-                                rightMargin: primaryBorderSize * 0.4; verticalCenter: parent.verticalCenter}
+
                         enabled: edit || newEntry
+                        width: parent.width - addCategoryIcon.width - parent.spacing
+
                         onClicked: categorySelectionDialog.open()
                     }
 
                     CommonToolIcon {
                         id: addCategoryIcon
-                        iconSource: ":/icons/add.png"
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
+
                         enabled: edit || newEntry
+                        iconSource: "qrc:/icons/add.png"
+
                         onClicked: newCategoryDialog.open()
                     }
                 }
 
                 Text {
                     id: userNameText
-                    anchors.left: parent.left
+
                     font.pointSize: primaryFontSize * 0.6
                     text: "User Name"
                 }
+
                 Row {
                     id: userNameRow
 
+                    spacing: primaryBorderSize * 0.5
                     width: parent.width
 
                     CommonTextField {
                         id: userNameInput
-                        anchors{left: parent.left; right: userNameCopyButton.left; rightMargin: primaryBorderSize * 0.4}
+
                         enabled: edit || newEntry
-//                        pointSize: primaryFontSize * 0.6
+                        width: parent.width - userNameCopyButton.width - parent.spacing
 
                         Keys.onEnterPressed: passwordInput.focus = true
                         Keys.onReturnPressed: passwordInput.focus = true
@@ -214,13 +205,14 @@ Rectangle {
                             }
                         }
                     }
+
                     CommonButton {
                         id: userNameCopyButton
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
-                        height: userNameInput.height
+
                         font.pointSize: primaryFontSize * 0.6
+                        height: userNameInput.height
                         text: "Copy"
+
                         onClicked: clipboard.setText(userName)
                     }
                 }
@@ -228,20 +220,22 @@ Rectangle {
 
                 Text {
                     id: passwordText
-                    anchors.left: parent.left
+
                     font.pointSize: primaryFontSize * 0.6
                     text: "Password"
                 }
+
                 Row {
                     id: passwordRow
 
+                    spacing: primaryBorderSize * 0.5
                     width: parent.width
 
                     CommonTextField {
                         id: passwordInput
-                        anchors{left: parent.left; right: passwordCopyButton.left; rightMargin: primaryBorderSize * 0.4}
-//                        pointSize: primaryFontSize * 0.6
+
                         enabled: edit || newEntry
+                        width: parent.width - passwordCopyButton.width - parent.spacing
 
                         Keys.onEnterPressed: notesInput.focus = true
                         Keys.onReturnPressed: notesInput.focus = true
@@ -260,27 +254,31 @@ Rectangle {
                             }
                         }
                     }
+
                     CommonButton {
                         id: passwordCopyButton
-                        anchors.right: parent.right
-                        anchors.verticalCenter: parent.verticalCenter
-                        height: passwordInput.height
+
                         font.pointSize: primaryFontSize * 0.6
+                        height: passwordInput.height
                         text: "Copy"
+
                         onClicked: clipboard.setText(password)
                     }
                 }
 
                 Text {
                     id: notesLabel
-                    text: "Notes"
+
                     font.pointSize: primaryFontSize * 0.6
+                    text: "Notes"
                 }
+
                 CommonTextArea{
                     id: notesInput
-                    width: parent.width
+
                     enabled: edit || newEntry
                     textFormat: Text.PlainText
+                    width: parent.width
 
                     Keys.onTabPressed: nameInput.focus = true
                     Keys.onBacktabPressed: passwordInput.focus = true
@@ -299,82 +297,83 @@ Rectangle {
                 }
 
                 Item {
+                    id: horizontalBarItem
+
                     width: parent.width
                     height: primaryBorderSize
 
                     Rectangle {
+                        id: horizontalBarRectangle
+
                         anchors.centerIn: parent
+                        color: "darkgray"
                         height: primaryBorderSize / 6
                         width: parent.width
-
-                        color: "darkgray"
-
                     }
                 }
 
-                CommonToolBar {
+                Row {
                     id: editToolBar
 
-                    width: parent.width
                     spacing: primaryBorderSize
+                    width: parent.width
 
                     CommonToolIcon {
                         id: iconBack
+
+                        iconSource: "qrc:/icons/back.png"
                         width: parent.width / 3 - 2/3 * parent.spacing
-                        iconSource: ":/icons/back.png"
+
                         onClicked: {
-                            hide()
+                            close()
                         }
                     }
+
                     CommonButton {
                         id: editButton
-                        width: parent.width / 3 - 2/3 * parent.spacing
+
+                        color: edit ? "red" : "#0e65c8"
+                        opacity: !newEntry ? 1 : 0
                         text: "Edit"
-                        visible: !newEntry
+                        width: parent.width / 3 - 2/3 * parent.spacing
+
                         onClicked: {
                             toggleEdit()
                         }
-                        color: edit ? "red" : "#0e65c8"
                     }
+
                     CommonButton {
                         id: saveButton
-                        width: parent.width / 3 - 2/3 * parent.spacing
-                        anchors.right: parent.right
-                        text: "Save"
+
                         enabled: edit || newEntry
+                        text: "Save"
+                        width: parent.width / 3 - 2/3 * parent.spacing
+
                         onClicked: {
                             save()
                         }
                     }
                 }
             }
-
-            MouseArea {
-                anchors.fill: parent
-                z: -1
-                onClicked: {
-                    parent.focus = true
-                }
-            }
         }
     }
 
-    TextInputDialog {
-        id: newCategoryDialog
+//    TextInputDialog {
+//        id: newCategoryDialog
 
-        parent: main
+//        parent: main
 
-        title: "New Category"
-        label: "Category Name"
-        input: ""
+//        title: "New Category"
+//        label: "Category Name"
+//        input: ""
 
-        onAccepted: {
-            console.log("Accepted new category: " + input)
-            if (input !== "") {
-                catModel.append({"name": input})
-            }
-        }
-    }
+//        onAccepted: {
+//            console.log("Accepted new category: " + input)
+//            if (input !== "") {
+//                catModel.append({"name": input})
+//            }
+//        }
+//    }
 
     ListModel {
         id: catModel
@@ -387,6 +386,7 @@ Rectangle {
 
     Connections {
         target: entryStorage
+
         onDecryptionSuccess: {
             catModel.clear()
             catModel.append({"name": "Default"})
@@ -398,23 +398,24 @@ Rectangle {
                 }
             }
         }
+
         onNewFileOpened: {
             catModel.clear()
             catModel.append({"name": "Default"})
         }
     }
 
-    SelectionDialog {
-        id: categorySelectionDialog
+//    SelectionDialog {
+//        id: categorySelectionDialog
 
-        parent: main
+//        parent: main
 
-        model: catModel
-        title: "Category"
-        label: "Please select a category."
+//        model: catModel
+//        title: "Category"
+//        label: "Please select a category."
 
-        onAccepted: {
-            categoryInput.text = catModel.get(selectedIndex).name
-        }
-    }
+//        onAccepted: {
+//            categoryInput.text = catModel.get(selectedIndex).name
+//        }
+//    }
 }

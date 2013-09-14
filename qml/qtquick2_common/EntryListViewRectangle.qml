@@ -22,6 +22,23 @@ import QtQuick 2.0
 Rectangle {
     id: entryListRectangle
 
+    function addEntry() {
+        editEntryRectangle.resetContent()
+        editEntryRectangle.toggleEdit()
+        editEntryRectangle.newEntry = true
+        stackView.push(editEntryRectangle)
+    }
+
+    function deleteEntry() {
+        deleteConfirmationDialog.entryId = listView.currentItem.entryId
+        deleteConfirmationDialog.entryName = listView.currentItem.entryName
+        deleteConfirmationDialog.open()
+    }
+
+    function editEntry() {
+        stackView.push(editEntryRectangle)
+    }
+
     EntryListView {
         id: entryListView
 
@@ -40,5 +57,9 @@ Rectangle {
             width: parent.width - (primaryBorderSize / 2)
             anchors.centerIn: parent
         }
+    }
+
+    EditEntryRectangle {
+        id: editEntryRectangle
     }
 }
