@@ -68,6 +68,47 @@ Rectangle {
     }
 
     ConfirmationDialog {
+        id: confirmDeleteSyncMessage
+
+        parent: main
+
+        titleText: "Clear sync data?"
+        message: "This may take some time."
+
+        onOpened: toolBar.enabled = false
+        onRejected: toolBar.enabled = true
+
+        onAccepted: {
+            syncMessageDeleter.deleteMessage("encrypted.raw")
+            cleanOldFiled()
+        }
+    }
+
+    TextInputDialog {
+        id: confirmSyncToImapDialog
+
+        echoMode: TextInput.Password
+        label: "Please enter the password for decrypting the sync data. Note that for syncing you have to use the same password on all devices."
+        parent: main
+        title: "Enter Password for Sync."
+
+        onOpened: toolBar.enabled = false
+        onRejected: toolBar.enabled = true
+
+        onAccepted: {
+            if (entryStorage.canDecrypt(input)) {
+                merger.setPassword(input)
+                input = ""
+                syncFileToImap.syncFile(entryStorage.getStorageDirPath(), "encrypted.raw")
+            } else {
+                messageDialog.title = "Decryption Failed"
+                messageDialog.message = "The decryption failed with the entered password. Please make sure you enter the correct password."
+                messageDialog.open()
+            }
+        }
+    }
+
+    ConfirmationDialog {
         id: deleteConfirmationDialog
 
         property int entryId: -1
@@ -107,6 +148,19 @@ Rectangle {
         onOpened: toolBar.enabled = false
     }
 
+    Merger {
+        id: merger
+    }
+
+    MessageDialog {
+        id: messageDialog
+
+        parent: main
+
+        onOpened: toolBar.enabled = false
+        onRejected: toolBar.enabled = true
+    }
+
     PasswordChangeDialog {
         id: passwordChangeDialog
 
@@ -114,4 +168,36 @@ Rectangle {
 
         onClosed: entryListView.focus = true
     }
+
+    SyncFileToImap {
+        id: syncFileToImap
+
+        parent: main
+
+        imapFolderName: "meepasswords"
+        merger: merger
+
+        onFinished: {
+            toolBar.enabled = true
+            entryListView.listView.focus = true
+            _fileHelper.rm(_imapSyncFile + ".backup")
+        }
+        onStarted: toolBar.enabled = false
+        onMessageDialogClosed: entryListView.listView.focus = true
+    }
+
+    SyncMessageDeleter {
+        id: syncMessageDeleter
+
+        parent: main
+
+        imapFolderName: "meepasswords"
+
+        onFinished: {
+            toolBar.enabled = true
+            entryListView.listView.focus = true
+        }
+        onStarted: toolBar.enabled = false
+    }
+
 }

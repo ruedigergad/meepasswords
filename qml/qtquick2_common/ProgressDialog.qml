@@ -22,17 +22,36 @@ import QtQuick 2.0
 Rectangle {
     id: progressDialog
 
-    anchors.fill: parent
-    visible: true
-    color: "black"
-    opacity: 0
+    property double currentValue
+    property double maxValue
+    property alias message: message.text
+    property alias title: titleText.text
 
-    z: 32
+    function close(){
+        closing()
+        opacity = 0
+        toolBar.enabled = true
+        enabled = false
+    }
+
+    function open(){
+        opening()
+        enabled = true
+        toolBar.enabled = false
+        opacity = 0.9
+    }
 
     signal closed()
     signal closing()
     signal opened()
     signal opening()
+
+    anchors.fill: parent
+    color: "black"
+    enabled: false
+    visible: enabled
+    opacity: 0
+    z: 32
 
     Behavior on opacity {
         SequentialAnimation {
@@ -48,29 +67,12 @@ Rectangle {
         }
     }
 
-    function close(){
-        closing()
-        opacity = 0
-        mainFlickable.meePasswordsToolBar.enabled = true
-    }
-
-    function open(){
-        opening()
-        mainFlickable.meePasswordsToolBar.enabled = false
-        opacity = 0.9
-    }
-
-    property double maxValue
-    property double currentValue
-
-    property alias title: titleText.text
-    property alias message: message.text
-
     Item {
         anchors.fill: parent
 
         Text {
             id: titleText
+
             anchors.bottom: progressIndicatorBackground.top
             anchors.margins: primaryFontSize
             width: parent.width
@@ -83,19 +85,17 @@ Rectangle {
 
         Rectangle {
             id: progressIndicatorBackground
+
             anchors.centerIn: parent
-
-            width: parent.width * 0.8
-            height: primaryFontSize * 3
-
             color: "white"
+            height: primaryFontSize * 3
+            width: parent.width * 0.8
 
             Rectangle {
                 id: progressIndicator
 
-                color: "steelblue"
-
                 anchors {left: parent.left; top: parent.top; bottom: parent.bottom}
+                color: "steelblue"
                 width: parent.width * (currentValue === 0 ? 0 : (currentValue/maxValue))
             }
         }
@@ -105,11 +105,10 @@ Rectangle {
 
             anchors.top: progressIndicatorBackground.bottom
             anchors.margins: primaryFontSize
-
-            width: parent.width
             color: "white"
             font.pointSize: primaryFontSize
             horizontalAlignment: Text.AlignHCenter
+            width: parent.width
             wrapMode: Text.Wrap
         }
 
