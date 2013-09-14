@@ -121,6 +121,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         QStringList env;
         env.append("LD_LIBRARY_PATH=$LD_LIBRARY_PATH:" + QCoreApplication::applicationDirPath() + "/lib/qmf/lib");
         env.append("QMF_PLUGINS=" + QCoreApplication::applicationDirPath() + "/lib/qmf/plugins");
+        qDebug() << "env: " << env;
         messageServerProcess.setEnvironment(env);
         messageServerProcess.start(messageServerExecutable);
         messageServerStarted = true;
