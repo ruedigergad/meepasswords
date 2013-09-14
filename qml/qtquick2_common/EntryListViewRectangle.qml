@@ -80,7 +80,7 @@ Rectangle {
 
         onAccepted: {
             syncMessageDeleter.deleteMessage("encrypted.raw")
-            cleanOldFiled()
+            cleanOldFiles()
         }
     }
 
