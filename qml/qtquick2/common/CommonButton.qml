@@ -22,41 +22,40 @@ import QtQuick 2.0
 Rectangle {
     id: commonButton
 
-    property alias text: textItem.text
     property alias font: textItem.font
-
     property alias iconSource: iconImage.source;
+    property alias text: textItem.text
 
     signal clicked
 
-    width: text === "" ? height : textItem.width + primaryBorderSize
-    height: textItem.height + (primaryFontSize / 2)
-//    border.width: 1
-//    radius: primaryBorderSize / 2
-    smooth: true
-
     color: mouseArea.pressed ? "#4ea5f8" : "#0e65c8"
-//    color: text === "" ? "transparent" : "#0e65c8" //"#9acfff"
+    height: textItem.height + (primaryFontSize / 2)
+    smooth: true
+    width: text === "" ? height : textItem.width + primaryBorderSize
 
     Text {
         id: textItem
-        x: parent.width/2 - width/2; y: parent.height/2 - height/2
-        font.pointSize: primaryFontSize * 0.75
+
         color: "black"
+        font.pointSize: primaryFontSize * 0.75
+        x: parent.width/2 - width/2; y: parent.height/2 - height/2
     }
 
     Image {
         id: iconImage
-        height: parent.height * 0.8
-        width: height
-        fillMode: Image.PreserveAspectFit
-        smooth: true
+
         anchors.centerIn: parent
+        fillMode: Image.PreserveAspectFit
+        height: parent.height * 0.8
+        smooth: true
+        width: height
     }
 
     MouseArea {
         id: mouseArea
+
         anchors.fill: parent
+
         onClicked: commonButton.clicked()
     }
 

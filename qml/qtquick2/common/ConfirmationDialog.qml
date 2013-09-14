@@ -22,8 +22,8 @@ import QtQuick 2.0
 Dialog {
     id: confirmationDialog
 
-    property alias titleText: titleText.text
     property alias message: message.text
+    property alias titleText: titleText.text
 
     signal accepted();
 
@@ -34,33 +34,37 @@ Dialog {
 
     Text {
         id: titleText
+
         anchors.bottom: message.top
         anchors.margins: 20
-        width: parent.width
         color: "white"
         font.pointSize: primaryFontSize * 1.25
         font.bold: true
         horizontalAlignment: Text.AlignHCenter
+        width: parent.width
         wrapMode: Text.Wrap
     }
 
     Text {
         id:message
+
         anchors.centerIn: parent
-        width: parent.width
         color: "white"
         font.pointSize: primaryFontSize * 0.75
         horizontalAlignment: Text.AlignHCenter
+        width: parent.width
         wrapMode: Text.Wrap
     }
 
     CommonButton {
         id: acceptButton
-        text: "OK"
+
         anchors.top: message.bottom
         anchors.topMargin: 20
         anchors.horizontalCenter: parent.horizontalCenter
+        text: "OK"
         width: parent.width * 0.5
+
         onClicked: {
             accept()
         }
@@ -68,11 +72,13 @@ Dialog {
 
     CommonButton {
         id: rejectButton
-        text: "Cancel"
+
         anchors.top: acceptButton.bottom
         anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
+        text: "Cancel"
         width: parent.width * 0.5
+
         onClicked: {
             reject()
         }

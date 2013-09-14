@@ -21,14 +21,6 @@ import QtQuick 2.0
 
 Rectangle {
     id: dialog
-    anchors.fill: parent
-
-    visible: true
-
-    color: "black"
-    opacity: 0
-
-    z: 32
 
     property Item content: Item{}
 
@@ -53,6 +45,12 @@ Rectangle {
         close();
         rejected();
     }
+
+    anchors.fill: parent
+    color: "black"
+    opacity: 0
+    visible: true
+    z: 32
 
     onContentChanged: content.parent = dialog
 
@@ -81,6 +79,7 @@ Rectangle {
 
     MouseArea{
         id: area
+
         anchors.fill: parent
         visible: dialog.visible
 
