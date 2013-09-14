@@ -293,7 +293,6 @@ OTHER_FILES += \
     qml/qtquick2_common/FastScroll.qml \
     qml/qtquick2_common/FastScrollStyle.qml \
     qml/qtquick2_common/FastScroll.js \
-    qml/qtquick2_common/MainFlickable.qml \
     qml/qtquick2_common/PasswordInputRectangle.qml \
     qml/qtquick2_common/EditEntryRectangle.qml \
     qml/qtquick2_common/AboutDialog.qml \

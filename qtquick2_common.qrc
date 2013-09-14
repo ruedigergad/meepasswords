@@ -7,7 +7,6 @@
         <file>meepasswords_100x100.png</file>
         <file>qml/qtquick2_common/constants.js</file>
         <file>qml/qtquick2_common/EntryDelegate.qml</file>
-        <file>qml/qtquick2_common/MainFlickable.qml</file>
         <file>qml/qtquick2_common/PasswordInputRectangle.qml</file>
         <file>qml/qtquick2_common/MeePasswordsToolBar.qml</file>
         <file>qml/qtquick2_common/EditEntryRectangle.qml</file>
