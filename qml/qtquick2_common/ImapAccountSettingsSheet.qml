@@ -22,31 +22,24 @@ import SyncToImap 1.0
 
 Item {
     id: imapAccountSettingsSheet
-    anchors.bottom: parent.bottom
-    anchors.top: parent.bottom
-    width: parent.width
-
-    visible: false
-    z: 1
 
     property int authenticationTypeSetting
     property int currentAccountId: -1
     property string currentAccountName
-    property int encryptionSetting: -1
-
     property bool editAccount: false
+    property int encryptionSetting: -1
     property bool newAccount: false
 
+    signal accepted()
     signal closed()
     signal closing()
     signal opened()
     signal opening()
-    signal accepted()
 
     function finished() {
         console.log("finished")
         if(state === "closed"){
-            visible = false
+            enabled = false
             closed()
         }else{
             opened()
@@ -73,7 +66,7 @@ Item {
         console.log("open")
         opening()
 
-        visible = true
+        enabled = true
 
         currentAccountId = -1
         editAccount = false
@@ -82,6 +75,13 @@ Item {
 
         state = "open"
     }
+
+    anchors.bottom: parent.bottom
+    anchors.top: parent.bottom
+    enabled: false
+    width: parent.width
+    visible: enabled
+    z: 1
 
     ImapAccountListModel {
         id: imapAccountListModel
@@ -111,24 +111,6 @@ Item {
 
     onStateChanged: {
         console.log("Imap account settings state changed: " + state)
-    }
-
-    states: [
-        State {
-            name: "open"
-            AnchorChanges { target: imapAccountSettingsSheet; anchors.top: parent.top }
-        },
-        State {
-            name: "closed"
-            AnchorChanges { target: imapAccountSettingsSheet; anchors.top: parent.bottom }
-        }
-    ]
-
-    transitions: Transition {
-        SequentialAnimation {
-            AnchorAnimation { duration: 250; easing.type: Easing.OutCubic }
-            ScriptAction { script: imapAccountSettingsSheet.finished() }
-        }
     }
 
     Rectangle {
@@ -330,119 +312,134 @@ Item {
                     id: flickableContent
 
                     anchors {top: parent.top; horizontalCenter: parent.horizontalCenter}
-                    width: parent.width * 0.98
                     spacing: primaryFontSize * 0.4
+                    width: parent.width * 0.98
+
 
                     Row {
-                        width: parent.width
                         height: accountNameTextField.height
+                        spacing: primaryBorderSize * 0.5
+                        width: parent.width
 
                         Text {
                             id: accountNameText
-                            anchors.left: parent.left
-                            height: parent.height
-                            text: "Account Name"
+
                             font.pointSize: primaryFontSize * 0.75
+                            height: parent.height
                             horizontalAlignment: Text.AlignHCenter
+                            text: "Account Name"
                             verticalAlignment: Text.AlignVCenter
                         }
+
                         CommonTextField {
                             id: accountNameTextField
-                            anchors {left: accountNameText.right; leftMargin: primaryFontSize * 0.5; right: parent.right}
-                            pointSize: primaryFontSize * 0.5
+
                             enabled: newAccount
+                            pointSize: primaryFontSize * 0.7
+                            width: parent.width - parent.spacing - accountNameText.width
                         }
                     }
 
                     Row {
-                        width: parent.width
                         height: userNameTextField.height
+                        spacing: primaryBorderSize * 0.5
+                        width: parent.width
 
                         Text {
                             id: userNameText
-                            anchors.left: parent.left
-                            height: parent.height
-                            text: "User Name"
+
                             font.pointSize: primaryFontSize * 0.75
+                            height: parent.height
                             horizontalAlignment: Text.AlignHCenter
+                            text: "User Name"
                             verticalAlignment: Text.AlignVCenter
                         }
+
                         CommonTextField {
                             id: userNameTextField
-                            anchors {left: userNameText.right; leftMargin: primaryFontSize * 0.5; right: parent.right}
-                            pointSize: primaryFontSize * 0.5
+
                             enabled: editAccount
+                            pointSize: primaryFontSize * 0.7
+                            width: parent.width - parent.spacing - userNameText.width
                         }
                     }
 
                     Row {
-                        width: parent.width
                         height: passwordTextField.height
+                        spacing: primaryBorderSize * 0.5
+                        width: parent.width
 
                         Text {
                             id: passwordText
-                            anchors.left: parent.left
-                            height: parent.height
-                            text: "Password"
+
                             font.pointSize: primaryFontSize * 0.75
+                            height: parent.height
                             horizontalAlignment: Text.AlignHCenter
+                            text: "Password"
                             verticalAlignment: Text.AlignVCenter
                         }
+
                         CommonTextField {
                             id: passwordTextField
-                            anchors {left: passwordText.right; leftMargin: primaryFontSize * 0.5; right: parent.right}
-                            pointSize: primaryFontSize * 0.5
+
                             echoMode: TextInput.Password
                             enabled: editAccount
+                            pointSize: primaryFontSize * 0.7
+                            width: parent.width - parent.spacing - passwordText.width
                         }
                     }
 
                     Row {
-                        width: parent.width
                         height: serverTextField.height
+                        spacing: primaryBorderSize * 0.5
+                        width: parent.width
 
                         Text {
                             id: serverText
-                            anchors.left: parent.left
-                            height: parent.height
-                            text: "Server"
+
                             font.pointSize: primaryFontSize * 0.75
+                            height: parent.height
                             horizontalAlignment: Text.AlignHCenter
+                            text: "Server"
                             verticalAlignment: Text.AlignVCenter
                         }
+
                         CommonTextField {
                             id: serverTextField
-                            anchors {left: serverText.right; leftMargin: primaryFontSize * 0.5; right: parent.right}
-                            pointSize: primaryFontSize * 0.5
+
                             enabled: editAccount
+                            pointSize: primaryFontSize * 0.7
+                            width: parent.width - parent.spacing - serverText.width
                         }
                     }
 
                     Row {
                         id: portRow
-                        anchors {top: serverText.bottom; topMargin: primaryFontSize * 0.25}
+
                         width: parent.width
 
                         Text {
                             id: serverPortText
-                            height: portRow.height
-                            width: parent.width / 6 - portSpacer.width
-                            text: "Port"
+
                             font.pointSize: primaryFontSize * 0.75
+                            height: portRow.height
                             horizontalAlignment: Text.AlignHLeft
+                            text: "Port"
                             verticalAlignment: Text.AlignVCenter
+                            width: parent.width / 6 - portSpacer.width
                         }
 
                         CommonTextField {
                             id: serverPortTextField
-                            width: parent.width / 6
-                            anchors.verticalCenter: portRow.verticalCenter
-                            pointSize: primaryFontSize * 0.5
+
                             enabled: editAccount
+                            pointSize: primaryFontSize * 0.7
+                            width: parent.width / 6
                         }
 
                         Rectangle {
                             id: portSpacer
+
                             color: "transparent"
                             height: portRow.height
                             width: primaryBorderSize * 0.5
@@ -450,9 +447,11 @@ Item {
 
                         CommonButton {
                             id: sslButton
+
+                            enabled: encryptionSetting != 1
                             text: "SSL"
                             width: parent.width / 6
-                            enabled: encryptionSetting != 1
+
                             onClicked: {
                                 encryptionSetting = 1
                                 serverPortTextField.text = 993
@@ -461,9 +460,11 @@ Item {
 
                         CommonButton {
                             id: startTlsButton
+
+                            enabled: encryptionSetting != 2
                             text: "STARTTLS"
                             width: parent.width / 2
-                            enabled: encryptionSetting != 2
+
                             onClicked: {
                                 encryptionSetting = 2
                                 serverPortTextField.text = 143
@@ -473,14 +474,16 @@ Item {
 
                     Row {
                         id: authenticationTypeRow
-                        anchors {top: portRow.bottom; topMargin: primaryFontSize * 0.25}
+
                         width: parent.width
 
                         CommonButton {
                             id: authNoneButton
+
+                            enabled: authenticationTypeSetting != 0
                             text: "None"
                             width: parent.width / 4
-                            enabled: authenticationTypeSetting != 0
+
                             onClicked: {
                                 authenticationTypeSetting = 0
                             }
@@ -488,9 +491,11 @@ Item {
 
                         CommonButton {
                             id: authLoginButton
+
+                            enabled: authenticationTypeSetting != 1
                             text: "Login"
                             width: parent.width / 4
-                            enabled: authenticationTypeSetting != 1
+
                             onClicked: {
                                 authenticationTypeSetting = 1
                             }
@@ -498,9 +503,11 @@ Item {
 
                         CommonButton {
                             id: authPlainButton
+
+                            enabled: authenticationTypeSetting != 2
                             text: "Plain"
                             width: parent.width / 4
-                            enabled: authenticationTypeSetting != 2
+
                             onClicked: {
                                 authenticationTypeSetting = 2
                             }
@@ -508,9 +515,11 @@ Item {
 
                         CommonButton {
                             id: authMd5Button
+
+                            enabled: authenticationTypeSetting != 3
                             text: "MD5"
                             width: parent.width / 4
-                            enabled: authenticationTypeSetting != 3
+
                             onClicked: {
                                 authenticationTypeSetting = 3
                             }
@@ -518,6 +527,24 @@ Item {
                     }
                 }
             }
+        }
+    }
+
+    states: [
+        State {
+            name: "open"
+            AnchorChanges { target: imapAccountSettingsSheet; anchors.top: parent.top }
+        },
+        State {
+            name: "closed"
+            AnchorChanges { target: imapAccountSettingsSheet; anchors.top: parent.bottom }
+        }
+    ]
+
+    transitions: Transition {
+        SequentialAnimation {
+            AnchorAnimation { duration: 250; easing.type: Easing.OutCubic }
+            ScriptAction { script: imapAccountSettingsSheet.finished() }
         }
     }
 }

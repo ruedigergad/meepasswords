@@ -139,6 +139,11 @@ Rectangle {
         id: editEntryRectangle
     }
 
+    ImapAccountSettingsSheet {
+        id: imapAccountSettings
+        parent: main
+    }
+
     Menu {
         id: mainMenu
 
