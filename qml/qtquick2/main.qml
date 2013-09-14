@@ -87,6 +87,10 @@ Rectangle {
         }
     }
 
+    QClipboard{
+        id: clipboard
+    }
+
     EntryListViewRectangle {
         id: entryListViewRectangle
     }
@@ -149,10 +153,6 @@ Rectangle {
                 entryStorage.loadAndDecryptData()
             }
         }
-    }
-
-    QClipboard{
-        id: clipboard
     }
 
     SettingsAdapter {
