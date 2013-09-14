@@ -44,7 +44,7 @@ RowLayout {
     CommonToolIcon {
         id: iconDelete
 
-        enabled: listView.currentIndex > -1
+        enabled: entryListView.listView.currentIndex > -1
         iconSource: "qrc:/icons/delete.png"
         opacity: enabled ? 1 : 0.5
 
@@ -54,7 +54,7 @@ RowLayout {
     CommonToolIcon {
         id: iconNext
 
-        enabled: listView.currentIndex > -1
+        enabled: entryListView.listView.currentIndex > -1
         iconSource: "qrc:/icons/next.png"
         opacity: enabled ? 1 : 0.5
 

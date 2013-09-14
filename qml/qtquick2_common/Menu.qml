@@ -22,69 +22,65 @@ import QtQuick 2.0
 Item {
     id: menu
 
-    anchors.fill: parent
-    visible: false
-    z: 16
-
-    signal closed
-    signal opened
-
-    function close(){
-        menuBorder.y = height
-        closed()
-    }
-
-    function open(){
-        menu.visible = true
-        menuBorder.y = height - menuBorder.height
-        opened()
-    }
-
     /*
      * The following is a quite ugly hack to animate the menu.
      * This should be done via States rather than this hack.
      * Though, due to the limited time, for now this hack is used.
      */
     property bool isOpen: true
-    onHeightChanged: {
+
+    signal closed
+    signal opened
+
+    function close() {
         menuBorder.y = height
-        isOpen = true
+        closed()
     }
 
-    onChildrenChanged: {
-        menuArea.children = children
+    function open() {
+        enabled = true
+        menuBorder.y = height - menuBorder.height
+        opened()
     }
 
-    Rectangle{
+    anchors.fill: parent
+    enabled: false
+    visible: enabled
+    z: 16
+
+    Rectangle {
         id: background
+
         anchors.fill: parent
         color: "black"
-        opacity: 0.6
+        opacity: menu.isOpen ? 0.3 : 0
     }
 
-    MouseArea{
+    MouseArea {
         anchors.fill: parent
+
         onClicked: {
             close();
         }
     }
 
-    Rectangle{
+    Rectangle {
         id: menuBorder
-        y: parent.height
-        width: parent.width
-        height: menuArea.height
 
         color: "lightgray"
-        opacity: 1
+        opacity: 0.9
+        height: menuArea.height
+        width: parent.width
+        y: parent.height
+        z: parent.z + 1
 
         Behavior on y {
             SequentialAnimation {
                 PropertyAnimation { duration: 120 }
                 ScriptAction {
                     script: {
-                        if(menu.isOpen){
-                            menu.visible = false
+                        if (menu.isOpen) {
+                            menu.enabled = false
                         }
                         menu.isOpen = ! menu.isOpen
                     }
@@ -92,13 +88,118 @@ Item {
             }
         }
 
-        Rectangle{
+        Item {
             id: menuArea
-            anchors.centerIn: parent
-            width: parent.width
-            height: childrenRect.height
 
-            color: "lightgray"
+            anchors.centerIn: parent
+            height: about.height * 7 + primaryFontSize / 3 * 8
+            width: parent.width
+            y: parent.y
+
+            CommonButton {
+                id: changePassword
+
+                anchors.bottom: syncToImap.top
+                anchors.bottomMargin: primaryFontSize / 3
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Change Password"
+                width: parent.width - primaryFontSize
+
+                onClicked: {
+                    passwordChangeDialog.open()
+                    menu.close()
+                }
+            }
+
+            CommonButton {
+                id: syncToImap
+
+                anchors.bottom: syncDeleteMessage.top
+                anchors.bottomMargin: primaryFontSize / 3
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Sync"
+                width: parent.width - primaryFontSize
+
+                onClicked: {
+                    confirmSyncToImapDialog.open()
+                    menu.close()
+                }
+            }
+
+            CommonButton {
+                id: syncDeleteMessage
+
+                anchors.bottom: syncAccountSettings.top
+                anchors.bottomMargin: primaryFontSize / 3
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Clear Sync Data"
+                width: parent.width - primaryFontSize
+
+                onClicked: {
+                    confirmDeleteSyncMessage.open()
+                    menu.close()
+                }
+            }
+
+            CommonButton {
+                id: syncAccountSettings
+
+                anchors.bottom: exportKeePassXml.top
+                anchors.bottomMargin: primaryFontSize / 3
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Sync Account Settings"
+                width: parent.width - primaryFontSize
+
+                onClicked: {
+                    imapAccountSettings.open()
+                    menu.close()
+                }
+            }
+
+            CommonButton {
+                id: exportKeePassXml
+
+                anchors.bottom: importKeePassXml.top
+                anchors.bottomMargin: primaryFontSize / 3
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Export"
+                width: parent.width - primaryFontSize
+
+                onClicked: {
+                    entryStorage.exportKeePassXml()
+                    menu.close()
+                }
+            }
+
+            CommonButton {
+                id: importKeePassXml
+
+                anchors.bottom: about.top
+                anchors.bottomMargin: primaryFontSize / 3
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Import"
+                width: parent.width - primaryFontSize
+
+                onClicked: {
+                    entryStorage.importKeePassXml()
+                    menu.close()
+                }
+            }
+
+            CommonButton {
+                id: about
+
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: primaryFontSize / 3
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "About"
+                width: parent.width - primaryFontSize
+
+                onClicked: {
+                    aboutDialog.open()
+                    menu.close()
+                }
+            }
         }
     }
 }

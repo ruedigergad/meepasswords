@@ -56,10 +56,6 @@ Rectangle {
 
     ListView {
         id: entryListView
-        anchors.fill: parent
-        clip: true
-        model: entryStorage.getModel()
-        visible: model.count
 
         function setData(){
             if (count > 0 && currentIndex >= 0) {
@@ -77,6 +73,11 @@ Rectangle {
             }
         }
 
+        anchors.fill: parent
+        clip: true
+        model: entryStorage.getModel()
+        visible: model.count
+
         onCurrentIndexChanged: {
             if (currentIndex >= count) {
                 currentIndex = count - 1
@@ -92,11 +93,6 @@ Rectangle {
         delegate: Rectangle {
             id: entryRectangle
 
-            width: parent.width
-            height: entryDelegate.height
-
-            color: entryDelegate.mouseArea.pressed ? "lightgray" : "transparent"
-
             property int entryIndex: index
             property int entryId: id
             property string entryName: name
@@ -104,6 +100,10 @@ Rectangle {
             property string entryUserName: userName
             property string entryPassword: password
             property string entryNotes: notes
+
+            color: entryDelegate.mouseArea.pressed ? "lightgray" : "transparent"
+            height: entryDelegate.height
+            width: parent.width
 
             EntryDelegate {
                 id: entryDelegate

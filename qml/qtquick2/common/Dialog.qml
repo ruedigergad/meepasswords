@@ -37,7 +37,7 @@ Rectangle {
 
     function open(){
         opening()
-        focus = true
+        enabled = true
         opacity = 0.9
     }
 
@@ -47,14 +47,17 @@ Rectangle {
     }
 
     anchors.fill: parent
+    enabled: false
+    focus: enabled
     color: "black"
     opacity: 0
-    visible: true
+    visible: enabled
     z: 32
 
     onContentChanged: content.parent = dialog
 
     onClosed: {
+        enabled = false
         parent.focus = true
     }
 
@@ -81,7 +84,7 @@ Rectangle {
         id: area
 
         anchors.fill: parent
-        visible: dialog.visible
+        enabled: dialog.enabled
 
         onClicked: {
             reject()

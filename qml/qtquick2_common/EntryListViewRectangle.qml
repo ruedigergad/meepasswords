@@ -30,8 +30,8 @@ Rectangle {
     }
 
     function deleteEntry() {
-        deleteConfirmationDialog.entryId = listView.currentItem.entryId
-        deleteConfirmationDialog.entryName = listView.currentItem.entryName
+        deleteConfirmationDialog.entryId = entryListView.listView.currentItem.entryId
+        deleteConfirmationDialog.entryName = entryListView.listView.currentItem.entryName
         deleteConfirmationDialog.open()
     }
 
@@ -59,7 +59,59 @@ Rectangle {
         }
     }
 
+    AboutDialog {
+        id: aboutDialog
+
+        parent: main
+
+        onClosed: entryListView.focus = true
+    }
+
+    ConfirmationDialog {
+        id: deleteConfirmationDialog
+
+        property int entryId: -1
+        property string entryName
+
+        message: "Are you sure you want to delete '" + entryName + "'?"
+        parent: main
+        titleText: "Delete '" + entryName + "'?"
+
+        onAccepted: {
+            entryStorage.getModel().removeById(entryId)
+        }
+
+        onOpened: {
+            deleteConfirmationDialog.focus = true
+        }
+
+        onClosed: {
+            entryListView.focus = true
+        }
+
+        Keys.onEscapePressed: reject()
+        Keys.onEnterPressed: accept()
+        Keys.onReturnPressed: accept()
+    }
+
     EditEntryRectangle {
         id: editEntryRectangle
+    }
+
+    Menu {
+        id: mainMenu
+
+        parent: main
+
+        onClosed: toolBar.enabled = true
+        onOpened: toolBar.enabled = false
+    }
+
+    PasswordChangeDialog {
+        id: passwordChangeDialog
+
+        parent: main
+
+        onClosed: entryListView.focus = true
     }
 }
