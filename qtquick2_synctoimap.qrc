@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/qtquick2_common/SyncDirToImap.qml</file>
+        <file>qml/qtquick2_common/SyncFileToImap.qml</file>
+        <file>qml/qtquick2_common/SyncToImapBase.qml</file>
+        <file>qml/qtquick2_common/ProgressDialog.qml</file>
+        <file>qml/qtquick2_common/Merger.qml</file>
+        <file>qml/qtquick2_common/SyncMessageDeleter.qml</file>
+        <file>qml/qtquick2_common/ImapAccountSettingsSheet.qml</file>
+    </qresource>
+</RCC>

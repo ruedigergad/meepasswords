@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/qtquick2/main.qml</file>
+        <file alias="qml/qtquick2_common/Dialog.qml">qml/qtquick2/common/Dialog.qml</file>
+        <file alias="qml/qtquick2_common/ConfirmationDialog.qml">qml/qtquick2/common/ConfirmationDialog.qml</file>
+        <file alias="qml/qtquick2_common/CommonDialog.qml">qml/qtquick2/common/CommonDialog.qml</file>
+        <file alias="qml/qtquick2_common/CommonTextArea.qml">qml/qtquick2/common/CommonTextArea.qml</file>
+        <file alias="qml/qtquick2_common/CommonTextField.qml">qml/qtquick2/common/CommonTextField.qml</file>
+        <file alias="qml/qtquick2_common/CommonToolBar.qml">qml/qtquick2/common/CommonToolBar.qml</file>
+        <file alias="qml/qtquick2_common/CommonToolIcon.qml">qml/qtquick2/common/CommonToolIcon.qml</file>
+        <file alias="qml/qtquick2_common/CommonButton.qml">qml/qtquick2/common/CommonButton.qml</file>
+    </qresource>
+</RCC>

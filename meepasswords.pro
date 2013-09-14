@@ -103,6 +103,8 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
 
         QT += qml quick
 
+        RESOURCES += qtquick2.qrc
+
         qmfLibs.source = lib/qt5/build/$${os}/$${arch}/qmf
     } else {
         message(Qt4 Build)
@@ -123,7 +125,13 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     DEPLOYMENTFOLDERS += qmfLibs
 }
 
-RESOURCES += common.qrc
+contains(DEFINES, QT5_BUILD) {
+    message(Including qtquick2_common.qrc)
+    RESOURCES += qtquick2_common.qrc
+} else {
+    message(Including old QtQuick 1.1 based common QML files.)
+    RESOURCES += common.qrc
+}
 
 contains(DEFINES, SYNC_TO_IMAP_SUPPORT): {
     message(Building sync support...)
@@ -135,7 +143,11 @@ contains(DEFINES, SYNC_TO_IMAP_SUPPORT): {
         imapstorage.cpp \
         imapaccountlistmodel.cpp \
         imapaccounthelper.cpp
-    RESOURCES += synctoimap.qrc
+    contains(DEFINES, QT5_BUILD) {
+        RESOURCES += qtquick2_synctoimap.qrc
+    } else {
+        RESOURCES += synctoimap.qrc
+    }
 }
 
 # Additional import path used to resolve QML modules in Creator's code model
@@ -262,7 +274,41 @@ OTHER_FILES += \
     qml/desktop/common/CommonFlickable.qml \
     qml/common/SyncMessageDeleter.qml \
     qml/harmattan/main2.qml \
-    qml/harmattan/main3.qml
+    qml/harmattan/main3.qml \
+    qml/qtquick2/main.qml \
+    qml/qtquick2/common/Dialog.qml \
+    qml/qtquick2/common/CommonDialog.qml \
+    qml/qtquick2/common/CommonButton.qml \
+    qml/qtquick2/common/CommonToolBar.qml \
+    qml/qtquick2/common/ConfirmationDialog.qml \
+    qml/qtquick2/common/CommonToolIcon.qml \
+    qml/qtquick2/common/CommonTextField.qml \
+    qml/qtquick2/common/CommonTextArea.qml \
+    qml/qtquick2_common/constants.js \
+    qml/qtquick2_common/EntryDelegate.qml \
+    qml/qtquick2_common/EntryListView.qml \
+    qml/qtquick2_common/EntryShowDialog.qml \
+    qml/qtquick2_common/MessageDialog.qml \
+    qml/qtquick2_common/MeePasswordsToolBar.qml \
+    qml/qtquick2_common/PasswordChangeDialog.qml \
+    qml/qtquick2_common/FastScroll.qml \
+    qml/qtquick2_common/FastScrollStyle.qml \
+    qml/qtquick2_common/FastScroll.js \
+    qml/qtquick2_common/MainFlickable.qml \
+    qml/qtquick2_common/PasswordInputRectangle.qml \
+    qml/qtquick2_common/EditEntryRectangle.qml \
+    qml/qtquick2_common/AboutDialog.qml \
+    qml/qtquick2_common/Menu.qml \
+    qml/qtquick2_common/TextInputDialog.qml \
+    qml/qtquick2_common/SelectionDialog.qml \
+    qml/qtquick2_common/ImapAccountSettingsSheet.qml \
+    qml/qtquick2_common/SyncToImapBase.qml \
+    qml/qtquick2_common/SyncDirToImap.qml \
+    qml/qtquick2_common/SyncFileToImap.qml \
+    qml/qtquick2_common/ProgressDialog.qml \
+    qml/qtquick2_common/Merger.qml \
+    qml/qtquick2_common/SyncMessageDeleter.qml
+
 
 # Please do not modify the following two lines. Required for deployment.
 include(deployment.pri)

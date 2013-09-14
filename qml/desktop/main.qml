@@ -57,7 +57,6 @@ Rectangle {
             Text {
                 text: "MeePasswords"
                 color: "white"
-                font.family: "Nokia Pure Text Light"
                 font.pointSize: primaryFontSize * 0.75
                 anchors.left: parent.left
                 anchors.leftMargin: primaryFontSize * 0.6

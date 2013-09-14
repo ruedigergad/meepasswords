@@ -199,7 +199,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->showMaximized();
 #elif defined(QT5_BUILD)
     view->setResizeMode(QQuickView::SizeRootObjectToView);
-    view->setSource(QUrl("qrc:/qml/desktop/main.qml"));
+    view->setSource(QUrl("qrc:/qml/qtquick2/main.qml"));
     view->resize(400, 500);
     view->show();
 #else
