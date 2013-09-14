@@ -22,16 +22,12 @@ import QtQuick 2.0
 Rectangle {
     id: textArea
 
+    property alias pointSize: textEdit.font.pointSize
     property alias text: textEdit.text
     property int textFormat: TextEdit.PlainText
-    property alias pointSize: textEdit.font.pointSize
 
     signal enter()
     signal keyPressed(variant event)
-
-    function forceActiveFocus() {
-        textEdit.forceActiveFocus()
-    }
 
     border.width: primaryBorderSize / 8
     border.color: textEdit.focus ? "#0e65c8" : "#4ea5f8"
@@ -49,8 +45,6 @@ Rectangle {
         textFormat: textArea.textFormat
         width: parent.width - primaryBorderSize
         wrapMode: TextEdit.WordWrap
-
-        onTextChanged: textArea.textChanged(text)
 
         onFocusChanged: {
             if(focus){

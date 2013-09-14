@@ -44,7 +44,6 @@ Rectangle {
         font.pointSize: primaryFontSize * 0.75
         width: parent.width - primaryBorderSize
 
-        onTextChanged: textField.textChanged(text)
         onFocusChanged: {
             if (focus) {
                 Qt.inputMethod.show()

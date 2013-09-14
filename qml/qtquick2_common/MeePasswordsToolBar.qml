@@ -18,44 +18,55 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Layouts 1.0
 
-Row {
+RowLayout {
     id: toolBar
-
-    height: iconMenu.height * 1.05
-
-    spacing: 10
 
     CommonToolIcon {
         id: iconBack
+
         iconSource: "qrc:/icons/back.png"
         opacity: enabled ? 1 : 0.5
+
         onClicked: logOut()
     }
+
     CommonToolIcon {
         id: iconAdd
+
         iconSource: "qrc:/icons/add.png"
         opacity: enabled ? 1 : 0.5
+
         onClicked: addEntry()
     }
+
     CommonToolIcon {
         id: iconDelete
-        iconSource: "qrc:/icons/delete.png"
+
         enabled: listView.currentIndex > -1
+        iconSource: "qrc:/icons/delete.png"
         opacity: enabled ? 1 : 0.5
+
         onClicked: deleteEntry()
     }
+
     CommonToolIcon {
         id: iconNext
-        iconSource: "qrc:/icons/next.png"
+
         enabled: listView.currentIndex > -1
+        iconSource: "qrc:/icons/next.png"
         opacity: enabled ? 1 : 0.5
+
         onClicked: editEntry()
     }
+
     CommonToolIcon {
         id: iconMenu
+
         iconSource: "qrc:/icons/menu.png"
-        onClicked: ! mainMenu.isOpen ? mainMenu.open() : mainMenu.close()
         opacity: enabled ? 1 : 0.5
+
+        onClicked: ! mainMenu.isOpen ? mainMenu.open() : mainMenu.close()
     }
 }

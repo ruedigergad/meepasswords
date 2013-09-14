@@ -42,8 +42,6 @@ Rectangle {
         stackView.pop()
     }
 
-    width: 100
-    height: 200
     color: "lightgray"
 
     onRotationChanged: {
@@ -64,26 +62,27 @@ Rectangle {
         Rectangle {
             id: header
 
-            height: primaryFontSize * 2
-            color: "#0c61a8"
             anchors {left: parent.left; right: parent.right; top: parent.top}
+            color: "#0c61a8"
+            height: primaryFontSize * 2
 
             Text {
                 id: headerText
 
-                text: "MeePasswords"
-                color: "white"
-                font.pointSize: primaryFontSize * 0.75
                 anchors.left: parent.left
                 anchors.leftMargin: primaryFontSize * 0.6
                 anchors.verticalCenter: parent.verticalCenter
+
+                color: "white"
+                font.pointSize: primaryFontSize * 0.75
+                text: "MeePasswords"
             }
         }
 
         StackView {
             id: stackView
-            anchors {top: header.bottom; left: parent.left; right: parent.right; bottom: parent.bottom }
 
+            anchors {top: header.bottom; left: parent.left; right: parent.right; bottom: parent.bottom }
             initialItem: passwordInput
         }
     }
@@ -100,6 +99,7 @@ Rectangle {
             passwordInput.state = "EnterPassword"
             newStorage = false
         }
+
         onStorageOpenSuccessNewPassword: {
             console.log("New storage opened.")
             passwordInput.state = "NewPassword"
