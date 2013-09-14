@@ -22,36 +22,32 @@ import QtQuick 2.0
 Rectangle {
     id: textArea
 
-    height: textEdit.height + textEdit.font.pointSize
-
-    border.width: primaryBorderSize / 8
-    border.color: textEdit.focus ? "#0e65c8" : "#4ea5f8"
-    color: enabled ? "white" : "#e0e0e0"
-//    radius: primaryBorderSize / 2
-    smooth: true
-
     property alias text: textEdit.text
     property int textFormat: TextEdit.PlainText
     property alias pointSize: textEdit.font.pointSize
 
     signal enter()
     signal keyPressed(variant event)
-//    signal textChanged(string text)
 
     function forceActiveFocus() {
         textEdit.forceActiveFocus()
     }
 
+    border.width: primaryBorderSize / 8
+    border.color: textEdit.focus ? "#0e65c8" : "#4ea5f8"
+    color: enabled ? "white" : "#e0e0e0"
+    height: textEdit.height + textEdit.font.pointSize
+    smooth: true
+
     TextEdit {
         id: textEdit
 
         anchors.centerIn: parent
-        width: parent.width - primaryBorderSize
-        focus: parent.focus
-
-        font.pointSize: primaryFontSize * 0.75
         color: "black"
+        focus: textArea.focus
+        font.pointSize: primaryFontSize * 0.75
         textFormat: textArea.textFormat
+        width: parent.width - primaryBorderSize
         wrapMode: TextEdit.WordWrap
 
         onTextChanged: textArea.textChanged(text)

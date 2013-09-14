@@ -22,36 +22,29 @@ import QtQuick 2.0
 Rectangle {
     id: textField
 
-    width: parent.width
-    height: textInput.height * 1.5
-
-    border.width: primaryBorderSize / 8
-    border.color: textInput.focus ? "#0e65c8" : "#4ea5f8"
-    color: enabled ? "white" : "#e0e0e0"
-//    radius: primaryBorderSize / 2
-    smooth: true
-
     property int echoMode: TextInput.Normal
     property alias pointSize: textInput.font.pointSize
     property alias text: textInput.text
 
-//    signal textChanged(string text)
+    border.width: primaryBorderSize / 8
+    border.color: textInput.focus ? "#0e65c8" : "#4ea5f8"
+    color: enabled ? "white" : "#e0e0e0"
+    height: textInput.height * 1.5
+    smooth: true
+    width: parent.width
 
     TextInput {
         id: textInput
 
-        focus: textField.focus
-        width: parent.width - primaryBorderSize
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
-
-        font.pointSize: primaryFontSize * 0.75
-
-        color: "black"
         echoMode: textField.echoMode
+        color: "black"
+        focus: textField.focus
+        font.pointSize: primaryFontSize * 0.75
+        width: parent.width - primaryBorderSize
 
         onTextChanged: textField.textChanged(text)
-
         onFocusChanged: {
             if (focus) {
                 Qt.inputMethod.show()

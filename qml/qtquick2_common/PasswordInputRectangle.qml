@@ -22,19 +22,23 @@ import QtQuick 2.0
 Rectangle{
     id: passwordInputRectangle
 
-    color: "lightgray"
-
     property alias text: passwordLabel.text
     property alias password: passwordField.text
     signal passwordEntered()
 
+    function focusPasswordInputField() {
+        passwordField.focus = true
+    }
+
+    color: "lightgray"
+
     Component.onCompleted: {
         passwordButton.clicked.connect(passwordEntered)
-        forceActiveFocus()
     }
 
     Text {
         id: appNameLabel
+
         text: "MeePasswords"
         font.pointSize: primaryFontSize * 0.8
         font.bold: true
@@ -46,14 +50,15 @@ Rectangle{
 
     Image {
         id: meePasswordsIcon
-        source: "qrc:/meepasswords_150x150.png"
 
+        source: "qrc:/meepasswords_150x150.png"
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: appNameLabel.bottom
     }
 
     Text {
         id: descriptionLabel
+
         text: "Keep your passwords protected."
         anchors.top: meePasswordsIcon.bottom
         width: parent.width
@@ -76,8 +81,9 @@ Rectangle{
         wrapMode: Text.Wrap
     }
 
-    CommonTextField{
+    CommonTextField {
         id: passwordField
+
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: passwordLabel.bottom
         anchors.topMargin: primaryFontSize * 0.4
@@ -86,25 +92,16 @@ Rectangle{
 
         Keys.onEnterPressed: passwordButton.clicked()
         Keys.onReturnPressed: passwordButton.clicked()
-
-        Component.onCompleted: {
-            focus = true
-        }
     }
 
-    CommonButton{
+    CommonButton {
         id: passwordButton
+
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: passwordField.bottom
         anchors.topMargin: primaryFontSize * 0.4
         width: parent.width * 0.25
         text: qsTr("OK")
-    }
-
-    MouseArea {
-        anchors.fill: parent
-        z: -1
-        onClicked: parent.forceActiveFocus()
     }
 
     states: [

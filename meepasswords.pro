@@ -307,7 +307,8 @@ OTHER_FILES += \
     qml/qtquick2_common/SyncFileToImap.qml \
     qml/qtquick2_common/ProgressDialog.qml \
     qml/qtquick2_common/Merger.qml \
-    qml/qtquick2_common/SyncMessageDeleter.qml
+    qml/qtquick2_common/SyncMessageDeleter.qml \
+    qml/qtquick2_common/EntryListViewRectangle.qml
 
 
 # Please do not modify the following two lines. Required for deployment.

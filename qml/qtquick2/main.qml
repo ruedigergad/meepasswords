@@ -18,6 +18,7 @@
  */
 
 import QtQuick 2.0
+import QtQuick.Controls 1.0
 import meepasswords 1.0
 import SyncToImap 1.0
 import "../qtquick2_common"
@@ -25,13 +26,25 @@ import "../qtquick2_common"
 Rectangle {
     id: main
 
+    property bool loggedIn: false
+    property bool newStorage: false
+    property int primaryBorderSize: primaryFontSize
+    property int primaryFontSize: 16
+
+    function cleanOldFiles() {
+        console.log("Cleaning left overs from last run.")
+        fileHelper.rmAll(entryStorage.getStorageDirPath(), ".encrypted.");
+    }
+
+    function logOut() {
+        entryStorage.getModel().clear()
+        entryStorage.openStorage();
+        stackView.pop()
+    }
+
     width: 100
     height: 200
     color: "lightgray"
-
-
-    property int primaryFontSize: 16
-    property int primaryBorderSize: primaryFontSize
 
     onRotationChanged: {
         console.log("Rotation changed...");
@@ -39,23 +52,25 @@ Rectangle {
 
     Component.onCompleted: {
         cleanOldFiles()
-    }
-
-    function cleanOldFiles() {
-        console.log("Cleaning left overs from last run.")
-        mainFlickable.fileHelper.rmAll(mainFlickable.entryStorage.getStorageDirPath(), ".encrypted.");
+        entryStorage.openStorage()
+        passwordInput.focusPasswordInputField()
     }
 
     Item {
+        id: mainItem
+
         anchors.fill: parent
 
         Rectangle {
             id: header
+
             height: primaryFontSize * 2
             color: "#0c61a8"
-            anchors{left: parent.left; right: parent.right; top: parent.top}
+            anchors {left: parent.left; right: parent.right; top: parent.top}
 
             Text {
+                id: headerText
+
                 text: "MeePasswords"
                 color: "white"
                 font.pointSize: primaryFontSize * 0.75
@@ -65,110 +80,83 @@ Rectangle {
             }
         }
 
-        MainFlickable {
-            id: mainFlickable
+        StackView {
+            id: stackView
+            anchors {top: header.bottom; left: parent.left; right: parent.right; bottom: parent.bottom }
 
-            anchors{top: header.bottom; left: parent.left; right: parent.right; bottom: parent.bottom}
+            initialItem: passwordInput
         }
     }
 
-    Menu {
-        id: mainMenu
+    EntryListViewRectangle {
+        id: entryListViewRectangle
+    }
 
-        parent: main
-        anchors.bottomMargin: mainFlickable.toolBar.height
-        onClosed: mainFlickable.meePasswordsToolBar.enabled = true
-        onOpened: mainFlickable.meePasswordsToolBar.enabled = false
+    EntryStorage {
+        id: entryStorage
 
-        CommonButton {
-            id: changePassword
-            anchors.bottom: syncToImap.top
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "Change Password"
-            onClicked: {
-                mainFlickable.passwordChangeDialog.open()
-                mainMenu.close()
-            }
+        onStorageOpenSuccess: {
+            console.log("Storage opened.")
+            passwordInput.state = "EnterPassword"
+            newStorage = false
+        }
+        onStorageOpenSuccessNewPassword: {
+            console.log("New storage opened.")
+            passwordInput.state = "NewPassword"
+            newStorage = true
         }
 
-        CommonButton {
-            id: syncToImap
-            anchors.bottom: syncDeleteMessage.top
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "Sync"
-            onClicked: {
-                mainFlickable.confirmSyncToImapDialog.open()
-                mainMenu.close()
-            }
+        onDecryptionFailed: {
+            console.log("Decryption failed.")
+            passwordInput.state = "DecryptionFailed"
         }
 
-        CommonButton {
-            id: syncDeleteMessage
-            anchors.bottom: syncAccountSettings.top
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "Clear Sync Data"
-            onClicked: {
-                mainFlickable.confirmDeleteSyncMessage.open()
-                mainMenu.close()
-            }
+        onDecryptionSuccess: {
+            console.log("Decryption successful, logging in.")
+            loggedIn = true
+            passwordInput.password = ""
+            stackView.push(entryListViewRectangle)
         }
 
-        CommonButton {
-            id: syncAccountSettings
-            anchors.bottom: exportKeePassXml.top
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "Sync Account Settings"
-            onClicked: {
-                mainFlickable.imapAccountSettings.open()
-                mainMenu.close()
-            }
+        onNewFileOpened: {
+            console.log("New file opened.")
+            state = "LoginSuccess"
+            stackView.push(entryListViewRectangle)
         }
 
-        CommonButton {
-            id: exportKeePassXml
-            anchors.bottom: importKeePassXml.top
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "Export"
-            onClicked: {
-                mainFlickable.entryStorage.exportKeePassXml()
-                mainMenu.close()
-            }
+        onOperationFailed: {
+            console.log("Error in entry storage: " + message)
+            errorDialog.message = message;
+            errorDialog.open();
         }
+    }
 
-        CommonButton {
-            id: importKeePassXml
-            anchors.bottom: about.top
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "Import"
-            onClicked: {
-                mainFlickable.entryStorage.importKeePassXml()
-                mainMenu.close()
-            }
-        }
+    FileHelper {
+        id: fileHelper
+    }
 
-        CommonButton {
-            id: about
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: primaryFontSize / 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - primaryFontSize
-            text: "About"
-            onClicked: {
-                mainFlickable.aboutDialog.open()
-                mainMenu.close()
+    PasswordInputRectangle {
+        id: passwordInput
+
+        onPasswordEntered: {
+            if (newStorage) {
+                entryStorage.setPassword(password)
+                passwordInput.password = ""
+                stackView.push(entryListViewRectangle)
+            } else {
+                entryStorage.migrateStorageIdentifier(password)
+                entryStorage.setPassword(password)
+                entryStorage.loadAndDecryptData()
             }
         }
     }
+
+    QClipboard{
+        id: clipboard
+    }
+
+    SettingsAdapter {
+        id: settingsAdapter
+    }
+
 }

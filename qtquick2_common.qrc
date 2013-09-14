@@ -28,5 +28,6 @@
         <file>icons/next.svg</file>
         <file>qml/qtquick2_common/FastScroll.js</file>
         <file>qml/qtquick2_common/FastScroll.qml</file>
+        <file>qml/qtquick2_common/EntryListViewRectangle.qml</file>
     </qresource>
 </RCC>
