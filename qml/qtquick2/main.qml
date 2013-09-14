@@ -23,6 +23,8 @@ import SyncToImap 1.0
 import "../qtquick2_common"
 
 Rectangle {
+    id: main
+
     width: 100
     height: 200
     color: "lightgray"
@@ -67,6 +69,106 @@ Rectangle {
             id: mainFlickable
 
             anchors{top: header.bottom; left: parent.left; right: parent.right; bottom: parent.bottom}
+        }
+    }
+
+    Menu {
+        id: mainMenu
+
+        parent: main
+        anchors.bottomMargin: mainFlickable.toolBar.height
+        onClosed: mainFlickable.meePasswordsToolBar.enabled = true
+        onOpened: mainFlickable.meePasswordsToolBar.enabled = false
+
+        CommonButton {
+            id: changePassword
+            anchors.bottom: syncToImap.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Change Password"
+            onClicked: {
+                mainFlickable.passwordChangeDialog.open()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton {
+            id: syncToImap
+            anchors.bottom: syncDeleteMessage.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Sync"
+            onClicked: {
+                mainFlickable.confirmSyncToImapDialog.open()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton {
+            id: syncDeleteMessage
+            anchors.bottom: syncAccountSettings.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Clear Sync Data"
+            onClicked: {
+                mainFlickable.confirmDeleteSyncMessage.open()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton {
+            id: syncAccountSettings
+            anchors.bottom: exportKeePassXml.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Sync Account Settings"
+            onClicked: {
+                mainFlickable.imapAccountSettings.open()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton {
+            id: exportKeePassXml
+            anchors.bottom: importKeePassXml.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Export"
+            onClicked: {
+                mainFlickable.entryStorage.exportKeePassXml()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton {
+            id: importKeePassXml
+            anchors.bottom: about.top
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "Import"
+            onClicked: {
+                mainFlickable.entryStorage.importKeePassXml()
+                mainMenu.close()
+            }
+        }
+
+        CommonButton {
+            id: about
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: primaryFontSize / 3
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width - primaryFontSize
+            text: "About"
+            onClicked: {
+                mainFlickable.aboutDialog.open()
+                mainMenu.close()
+            }
         }
     }
 }
