@@ -46,7 +46,7 @@ Item {
 
         var changed = false
         var incomingModel = incomingStorageFile.getModel()
-        var ownModel = mainFlickable.entryStorage.getModel()
+        var ownModel = entryStorage.getModel()
 
         // Remove deleted entries first.
         var deletedUuids = incomingModel.deletedUuids()
@@ -130,7 +130,7 @@ Item {
         }
 
         if (changed) {
-            mainFlickable.entryStorage.storeModel()
+            entryStorage.storeModel()
         }
 
         incomingStorageFile.getModel().clear()
