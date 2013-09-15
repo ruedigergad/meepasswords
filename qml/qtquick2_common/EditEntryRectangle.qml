@@ -358,22 +358,22 @@ Rectangle {
         }
     }
 
-//    TextInputDialog {
-//        id: newCategoryDialog
+    TextInputDialog {
+        id: newCategoryDialog
 
-//        parent: main
+        parent: main
 
-//        title: "New Category"
-//        label: "Category Name"
-//        input: ""
+        title: "New Category"
+        label: "Category Name"
+        input: ""
 
-//        onAccepted: {
-//            console.log("Accepted new category: " + input)
-//            if (input !== "") {
-//                catModel.append({"name": input})
-//            }
-//        }
-//    }
+        onAccepted: {
+            console.log("Accepted new category: " + input)
+            if (input !== "") {
+                catModel.append({"name": input})
+            }
+        }
+    }
 
     ListModel {
         id: catModel
@@ -405,17 +405,17 @@ Rectangle {
         }
     }
 
-//    SelectionDialog {
-//        id: categorySelectionDialog
+    SelectionDialog {
+        id: categorySelectionDialog
 
-//        parent: main
+        parent: main
 
-//        model: catModel
-//        title: "Category"
-//        label: "Please select a category."
+        model: catModel
+        title: "Category"
+        label: "Please select a category."
 
-//        onAccepted: {
-//            categoryInput.text = catModel.get(selectedIndex).name
-//        }
-//    }
+        onAccepted: {
+            categoryInput.text = catModel.get(selectedIndex).name
+        }
+    }
 }
