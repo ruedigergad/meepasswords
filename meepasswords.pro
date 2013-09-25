@@ -184,7 +184,8 @@ HEADERS += \
     settingsadapter.h
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp \
+
+SOURCES += \
     entry.cpp \
     entrystorage.cpp \
     entrylistmodel.cpp \
@@ -193,6 +194,12 @@ SOURCES += main.cpp \
     entrysortfilterproxymodel.cpp \
     filehelper.cpp \
     settingsadapter.cpp
+
+contains(DEFINES, QT5_BUILD) {
+    SOURCES += main-qt5.cpp
+} else {
+    SOURCES += main.cpp
+}
 
 contains(DEFINES, NFC_ENABLED) {
     HEADERS += nfctagwriter.h
