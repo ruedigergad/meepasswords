@@ -182,6 +182,7 @@ Rectangle {
 
         imapFolderName: "meepasswords"
         merger: merger
+        useDialogs: true
 
         onFinished: {
             toolBar.enabled = true
