@@ -1,0 +1,3 @@
+[submodule "synctoimap"]
+	path = synctoimap
+	url = https://github.com/ruedigergad/synctoimap
