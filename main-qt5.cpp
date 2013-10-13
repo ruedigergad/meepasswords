@@ -42,7 +42,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qDebug("Starting MeePasswords...");
 
 #if defined(LINUX_DESKTOP)
-    putenv("QT_PLUGIN_PATH=lib/plugins");
+    putenv("QT_PLUGIN_PATH=lib/qca/plugins");
     SyncToImap::init();
 #endif
 

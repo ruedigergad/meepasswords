@@ -97,15 +97,18 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
             -L$$PWD/lib/qt5/build/linux/x86_64 \
             -lqca-qt5 \
             -L$$PWD/synctoimap/lib/build/linux/x86_64/qmf/lib \
-            -lqmfclient5
+            -lqmfclient5 \
+            -Wl,-rpath lib/qca/
 
         QT += qml quick
 
         RESOURCES += qtquick2.qrc
 
+        desktopQcaLibs.source = lib/qt5/build/linux/x86_64/qca
+        desktopQcaLibs.target = lib
         desktopQmfLibs.source = synctoimap/lib/build/linux/x86_64/qmf
         desktopQmfLibs.target = lib
-        DEPLOYMENTFOLDERS += desktopQmfLibs
+        DEPLOYMENTFOLDERS += desktopQcaLibs desktopQmfLibs
     } else {
         message(Qt4 Build)
 
