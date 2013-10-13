@@ -33,11 +33,8 @@
 #include "qmlclipboardadapter.h"
 #include "settingsadapter.h"
 
-#include "filehelper.h"
 #ifdef SYNC_TO_IMAP_SUPPORT
-#include "imapaccounthelper.h"
-#include "imapaccountlistmodel.h"
-#include "imapstorage.h"
+#include <synctoimap.h>
 #endif
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
@@ -46,6 +43,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
 #if defined(LINUX_DESKTOP)
     putenv("QT_PLUGIN_PATH=lib/plugins");
+    SyncToImap::init();
 #endif
 
     QGuiApplication *app = new QGuiApplication(argc, argv);
@@ -60,13 +58,6 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<EntrySortFilterProxyModel>("meepasswords", 1, 0, "EntrySortFilterProxyModel");
     qmlRegisterType<EntryStorage>("meepasswords", 1, 0, "EntryStorage");
 
-#ifdef SYNC_TO_IMAP_SUPPORT
-    qmlRegisterType<FileHelper>("SyncToImap", 1, 0, "FileHelper");
-    qmlRegisterType<ImapAccountHelper>("SyncToImap", 1, 0, "ImapAccountHelper");
-    qmlRegisterType<ImapAccountListModel>("SyncToImap", 1, 0, "ImapAccountListModel");
-    qmlRegisterType<ImapStorage>("SyncToImap", 1, 0, "ImapStorage");
-#endif
-
     qmlRegisterType<QmlClipboardAdapter>("meepasswords", 1, 0, "QClipboard");
     qmlRegisterType<SettingsAdapter>("meepasswords", 1, 0, "SettingsAdapter");
 
@@ -80,6 +71,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     view->show();
 
     int ret = app->exec();
+
+#if defined(LINUX_DESKTOP)
+    SyncToImap::shutdown();
+#endif
 
     return ret;
 }

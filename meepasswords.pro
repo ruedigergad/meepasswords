@@ -77,13 +77,12 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     RESOURCES += desktop.qrc
     QT += opengl
 
-    LIBS += \
-        -Wl,-rpath lib/qmf/lib
+#    LIBS += \
+#        -Wl,-rpath lib/qmf/lib
 
     # TODO: Dynamically determine architecture.
     arch = x86_64
     os = linux
-    qmfLibs.target = lib
 
     isEqual(QT_MAJOR_VERSION, 5) {
         message(Qt5 Build)
@@ -97,15 +96,16 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
         LIBS += \
             -L$$PWD/lib/qt5/build/linux/x86_64 \
             -lqca-qt5 \
-            -L$$PWD/lib/qt5/build/linux/x86_64/qmf/lib \
-            -lqmfclient5 \
-            -Wl,-rpath lib
+            -L$$PWD/synctoimap/lib/build/linux/x86_64/qmf/lib \
+            -lqmfclient5
 
         QT += qml quick
 
         RESOURCES += qtquick2.qrc
 
-        qmfLibs.source = lib/qt5/build/$${os}/$${arch}/qmf
+        desktopQmfLibs.source = synctoimap/lib/build/linux/x86_64/qmf
+        desktopQmfLibs.target = lib
+        DEPLOYMENTFOLDERS += desktopQmfLibs
     } else {
         message(Qt4 Build)
 
@@ -117,12 +117,11 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
             -lqmfclient
 
         qmfLibs.source = lib/build/$${os}/$${arch}/qmf
+        DEPLOYMENTFOLDERS += qmfLibs
 
         CONFIG += link_pkgconfig
         PKGCONFIG += qca2
     }
-
-    DEPLOYMENTFOLDERS += qmfLibs
 }
 
 contains(DEFINES, QT5_BUILD) {
@@ -136,13 +135,19 @@ contains(DEFINES, QT5_BUILD) {
 contains(DEFINES, SYNC_TO_IMAP_SUPPORT): {
     message(Building sync support...)
     HEADERS += \
-        imapstorage.h \
-        imapaccountlistmodel.h \
-        imapaccounthelper.h
+        synctoimap/src/filehelper.h \
+        synctoimap/src/imapstorage.h \
+        synctoimap/src/imapaccountlistmodel.h \
+        synctoimap/src/imapaccounthelper.h \
+        synctoimap/src/synctoimap.h
+    INCLUDEPATH += \
+        synctoimap/src
     SOURCES += \
-        imapstorage.cpp \
-        imapaccountlistmodel.cpp \
-        imapaccounthelper.cpp
+        synctoimap/src/filehelper.cpp \
+        synctoimap/src/imapstorage.cpp \
+        synctoimap/src/imapaccountlistmodel.cpp \
+        synctoimap/src/imapaccounthelper.cpp \
+        synctoimap/src/synctoimap.cpp
     contains(DEFINES, QT5_BUILD) {
         RESOURCES += qtquick2_synctoimap.qrc
     } else {
@@ -153,7 +158,7 @@ contains(DEFINES, SYNC_TO_IMAP_SUPPORT): {
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
-QT+= declarative
+#QT+= declarative
 maemo5:QT += maemo5
 symbian:TARGET.UID3 = 0xE008F4C9
 
@@ -180,7 +185,6 @@ HEADERS += \
     keepassxmlstreamwriter.h \
     qmlclipboardadapter.h \
     entrysortfilterproxymodel.h \
-    filehelper.h \
     settingsadapter.h
 
 # The .cpp file which was generated for your project. Feel free to hack it.
@@ -192,7 +196,6 @@ SOURCES += \
     keepassxmlstreamreader.cpp \
     keepassxmlstreamwriter.cpp \
     entrysortfilterproxymodel.cpp \
-    filehelper.cpp \
     settingsadapter.cpp
 
 contains(DEFINES, QT5_BUILD) {
