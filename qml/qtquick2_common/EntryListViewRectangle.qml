@@ -175,13 +175,23 @@ Rectangle {
         onClosed: entryListView.focus = true
     }
 
+    ProgressDialog {
+        id: progressDialog
+
+        title: "Syncing..."
+        message: "Sync is in progess."
+
+        maxValue: 6
+        currentValue: 0
+    }
+
     SyncFileToImap {
         id: syncFileToImap
 
-        parent: main
-
         imapFolderName: "meepasswords"
         merger: merger
+        messageDialog: messageDialog
+        progressDialog: progressDialog
         useDialogs: true
 
         onFinished: {
@@ -196,9 +206,10 @@ Rectangle {
     SyncMessageDeleter {
         id: syncMessageDeleter
 
-        parent: main
-
         imapFolderName: "meepasswords"
+        messageDialog: messageDialog
+        progressDialog: progressDialog
+        useDialogs: true
 
         onFinished: {
             toolBar.enabled = true
