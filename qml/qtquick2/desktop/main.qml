@@ -90,10 +90,6 @@ Rectangle {
         id: clipboard
     }
 
-    EntryListViewRectangle {
-        id: entryListViewRectangle
-    }
-
     EntryStorage {
         id: entryStorage
 
@@ -118,13 +114,13 @@ Rectangle {
             console.log("Decryption successful, logging in.")
             loggedIn = true
             passwordInput.password = ""
-            stackView.push(entryListViewRectangle)
+            stackView.push("qrc:/EntryListViewRectangle.qml")
         }
 
         onNewFileOpened: {
             console.log("New file opened.")
             state = "LoginSuccess"
-            stackView.push(entryListViewRectangle)
+            stackView.push("qrc:/EntryListViewRectangle.qml")
         }
 
         onOperationFailed: {
@@ -145,10 +141,11 @@ Rectangle {
             if (newStorage) {
                 entryStorage.setPassword(password)
                 passwordInput.password = ""
-                stackView.push(entryListViewRectangle)
+                stackView.push("qrc:/EntryListViewRectangle.qml")
             } else {
                 entryStorage.migrateStorageIdentifier(password)
                 entryStorage.setPassword(password)
+                passwordInput.password = ""
                 entryStorage.loadAndDecryptData()
             }
         }
