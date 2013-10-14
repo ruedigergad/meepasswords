@@ -35,7 +35,7 @@ Row {
     CommonToolIcon {
         id: iconBack
 
-        iconSource: "qrc:/icons/back.png"
+        iconSource: "qrc:/icons/back" + iconNameSuffix + ".png"
         opacity: enabled ? 1 : 0.5
 
         onClicked: logOut()
@@ -44,7 +44,7 @@ Row {
     CommonToolIcon {
         id: iconAdd
 
-        iconSource: "qrc:/icons/add.png"
+        iconSource: "qrc:/icons/add" + iconNameSuffix + ".png"
         opacity: enabled ? 1 : 0.5
 
         onClicked: addEntry()
@@ -54,7 +54,7 @@ Row {
         id: iconDelete
 
         enabled: entryListView.listView.currentIndex > -1
-        iconSource: "qrc:/icons/delete.png"
+        iconSource: "qrc:/icons/delete" + iconNameSuffix + ".png"
         opacity: enabled ? 1 : 0.5
 
         onClicked: deleteEntry()
@@ -64,7 +64,7 @@ Row {
         id: iconNext
 
         enabled: entryListView.listView.currentIndex > -1
-        iconSource: "qrc:/icons/next.png"
+        iconSource: "qrc:/icons/next" + iconNameSuffix + ".png"
         opacity: enabled ? 1 : 0.5
 
         onClicked: editEntry()
@@ -73,7 +73,7 @@ Row {
     CommonToolIcon {
         id: iconMenu
 
-        iconSource: "qrc:/icons/menu.png"
+        iconSource: "qrc:/icons/menu" + iconNameSuffix + ".png"
         opacity: enabled ? 1 : 0.5
 
         onClicked: ! mainMenu.isOpen ? mainMenu.open() : mainMenu.close()
