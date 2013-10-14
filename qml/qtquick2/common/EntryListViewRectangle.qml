@@ -54,8 +54,6 @@ Rectangle {
 
         MeePasswordsToolBar {
             id: meePasswordsToolBar
-            width: parent.width - (primaryBorderSize / 2)
-            anchors.centerIn: parent
         }
     }
 

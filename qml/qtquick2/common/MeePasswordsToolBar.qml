@@ -18,10 +18,19 @@
  */
 
 import QtQuick 2.0
-import QtQuick.Layouts 1.0
 
-RowLayout {
+Row {
     id: toolBar
+
+    property string iconNameSuffix: ""
+
+    anchors {
+        left: parent.left; leftMargin: primaryBorderSize * 0.25
+        right: parent.right; rightMargin: primaryBorderSize * 0.25
+        verticalCenter: parent.verticalCenter
+    }
+    height: iconAdd.height
+    spacing: (toolBar.width - (5 * iconAdd.width)) / 4
 
     CommonToolIcon {
         id: iconBack
