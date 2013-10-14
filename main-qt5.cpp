@@ -21,7 +21,7 @@
 #include <QtCore/QtGlobal>
 
 #include <QCoreApplication>
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQuickView>
 #include <QProcess>
 #include <QtQml>
@@ -47,7 +47,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     SyncToImap::init();
 #endif
 
-    QGuiApplication *app = new QGuiApplication(argc, argv);
+    QApplication *app = new QApplication(argc, argv);
     QQuickView *view = new QQuickView();
 
     QCoreApplication::setOrganizationName("ruedigergad.com");
