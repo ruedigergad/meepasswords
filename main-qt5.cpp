@@ -29,6 +29,7 @@
 #include "entry.h"
 #include "entrylistmodel.h"
 #include "entrystorage.h"
+#include <envvarhelper.h>
 
 #include "qmlclipboardadapter.h"
 #include "settingsadapter.h"
@@ -42,7 +43,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qDebug("Starting MeePasswords...");
 
 #if defined(LINUX_DESKTOP)
-    putenv("QT_PLUGIN_PATH=lib/qca/plugins");
+    EnvVarHelper::appendToEnvironmentVariable("QT_PLUGIN_PATH", EnvVarHelper::getOwnLibPath() + "/qca/plugins");
     SyncToImap::init();
 #endif
 
