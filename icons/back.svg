@@ -13,9 +13,9 @@
    height="40"
    id="svg3053"
    version="1.1"
-   inkscape:version="0.48.1 r9760"
-   sodipodi:docname="next.svg"
-   inkscape:export-filename="/home/rc/repositories/private/java/to-do-o/qtodo/trunk/icons/back.png"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="back.svg"
+   inkscape:export-filename="/home/rc/repositories/private/qt/qtodo/src/icons/back.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -49,7 +49,7 @@
      inkscape:window-width="927"
      inkscape:window-height="662"
      inkscape:window-x="219"
-     inkscape:window-y="53"
+     inkscape:window-y="52"
      inkscape:window-maximized="0">
     <inkscape:grid
        type="xygrid"
@@ -77,7 +77,7 @@
      inkscape:groupmode="layer"
      transform="translate(0,-8)">
     <path
-       style="fill:none;stroke:#000000;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       style="fill:none;stroke:#000000;stroke-width:6;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        d="M 30,13 10,28 30,43"
        id="path3063"
        inkscape:connector-curvature="0"
