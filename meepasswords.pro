@@ -102,7 +102,8 @@ exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
 
         QT += qml quick
 
-        RESOURCES += qtquick2.qrc
+        RESOURCES += \
+            qtquick2_desktop.qrc
 
         desktopQcaLibs.source = lib/qt5/build/linux/x86_64/qca
         desktopQcaLibs.target = lib
@@ -288,38 +289,38 @@ OTHER_FILES += \
     qml/common/SyncMessageDeleter.qml \
     qml/harmattan/main2.qml \
     qml/harmattan/main3.qml \
-    qml/qtquick2/main.qml \
-    qml/qtquick2/common/Dialog.qml \
-    qml/qtquick2/common/CommonDialog.qml \
-    qml/qtquick2/common/CommonButton.qml \
-    qml/qtquick2/common/CommonToolBar.qml \
-    qml/qtquick2/common/ConfirmationDialog.qml \
-    qml/qtquick2/common/CommonToolIcon.qml \
-    qml/qtquick2/common/CommonTextField.qml \
-    qml/qtquick2/common/CommonTextArea.qml \
-    qml/qtquick2_common/constants.js \
-    qml/qtquick2_common/EntryDelegate.qml \
-    qml/qtquick2_common/EntryListView.qml \
-    qml/qtquick2_common/MessageDialog.qml \
-    qml/qtquick2_common/MeePasswordsToolBar.qml \
-    qml/qtquick2_common/PasswordChangeDialog.qml \
-    qml/qtquick2_common/FastScroll.qml \
-    qml/qtquick2_common/FastScrollStyle.qml \
-    qml/qtquick2_common/FastScroll.js \
-    qml/qtquick2_common/PasswordInputRectangle.qml \
-    qml/qtquick2_common/EditEntryRectangle.qml \
-    qml/qtquick2_common/AboutDialog.qml \
-    qml/qtquick2_common/Menu.qml \
-    qml/qtquick2_common/TextInputDialog.qml \
-    qml/qtquick2_common/SelectionDialog.qml \
-    qml/qtquick2_common/ImapAccountSettingsSheet.qml \
-    qml/qtquick2_common/SyncToImapBase.qml \
-    qml/qtquick2_common/SyncDirToImap.qml \
-    qml/qtquick2_common/SyncFileToImap.qml \
-    qml/qtquick2_common/ProgressDialog.qml \
-    qml/qtquick2_common/Merger.qml \
-    qml/qtquick2_common/SyncMessageDeleter.qml \
-    qml/qtquick2_common/EntryListViewRectangle.qml
+    qml/qtquick2/desktop/main.qml \
+    qml/qtquick2/desktop/common/Dialog.qml \
+    qml/qtquick2/desktop/common/CommonDialog.qml \
+    qml/qtquick2/desktop/common/CommonButton.qml \
+    qml/qtquick2/desktop/common/CommonToolBar.qml \
+    qml/qtquick2/desktop/common/ConfirmationDialog.qml \
+    qml/qtquick2/desktop/common/CommonToolIcon.qml \
+    qml/qtquick2/desktop/common/CommonTextField.qml \
+    qml/qtquick2/desktop/common/CommonTextArea.qml \
+    qml/qtquick2/common/constants.js \
+    qml/qtquick2/common/EntryDelegate.qml \
+    qml/qtquick2/common/EntryListView.qml \
+    qml/qtquick2/common/MessageDialog.qml \
+    qml/qtquick2/common/MeePasswordsToolBar.qml \
+    qml/qtquick2/common/PasswordChangeDialog.qml \
+    qml/qtquick2/common/FastScroll.qml \
+    qml/qtquick2/common/FastScrollStyle.qml \
+    qml/qtquick2/common/FastScroll.js \
+    qml/qtquick2/common/PasswordInputRectangle.qml \
+    qml/qtquick2/common/EditEntryRectangle.qml \
+    qml/qtquick2/common/AboutDialog.qml \
+    qml/qtquick2/common/Menu.qml \
+    qml/qtquick2/common/TextInputDialog.qml \
+    qml/qtquick2/common/SelectionDialog.qml \
+    qml/qtquick2/common/ImapAccountSettingsSheet.qml \
+    qml/qtquick2/common/SyncToImapBase.qml \
+    qml/qtquick2/common/SyncDirToImap.qml \
+    qml/qtquick2/common/SyncFileToImap.qml \
+    qml/qtquick2/common/ProgressDialog.qml \
+    qml/qtquick2/common/Merger.qml \
+    qml/qtquick2/common/SyncMessageDeleter.qml \
+    qml/qtquick2/common/EntryListViewRectangle.qml
 
 
 # Please do not modify the following two lines. Required for deployment.

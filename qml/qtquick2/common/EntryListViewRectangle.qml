@@ -18,7 +18,6 @@
  */
 
 import QtQuick 2.0
-import "qrc:/synctoimap/qml/synctoimap"
 
 Rectangle {
     id: entryListRectangle

@@ -21,7 +21,6 @@ import QtQuick 2.0
 import QtQuick.Controls 1.0
 import meepasswords 1.0
 import SyncToImap 1.0
-import "../qtquick2_common"
 
 Rectangle {
     id: main

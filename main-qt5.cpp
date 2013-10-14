@@ -66,7 +66,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     app->setApplicationDisplayName("MeePasswords");
 
     view->setResizeMode(QQuickView::SizeRootObjectToView);
-    view->setSource(QUrl("qrc:/qml/qtquick2/main.qml"));
+    view->setSource(QUrl("qrc:/main.qml"));
     view->resize(400, 500);
     view->show();
 
