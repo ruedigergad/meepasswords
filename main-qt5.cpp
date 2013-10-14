@@ -26,6 +26,10 @@
 #include <QProcess>
 #include <QtQml>
 
+#if defined(LINUX_DESKTOP)
+#include <QIcon>
+#endif
+
 #include "entry.h"
 #include "entrylistmodel.h"
 #include "entrystorage.h"
@@ -65,6 +69,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 //TODO
     app->setApplicationName("MeePasswords");
     app->setApplicationDisplayName("MeePasswords");
+
+#if defined(LINUX_DESKTOP)
+    QIcon icon(":/meepasswords_64x64.png");
+    view->setIcon(icon);
+#endif
 
     view->setResizeMode(QQuickView::SizeRootObjectToView);
     view->setSource(QUrl("qrc:/main.qml"));

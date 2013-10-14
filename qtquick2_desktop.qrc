@@ -9,5 +9,6 @@
         <file alias="CommonToolBar.qml">qml/qtquick2/desktop/common/CommonToolBar.qml</file>
         <file alias="CommonToolIcon.qml">qml/qtquick2/desktop/common/CommonToolIcon.qml</file>
         <file alias="CommonButton.qml">qml/qtquick2/desktop/common/CommonButton.qml</file>
+        <file>meepasswords_64x64.png</file>
     </qresource>
 </RCC>
