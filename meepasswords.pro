@@ -314,13 +314,14 @@ OTHER_FILES += \
     qml/qtquick2/common/TextInputDialog.qml \
     qml/qtquick2/common/SelectionDialog.qml \
     qml/qtquick2/common/ImapAccountSettingsSheet.qml \
-    qml/qtquick2/common/SyncToImapBase.qml \
-    qml/qtquick2/common/SyncDirToImap.qml \
-    qml/qtquick2/common/SyncFileToImap.qml \
     qml/qtquick2/common/ProgressDialog.qml \
     qml/qtquick2/common/Merger.qml \
-    qml/qtquick2/common/SyncMessageDeleter.qml \
-    qml/qtquick2/common/EntryListViewRectangle.qml
+    qml/qtquick2/common/EntryListViewRectangle.qml \
+    synctoimap/qml/synctoimap/SyncToImapBase.qml \
+    synctoimap/qml/synctoimap/SyncDirToImap.qml \
+    synctoimap/qml/synctoimpa/SyncFileToImap.qml \
+    synctoimap/qml/synctoimap/SyncMessageDeleter.qml
+
 
 
 # Please do not modify the following two lines. Required for deployment.
