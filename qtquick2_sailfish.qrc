@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="main.qml">qml/qtquick2/sailfish/main.qml</file>
+        <file alias="Dialog.qml">qml/qtquick2/sailfish/common/Dialog.qml</file>
+        <file alias="ConfirmationDialog.qml">qml/qtquick2/sailfish/common/ConfirmationDialog.qml</file>
+        <file alias="CommonDialog.qml">qml/qtquick2/sailfish/common/CommonDialog.qml</file>
+        <file alias="CommonTextArea.qml">qml/qtquick2/sailfish/common/CommonTextArea.qml</file>
+        <file alias="CommonTextField.qml">qml/qtquick2/sailfish/common/CommonTextField.qml</file>
+        <file alias="CommonToolBar.qml">qml/qtquick2/sailfish/common/CommonToolBar.qml</file>
+        <file alias="CommonToolIcon.qml">qml/qtquick2/sailfish/common/CommonToolIcon.qml</file>
+        <file alias="CommonButton.qml">qml/qtquick2/sailfish/common/CommonButton.qml</file>
+        <file>meepasswords_64x64.png</file>
+    </qresource>
+</RCC>

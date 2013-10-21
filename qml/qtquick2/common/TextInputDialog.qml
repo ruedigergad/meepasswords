@@ -27,19 +27,17 @@ CommonDialog {
     property alias input: inputField.text
     property alias echoMode: inputField.echoMode
 
-    signal accepted
-
     function accept() {
         close()
         accepted()
     }
 
-    onOpening: {
-        input = ""
-        inputField.focus = true
-    }
+//    onOpening: {
+//        input = ""
+//        inputField.focus = true
+//    }
 
-    content: Item {
+    Item {
         anchors.top: parent.top
         anchors.topMargin: primaryBorderSize
         width:parent.width

@@ -8,8 +8,10 @@ isEqual(QT_MAJOR_VERSION, 5) {
     DEFINES += QT5_BUILD
 
     QT += qml quick
-} else {
 
+    RESOURCES += qtquick2_common.qrc
+} else {
+    RESOURCES += common.qrc
 }
 
 exists("/usr/lib/qt5/qml/Sailfish/Silica/SilicaGridView.qml"): {
@@ -21,6 +23,7 @@ exists("/usr/lib/qt5/qml/Sailfish/Silica/SilicaGridView.qml"): {
     MER_EDITION = sailfish
 
     QT += widgets
+    RESOURCES += qtquick2_sailfish.qrc
     CONFIG += crypto
 
     CONFIG += link_pkgconfig
@@ -149,14 +152,6 @@ exists("/usr/lib/qt5/qml/Sailfish/Silica/SilicaGridView.qml"): {
         CONFIG += link_pkgconfig
         PKGCONFIG += qca2
     }
-}
-
-contains(DEFINES, QT5_BUILD) {
-    message(Including qtquick2_common.qrc)
-    RESOURCES += qtquick2_common.qrc
-} else {
-    message(Including old QtQuick 1.1 based common QML files.)
-    RESOURCES += common.qrc
 }
 
 contains(DEFINES, SYNC_TO_IMAP_SUPPORT): {
@@ -314,15 +309,6 @@ OTHER_FILES += \
     qml/common/SyncMessageDeleter.qml \
     qml/harmattan/main2.qml \
     qml/harmattan/main3.qml \
-    qml/qtquick2/desktop/main.qml \
-    qml/qtquick2/desktop/common/Dialog.qml \
-    qml/qtquick2/desktop/common/CommonDialog.qml \
-    qml/qtquick2/desktop/common/CommonButton.qml \
-    qml/qtquick2/desktop/common/CommonToolBar.qml \
-    qml/qtquick2/desktop/common/ConfirmationDialog.qml \
-    qml/qtquick2/desktop/common/CommonToolIcon.qml \
-    qml/qtquick2/desktop/common/CommonTextField.qml \
-    qml/qtquick2/desktop/common/CommonTextArea.qml \
     qml/qtquick2/common/constants.js \
     qml/qtquick2/common/EntryDelegate.qml \
     qml/qtquick2/common/EntryListView.qml \
@@ -343,6 +329,24 @@ OTHER_FILES += \
     qml/qtquick2/common/ProgressDialog.qml \
     qml/qtquick2/common/Merger.qml \
     qml/qtquick2/common/EntryListViewRectangle.qml \
+    qml/qtquick2/desktop/main.qml \
+    qml/qtquick2/desktop/common/Dialog.qml \
+    qml/qtquick2/desktop/common/CommonDialog.qml \
+    qml/qtquick2/desktop/common/CommonButton.qml \
+    qml/qtquick2/desktop/common/CommonToolBar.qml \
+    qml/qtquick2/desktop/common/ConfirmationDialog.qml \
+    qml/qtquick2/desktop/common/CommonToolIcon.qml \
+    qml/qtquick2/desktop/common/CommonTextField.qml \
+    qml/qtquick2/desktop/common/CommonTextArea.qml \
+    qml/qtquick2/sailfish/main.qml \
+    qml/qtquick2/sailfish/common/Dialog.qml \
+    qml/qtquick2/sailfish/common/CommonDialog.qml \
+    qml/qtquick2/sailfish/common/CommonButton.qml \
+    qml/qtquick2/sailfish/common/CommonToolBar.qml \
+    qml/qtquick2/sailfish/common/ConfirmationDialog.qml \
+    qml/qtquick2/sailfish/common/CommonToolIcon.qml \
+    qml/qtquick2/sailfish/common/CommonTextField.qml \
+    qml/qtquick2/sailfish/common/CommonTextArea.qml \
     synctoimap/qml/synctoimap/SyncToImapBase.qml \
     synctoimap/qml/synctoimap/SyncDirToImap.qml \
     synctoimap/qml/synctoimpa/SyncFileToImap.qml \
@@ -364,3 +368,6 @@ contains(DEFINES, QDECLARATIVE_BOOSTER): {
     QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
     QMAKE_LFLAGS += -pie -rdynamic
 }
+
+RESOURCES += \
+    qtquick2_sailfish.qrc

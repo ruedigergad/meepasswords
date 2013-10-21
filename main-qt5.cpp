@@ -48,8 +48,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
 #if defined(LINUX_DESKTOP)
     EnvVarHelper::appendToEnvironmentVariable("QT_PLUGIN_PATH", EnvVarHelper::getOwnLibPath() + "/qca/plugins");
-    SyncToImap::init();
 #endif
+    SyncToImap::init();
 
     QApplication *app = new QApplication(argc, argv);
     QQuickView *view = new QQuickView();
@@ -77,8 +77,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     view->setResizeMode(QQuickView::SizeRootObjectToView);
     view->setSource(QUrl("qrc:/main.qml"));
+#if defined(LINUX_DESKTOP)
     view->resize(400, 500);
     view->show();
+#elif defined(MER_EDITION_SAILFISH)
+    view->showFullScreen();
+#endif
 
     int ret = app->exec();
 

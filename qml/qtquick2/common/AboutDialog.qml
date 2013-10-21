@@ -24,7 +24,7 @@ CommonDialog {
 
     //anchors.fill: parent
 
-    content: Item {
+    Item {
       anchors.fill: parent
 
       Text {id: name; text: "MeePasswords"

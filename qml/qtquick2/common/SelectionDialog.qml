@@ -30,14 +30,12 @@ CommonDialog {
     property alias selectedIndex: selectionlListView.currentIndex
     property alias selectedItem: selectionlListView.currentItem
 
-    signal accepted
-
     function accept() {
         close()
         accepted()
     }
 
-    content: Item {
+    Item {
         anchors.fill: parent
 
         Text {

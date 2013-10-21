@@ -51,7 +51,7 @@ CommonDialog {
         }
     }
 
-    content: Item {
+    Item {
         anchors.top: parent.top
         width:parent.width
 
