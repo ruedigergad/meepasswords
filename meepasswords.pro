@@ -303,6 +303,7 @@ OTHER_FILES += \
     qml/qtquick2/common/constants.js \
     qml/qtquick2/common/EntryDelegate.qml \
     qml/qtquick2/common/EntryListView.qml \
+    qml/qtquick2/common/MainFlickable.qml \
     qml/qtquick2/common/MessageDialog.qml \
     qml/qtquick2/common/MeePasswordsToolBar.qml \
     qml/qtquick2/common/PasswordChangeDialog.qml \

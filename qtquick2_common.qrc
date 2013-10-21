@@ -27,5 +27,6 @@
         <file alias="FastScroll.js">qml/qtquick2/common/FastScroll.js</file>
         <file alias="FastScroll.qml">qml/qtquick2/common/FastScroll.qml</file>
         <file alias="EntryListViewRectangle.qml">qml/qtquick2/common/EntryListViewRectangle.qml</file>
+        <file alias="MainFlickable.qml">qml/qtquick2/common/MainFlickable.qml</file>
     </qresource>
 </RCC>

@@ -26,6 +26,7 @@ Rectangle {
     property alias category: categoryInput.text
     property bool edit: false
     property int entryId: -1
+    property bool isShown: false
     property alias name: nameInput.text
     property bool newEntry: false
     property alias notes: notesInput.text
@@ -38,7 +39,17 @@ Rectangle {
         resetContent()
         entryListView.focus = true
         inputFlickable.contentY = 0
-        stackView.pop()
+//        stackView.pop()
+        hide()
+    }
+
+    function hide() {
+        edit = false
+        newEntry = false
+        mainContentFlickable.contentX = mainFlickable.width
+        isShown = false
+        entryListView.focus = true
+        inputFlickable.contentY = 0
     }
 
     function resetContent() {
@@ -62,6 +73,11 @@ Rectangle {
                                                  entryId)
         close()
     }
+
+    function show() {
+        mainContentFlickable.contentX = mainFlickable.width * 2
+        isShown = true
+     }
 
     function toggleEdit() {
         edit = !edit
