@@ -48,6 +48,7 @@ Flickable {
      * happen but it does. sigh...
      */
     onContentXChanged: {
+        console.log("MainFlickable contentX changed.")
         if (loggedIn) {
             contentX = width
         } else {
@@ -81,12 +82,12 @@ Flickable {
     boundsBehavior: Flickable.StopAtBounds
     property bool animationIsRunning: false
 
-    Behavior on contentX {
-        SequentialAnimation {
-            PropertyAnimation { duration: 140 }
-            ScriptAction { script: mainFlickable.animationIsRunning = false }
-        }
-    }
+//    Behavior on contentX {
+//        SequentialAnimation {
+//            PropertyAnimation { duration: 140 }
+//            ScriptAction { script: mainFlickable.animationIsRunning = false }
+//        }
+//    }
 
     function addEntry() {
         editEntryRectangle.resetContent()
