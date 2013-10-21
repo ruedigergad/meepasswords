@@ -22,8 +22,6 @@ import QtQuick 2.0
 Row {
     id: toolBar
 
-    property string iconNameSuffix: ""
-
     anchors {
         left: parent.left; leftMargin: primaryBorderSize * 0.25
         right: parent.right; rightMargin: primaryBorderSize * 0.25

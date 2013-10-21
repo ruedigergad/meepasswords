@@ -181,7 +181,7 @@ Rectangle {
                         id: addCategoryIcon
 
                         enabled: edit || newEntry
-                        iconSource: "qrc:/icons/add.png"
+                        iconSource: "qrc:/icons/add" + iconNameSuffix + ".png"
 
                         onClicked: newCategoryDialog.open()
                     }
@@ -327,7 +327,7 @@ Rectangle {
                         id: horizontalBarRectangle
 
                         anchors.centerIn: parent
-                        color: "darkgray"
+                        color: secondaryFontColor
                         height: primaryBorderSize / 6
                         width: parent.width
                     }
@@ -342,7 +342,7 @@ Rectangle {
                     CommonToolIcon {
                         id: iconBack
 
-                        iconSource: "qrc:/icons/back.png"
+                        iconSource: "qrc:/icons/back" + iconNameSuffix + ".png"
                         width: parent.width / 3 - 2/3 * parent.spacing
 
                         onClicked: {

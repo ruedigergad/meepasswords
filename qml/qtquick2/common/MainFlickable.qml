@@ -153,22 +153,13 @@ Flickable {
 
             property bool performLogOut
 
-            Text {
-                id: logOutText
-                anchors.left: parent.left
-                anchors.verticalCenter: parent.verticalCenter
-                text: "Pull to Log out."
-                font.pointSize: primaryFontSize
-                color: primaryFontColor
-                opacity: mainContent.performLogOut ? 1 : 0.4
-            }
-
             Flickable {
                 id: mainContentFlickable
                 anchors.fill: parent
 
                 contentWidth: mainFlickable.width * 3
                 contentX: mainFlickable.width
+                clip: true
                 flickableDirection: Flickable.HorizontalFlick
                 interactive: true
                 flickDeceleration: 10000
@@ -209,8 +200,19 @@ Flickable {
 
                 Item {
                     id: dummyItem
+
                     anchors{left: parent.left; top: parent.top; bottom: parent.bottom}
                     width: mainFlickable.width
+
+                    Text {
+                        id: logOutText
+                        anchors.right: parent.right
+                        anchors.verticalCenter: parent.verticalCenter
+                        text: "Pull to Log out."
+                        font.pointSize: primaryFontSize
+                        color: primaryFontColor
+                        opacity: mainContent.performLogOut ? 1 : 0.4
+                    }
                 }
 
                 Item {

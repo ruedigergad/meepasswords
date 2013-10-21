@@ -24,6 +24,16 @@
         <file>icons/menu.svg</file>
         <file>icons/next.png</file>
         <file>icons/next.svg</file>
+        <file>icons/add-white.png</file>
+        <file>icons/add-white.svg</file>
+        <file>icons/back-white.png</file>
+        <file>icons/back-white.svg</file>
+        <file>icons/delete-white.png</file>
+        <file>icons/delete-white.svg</file>
+        <file>icons/menu-white.png</file>
+        <file>icons/menu-white.svg</file>
+        <file>icons/next-white.png</file>
+        <file>icons/next-white.svg</file>
         <file alias="FastScroll.js">qml/qtquick2/common/FastScroll.js</file>
         <file alias="FastScroll.qml">qml/qtquick2/common/FastScroll.qml</file>
         <file alias="EntryListViewRectangle.qml">qml/qtquick2/common/EntryListViewRectangle.qml</file>
