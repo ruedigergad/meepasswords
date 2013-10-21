@@ -42,6 +42,19 @@ Flickable {
     property alias listView: entryListView.listView
     property bool loggedIn: false
 
+    /*
+     * Brute force hack to avoid that the contentX is set to 0 by something
+     * on the first click. There is no apparent reason why this should
+     * happen but it does. sigh...
+     */
+    onContentXChanged: {
+        if (loggedIn) {
+            contentX = width
+        } else {
+            contentX = 0
+        }
+    }
+
     onLoggedInChanged: {
         contentX = loggedIn ? width : 0
         passwordInput.focus = !loggedIn
