@@ -26,31 +26,32 @@ Rectangle {
     property alias listView: entryListView
 
 //    color: "lightgoldenrodyellow"
-    color: "white"
+    color: primaryBackgroundColor
 
-    Rectangle {
+    Item {
         id: placeHolder
         anchors.fill: parent
         visible: entryListView.model.count <= 0
 
         Text {
             id: noEntriesText
+
             anchors.centerIn: parent
-            wrapMode: Text.WordWrap
-            text: "No entries yet."
+            color: secondaryFontColor
             font.pointSize: primaryFontSize * 1.25
-            color: "gray"
             horizontalAlignment: Text.AlignHCenter
+            text: "No entries yet."
+            wrapMode: Text.WordWrap
         }
 
         Text {
             anchors{ top: noEntriesText.bottom; topMargin: primaryFontSize * 0.5
                      left: parent.left; right: parent.right}
-            wrapMode: Text.WordWrap
-            text: "Use + to add new entries."
+            color: secondaryFontColor
             font.pointSize: primaryFontSize
-            color: "gray"
             horizontalAlignment: Text.AlignHCenter
+            text: "Use + to add new entries."
+            wrapMode: Text.WordWrap
         }
     }
 
@@ -101,7 +102,7 @@ Rectangle {
             property string entryPassword: password
             property string entryNotes: notes
 
-            color: entryDelegate.mouseArea.pressed ? "lightgray" : "transparent"
+            color: entryDelegate.mouseArea.pressed ? secondaryBackgroundColor : "transparent"
             height: entryDelegate.height
             width: parent.width
 
@@ -141,13 +142,13 @@ Rectangle {
                     font.pointSize: primaryFontSize
 //                    font.bold: true
                     text: section
-                    color: "gray"
+                    color: secondaryFontColor
                 }
 
                 Rectangle {
                     id: underLine
                     height: primaryBorderSize / 10
-                    color: "gray"
+                    color: secondaryFontColor
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.bottom: parent.bottom

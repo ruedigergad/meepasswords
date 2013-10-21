@@ -146,9 +146,10 @@ Flickable {
 
         Rectangle {
             id: mainContent
+
             anchors{left: passwordInput.right; top: parent.top; bottom: parent.bottom}
             width: mainFlickable.width
-            color: "lightgray"
+            color: primaryBackgroundColor
 
             property bool performLogOut
 
@@ -158,7 +159,8 @@ Flickable {
                 anchors.verticalCenter: parent.verticalCenter
                 text: "Pull to Log out."
                 font.pointSize: primaryFontSize
-                color: mainContent.performLogOut ? "black" : "gray"
+                color: primaryFontColor
+                opacity: mainContent.performLogOut ? 1 : 0.4
             }
 
             Flickable {
@@ -211,7 +213,7 @@ Flickable {
                     width: mainFlickable.width
                 }
 
-                Rectangle {
+                Item {
                     id: entryListRectangle
 
                     anchors{left: dummyItem.right; top: parent.top; bottom: parent.bottom}
@@ -229,7 +231,7 @@ Flickable {
                         anchors {left: parent.left; right: parent.right; bottom: parent.bottom}
                         height: meePasswordsToolBar.height * 1.25
 
-                        color: "lightgray"
+                        color: primaryBackgroundColor
 
                         MeePasswordsToolBar {
                             id: meePasswordsToolBar

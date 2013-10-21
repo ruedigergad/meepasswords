@@ -50,7 +50,7 @@ Rectangle {
 
         anchors {left: parent.left; right: parent.right; bottom: parent.bottom}
         height: meePasswordsToolBar.height * 1.25
-        color: "lightgray"
+        color: primaryBackgroundColor
 
         MeePasswordsToolBar {
             id: meePasswordsToolBar

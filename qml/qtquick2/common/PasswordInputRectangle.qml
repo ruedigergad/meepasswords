@@ -30,7 +30,7 @@ Rectangle{
         passwordField.focus = true
     }
 
-    color: "lightgray"
+    color: primaryBackgroundColor
 
     Component.onCompleted: {
         passwordButton.clicked.connect(passwordEntered)
@@ -39,31 +39,32 @@ Rectangle{
     Text {
         id: appNameLabel
 
-        text: "MeePasswords"
-        font.pointSize: primaryFontSize * 0.8
-        font.bold: true
-
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: primaryFontSize
+        color: primaryFontColor
+        font.pointSize: primaryFontSize * 0.8
+        font.bold: true
+        text: "MeePasswords"
     }
 
     Image {
         id: meePasswordsIcon
 
-        source: "qrc:/meepasswords_150x150.png"
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: appNameLabel.bottom
+        source: "qrc:/meepasswords_150x150.png"
     }
 
     Text {
         id: descriptionLabel
 
-        text: "Keep your passwords protected."
         anchors.top: meePasswordsIcon.bottom
-        width: parent.width
+        color: primaryFontColor
         font.pointSize: primaryFontSize * 0.7
         horizontalAlignment: Text.AlignHCenter
+        text: "Keep your passwords protected."
+        width: parent.width
         wrapMode: Text.Wrap
     }
 
@@ -73,11 +74,10 @@ Rectangle{
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: descriptionLabel.bottom
         anchors.topMargin: primaryFontSize * 0.75
-        width: parent.width
-
+        color: primaryFontColor
         font.pointSize: primaryFontSize * 0.6
-
         horizontalAlignment: Text.AlignHCenter
+        width: parent.width
         wrapMode: Text.Wrap
     }
 

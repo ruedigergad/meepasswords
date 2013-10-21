@@ -9,7 +9,7 @@ Text {
     wrapMode: Text.WordWrap
     horizontalAlignment: Text.AlignHCenter
 //    color: mouseArea.pressed ? "gray" : "black"
-    color: "black"
+    color: primaryFontColor
 
     property alias mouseArea: mouseArea
 

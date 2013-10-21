@@ -33,7 +33,7 @@ Rectangle {
     property alias password: passwordInput.text
     property alias userName: userNameInput.text
 
-    color: "white"
+    color: primaryBackgroundColor
 
     function close() {
         resetContent()
@@ -124,6 +124,7 @@ Rectangle {
                 Text {
                     id: nameText
 
+                    color: primaryFontColor
                     font.pointSize: primaryFontSize * 0.6
                     text: "Entry Name"
                 }
@@ -155,6 +156,7 @@ Rectangle {
                 Text {
                     id: categoryText
 
+                    color: primaryFontColor
                     font.pointSize: primaryFontSize * 0.6
                     text: "Category"
                 }
@@ -188,6 +190,7 @@ Rectangle {
                 Text {
                     id: userNameText
 
+                    color: primaryFontColor
                     font.pointSize: primaryFontSize * 0.6
                     text: "User Name"
                 }
@@ -237,6 +240,7 @@ Rectangle {
                 Text {
                     id: passwordText
 
+                    color: primaryFontColor
                     font.pointSize: primaryFontSize * 0.6
                     text: "Password"
                 }
@@ -285,6 +289,7 @@ Rectangle {
                 Text {
                     id: notesLabel
 
+                    color: primaryFontColor
                     font.pointSize: primaryFontSize * 0.6
                     text: "Notes"
                 }
