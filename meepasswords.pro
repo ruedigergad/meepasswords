@@ -2,7 +2,30 @@
 
 message(Building with Qt version: $$QT_VERSION)
 
-exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
+isEqual(QT_MAJOR_VERSION, 5) {
+    message(Qt5 Build)
+
+    DEFINES += QT5_BUILD
+
+    QT += qml quick
+} else {
+
+}
+
+exists("/usr/lib/qt5/qml/Sailfish/Silica/SilicaGridView.qml"): {
+    message(SailfishOS build)
+
+    DEFINES += QDECLARATIVE_BOOSTER
+    DEFINES += MER_EDITION_SAILFISH
+    DEFINES += SYNC_TO_IMAP_SUPPORT
+    MER_EDITION = sailfish
+
+    QT += widgets
+    CONFIG += crypto
+
+    CONFIG += link_pkgconfig
+    PKGCONFIG += qmfclient5
+} else:exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     message(Harmattan Build)
     MEEGO_VERSION_MAJOR     = 1
     MEEGO_VERSION_MINOR     = 2
