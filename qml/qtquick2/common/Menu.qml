@@ -106,7 +106,7 @@ Item {
                 width: parent.width - primaryFontSize
 
                 onClicked: {
-                    passwordChangeDialog.open()
+                    mainFlickable.passwordChangeDialog.open()
                     menu.close()
                 }
             }
@@ -121,7 +121,7 @@ Item {
                 width: parent.width - primaryFontSize
 
                 onClicked: {
-                    confirmSyncToImapDialog.open()
+                    mainFlickable.confirmSyncToImapDialog.open()
                     menu.close()
                 }
             }
@@ -136,7 +136,7 @@ Item {
                 width: parent.width - primaryFontSize
 
                 onClicked: {
-                    confirmDeleteSyncMessage.open()
+                    mainFlickable.confirmDeleteSyncMessage.open()
                     menu.close()
                 }
             }
@@ -151,7 +151,7 @@ Item {
                 width: parent.width - primaryFontSize
 
                 onClicked: {
-                    imapAccountSettings.open()
+                    mainFlickable.imapAccountSettings.open()
                     menu.close()
                 }
             }
@@ -166,7 +166,7 @@ Item {
                 width: parent.width - primaryFontSize
 
                 onClicked: {
-                    entryStorage.exportKeePassXml()
+                    mainFlickable.entryStorage.exportKeePassXml()
                     menu.close()
                 }
             }
@@ -181,7 +181,7 @@ Item {
                 width: parent.width - primaryFontSize
 
                 onClicked: {
-                    entryStorage.importKeePassXml()
+                    mainFlickable.entryStorage.importKeePassXml()
                     menu.close()
                 }
             }
@@ -196,7 +196,7 @@ Item {
                 width: parent.width - primaryFontSize
 
                 onClicked: {
-                    aboutDialog.open()
+                    mainFlickable.aboutDialog.open()
                     menu.close()
                 }
             }
