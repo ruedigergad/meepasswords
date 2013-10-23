@@ -24,12 +24,22 @@ import SyncToImap 1.0
 Rectangle {
     id: main
 
+    property int primaryFontSize: 18
+    property int primaryBorderSize: 25
+
+    property string primaryFontColor: "black"
+    property string secondaryFontColor: "gray"
+
+    property string primaryBackgroundColor: "lightgray"
+    property double primaryBackgroundOpacity: 0.9
+    property string secondaryBackgroundColor: "gray"
+    property double secondaryBackgroundOpacity: 0.9
+
+    property string iconNameSuffix: ""
+
     width: 400
     height: 500
     color: "lightgray"
-
-    property int primaryFontSize: 16
-    property int primaryBorderSize: primaryFontSize
 
     onRotationChanged: {
         console.log("Rotation changed...");

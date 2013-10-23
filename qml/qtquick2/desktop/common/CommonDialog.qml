@@ -19,4 +19,6 @@
 
 Dialog {
     id: simpleDialog
+
+    signal accepted
 }

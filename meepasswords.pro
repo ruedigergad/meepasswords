@@ -164,7 +164,8 @@ contains(DEFINES, SYNC_TO_IMAP_SUPPORT): {
         synctoimap/src/imapaccounthelper.h \
         synctoimap/src/synctoimap.h
     INCLUDEPATH += \
-        synctoimap/src
+        synctoimap/src \
+        synctoimap/lib/include
     SOURCES += \
         synctoimap/src/envvarhelper.cpp \
         synctoimap/src/filehelper.cpp \
