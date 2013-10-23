@@ -367,13 +367,26 @@ Flickable {
         onRejected: mainFlickable.meePasswordsToolBar.enabled = true
     }
 
+    ProgressDialog {
+        id: progressDialog
+
+        anchors.fill: parent
+        title: "Syncing..."
+        message: "Sync is in progess."
+        parent: main
+
+        maxValue: 6
+        currentValue: 0
+    }
+
     SyncFileToImap {
         id: syncFileToImap
 
-        parent: main
-
         imapFolderName: "meepasswords"
         merger: merger
+        messageDialog: messageDialog
+        progressDialog: progressDialog
+        useDialogs: true
 
         onFinished: {
             mainFlickable.meePasswordsToolBar.enabled = true
