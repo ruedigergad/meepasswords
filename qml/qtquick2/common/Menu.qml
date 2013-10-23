@@ -22,25 +22,31 @@ import QtQuick 2.0
 Item {
     id: menu
 
+    property int menuBottomOffset: menu.height
     /*
      * The following is a quite ugly hack to animate the menu.
      * This should be done via States rather than this hack.
      * Though, due to the limited time, for now this hack is used.
      */
-    property bool isOpen: true
+    property bool isOpen: false
+    property bool isOpening: false
 
     signal closed
+    signal closing
     signal opened
+    signal opening
 
     function close() {
-        menuBorder.y = height
-        closed()
+        closing()
+        isOpening = false
+        menuBorder.height = 0
     }
 
     function open() {
+        opening()
+        isOpening = true
         enabled = true
-        menuBorder.y = height - menuBorder.height
-        opened()
+        menuBorder.height = menuArea.height
     }
 
     anchors.fill: parent
@@ -53,7 +59,7 @@ Item {
 
         anchors.fill: parent
         color: "black"
-        opacity: menu.isOpen ? 0.3 : 0
+        opacity: menu.enabled ? 0.75 : 0
     }
 
     MouseArea {
@@ -64,25 +70,33 @@ Item {
         }
     }
 
-    Rectangle {
+    Flickable {
         id: menuBorder
 
-        color: "lightgray"
-        opacity: 0.9
-        height: menuArea.height
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: menu.menuBottomOffset
+
+        clip: true
+        contentHeight: menuArea.height
+        opacity: secondaryBackgroundOpacity
+
+        height: 0
         width: parent.width
-        y: parent.height
         z: parent.z + 1
 
-        Behavior on y {
+        Behavior on height {
             SequentialAnimation {
                 PropertyAnimation { duration: 120 }
                 ScriptAction {
                     script: {
-                        if (menu.isOpen) {
+                        if (menu.isOpening) {
+                            menu.isOpen = true
+                            menu.opened()
+                        } else {
+                            menu.isOpen = false
                             menu.enabled = false
+                            menu.closed()
                         }
-                        menu.isOpen = ! menu.isOpen
                     }
                 }
             }
