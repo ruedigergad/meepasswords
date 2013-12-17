@@ -62,26 +62,10 @@ ApplicationWindow {
             Item {
                 anchors.fill: parent
 
-                Rectangle {
-                    id: header
-                    height: primaryFontSize * 2
-                    color: primaryBackgroundColor
-                    anchors{left: parent.left; right: parent.right; top: parent.top}
-
-                    Text {
-                        text: "MeePasswords"
-                        color: primaryFontColor
-                        font.pointSize: primaryFontSize * 0.75
-                        anchors.left: parent.left
-                        anchors.leftMargin: primaryFontSize * 0.6
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                }
-
                 MainFlickable {
                     id: mainFlickable
 
-                    anchors{top: header.bottom; left: parent.left; right: parent.right; bottom: parent.bottom}
+                    anchors{top: parent.top; left: parent.left; right: parent.right; bottom: parent.bottom}
                 }
             }
 
