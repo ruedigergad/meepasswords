@@ -255,6 +255,8 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog \
     qtc_packaging/debian_harmattan/meepasswords.aegis \
+    rpm/meepasswords.spec \
+    rpm/meepasswords.yaml \
     qml/common/EntryDelegate.qml \
     qml/common/EntryListView.qml \
     qml/common/EntryShowDialog.qml \
