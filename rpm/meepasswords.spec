@@ -19,11 +19,11 @@ Group:      Qt/Qt
 License:    LICENSE
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  meepasswords.yaml
-BuildRequires:  pkgconfig(qca2-qt5)
-BuildRequires:  pkgconfig(Qt5Quick)
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(qmfclient5)
 BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(qmfclient5)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(qca2-qt5)
 
 %description
 Short description of my SailfishOS Application
@@ -57,12 +57,12 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%{_datadir}/icons/hicolor/64x64/apps
-%{_datadir}/applications
-/opt/%{name}
-/opt/meepasswords/bin
-/usr/share/applications
-/usr/share/icons/hicolor/64x64/apps
 /opt/meepasswords
+/usr/share/icons/hicolor/64x64/apps
+/usr/share/applications
+/opt/meepasswords/bin
+/opt/%{name}
+%{_datadir}/applications
+%{_datadir}/icons/hicolor/64x64/apps
 # >> files
 # << files
