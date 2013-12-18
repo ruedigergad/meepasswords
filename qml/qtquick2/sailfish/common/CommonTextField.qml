@@ -17,39 +17,14 @@
  *  along with Q To-Do.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import Sailfish.Silica 1.0
 
-Rectangle {
+TextField {
     id: textField
 
-    property int echoMode: TextInput.Normal
-    property alias pointSize: textInput.font.pointSize
-    property alias text: textInput.text
+    property real pointSize: primaryFontSize * 0.75
+    property int textFormat: 0
 
-    border.width: primaryBorderSize / 8
-    border.color: textInput.focus ? "#0e65c8" : "#4ea5f8"
-    color: enabled ? "white" : "#e0e0e0"
-    height: textInput.height * 1.5
-    smooth: true
-
-    TextInput {
-        id: textInput
-
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
-        echoMode: textField.echoMode
-        color: "black"
-        focus: textField.focus
-        font.pointSize: primaryFontSize * 0.75
-        width: parent.width - primaryBorderSize
-
-        onFocusChanged: {
-            if (focus) {
-                Qt.inputMethod.show()
-            } else {
-                Qt.inputMethod.hide()
-            }
-        }
-    }
-
+    color: focus ? primaryFontColor : secondaryFontColor
+    font.pointSize: pointSize
 }

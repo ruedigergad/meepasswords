@@ -17,42 +17,18 @@
  *  along with Q To-Do.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.0
+import Sailfish.Silica 1.0
 
-Rectangle {
+TextArea {
     id: textArea
 
-    property alias pointSize: textEdit.font.pointSize
-    property alias text: textEdit.text
-    property int textFormat: TextEdit.PlainText
+    property real pointSize: primaryFontSize * 0.75
+    property int textFormat: 0
 
     signal enter()
     signal keyPressed(variant event)
 
-    border.width: primaryBorderSize / 8
-    border.color: textEdit.focus ? "#0e65c8" : "#4ea5f8"
-    color: enabled ? "white" : "#e0e0e0"
-    height: textEdit.height + textEdit.font.pointSize
-    smooth: true
-
-    TextEdit {
-        id: textEdit
-
-        anchors.centerIn: parent
-        color: "black"
-        focus: textArea.focus
-        font.pointSize: primaryFontSize * 0.75
-        textFormat: textArea.textFormat
-        width: parent.width - primaryBorderSize
-        wrapMode: TextEdit.WordWrap
-
-        onFocusChanged: {
-            if(focus){
-                textEdit.cursorPosition = textEdit.text.length
-                Qt.inputMethod.show()
-            } else {
-                Qt.inputMethod.hide()
-            }
-        }
-    }
+    color: focus ? primaryFontColor : secondaryFontColor
+    font.pointSize: pointSize
+    wrapMode: TextEdit.WordWrap
 }
