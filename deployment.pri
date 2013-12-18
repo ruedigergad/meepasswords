@@ -93,8 +93,14 @@ symbian {
         export($$itempath)
         INSTALLS += $$item
     }
-    icon.path = /usr/share/icons/hicolor/64x64/apps
-    target.path = $${installPrefix}/bin
+
+    contains(DEFINES, MER_EDITION_SAILFISH) {
+        icon.path = /usr/share/icons/hicolor/86x86/apps
+        target.path = /usr/bin
+    } else {
+        icon.path = /usr/share/icons/hicolor/64x64/apps
+        target.path = $${installPrefix}/bin
+    }
 
     maemo5 {
         icon.files = res/fremantle/$${TARGET}.png

@@ -17,6 +17,8 @@ isEqual(QT_MAJOR_VERSION, 5) {
 exists("/usr/lib/qt5/qml/Sailfish/Silica/SilicaGridView.qml"): {
     message(SailfishOS build)
 
+    TARGET = harbour-meepasswords
+
     DEFINES += QDECLARATIVE_BOOSTER
     DEFINES += MER_EDITION_SAILFISH
     DEFINES += SYNC_TO_IMAP_SUPPORT
@@ -255,8 +257,8 @@ OTHER_FILES += \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog \
     qtc_packaging/debian_harmattan/meepasswords.aegis \
-    rpm/meepasswords.spec \
-    rpm/meepasswords.yaml \
+    rpm/harbour-meepasswords.spec \
+    rpm/harbour-meepasswords.yaml \
     qml/common/EntryDelegate.qml \
     qml/common/EntryListView.qml \
     qml/common/EntryShowDialog.qml \
@@ -361,9 +363,14 @@ OTHER_FILES += \
 include(deployment.pri)
 qtcAddDeployment()
 
-splash.files = splash.png
-splash.path = /opt/meepasswords
-INSTALLS += splash
+contains(DEFINES, MER_EDITION_SAILFISH) {
+    RESOURCES += \
+        qtquick2_sailfish.qrc
+} else {
+    splash.files = splash.png
+    splash.path = /opt/meepasswords
+    INSTALLS += splash
+}
 
 contains(DEFINES, QDECLARATIVE_BOOSTER): {
     message(Enabling qdeclarative booster.)
@@ -371,6 +378,3 @@ contains(DEFINES, QDECLARATIVE_BOOSTER): {
     QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
     QMAKE_LFLAGS += -pie -rdynamic
 }
-
-RESOURCES += \
-    qtquick2_sailfish.qrc
