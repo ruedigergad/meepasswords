@@ -355,7 +355,8 @@ OTHER_FILES += \
     synctoimap/qml/synctoimap/SyncToImapBase.qml \
     synctoimap/qml/synctoimap/SyncDirToImap.qml \
     synctoimap/qml/synctoimpa/SyncFileToImap.qml \
-    synctoimap/qml/synctoimap/SyncMessageDeleter.qml
+    synctoimap/qml/synctoimap/SyncMessageDeleter.qml \
+    qml/qtquick2/sailfish/common/CommonEntryListView.qml
 
 
 

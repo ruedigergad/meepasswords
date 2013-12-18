@@ -55,7 +55,7 @@ Rectangle {
         }
     }
 
-    ListView {
+    CommonEntryListView {
         id: entryListView
 
         function setData(){

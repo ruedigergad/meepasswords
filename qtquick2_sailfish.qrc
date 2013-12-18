@@ -10,5 +10,6 @@
         <file alias="CommonToolIcon.qml">qml/qtquick2/sailfish/common/CommonToolIcon.qml</file>
         <file alias="CommonButton.qml">qml/qtquick2/sailfish/common/CommonButton.qml</file>
         <file>meepasswords_64x64.png</file>
+        <file alias="CommonEntryListView.qml">qml/qtquick2/sailfish/common/CommonEntryListView.qml</file>
     </qresource>
 </RCC>
