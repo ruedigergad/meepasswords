@@ -11,5 +11,6 @@
         <file alias="CommonButton.qml">qml/qtquick2/sailfish/common/CommonButton.qml</file>
         <file>meepasswords_64x64.png</file>
         <file alias="CommonEntryListView.qml">qml/qtquick2/sailfish/common/CommonEntryListView.qml</file>
+        <file alias="CommonEntryDelegate.qml">qml/qtquick2/sailfish/common/CommonEntryDelegate.qml</file>
     </qresource>
 </RCC>

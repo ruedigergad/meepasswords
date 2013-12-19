@@ -2,16 +2,15 @@ import QtQuick 2.0
 
 Text {
     id: textDelegate
-    width: parent.width
 
-    text: name;
-    font.pointSize: primaryFontSize
-    wrapMode: Text.WordWrap
-    horizontalAlignment: Text.AlignHCenter
-//    color: mouseArea.pressed ? "gray" : "black"
+    signal pressAndHold
+
     color: primaryFontColor
-
-    property alias mouseArea: mouseArea
+    font.pointSize: primaryFontSize    
+    horizontalAlignment: Text.AlignHCenter
+    text: name
+    width: parent.width
+    wrapMode: Text.WordWrap
 
     MouseArea{
         id: mouseArea
@@ -40,8 +39,7 @@ Text {
             entryListView.currentIndex = index
             editEntry()
         }
-//        onPressAndHold: {
-//            entryListView.currentIndex = index
-//        }
+
+        onPressAndHold: textDelegate.pressAndHold()
     }
 }

@@ -102,11 +102,11 @@ Rectangle {
             property string entryPassword: password
             property string entryNotes: notes
 
-            color: entryDelegate.mouseArea.pressed ? secondaryBackgroundColor : "transparent"
+            color: secondaryBackgroundColor
             height: entryDelegate.height
             width: parent.width
 
-            EntryDelegate {
+            CommonEntryDelegate {
                 id: entryDelegate
             }
         }
