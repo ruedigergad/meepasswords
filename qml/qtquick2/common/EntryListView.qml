@@ -33,25 +33,8 @@ Rectangle {
         anchors.fill: parent
         visible: entryListView.model.count <= 0
 
-        Text {
-            id: noEntriesText
+        CommonPlaceHolder {
 
-            anchors.centerIn: parent
-            color: secondaryFontColor
-            font.pointSize: primaryFontSize * 1.25
-            horizontalAlignment: Text.AlignHCenter
-            text: "No entries yet."
-            wrapMode: Text.WordWrap
-        }
-
-        Text {
-            anchors{ top: noEntriesText.bottom; topMargin: primaryFontSize * 0.5
-                     left: parent.left; right: parent.right}
-            color: secondaryFontColor
-            font.pointSize: primaryFontSize
-            horizontalAlignment: Text.AlignHCenter
-            text: "Use + to add new entries."
-            wrapMode: Text.WordWrap
         }
     }
 

@@ -15,5 +15,6 @@
         <file>icons/meepasswords_lock.png</file>
         <file>icons/meepasswords_locked_gray.png</file>
         <file>icons/meepasswords_unlocked_gray.png</file>
+        <file alias="CommonPlaceHolder.qml">qml/qtquick2/sailfish/common/CommonPlaceHolder.qml</file>
     </qresource>
 </RCC>
