@@ -30,6 +30,11 @@ exists("/usr/lib/qt5/qml/Sailfish/Silica/SilicaGridView.qml"): {
 
     CONFIG += link_pkgconfig
     PKGCONFIG += qmfclient5
+
+    QMAKE_LFLAGS += '-Wl,-rpath,/usr/share/harbour-meepasswords/qca/lib'
+
+    sailfishQcaLibs.source = lib_sailfish/qca
+    sailfishQcaLibs.target = /usr/share/harbour-meepasswords
 } else:exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     message(Harmattan Build)
     MEEGO_VERSION_MAJOR     = 1

@@ -46,7 +46,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     qDebug("Starting MeePasswords...");
 
-#if defined(LINUX_DESKTOP)
+#if defined(MER_EDITION_SAILFISH)
+    EnvVarHelper::appendToEnvironmentVariable("LD_LIBRARY_PATH", "/usr/share/harbour-meepasswords/qca/lib");
+    EnvVarHelper::appendToEnvironmentVariable("QT_PLUGIN_PATH", "/usr/share/harbour-meepasswords/qca/plugins");
+#elif defined(LINUX_DESKTOP)
     EnvVarHelper::appendToEnvironmentVariable("QT_PLUGIN_PATH", EnvVarHelper::getOwnLibPath() + "/qca/plugins");
 #endif
     SyncToImap::init();

@@ -12,7 +12,7 @@ Name:       harbour-meepasswords
 %{!?qtc_qmake5:%define qtc_qmake5 %qmake5}
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
-Summary:    A Password Storage
+Summary:    Keep your passwords protected.
 Version:    2.1.1
 Release:    1
 Group:      Qt/Qt
@@ -59,6 +59,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 %{_datadir}/icons/hicolor/86x86/apps
 %{_datadir}/applications
+%{_datadir}/harbour-meepasswords
 %{_bindir}/%{name}
 # >> files
 # << files
