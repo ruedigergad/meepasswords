@@ -33,8 +33,11 @@ exists("/usr/lib/qt5/qml/Sailfish/Silica/SilicaGridView.qml"): {
 
     QMAKE_LFLAGS += '-Wl,-rpath,/usr/share/harbour-meepasswords/qca/lib'
 
-    sailfishQcaLibs.source = lib_sailfish/qca
-    sailfishQcaLibs.target = /usr/share/harbour-meepasswords
+    sailfishQcaLib.files = lib_sailfish/qca/lib/libqca-qt5.so.2
+    sailfishQcaLib.path = /usr/share/harbour-meepasswords/qca/lib
+    sailfishQcaPlugins.files = lib_sailfish/qca/plugins/libqca-ossl.so lib_sailfish/qca/plugins/libqca-logger.so lib_sailfish/qca/plugins/libqca-softstore.so
+    sailfishQcaPlugins.path = /usr/share/harbour-meepasswords/qca/plugins/qca-qt5
+    INSTALLS += sailfishQcaLib sailfishQcaPlugins
 } else:exists($$QMAKE_INCDIR_QT"/../applauncherd/MDeclarativeCache"): {
     message(Harmattan Build)
     MEEGO_VERSION_MAJOR     = 1
