@@ -38,6 +38,41 @@ ApplicationWindow {
 
     property string iconNameSuffix: "-white"
 
+    cover: CoverBackground {
+        Cover {
+            anchors.fill: parent
+
+            Image {
+                id: lockStatusIcon
+
+                anchors { horizontalCenter: parent.horizontalCenter; bottom: dummy.top; bottomMargin: 12}
+                source: mainFlickable.loggedIn ? "qrc:/icons/meepasswords_unlocked_gray.png" :  "qrc:/icons/meepasswords_locked_gray.png"
+            }
+
+            Item {
+                id: dummy
+                anchors.centerIn: parent
+            }
+
+            Label {
+                id: lockStatusLabel
+
+                anchors { horizontalCenter: parent.horizontalCenter; top: dummy.bottom; topMargin: 12}
+                color: primaryFontColor
+                text: mainFlickable.loggedIn ? "Unlocked" : "Locked"
+            }
+
+            CoverActionList {
+                enabled: mainFlickable.loggedIn
+
+                CoverAction {
+                    iconSource: "qrc:/icons/meepasswords_lock.png"
+                    onTriggered: mainFlickable.logOut()
+                }
+            }
+        }
+    }
+
     initialPage: Page {
         id: mainPage
 

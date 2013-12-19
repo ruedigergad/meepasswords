@@ -12,5 +12,8 @@
         <file>meepasswords_64x64.png</file>
         <file alias="CommonEntryListView.qml">qml/qtquick2/sailfish/common/CommonEntryListView.qml</file>
         <file alias="CommonEntryDelegate.qml">qml/qtquick2/sailfish/common/CommonEntryDelegate.qml</file>
+        <file>icons/meepasswords_lock.png</file>
+        <file>icons/meepasswords_locked_gray.png</file>
+        <file>icons/meepasswords_unlocked_gray.png</file>
     </qresource>
 </RCC>
