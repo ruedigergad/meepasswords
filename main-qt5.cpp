@@ -26,6 +26,10 @@
 #include <QProcess>
 #include <QtQml>
 
+#if defined(MER_EDITION_SAILFISH)
+#include <sailfishapp.h>
+#endif
+
 #if defined(LINUX_DESKTOP)
 #include <QIcon>
 #endif
@@ -50,13 +54,14 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QCoreApplication::addLibraryPath("/usr/share/harbour-meepasswords/qca/plugins");
     EnvVarHelper::appendToEnvironmentVariable("LD_LIBRARY_PATH", "/usr/share/harbour-meepasswords/qca/lib");
     EnvVarHelper::appendToEnvironmentVariable("QT_PLUGIN_PATH", "/usr/share/harbour-meepasswords/qca/plugins");
+    QGuiApplication *app = SailfishApp::application(argc, argv);
+    QQuickView *view = SailfishApp::createView();
 #elif defined(LINUX_DESKTOP)
     EnvVarHelper::appendToEnvironmentVariable("QT_PLUGIN_PATH", EnvVarHelper::getOwnLibPath() + "/qca/plugins");
-#endif
-    SyncToImap::init();
-
     QApplication *app = new QApplication(argc, argv);
     QQuickView *view = new QQuickView();
+#endif
+    SyncToImap::init();
 
     QCoreApplication::setOrganizationName("ruedigergad.com");
     QCoreApplication::setOrganizationDomain("ruedigergad.com");
@@ -81,11 +86,11 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     view->setResizeMode(QQuickView::SizeRootObjectToView);
     view->setSource(QUrl("qrc:/main.qml"));
-#if defined(LINUX_DESKTOP)
+#if defined(MER_EDITION_SAILFISH)
+    view->show();
+#elif defined(LINUX_DESKTOP)
     view->resize(400, 500);
     view->show();
-#elif defined(MER_EDITION_SAILFISH)
-    view->showFullScreen();
 #endif
 
     int ret = app->exec();

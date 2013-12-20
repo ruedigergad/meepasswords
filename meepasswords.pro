@@ -28,8 +28,10 @@ exists("/usr/lib/qt5/qml/Sailfish/Silica/SilicaGridView.qml"): {
     RESOURCES += qtquick2_sailfish.qrc
     CONFIG += crypto
 
+    CONFIG += sailfishapp
+
     CONFIG += link_pkgconfig
-    PKGCONFIG += qmfclient5
+    PKGCONFIG += qmfclient5 sailfishapp
 
     QMAKE_LFLAGS += '-Wl,-rpath,/usr/share/harbour-meepasswords/qca/lib'
 
