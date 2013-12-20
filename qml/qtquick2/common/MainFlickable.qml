@@ -119,6 +119,7 @@ Flickable {
         } else {
             passwordInput.state = "NewPassword"
         }
+        clipboard.setText("");
         loggedIn = false
     }
 
