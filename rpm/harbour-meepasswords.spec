@@ -6,6 +6,8 @@
 Name:       harbour-meepasswords
 
 # >> macros
+%define __provides_exclude_from ^%{_datadir}/.*$
+%define __requires_exclude ^libQt5Widgets|libcrypto|libqca-qt5|libqmfclient5|libssl|libstdc++.*$
 # << macros
 
 %{!?qtc_qmake:%define qtc_qmake %qmake}
@@ -53,6 +55,7 @@ rm -rf %{buildroot}
 %qmake5_install
 
 # >> install post
+rm -rf %{buildroot}/%{_datadir}/harbour-meepasswords/qml
 # << install post
 
 %files
