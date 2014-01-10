@@ -21,11 +21,11 @@ Group:      Qt/Qt
 License:    GPLv3
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  harbour-meepasswords.yaml
-BuildRequires:  pkgconfig(sailfishapp) >= 0.0.10
-BuildRequires:  pkgconfig(Qt5Quick)
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(qmfclient5)
 BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(qmfclient5)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(sailfishapp) >= 0.0.10
 
 %description
 MeePasswords is a simple tool to securely store short snippets of sensible or confidential data such as passwords and the like.
@@ -60,9 +60,9 @@ rm -rf %{buildroot}/%{_datadir}/harbour-meepasswords/qml
 
 %files
 %defattr(-,root,root,-)
-%{_datadir}/icons/hicolor/86x86/apps
-%{_datadir}/applications
-%{_datadir}/harbour-meepasswords
 %{_bindir}/%{name}
+%{_datadir}/%{name}
+%{_datadir}/applications
+%{_datadir}/icons/hicolor/86x86/apps
 # >> files
 # << files
