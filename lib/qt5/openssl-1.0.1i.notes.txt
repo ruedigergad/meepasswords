@@ -19,6 +19,8 @@ export CXXFLAGS=" ${ARCH_FLAGS} -fpic -ffunction-sections -funwind-tables -fstac
 export CFLAGS=" ${ARCH_FLAGS} -fpic -ffunction-sections -funwind-tables -fstack-protector -fno-strict-aliasing -finline-limit=64 "
 export LDFLAGS=" ${ARCH_LINK} "
 
+./Configure android-armv7
+
 PATH=$TOOLCHAIN_PATH:$PATH make
 
 
