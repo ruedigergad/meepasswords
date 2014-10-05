@@ -7,5 +7,7 @@
         <file alias="ProgressDialog.qml">qml/qtquick2/common/ProgressDialog.qml</file>
         <file alias="Merger.qml">qml/qtquick2/common/Merger.qml</file>
         <file alias="ImapAccountSettingsSheet.qml">qml/qtquick2/common/ImapAccountSettingsSheet.qml</file>
+        <file>qml/qtquick2/android/main.qml</file>
+        <file>qml/qtquick2/android/common/MainFlickable.qml</file>
     </qresource>
 </RCC>

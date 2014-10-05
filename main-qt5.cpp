@@ -31,13 +31,13 @@
 #endif
 
 #if defined(LINUX_DESKTOP)
+#include <envvarhelper.h>
 #include <QIcon>
 #endif
 
 #include "entry.h"
 #include "entrylistmodel.h"
 #include "entrystorage.h"
-#include <envvarhelper.h>
 
 #include "qmlclipboardadapter.h"
 #include "settingsadapter.h"
@@ -60,8 +60,14 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     EnvVarHelper::appendToEnvironmentVariable("QT_PLUGIN_PATH", EnvVarHelper::getOwnLibPath() + "/qca/plugins");
     QApplication *app = new QApplication(argc, argv);
     QQuickView *view = new QQuickView();
+#else
+    QApplication *app = new QApplication(argc, argv);
+    QQuickView *view = new QQuickView();
 #endif
+
+#if defined(SYNC_TO_IMAP_SUPPORT)
     SyncToImap::init();
+#endif
 
     QCoreApplication::setOrganizationName("ruedigergad.com");
     QCoreApplication::setOrganizationDomain("ruedigergad.com");
@@ -70,7 +76,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<Entry>("meepasswords", 1, 0, "Entry");
     qmlRegisterType<EntryListModel>("meepasswords", 1, 0, "EntryListModel");
     qmlRegisterType<EntrySortFilterProxyModel>("meepasswords", 1, 0, "EntrySortFilterProxyModel");
+#ifndef Q_OS_ANDROID
+    // For Android, we need to get QCA working first.
+    // So far, we cannot really do anything meaningful yet but to prepare general packaging
+    // and test if MeePasswords builds and deploys at all.
     qmlRegisterType<EntryStorage>("meepasswords", 1, 0, "EntryStorage");
+#endif
 
     qmlRegisterType<QmlClipboardAdapter>("meepasswords", 1, 0, "QClipboard");
     qmlRegisterType<SettingsAdapter>("meepasswords", 1, 0, "SettingsAdapter");
@@ -86,16 +97,14 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     view->setResizeMode(QQuickView::SizeRootObjectToView);
     view->setSource(QUrl("qrc:/main.qml"));
-#if defined(MER_EDITION_SAILFISH)
-    view->show();
-#elif defined(LINUX_DESKTOP)
+#if defined(LINUX_DESKTOP)
     view->resize(400, 500);
-    view->show();
 #endif
+    view->show();
 
     int ret = app->exec();
 
-#if defined(LINUX_DESKTOP)
+#if defined(SYNC_TO_IMAP_SUPPORT)
     SyncToImap::shutdown();
 #endif
 
