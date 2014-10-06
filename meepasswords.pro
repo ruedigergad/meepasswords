@@ -4,7 +4,7 @@ android: {
     message(Android build with Qt version: $$QT_VERSION)
     TEMPLATE = app
 
-    QT += qml quick widgets xml
+    QT += concurrent qml quick widgets xml
 
     DEFINES += QT5_BUILD
 
@@ -14,7 +14,7 @@ android: {
 
     LIBS += \
         -L$$PWD/lib/qt5/build/android/android-14/qca/lib \
-        -lqca-qt5 \
+        -l:libqca-qt5.so \
 
     HEADERS += \
         entry.h \
@@ -57,6 +57,14 @@ android: {
 
     OTHER_FILES += \
         android/AndroidManifest.xml
+
+    contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+        message(Adding Android armeabi-v7a QCA libs.)
+        ANDROID_EXTRA_LIBS = \
+            $$PWD/../../../../Qt5.3.2/5.3/android_armv7/lib/libQt5Concurrent.so \
+            $$PWD/lib/qt5/build/android/android-14/qca/lib/libqca-qt5.so \
+            $$PWD/lib/qt5/build/android/android-14/qca/lib/libqca-ossl.so
+    }
 } else {
     message(Building with Qt version: $$QT_VERSION)
 
