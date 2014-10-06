@@ -14,15 +14,11 @@ export OPENSSL_LIBRARIES=~/Qt5.3.2/android/openssl/openssl-1.0.1i
 export OPENSSL_INCLUDE_DIR=~/Qt5.3.2/android/openssl/openssl-1.0.1i/include
 
 sed -i 's/sys\/termios/termios/g' src/support/console.cpp
+sed -i 's/IF (OPENSSL_FOUND)/#IF (OPENSSL_FOUND)/g' plugins/CMakeLists.txt
+sed -i 's/ENDIF(OPENSSL_FOUND)/#ENDIF(OPENSSL_FOUND)/g' plugins/CMakeLists.txt
+sed -i 's\${OPENSSL_LIBRARIES}\/home/rc/Qt5.3.2/android/openssl/openssl-1.0.1i/libssl.a /home/rc/Qt5.3.2/android/openssl/openssl-1.0.1i/libcrypto.a\g' plugins/qca-ossl/CMakeLists.txt
 
-cmake -DCMAKE_TOOLCHAIN_FILE=../../android.toolchain.cmake -DANDROID_STANDALONE_TOOLCHAIN=./android-toolchain-arm -DANDROID_TOOLCHAIN_NAME=standalone -DBUILD_TESTS=OFF -DCMAKE_PREFIX_PATH=${QT_ANDROID}/lib/cmake -G "Unix Makefiles"
+cmake -DCMAKE_TOOLCHAIN_FILE=../../android.toolchain.cmake -DANDROID_STANDALONE_TOOLCHAIN=./android-toolchain-arm -DANDROID_TOOLCHAIN_NAME=standalone -DBUILD_TESTS=OFF -DCMAKE_PREFIX_PATH=${QT_ANDROID}/lib/cmake -DOPENSSL_INCLUDE_DIR=~/Qt5.3.2/android/openssl/openssl-1.0.1i/include -G "Unix Makefiles"
 
 make
-
-
-
-/home/rc/repositories/private/qt/meepasswords/lib/qt5/qca-build/qca/src/support/console.cpp:33:26: fatal error: sys/termios.h: No such file or directory
- # include <sys/termios.h>
-
-
 
