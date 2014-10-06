@@ -76,12 +76,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qmlRegisterType<Entry>("meepasswords", 1, 0, "Entry");
     qmlRegisterType<EntryListModel>("meepasswords", 1, 0, "EntryListModel");
     qmlRegisterType<EntrySortFilterProxyModel>("meepasswords", 1, 0, "EntrySortFilterProxyModel");
-#ifndef Q_OS_ANDROID
-    // For Android, we need to get QCA working first.
-    // So far, we cannot really do anything meaningful yet but to prepare general packaging
-    // and test if MeePasswords builds and deploys at all.
     qmlRegisterType<EntryStorage>("meepasswords", 1, 0, "EntryStorage");
-#endif
 
     qmlRegisterType<QmlClipboardAdapter>("meepasswords", 1, 0, "QClipboard");
     qmlRegisterType<SettingsAdapter>("meepasswords", 1, 0, "SettingsAdapter");

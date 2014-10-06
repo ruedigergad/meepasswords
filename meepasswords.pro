@@ -6,29 +6,35 @@ android: {
 
     QT += qml quick widgets xml
 
+    DEFINES += QT5_BUILD
+
     INCLUDEPATH += \
         lib/qt5/include \
         lib/qt5/include/QtCrypto
 
+    LIBS += \
+        -L$$PWD/lib/qt5/build/android/android-14/qca/lib \
+        -lqca-qt5 \
+
     HEADERS += \
         entry.h \
         entrylistmodel.h \
+        entrystorage.h \
         keepassxmlstreamreader.h \
         keepassxmlstreamwriter.h \
         qmlclipboardadapter.h \
         entrysortfilterproxymodel.h \
         settingsadapter.h
-#       entrystorage.h \
 
     SOURCES += \
         entry.cpp \
         entrylistmodel.cpp \
+        entrystorage.cpp \
         keepassxmlstreamreader.cpp \
         keepassxmlstreamwriter.cpp \
         entrysortfilterproxymodel.cpp \
         settingsadapter.cpp \
         main-qt5.cpp
-#       entrystorage.cpp \
 
     RESOURCES += android.qrc
 
