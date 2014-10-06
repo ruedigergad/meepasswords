@@ -1,0 +1,19 @@
+mkdir qca-build
+tar xf qca-master-0768474.tar.gz -C qca-build/
+cd qca-build/qca
+
+export QT_ANDROID=~/Qt5.3.2/5.3/android_armv7
+
+export NDK=~/Qt5.3.2/android/android-ndk-r10b
+$NDK/build/tools/make-standalone-toolchain.sh --platform=android-14 --toolchain=arm-linux-androideabi-4.8 --install-dir=`pwd`/android-toolchain-arm
+
+cp ${QT_ANDROID}/bin/* android-toolchain-arm/bin/
+cp -r ${QT_ANDROID}/include/* android-toolchain-arm/include/
+
+export OPENSSL_LIBRARIES=~/Qt5.3.2/android/openssl/openssl-1.0.1i
+export OPENSSL_INCLUDE_DIR=~/Qt5.3.2/android/openssl/openssl-1.0.1i/include
+
+cmake -DCMAKE_TOOLCHAIN_FILE=../../android.toolchain.cmake -DANDROID_STANDALONE_TOOLCHAIN=./android-toolchain-arm -DANDROID_TOOLCHAIN_NAME=standalone -DBUILD_TESTS=OFF -DCMAKE_PREFIX_PATH=${QT_ANDROID}/lib/cmake -G "Unix Makefiles"
+
+make
+
