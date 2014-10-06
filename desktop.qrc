@@ -10,5 +10,6 @@
         <file alias="qml/common/CommonToolIcon.qml">qml/desktop/common/CommonToolIcon.qml</file>
         <file alias="qml/common/CommonButton.qml">qml/desktop/common/CommonButton.qml</file>
         <file>qml/common/ImapAccountSettingsSheet.qml</file>
+        <file alias="CommonEntryListView.qml">qml/qtquick2/desktop/common/CommonEntryListView.qml</file>
     </qresource>
 </RCC>

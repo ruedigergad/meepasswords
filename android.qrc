@@ -72,5 +72,6 @@
         <file alias="Dialog.qml">qml/qtquick2/desktop/common/Dialog.qml</file>
         <file alias="main.qml">qml/qtquick2/android/main.qml</file>
         <file alias="MainFlickable.qml">qml/qtquick2/android/common/MainFlickable.qml</file>
+        <file alias="CommonEntryListView.qml">qml/qtquick2/desktop/common/CommonEntryListView.qml</file>
     </qresource>
 </RCC>
