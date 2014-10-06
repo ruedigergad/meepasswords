@@ -31,10 +31,9 @@ Flickable {
     property alias confirmDeleteSyncMessage: confirmDeleteSyncMessage
     property alias confirmSyncToImapDialog: confirmSyncToImapDialog
     property alias deleteConfirmationDialog: deleteConfirmationDialog
-//    property alias entryStorage: entryStorage
+    property alias entryStorage: entryStorage
 //    property alias fileHelper: fileHelper
 //    property alias imapAccountSettings: imapAccountSettings
-    property QtObject entryStorage;
     property QtObject fileHelper;
     property QtObject imapAccountSettings;
     property alias meePasswordsToolBar: meePasswordsToolBar
@@ -278,36 +277,36 @@ Flickable {
         onClosed: entryListView.focus = true
     }
 
-//    EntryStorage {
-//        id: entryStorage
+    EntryStorage {
+        id: entryStorage
 
-//        onStorageOpenSuccess: {
-//            passwordInput.state = "EnterPassword"
-//            newStorage = false
-//        }
-//        onStorageOpenSuccessNewPassword: {
-//            passwordInput.state = "NewPassword"
-//            newStorage = true
-//        }
+        onStorageOpenSuccess: {
+            passwordInput.state = "EnterPassword"
+            newStorage = false
+        }
+        onStorageOpenSuccessNewPassword: {
+            passwordInput.state = "NewPassword"
+            newStorage = true
+        }
 
-//        onDecryptionFailed: {
-//            console.log("Decryption failed.")
-//            passwordInput.state = "DecryptionFailed"
-//        }
+        onDecryptionFailed: {
+            console.log("Decryption failed.")
+            passwordInput.state = "DecryptionFailed"
+        }
 
-//        onDecryptionSuccess: {
-//            console.log("Decryption successful, logging in.")
-//            loggedIn = true
-//            passwordInput.password = ""
-//        }
+        onDecryptionSuccess: {
+            console.log("Decryption successful, logging in.")
+            loggedIn = true
+            passwordInput.password = ""
+        }
 
-//        onNewFileOpened: state = "LoginSuccess"
+        onNewFileOpened: state = "LoginSuccess"
 
-//        onOperationFailed: {
-//            errorDialog.message = message;
-//            errorDialog.open();
-//        }
-//    }
+        onOperationFailed: {
+            errorDialog.message = message;
+            errorDialog.open();
+        }
+    }
 
     QClipboard{
         id: clipboard
