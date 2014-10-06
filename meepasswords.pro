@@ -50,7 +50,11 @@ android: {
         target.path = /libs/armeabi
     }
     export(target.path)
-    INSTALLS += target
+
+    qca-ossl.files = $$PWD/lib/qt5/build/android/android-14/qca/lib/libplugins_crypto_libqca-ossl.so
+    qca-ossl.path = /libs/armeabi-v7a
+
+    INSTALLS += target qca-ossl
     export(INSTALLS)
 
     ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
