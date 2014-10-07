@@ -20,9 +20,10 @@
 import QtQuick 2.0
 
 Item {
+    height: entryDelegate.height
     width: parent.width
 
     EntryDelegate {
-
+        id: entryDelegate
     }
 }
