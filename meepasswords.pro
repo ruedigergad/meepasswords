@@ -66,8 +66,7 @@ android: {
         message(Adding Android armeabi-v7a QCA libs.)
         ANDROID_EXTRA_LIBS = \
             $$PWD/../../../../Qt5.3.2/5.3/android_armv7/lib/libQt5Concurrent.so \
-            $$PWD/lib/qt5/build/android/android-14/qca/lib/libqca-qt5.so \
-            $$PWD/lib/qt5/build/android/android-14/qca/lib/libqca-ossl.so
+            $$PWD/lib/qt5/build/android/android-14/qca/lib/libqca-qt5.so
     }
 } else {
     message(Building with Qt version: $$QT_VERSION)
