@@ -41,6 +41,11 @@ Rectangle {
     CommonEntryListView {
         id: entryListView
 
+        anchors.fill: parent
+        clip: true
+        model: entryStorage.getModel()
+        visible: model.count
+
         function setData(){
             if (count > 0 && currentIndex >= 0) {
                 editEntryRectangle.entryId = currentItem.entryId
@@ -56,11 +61,6 @@ Rectangle {
                 editEntryRectangle.resetContent()
             }
         }
-
-        anchors.fill: parent
-        clip: true
-        model: entryStorage.getModel()
-        visible: model.count
 
         onCurrentIndexChanged: {
             if (currentIndex >= count) {
