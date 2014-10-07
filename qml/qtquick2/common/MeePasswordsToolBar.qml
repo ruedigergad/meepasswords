@@ -28,13 +28,14 @@ Row {
         verticalCenter: parent.verticalCenter
     }
     height: iconAdd.height
-    spacing: (toolBar.width - (5 * iconAdd.width)) / 4
+    spacing: primaryBorderSize * 0.25
 
     CommonToolIcon {
         id: iconBack
 
         iconSource: "qrc:/icons/back" + iconNameSuffix + ".png"
         opacity: enabled ? 1 : 0.5
+        width: (parent.width - 4 * parent.spacing) / 5
 
         onClicked: logOut()
     }
@@ -44,6 +45,7 @@ Row {
 
         iconSource: "qrc:/icons/add" + iconNameSuffix + ".png"
         opacity: enabled ? 1 : 0.5
+        width: (parent.width - 4 * parent.spacing) / 5
 
         onClicked: addEntry()
     }
@@ -54,6 +56,7 @@ Row {
         enabled: entryListView.listView.currentIndex > -1
         iconSource: "qrc:/icons/delete" + iconNameSuffix + ".png"
         opacity: enabled ? 1 : 0.5
+        width: (parent.width - 4 * parent.spacing) / 5
 
         onClicked: deleteEntry()
     }
@@ -64,6 +67,7 @@ Row {
         enabled: entryListView.listView.currentIndex > -1
         iconSource: "qrc:/icons/next" + iconNameSuffix + ".png"
         opacity: enabled ? 1 : 0.5
+        width: (parent.width - 4 * parent.spacing) / 5
 
         onClicked: editEntry()
     }
@@ -73,6 +77,7 @@ Row {
 
         iconSource: "qrc:/icons/menu" + iconNameSuffix + ".png"
         opacity: enabled ? 1 : 0.5
+        width: (parent.width - 4 * parent.spacing) / 5
 
         onClicked: ! mainMenu.isOpen ? mainMenu.open() : mainMenu.close()
     }
