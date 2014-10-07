@@ -31,9 +31,9 @@ Rectangle {
     property string secondaryFontColor: "gray"
 
     property string primaryBackgroundColor: "lightgray"
-    property double primaryBackgroundOpacity: 0.9
-    property string secondaryBackgroundColor: "gray"
-    property double secondaryBackgroundOpacity: 0.9
+    property double primaryBackgroundOpacity: 1
+    property string secondaryBackgroundColor: "lightgray"
+    property double secondaryBackgroundOpacity: 1
 
     property string iconNameSuffix: ""
 

@@ -26,7 +26,7 @@ Rectangle {
     property alias listView: entryListView
 
 //    color: "lightgoldenrodyellow"
-    color: primaryBackgroundColor
+    color: secondaryBackgroundColor
 
     Item {
         id: placeHolder
@@ -85,7 +85,7 @@ Rectangle {
             property string entryPassword: password
             property string entryNotes: notes
 
-            color: secondaryBackgroundColor
+            color: primaryBackgroundColor
             height: entryDelegate.height
             width: parent.width
 
