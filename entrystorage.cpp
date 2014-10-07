@@ -22,6 +22,8 @@
 #ifdef MEEGO_EDITION_HARMATTAN
 //#include <aegis_crypto.h>
 #include <QDesktopServices>
+#else
+#include <QStandardPaths>
 #endif
 
 #include <QDebug>
@@ -84,6 +86,8 @@ QString EntryStorage::getBase64Hash(QString password){
 QString EntryStorage::getStorageDirPath() {
 #ifdef MEEGO_EDITION_HARMATTAN
     return QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#elif defined(Q_OS_ANDROID)
+    return QStandardPaths::standardLocations(QStandardPaths::DataLocation).at(1);
 #else
     return QDir::homePath() + "/." + DEFAULT_STORAGE;
 #endif
