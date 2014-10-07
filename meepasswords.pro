@@ -36,7 +36,7 @@ android: {
         settingsadapter.cpp \
         main-qt5.cpp
 
-    RESOURCES += android.qrc
+    RESOURCES += qtquick2_android.qrc
 
     # Additional import path used to resolve QML modules in Qt Creator's code model
     QML_IMPORT_PATH =
