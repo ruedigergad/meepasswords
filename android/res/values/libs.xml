@@ -16,7 +16,7 @@
      </array>
 
     <array name="bundled_in_lib">
-        <item>libplugins_crypto_libqca-ossl.so:plugins/crypto/libqca-ossl.so</item>
+        <item>libplugins_qca-qt5_libqca-ossl.so:plugins/qca-qt5/libqca-ossl.so</item>
         <!-- %%INSERT_BUNDLED_IN_LIB%% -->
     </array>
     <array name="bundled_in_assets">
