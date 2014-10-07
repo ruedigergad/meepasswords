@@ -40,7 +40,6 @@ Flickable {
     property alias toolBar: toolBar
     property bool newStorage: false
     property alias passwordChangeDialog: passwordChangeDialog
-    property alias settingsAdapter: settingsAdapter
     // Dirty hack to hide the toolbar.
     property bool showToolBar: true
     property alias listView: entryListView.listView
@@ -448,7 +447,4 @@ Flickable {
 //        id: fileHelper
 //    }
 
-    SettingsAdapter {
-        id: settingsAdapter
-    }
 }
