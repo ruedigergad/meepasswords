@@ -202,7 +202,7 @@ android: {
                 lib/qt5/include/QtCrypto
 
             LIBS += \
-                -L$$PWD/lib/qt5/build/linux/x86_64 \
+                -L$$PWD/lib/qt5/build/linux/x86_64/qca \
                 -lqca-qt5 \
                 -L$$PWD/synctoimap/lib/build/linux/x86_64/qmf/lib \
                 -lqmfclient5
