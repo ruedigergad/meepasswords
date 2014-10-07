@@ -25,14 +25,14 @@ Rectangle {
     id: main
 
     property int primaryFontSize: 30
-    property int primaryBorderSize: 25
+    property int primaryBorderSize: 35
 
     property string primaryFontColor: "black"
     property string secondaryFontColor: "gray"
 
     property string primaryBackgroundColor: "lightgray"
     property double primaryBackgroundOpacity: 0.9
-    property string secondaryBackgroundColor: "gray"
+    property string secondaryBackgroundColor: "lightgray"
     property double secondaryBackgroundOpacity: 0.9
 
     property string iconNameSuffix: ""
@@ -87,5 +87,9 @@ Rectangle {
         menuBottomOffset: mainFlickable.toolBar.height
         onClosed: mainFlickable.meePasswordsToolBar.enabled = true
         onOpened: mainFlickable.meePasswordsToolBar.enabled = false
+    }
+
+    SettingsAdapter {
+        id: settingsAdapter
     }
 }
