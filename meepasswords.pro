@@ -414,6 +414,8 @@ android: {
         qml/qtquick2/common/ProgressDialog.qml \
         qml/qtquick2/common/Merger.qml \
         qml/qtquick2/common/EntryListViewRectangle.qml \
+        qml/qtquick2/android/main.qml \
+        qml/qtquick2/android/common/MainFlickable.qml \
         qml/qtquick2/desktop/main.qml \
         qml/qtquick2/desktop/common/Dialog.qml \
         qml/qtquick2/desktop/common/CommonDialog.qml \
