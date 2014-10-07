@@ -44,7 +44,7 @@ Rectangle {
         anchors.fill: parent
         clip: true
         model: entryStorage.getModel()
-        visible: model.count
+        visible: model.count > 0
 
         function setData(){
             if (count > 0 && currentIndex >= 0) {
@@ -53,10 +53,7 @@ Rectangle {
                 editEntryRectangle.name = currentItem.entryName
                 editEntryRectangle.userName = currentItem.entryUserName
                 editEntryRectangle.password = currentItem.entryPassword
-        //            editEntryRectangle.userName = (userName !== "") ? createSimpleLink(userName) : " ";
-        //            editEntryRectangle.password = (password !== "") ? createSimpleLink(password) : " ";
                 editEntryRectangle.notes = currentItem.entryNotes
-        //            editEntryRectangle.notes = beautifyNotes(notes);
             } else {
                 editEntryRectangle.resetContent()
             }
@@ -94,20 +91,11 @@ Rectangle {
             }
         }
 
-        highlightFollowsCurrentItem: true
-        highlightMoveDuration: 100
+        highlightMoveDuration: 200
         highlight: Rectangle {
-            anchors.fill: entryListView.delegate
-//            height: entryListView.delegate.height
-//            width: entryListView.width * 0.98
-//            anchors.horizontalCenter: parent.horizontalCenter
-//            radius: primaryBorderSize / 2
-//            border.width: primaryBorderSize / 10
-//            border.color: "red"
-//            color: "transparent"
-            smooth: true
             color: "gray"
             opacity: 0.5
+            z: 100
         }
 
         section {
@@ -119,13 +107,15 @@ Rectangle {
 
                 Text {
                     id: sectionText
+                    anchors.left: parent.left
+                    anchors.leftMargin: primaryBorderSize / 2
                     anchors.right: parent.right
                     anchors.rightMargin: primaryBorderSize / 2
                     anchors.bottom: underLine.top
-                    font.pointSize: primaryFontSize
-//                    font.bold: true
-                    text: section
                     color: secondaryFontColor
+                    font.pointSize: primaryFontSize
+                    text: section
+                    horizontalAlignment: settingsAdapter.fastScrollAnchor === "right" ? Text.AlignLeft : Text.AlignRight
                 }
 
                 Rectangle {

@@ -33,11 +33,11 @@ class SettingsAdapter : public QObject
 public:
     explicit SettingsAdapter(QObject *parent = 0);
     
-    Q_INVOKABLE bool clickToOpen();
-    Q_INVOKABLE QString fastScrollAnchor();
+    bool clickToOpen();
+    QString fastScrollAnchor();
 
-    Q_INVOKABLE void setClickToOpen(bool val);
-    Q_INVOKABLE void setFastScrollAnchor(QString anchor);
+    void setClickToOpen(bool val);
+    void setFastScrollAnchor(QString anchor);
 
 signals:
     void fastScrollAnchorChanged(QString anchor);

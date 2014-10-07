@@ -16,30 +16,30 @@ Text {
         id: mouseArea
         anchors.fill: parent
 
-        function createSimpleLink(name){
-            return "<a href=\"" + name + "\" style=\"text-decoration:none; color:white\" >" + name + "</a>"
-        }
-
-        function beautifyNotes(text){
-            var ret = text.replace(/(\S*:\/\/\S*)/g, '<a href="$1" style=\"text-decoration:none; color:#78bfff\" >$1<\/a>')
-            ret = ret.replace(/\n/g, ' <br /> ')
-            ret = ret.replace(/(www\.\S*)/g, '<a href="http://$1" style=\"text-decoration:none; color:#78bfff" >$1<\/a>')
-            ret = ret.replace(/(\S*@\S*)/g, '<a href="http://$1" style=\"text-decoration:none; color:#78bfff" >$1<\/a>')
-            return ret
-        }
-
         onClicked: {
-            entryListView.currentIndex = index
+            entryListView.currentIndex = entryIndex
             if (settingsAdapter.clickToOpen) {
                 editEntry()
             }
         }
 
         onDoubleClicked: {
-            entryListView.currentIndex = index
+            entryListView.currentIndex = entryIndex
             editEntry()
         }
 
         onPressAndHold: textDelegate.pressAndHold()
+    }
+
+    function createSimpleLink(name){
+        return "<a href=\"" + name + "\" style=\"text-decoration:none; color:white\" >" + name + "</a>"
+    }
+
+    function beautifyNotes(text){
+        var ret = text.replace(/(\S*:\/\/\S*)/g, '<a href="$1" style=\"text-decoration:none; color:#78bfff\" >$1<\/a>')
+        ret = ret.replace(/\n/g, ' <br /> ')
+        ret = ret.replace(/(www\.\S*)/g, '<a href="http://$1" style=\"text-decoration:none; color:#78bfff" >$1<\/a>')
+        ret = ret.replace(/(\S*@\S*)/g, '<a href="http://$1" style=\"text-decoration:none; color:#78bfff" >$1<\/a>')
+        return ret
     }
 }
