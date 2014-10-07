@@ -106,9 +106,23 @@ Item {
             id: menuArea
 
             anchors.centerIn: parent
-            height: about.height * 7 + primaryFontSize / 3 * 8
+            height: about.height * 8 + primaryFontSize / 3 * 9
             width: parent.width
             y: parent.y
+
+            CommonButton {
+                id: toggleFastScrollAnchorPosition
+
+                anchors.bottom: changePassword.top
+                anchors.bottomMargin: primaryFontSize / 3
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Fast Scroll: " + (settingsAdapter.fastScrollAnchor === "right" ? "Right" : "Left")
+                width: parent.width - primaryFontSize
+
+                onClicked: {
+                    settingsAdapter.fastScrollAnchor = settingsAdapter.fastScrollAnchor === "right" ? "left" : "right"
+                }
+            }
 
             CommonButton {
                 id: changePassword

@@ -90,4 +90,8 @@ Rectangle {
         onClosed: mainFlickable.meePasswordsToolBar.enabled = true
         onOpened: mainFlickable.meePasswordsToolBar.enabled = false
     }
+
+    SettingsAdapter {
+        id: settingsAdapter
+    }
 }

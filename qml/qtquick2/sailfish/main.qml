@@ -102,4 +102,8 @@ ApplicationWindow {
             }
         }
     }
+
+    SettingsAdapter {
+        id: settingsAdapter
+    }
 }
