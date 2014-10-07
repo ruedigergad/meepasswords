@@ -420,6 +420,7 @@ android: {
         qml/qtquick2/desktop/common/CommonButton.qml \
         qml/qtquick2/desktop/common/CommonToolBar.qml \
         qml/qtquick2/desktop/common/ConfirmationDialog.qml \
+        qml/qtquick2/desktop/common/CommonEntryListView.qml \
         qml/qtquick2/desktop/common/CommonToolIcon.qml \
         qml/qtquick2/desktop/common/CommonTextField.qml \
         qml/qtquick2/desktop/common/CommonTextArea.qml \
