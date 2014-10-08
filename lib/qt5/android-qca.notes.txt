@@ -9,10 +9,6 @@ $NDK/build/tools/make-standalone-toolchain.sh --platform=android-14 --toolchain=
 
 cp ${QT_ANDROID}/bin/* android-toolchain-arm/bin/
 cp -r ${QT_ANDROID}/include/* android-toolchain-arm/include/
-
-export OPENSSL_LIBRARIES=~/Qt5.3.2/android/openssl/openssl-1.0.1i
-export OPENSSL_INCLUDE_DIR=~/Qt5.3.2/android/openssl/openssl-1.0.1i/include
-
 sed -i 's/sys\/termios/termios/g' src/support/console.cpp
 sed -i 's/IF (OPENSSL_FOUND)/#IF (OPENSSL_FOUND)/g' plugins/CMakeLists.txt
 sed -i 's/ENDIF(OPENSSL_FOUND)/#ENDIF(OPENSSL_FOUND)/g' plugins/CMakeLists.txt
