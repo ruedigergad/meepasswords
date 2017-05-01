@@ -1,0 +1,11 @@
+prefix=/home/rc/Qt/5.8/android_armv7
+exec_prefix=/home/rc/Qt/5.8/android_armv7
+libdir=/home/rc/Qt/5.8/android_armv7/lib
+includedir=/home/rc/Qt/5.8/android_armv7/include/Qca-qt5/QtCrypto
+
+Name: QCA
+Description: Qt Cryptographic Architecture library
+Version: 2.2.0
+Requires: Qt5Core
+Libs: -L${libdir} -lqca-qt5
+Cflags: -I${includedir}

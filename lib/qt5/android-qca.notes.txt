@@ -2,20 +2,23 @@ mkdir qca-build
 tar xf qca-master-0768474.tar.gz -C qca-build/
 cd qca-build/qca
 
-export QT_ANDROID=~/Qt5.3.2/5.3/android_armv7
+export QT_ANDROID=~/Qt/5.8/android_armv7
 
-export NDK=~/Qt5.3.2/android/android-ndk-r10b
-$NDK/build/tools/make-standalone-toolchain.sh --platform=android-14 --toolchain=arm-linux-androideabi-4.8 --install-dir=`pwd`/android-toolchain-arm
+export NDK=~/Android/android-ndk-r14b
+$NDK/build/tools/make-standalone-toolchain.sh --platform=android-16 --toolchain=arm-linux-androideabi-4.9 --install-dir=`pwd`/android-toolchain-arm
 
 cp ${QT_ANDROID}/bin/* android-toolchain-arm/bin/
 cp -r ${QT_ANDROID}/include/* android-toolchain-arm/include/
 sed -i 's/sys\/termios/termios/g' src/support/console.cpp
-sed -i 's/IF (OPENSSL_FOUND)/#IF (OPENSSL_FOUND)/g' plugins/CMakeLists.txt
-sed -i 's/ENDIF(OPENSSL_FOUND)/#ENDIF(OPENSSL_FOUND)/g' plugins/CMakeLists.txt
+# Disable OPENSSL checks in plugins/qca-ossl/CMakeLists.txt.
+sed -i 's/^endif(OPENSSL_FOUND)/#endif(OPENSSL_FOUND)/g' plugins/qca-ossl/CMakeLists.txt
+sed -i 's/^if(OPENSSL_FOUND)/#if(OPENSSL_FOUND)/g' plugins/qca-ossl/CMakeLists.txt
+# May also need to disable more OPENSSL related stuff in plugins/qca-ossl/CMakeLists.txt.
 # We statically link the OpenSSL libs to the qca-ossl plugin as suggested here: http://wiki.openssl.org/index.php/Android
-sed -i 's\${OPENSSL_LIBRARIES}\/home/rc/Qt5.3.2/android/openssl/openssl-1.0.1i/libssl.a /home/rc/Qt5.3.2/android/openssl/openssl-1.0.1i/libcrypto.a\g' plugins/qca-ossl/CMakeLists.txt
+sed -i 's\${OPENSSL_LIBRARIES}\/home/rc/repositories/private/qt/meepasswords/lib/qt5/build/android/android-16/openssl/libssl.a /home/rc/repositories/private/qt/meepasswords/lib/qt5/build/android/android-16/openssl/libcrypto.a\g' plugins/qca-ossl/CMakeLists.txt
 
-cmake -DCMAKE_TOOLCHAIN_FILE=../../android.toolchain.cmake -DANDROID_STANDALONE_TOOLCHAIN=./android-toolchain-arm -DANDROID_TOOLCHAIN_NAME=standalone -DBUILD_TESTS=OFF -DCMAKE_PREFIX_PATH=${QT_ANDROID}/lib/cmake -DOPENSSL_INCLUDE_DIR=~/Qt5.3.2/android/openssl/openssl-1.0.1i/include -G "Unix Makefiles"
+# Add "-std=c++11" to CMAKE_CXX_FLAGS in CMakeLists.txt.
+cmake -DCMAKE_TOOLCHAIN_FILE=../../android.toolchain.cmake -DANDROID_STANDALONE_TOOLCHAIN=./android-toolchain-arm -DANDROID_TOOLCHAIN_NAME=standalone -DBUILD_TESTS=OFF -DCMAKE_PREFIX_PATH=${QT_ANDROID}/lib/cmake -DOPENSSL_INCLUDE_DIR=/home/rc/repositories/private/qt/meepasswords/lib/qt5/tmp/openssl-1.0.2k/include -G "Unix Makefiles" -DWITH_gnupg_PLUGIN=off -DWITH_ossl_PLUGIN=on -DWITH_pkcs11_PLUGIN=off
 # Remember to change the soname as well.
 # Grep for "soname" and change the according entry.
 
