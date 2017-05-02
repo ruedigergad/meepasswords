@@ -192,48 +192,29 @@ android: {
         arch = x86_64
         os = linux
 
-        isEqual(QT_MAJOR_VERSION, 5) {
-            message(Qt5 Build)
+        DEFINES += QT5_BUILD
 
-            DEFINES += QT5_BUILD
+        INCLUDEPATH += \
+            lib/qt5/include \
+            lib/qt5/include/QtCrypto
 
-            INCLUDEPATH += \
-                lib/qt5/include \
-                lib/qt5/include/QtCrypto
+        LIBS += \
+            -L$$PWD/lib/qt5/build/linux/x86_64/qca \
+            -lqca-qt5 \
+            -L$$PWD/synctoimap/lib/build/linux/x86_64/qmf/lib \
+            -lqmfclient5
+        QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/lib/qca:\$$ORIGIN/lib/qmf/lib\''
 
-            LIBS += \
-                -L$$PWD/lib/qt5/build/linux/x86_64/qca \
-                -lqca-qt5 \
-                -L$$PWD/synctoimap/lib/build/linux/x86_64/qmf/lib \
-                -lqmfclient5
-            QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/lib/qca:\$$ORIGIN/lib/qmf/lib\''
+        QT += qml quick
 
-            QT += qml quick
+        RESOURCES += \
+            qtquick2_desktop.qrc
 
-            RESOURCES += \
-                qtquick2_desktop.qrc
-
-            desktopQcaLibs.source = lib/qt5/build/linux/x86_64/qca
-            desktopQcaLibs.target = lib
-            desktopQmfLibs.source = synctoimap/lib/build/linux/x86_64/qmf
-            desktopQmfLibs.target = lib
-            DEPLOYMENTFOLDERS += desktopQcaLibs desktopQmfLibs
-        } else {
-            message(Qt4 Build)
-
-            INCLUDEPATH += \
-                lib/include
-
-            LIBS += \
-                -L$$PWD/lib/link/linux/x86_64 \
-                -lqmfclient
-
-            qmfLibs.source = lib/build/$${os}/$${arch}/qmf
-            DEPLOYMENTFOLDERS += qmfLibs
-
-            CONFIG += link_pkgconfig
-            PKGCONFIG += qca2
-        }
+        desktopQcaLibs.source = lib/qt5/build/linux/x86_64/qca
+        desktopQcaLibs.target = lib
+        desktopQmfLibs.source = synctoimap/lib/build/linux/x86_64/qmf
+        desktopQmfLibs.target = lib
+        DEPLOYMENTFOLDERS += desktopQcaLibs desktopQmfLibs
     }
 
     contains(DEFINES, SYNC_TO_IMAP_SUPPORT): {
