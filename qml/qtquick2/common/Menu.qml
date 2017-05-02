@@ -106,7 +106,7 @@ Item {
             id: menuArea
 
             anchors.centerIn: parent
-            height: about.height * 8 + primaryFontSize / 3 * 9
+            height: about.height * 5 + primaryFontSize / 3 * 6
             width: parent.width
             y: parent.y
 
@@ -127,7 +127,7 @@ Item {
             CommonButton {
                 id: changePassword
 
-                anchors.bottom: syncToImap.top
+                anchors.bottom: exportKeePassXml.top
                 anchors.bottomMargin: primaryFontSize / 3
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: "Change Password"
@@ -139,50 +139,50 @@ Item {
                 }
             }
 
-            CommonButton {
-                id: syncToImap
+//            CommonButton {
+//                id: syncToImap
 
-                anchors.bottom: syncDeleteMessage.top
-                anchors.bottomMargin: primaryFontSize / 3
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: "Sync"
-                width: parent.width - primaryFontSize
+//                anchors.bottom: syncDeleteMessage.top
+//                anchors.bottomMargin: primaryFontSize / 3
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                text: "Sync"
+//                width: parent.width - primaryFontSize
 
-                onClicked: {
-                    mainFlickable.confirmSyncToImapDialog.open()
-                    menu.close()
-                }
-            }
+//                onClicked: {
+//                    mainFlickable.confirmSyncToImapDialog.open()
+//                    menu.close()
+//                }
+//            }
 
-            CommonButton {
-                id: syncDeleteMessage
+//            CommonButton {
+//                id: syncDeleteMessage
 
-                anchors.bottom: syncAccountSettings.top
-                anchors.bottomMargin: primaryFontSize / 3
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: "Clear Sync Data"
-                width: parent.width - primaryFontSize
+//                anchors.bottom: syncAccountSettings.top
+//                anchors.bottomMargin: primaryFontSize / 3
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                text: "Clear Sync Data"
+//                width: parent.width - primaryFontSize
 
-                onClicked: {
-                    mainFlickable.confirmDeleteSyncMessage.open()
-                    menu.close()
-                }
-            }
+//                onClicked: {
+//                    mainFlickable.confirmDeleteSyncMessage.open()
+//                    menu.close()
+//                }
+//            }
 
-            CommonButton {
-                id: syncAccountSettings
+//            CommonButton {
+//                id: syncAccountSettings
 
-                anchors.bottom: exportKeePassXml.top
-                anchors.bottomMargin: primaryFontSize / 3
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: "Sync Account Settings"
-                width: parent.width - primaryFontSize
+//                anchors.bottom: exportKeePassXml.top
+//                anchors.bottomMargin: primaryFontSize / 3
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                text: "Sync Account Settings"
+//                width: parent.width - primaryFontSize
 
-                onClicked: {
-                    mainFlickable.imapAccountSettings.open()
-                    menu.close()
-                }
-            }
+//                onClicked: {
+//                    mainFlickable.imapAccountSettings.open()
+//                    menu.close()
+//                }
+//            }
 
             CommonButton {
                 id: exportKeePassXml
