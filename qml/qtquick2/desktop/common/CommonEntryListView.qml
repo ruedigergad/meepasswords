@@ -20,5 +20,5 @@
 import QtQuick 2.0
 
 ListView {
-
+    maximumFlickVelocity: 32768
 }
