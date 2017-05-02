@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import meepasswords 1.0
-import SyncToImap 1.0
+//import SyncToImap 1.0
 
 Rectangle {
     id: main
@@ -50,8 +50,8 @@ Rectangle {
     }
 
     function cleanOldFiles() {
-        console.log("Cleaning left overs from last run.")
-        mainFlickable.fileHelper.rmAll(mainFlickable.entryStorage.getStorageDirPath(), ".encrypted.");
+//        console.log("Cleaning left overs from last run.")
+//        mainFlickable.fileHelper.rmAll(mainFlickable.entryStorage.getStorageDirPath(), ".encrypted.");
     }
 
     Item {

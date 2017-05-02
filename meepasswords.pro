@@ -162,7 +162,7 @@ android: {
     }  else:win32 {
         message(Windows Build)
 
-        DEFINES += WINDOWS_DESKTOP SYNC_TO_IMAP_SUPPORT
+        DEFINES += WINDOWS_DESKTOP
         DEFINES += _UNICODE
 
     #    CONFIG += console
@@ -173,26 +173,24 @@ android: {
 
         LIBS += \
             -Llib/build/windows/x86 \
-            -lqmfclient \
             -lqca2
+#            -lqmfclient \
 
         RC_FILE = qtc_packaging/windows/meepasswords.rc
 
         RESOURCES += desktop.qrc
     } else {
         message(Linux Desktop Build)
-        DEFINES += LINUX_DESKTOP SYNC_TO_IMAP_SUPPORT
+        DEFINES += LINUX_DESKTOP QT5_BUILD
         RESOURCES += desktop.qrc
         QT += opengl
 
-    #    LIBS += \
-    #        -Wl,-rpath lib/qmf/lib
+        HEADERS += envvarhelper.h
+        SOURCES += envvarhelper.cpp
 
         # TODO: Dynamically determine architecture.
         arch = x86_64
         os = linux
-
-        DEFINES += QT5_BUILD
 
         INCLUDEPATH += \
             lib/qt5/include \
@@ -200,10 +198,11 @@ android: {
 
         LIBS += \
             -L$$PWD/lib/qt5/build/linux/x86_64/qca \
-            -lqca-qt5 \
-            -L$$PWD/synctoimap/lib/build/linux/x86_64/qmf/lib \
-            -lqmfclient5
-        QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/lib/qca:\$$ORIGIN/lib/qmf/lib\''
+            -lqca-qt5
+#            -L$$PWD/synctoimap/lib/build/linux/x86_64/qmf/lib \
+#            -lqmfclient5
+        QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/lib/qca\''
+#        QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN/lib/qca:\$$ORIGIN/lib/qmf/lib\''
 
         QT += qml quick
 
@@ -212,9 +211,9 @@ android: {
 
         desktopQcaLibs.source = lib/qt5/build/linux/x86_64/qca
         desktopQcaLibs.target = lib
-        desktopQmfLibs.source = synctoimap/lib/build/linux/x86_64/qmf
-        desktopQmfLibs.target = lib
-        DEPLOYMENTFOLDERS += desktopQcaLibs desktopQmfLibs
+#        desktopQmfLibs.source = synctoimap/lib/build/linux/x86_64/qmf
+#        desktopQmfLibs.target = lib
+        DEPLOYMENTFOLDERS += desktopQcaLibs
     }
 
     contains(DEFINES, SYNC_TO_IMAP_SUPPORT): {
