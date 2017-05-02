@@ -31,6 +31,7 @@ Flickable {
     property alias confirmDeleteSyncMessage: confirmDeleteSyncMessage
     property alias confirmSyncToImapDialog: confirmSyncToImapDialog
     property alias deleteConfirmationDialog: deleteConfirmationDialog
+    property alias editEntryRectangle: editEntryRectangle
     property alias entryStorage: entryStorage
 //    property alias fileHelper: fileHelper
 //    property alias imapAccountSettings: imapAccountSettings

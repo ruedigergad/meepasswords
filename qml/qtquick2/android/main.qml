@@ -45,6 +45,19 @@ Rectangle {
 
     Component.onCompleted: {
         cleanOldFiles()
+        main.forceActiveFocus()
+    }
+
+    Keys.onReleased: {
+        if (event.key === Qt.Key_Back && mainFlickable.loggedIn) {
+            event.accepted = true
+
+            if (mainFlickable.editEntryRectangle.isShown) {
+                mainFlickable.editEntryRectangle.hide()
+            } else {
+                mainFlickable.logOut()
+            }
+        }
     }
 
     function cleanOldFiles() {
