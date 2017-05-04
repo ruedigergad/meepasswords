@@ -106,9 +106,77 @@ Item {
             id: menuArea
 
             anchors.centerIn: parent
-            height: about.height * 5 + primaryFontSize / 3 * 6
+            height: about.height * 7 + primaryFontSize / 3 * 8
             width: parent.width
             y: parent.y
+
+            Rectangle {
+                id: fontSizeRectangle
+
+                anchors.bottom: toggleFastScrollAnchorPosition.top
+                anchors.bottomMargin: primaryFontSize / 3
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                color: "#0a3588"
+
+                height: fontSizeRectangleText.height * 2 + (primaryFontSize / 2)
+
+                width: parent.width - primaryFontSize
+
+                Item {
+                    anchors.fill: parent
+
+                    Text {
+                        id: fontSizeRectangleText
+                        anchors.horizontalCenter: parent.horizontalCenter
+
+                        font.pointSize: primaryFontSize * 0.75
+
+                        text: qsTr("Font Size")
+                    }
+
+                    Item {
+                        anchors.bottom: parent.bottom
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.margins: primaryFontSize / 3
+
+                        height: fontSizeMinusButton.height
+                        width: parent.width - primaryFontSize * 2
+
+                        CommonButton {
+                            id: fontSizeMinusButton
+                            anchors.left: parent.left
+                            anchors.leftMargin:  primaryFontSize / 2
+                            text: "-"
+                            width: parent.width / 4
+
+                            onClicked: primaryFontSize--
+                        }
+
+                        Text {
+                            anchors.left: fontSizeMinusButton.right
+                            anchors.right: fontSizePlusButton.left
+                            anchors.bottom: parent.bottom
+
+                            horizontalAlignment: Text.AlignHCenter
+
+                            font.pointSize: primaryFontSize * 0.75
+                            text: primaryFontSize
+                        }
+
+                        CommonButton {
+                            id: fontSizePlusButton
+                            anchors.right: parent.right
+                            anchors.rightMargin:  primaryFontSize / 2
+                            text: "+"
+                            width: parent.width / 4
+
+                            onClicked: primaryFontSize++
+                        }
+                    }
+                }
+            }
 
             CommonButton {
                 id: toggleFastScrollAnchorPosition

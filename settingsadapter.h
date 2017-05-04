@@ -29,25 +29,30 @@ class SettingsAdapter : public QObject
 
     Q_PROPERTY(QString fastScrollAnchor READ fastScrollAnchor WRITE setFastScrollAnchor NOTIFY fastScrollAnchorChanged)
     Q_PROPERTY(bool clickToOpen READ clickToOpen WRITE setClickToOpen NOTIFY clickToOpenChanged)
+    Q_PROPERTY(int fontSize READ getFontSize WRITE setFontSize NOTIFY fontSizeChanged)
 
 public:
     explicit SettingsAdapter(QObject *parent = 0);
     
     bool clickToOpen();
     QString fastScrollAnchor();
+    int getFontSize();
 
     void setClickToOpen(bool val);
     void setFastScrollAnchor(QString anchor);
+    void setFontSize(int fontSize);
 
 signals:
     void fastScrollAnchorChanged(QString anchor);
     void clickToOpenChanged(bool val);
+    void fontSizeChanged(int fontSize);
     
 public slots:
     
 private:
     bool m_clickToOpen;
     QString m_fastScrollAnchor;
+    int m_fontSize;
 
 };
 

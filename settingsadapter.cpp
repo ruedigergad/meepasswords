@@ -24,6 +24,7 @@ SettingsAdapter::SettingsAdapter(QObject *parent) :
 {
     m_clickToOpen = QSettings().value("clickToOpen", false).toBool();
     m_fastScrollAnchor = QSettings().value("fastScrollAnchor", "right").toString();
+    m_fontSize = QSettings().value("fontSize", -1).toInt();
 }
 
 bool SettingsAdapter::clickToOpen() {
@@ -32,6 +33,10 @@ bool SettingsAdapter::clickToOpen() {
 
 QString SettingsAdapter::fastScrollAnchor() {
     return m_fastScrollAnchor;
+}
+
+int SettingsAdapter::getFontSize() {
+    return m_fontSize;
 }
 
 void SettingsAdapter::setClickToOpen(bool val) {
@@ -44,4 +49,10 @@ void SettingsAdapter::setFastScrollAnchor(QString anchor) {
     m_fastScrollAnchor = anchor;
     QSettings().setValue("fastScrollAnchor", m_fastScrollAnchor);
     emit fastScrollAnchorChanged(m_fastScrollAnchor);
+}
+
+void SettingsAdapter::setFontSize(int fontSize) {
+    m_fontSize = fontSize;
+    QSettings().setValue("fontSize", m_fontSize);
+    emit fontSizeChanged(m_fontSize);
 }

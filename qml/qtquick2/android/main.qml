@@ -24,7 +24,7 @@ import meepasswords 1.0
 Rectangle {
     id: main
 
-    property int primaryFontSize: 30
+    property int primaryFontSize: settingsAdapter.fontSize > 0 ? settingsAdapter.fontSize : 30
     property int primaryBorderSize: 35
 
     property string primaryFontColor: "black"
@@ -38,6 +38,8 @@ Rectangle {
     property string iconNameSuffix: ""
 
     color: "lightgray"
+
+    onPrimaryFontSizeChanged: settingsAdapter.fontSize = primaryFontSize
 
     onRotationChanged: {
         console.log("Rotation changed...");

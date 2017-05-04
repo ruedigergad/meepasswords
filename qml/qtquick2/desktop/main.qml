@@ -24,7 +24,7 @@ import meepasswords 1.0
 Rectangle {
     id: main
 
-    property int primaryFontSize: 18
+    property int primaryFontSize: settingsAdapter.fontSize > 0 ? settingsAdapter.fontSize : 18
     property int primaryBorderSize: 25
 
     property string primaryFontColor: "black"
@@ -40,6 +40,8 @@ Rectangle {
     width: 400
     height: 500
     color: "lightgray"
+
+    onPrimaryFontSizeChanged: settingsAdapter.fontSize = primaryFontSize
 
     onRotationChanged: {
         console.log("Rotation changed...");
