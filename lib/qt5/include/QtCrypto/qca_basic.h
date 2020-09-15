@@ -34,6 +34,7 @@
 #define QCA_BASIC_H
 
 #include "qca_core.h"
+#include <QIODevice>
 
 namespace QCA {
 
