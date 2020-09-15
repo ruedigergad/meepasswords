@@ -1,7 +1,7 @@
 #http://stackoverflow.com/questions/11929773/compiling-the-latest-openssl-for-android
 
-export NDK=~/Android/android-ndk-r14b
-$NDK/build/tools/make-standalone-toolchain.sh --platform=android-16 --toolchain=arm-linux-androideabi-4.9 --install-dir=`pwd`/android-toolchain-arm
+export NDK=~/Android/Sdk/ndk/21.1.6352462
+$NDK/build/tools/make-standalone-toolchain.sh --platform=android-24 --toolchain=arm-linux-androideabi-4.9 --install-dir=`pwd`/android-toolchain-arm
 export TOOLCHAIN_PATH=`pwd`/android-toolchain-arm/bin
 export TOOL=arm-linux-androideabi
 export NDK_TOOLCHAIN_BASENAME=${TOOLCHAIN_PATH}/${TOOL}
@@ -12,14 +12,12 @@ export LD=$NDK_TOOLCHAIN_BASENAME-ld
 export AR=$NDK_TOOLCHAIN_BASENAME-ar
 export RANLIB=$NDK_TOOLCHAIN_BASENAME-ranlib
 export STRIP=$NDK_TOOLCHAIN_BASENAME-strip
-export ARCH_FLAGS="-march=armv7-a -mfloat-abi=softfp -mfpu=vfpv3-d16"
-export ARCH_LINK="-march=armv7-a -Wl,--fix-cortex-a8"
-export CPPFLAGS=" ${ARCH_FLAGS} -fpic -ffunction-sections -funwind-tables -fstack-protector -fno-strict-aliasing -finline-limit=64 "
-export CXXFLAGS=" ${ARCH_FLAGS} -fpic -ffunction-sections -funwind-tables -fstack-protector -fno-strict-aliasing -finline-limit=64 -frtti -fexceptions "
-export CFLAGS=" ${ARCH_FLAGS} -fpic -ffunction-sections -funwind-tables -fstack-protector -fno-strict-aliasing -finline-limit=64 "
-export LDFLAGS=" ${ARCH_LINK} "
+export CXXFLAGS="-std=c++11 -fPIC"
+export CPPFLAGS="-DANDROID -fPIC"
 
-./Configure android-armv7
+# Perl fix from: perl -pi -w -e 's/\-mandroid//g;' ./Configure
+perl -pi -w -e 's/\-mandroid//g;' ./Configure
+./Configure android-armv7 shared threads no-asm no-sse2
 
 PATH=$TOOLCHAIN_PATH:$PATH make
 
