@@ -447,3 +447,5 @@ android: {
         QMAKE_LFLAGS += -pie -rdynamic
     }
 }
+
+# ANDROID_EXTRA_LIBS = /home/rc/repositories/private/qt/meepasswords/lib/qt5/build/android/android-16/qca/lib/libqca-qt5.so

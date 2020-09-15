@@ -1,0 +1,24 @@
+#http://stackoverflow.com/questions/11929773/compiling-the-latest-openssl-for-android
+
+export NDK=~/Android/Sdk/ndk/21.1.6352462
+$NDK/build/tools/make-standalone-toolchain.sh --platform=android-24 --toolchain=arm-linux-androideabi-4.9 --install-dir=`pwd`/android-toolchain-arm
+export TOOLCHAIN_PATH=`pwd`/android-toolchain-arm/bin
+export TOOL=arm-linux-androideabi
+export NDK_TOOLCHAIN_BASENAME=${TOOLCHAIN_PATH}/${TOOL}
+export CC=$NDK_TOOLCHAIN_BASENAME-gcc
+export CXX=$NDK_TOOLCHAIN_BASENAME-g++
+export LINK=${CXX}
+export LD=$NDK_TOOLCHAIN_BASENAME-ld
+export AR=$NDK_TOOLCHAIN_BASENAME-ar
+export RANLIB=$NDK_TOOLCHAIN_BASENAME-ranlib
+export STRIP=$NDK_TOOLCHAIN_BASENAME-strip
+export CXXFLAGS="-std=c++11 -fPIC"
+export CPPFLAGS="-DANDROID -fPIC"
+
+# Perl fix from: perl -pi -w -e 's/\-mandroid//g;' ./Configure
+perl -pi -w -e 's/\-mandroid//g;' ./Configure
+./Configure android-armv7 shared threads no-asm no-sse2
+
+PATH=$TOOLCHAIN_PATH:$PATH make
+
+
