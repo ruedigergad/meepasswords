@@ -66,7 +66,6 @@ android: {
     contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
         message(Adding Android armeabi-v7a QCA libs.)
         ANDROID_EXTRA_LIBS = \
-            /home/rc/Qt/5.8/android_armv7/lib/libQt5Concurrent.so \
             $$PWD/lib/qt5/build/android/android-16/qca/lib/libqca-qt5.so
     }
 } else {
@@ -465,3 +464,5 @@ DISTFILES += \
     android/res/values/libs.xml
 
 ANDROID_ABIS = armeabi-v7a
+
+ANDROID_EXTRA_LIBS = /home/rc/repositories/private/qt/meepasswords/lib/qt5/build/android/android-16/qca/lib/libqca-qt5.so
