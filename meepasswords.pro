@@ -449,3 +449,19 @@ android: {
 }
 
 # ANDROID_EXTRA_LIBS = /home/rc/repositories/private/qt/meepasswords/lib/qt5/build/android/android-16/qca/lib/libqca-qt5.so
+
+DISTFILES += \
+    android/AndroidManifest.xml \
+    android/build.gradle \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew \
+    android/gradlew \
+    android/gradlew.bat \
+    android/gradlew.bat \
+    android/res/values/libs.xml
+
+ANDROID_ABIS = armeabi-v7a
