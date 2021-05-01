@@ -52,8 +52,8 @@ android: {
     export(target.path)
 
     qca-ossl.files = \
-        $$PWD/lib/qt5/build/android/android-16/qca/lib/libplugins_crypto_libqca-ossl.so
-    qca-ossl.path = /libs/armeabi-v7a
+        $$PWD/lib/qt5/build/android/android-24/qca/qca-qt5/crypto/libqca-ossl_armeabi-v7a.so
+    qca-ossl.path = /libs/armeabi-v7a/qca-qt5/crypto
 
     INSTALLS += target qca-ossl
     export(INSTALLS)
@@ -66,7 +66,7 @@ android: {
     contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
         message(Adding Android armeabi-v7a QCA libs.)
         ANDROID_EXTRA_LIBS = \
-            $$PWD/lib/qt5/build/android/android-16/qca/lib/libqca-qt5.so
+            $$PWD/lib/qt5/build/android/android-24/qca/libqca-qt5_armeabi-v7a.so
     }
 } else {
     message(Building with Qt version: $$QT_VERSION)
