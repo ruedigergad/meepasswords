@@ -1,0 +1,11 @@
+prefix=/usr/local/android
+exec_prefix=/usr/local/android
+libdir=/usr/local/android/lib
+includedir=/usr/local/android/include/Qca-qt5/QtCrypto
+
+Name: QCA
+Description: Qt Cryptographic Architecture library
+Version: 2.3.2
+Requires: Qt5Core
+Libs: -L${libdir} -lqca-qt5
+Cflags: -I${includedir}

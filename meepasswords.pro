@@ -13,8 +13,8 @@ android: {
         lib/qt5/include/QtCrypto
 
     LIBS += \
-        -L$$PWD/lib/qt5/build/android/android-16/qca/lib \
-        -l:libqca-qt5.so \
+        -L$$PWD/lib/qt5/build/android/android-24/qca \
+        -l:libqca-qt5_armeabi-v7a.so
 
     HEADERS += \
         entry.h \
@@ -465,4 +465,4 @@ DISTFILES += \
 
 ANDROID_ABIS = armeabi-v7a
 
-ANDROID_EXTRA_LIBS = /home/rc/repositories/private/qt/meepasswords/lib/qt5/build/android/android-16/qca/lib/libqca-qt5.so
+ANDROID_EXTRA_LIBS = /home/rc/repositories/private/qt/meepasswords/lib/qt5/build/android/android-24/openssl/libcrypto.so /home/rc/repositories/private/qt/meepasswords/lib/qt5/build/android/android-24/openssl/libssl.so /home/rc/repositories/private/qt/meepasswords/lib/qt5/build/android/android-24/qca/libqca-qt5_armeabi-v7a.so $$PWD/lib/qt5/build/android/android-24/qca/qca-qt5/crypto/libqca-gnupg_armeabi-v7a.so $$PWD/lib/qt5/build/android/android-24/qca/qca-qt5/crypto/libqca-logger_armeabi-v7a.so $$PWD/lib/qt5/build/android/android-24/qca/qca-qt5/crypto/libqca-ossl_armeabi-v7a.so $$PWD/lib/qt5/build/android/android-24/qca/qca-qt5/crypto/libqca-softstore_armeabi-v7a.so
