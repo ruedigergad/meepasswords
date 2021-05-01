@@ -1,9 +1,10 @@
 mkdir qca-build
-tar xf qca-master-5f18ebc705.tar.gz -C qca-build/
+#tar xf qca-master-5f18ebc705.tar.gz -C qca-build/
 cd qca-build/qca
+unzip qca-master-0684db8255.zip -d qca-build/
+cd qca-build/qca-master/
 
 export QT_ANDROID=~/Qt/5.15.1/android
-
 export NDK=~/Android/Sdk/ndk/21.1.6352462
 $NDK/build/tools/make-standalone-toolchain.sh --platform=android-24 --toolchain=arm-linux-androideabi-4.9 --install-dir=`pwd`/android-toolchain-arm
 export ANDROID_NDK="$NDK"
@@ -20,6 +21,11 @@ sed -i 's\${OPENSSL_LIBRARIES}\/home/rc/repositories/private/qt/meepasswords/lib
 
 # Add "-std=c++11" to CMAKE_CXX_FLAGS in CMakeLists.txt.
 cmake -DANDROID_NDK="$NDK" -DANDROID_STL=c++_static -DANDROID_PLATFORM=24 -DCMAKE_TOOLCHAIN_FILE=../../android.toolchain.cmake -DANDROID_STANDALONE_TOOLCHAIN=./android-toolchain-arm -DANDROID_TOOLCHAIN_NAME=standalone -DBUILD_TESTS=OFF -DCMAKE_PREFIX_PATH=${QT_ANDROID}/lib/cmake -DOPENSSL_INCLUDE_DIR=/home/rc/repositories/private/qt/meepasswords/lib/qt5/tmp/openssl-1.0.2u/include -G "Unix Makefiles" -DWITH_gnupg_PLUGIN=off -DWITH_ossl_PLUGIN=on -DWITH_pkcs11_PLUGIN=off
+
+
+cmake -DANDROID_NDK="$NDK" -DANDROID_STL=c++_static -DANDROID_PLATFORM=24 -DANDROID_STANDALONE_TOOLCHAIN=./android-toolchain-arm -DANDROID_TOOLCHAIN_NAME=standalone -DBUILD_TESTS=OFF -DCMAKE_PREFIX_PATH=${QT_ANDROID}/lib/cmake -DOPENSSL_INCLUDE_DIR=/home/rc/repositories/private/qt/meepasswords/lib/qt5/openssl_build/openssl-1.1.1h/include -G "Unix Makefiles" -DWITH_gnupg_PLUGIN=off -DWITH_ossl_PLUGIN=on -DWITH_pkcs11_PLUGIN=off -DANDROID_ABI=armeabi-v7a
+
+
 # Remember to change the soname as well.
 # Grep for "soname" and change the according entry.
 
