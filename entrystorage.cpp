@@ -40,6 +40,11 @@ EntryStorage::EntryStorage(QObject *parent) :
 {
     setStoragePath(getStorageFilePath());
 
+#ifdef ANDROID
+    qDebug("Setting QCA_PLUGIN_PATH...");
+    qputenv("QCA_PLUGIN_PATH", "/libs/armeabi-v7a/qca-qt5:foo:bar");
+#endif
+
     qDebug("Initializing QCA...");
     initializer = new QCA::Initializer(QCA::Practical, 256);
     qDebug("QCA initialized.");

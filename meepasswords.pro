@@ -7,6 +7,7 @@ android: {
     QT += concurrent qml quick widgets xml
 
     DEFINES += QT5_BUILD
+    DEFINES += ANDROID
 
     INCLUDEPATH += \
         lib/qt5/include \
