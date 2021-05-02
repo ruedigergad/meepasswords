@@ -4,7 +4,19 @@ cd qca-build/qca
 unzip qca-master-0684db8255.zip -d qca-build/
 cd qca-build/qca-master/
 
+# Build shared libs
 cmake . -DCMAKE_SYSTEM_NAME=Android -DCMAKE_TOOLCHAIN_FILE=/home/rc/Android/Sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake -DQt5_DIR=/home/rc/Qt/5.15.1/android/lib/cmake/Qt5/ -DANDROID_PLATFORM=android-24 -DQt5Core_DIR=/home/rc/Qt/5.15.1/android/lib/cmake/Qt5Core -DQt5Test_DIR=/home/rc/Qt/5.15.1/android/lib/cmake/Qt5Test -DQt5Network_DIR=/home/rc/Qt/5.15.1/android/lib/cmake/Qt5Network -DCMAKE_INSTALL_PREFIX=/usr/local/android -DUSE_RELATIVE_PATHS=ON -DOPENSSL_ROOT_DIR=../../openssl_build/openssl-1.1.1h -DOPENSSL_INCLUDE_DIR=../../openssl_build/openssl-1.1.1h/include -DOPENSSL_CRYPTO_LIBRARY=../../openssl_build/openssl-1.1.1h/libcrypto.so -DOPENSSL_SSL_LIBRARY=../../openssl_build/openssl-1.1.1h/libssl.so -DBUILD_TESTS=OFF -DBUILD_TOOLS=OFF
+
+# Build for including static plugins
+patch -p1 < ../../qca-master-ecdd0538dd_static_ossl_plugin_link_hack.diff
+
+cmake . -DCMAKE_SYSTEM_NAME=Android -DCMAKE_TOOLCHAIN_FILE=/home/rc/Android/Sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake -DQt5_DIR=/home/rc/Qt/5.15.1/android/lib/cmake/Qt5/ -DANDROID_PLATFORM=android-24 -DQt5Core_DIR=/home/rc/Qt/5.15.1/android/lib/cmake/Qt5Core -DQt5Test_DIR=/home/rc/Qt/5.15.1/android/lib/cmake/Qt5Test -DQt5Network_DIR=/home/rc/Qt/5.15.1/android/lib/cmake/Qt5Network -DCMAKE_INSTALL_PREFIX=/usr/local/android -DUSE_RELATIVE_PATHS=ON -DOPENSSL_ROOT_DIR=../../openssl_build/openssl-1.1.1h -DOPENSSL_INCLUDE_DIR=../../openssl_build/openssl-1.1.1h/include -DOPENSSL_CRYPTO_LIBRARY=../../openssl_build/openssl-1.1.1h/libcrypto.so -DOPENSSL_SSL_LIBRARY=../../openssl_build/openssl-1.1.1h/libssl.so -DBUILD_TESTS=OFF -DBUILD_TOOLS=OFF -DSTATIC_PLUGINS=ON -DBUILD_SHARED_LIBS=OFF
+
+
+
+
+# Below are old snippets which are not used anymore.
+
 
 # cmake . -DCMAKE_SYSTEM_NAME=Android -DCMAKE_TOOLCHAIN_FILE=/home/rc/Android/Sdk/ndk/21.1.6352462/build/cmake/android.toolchain.cmake -DQt5_DIR=/home/rc/Qt/5.15.1/android/lib/cmake/Qt5/ -DANDROID_PLATFORM=android-29 -DQt5Core_DIR=/home/rc/Qt/5.15.1/android/lib/cmake/Qt5Core -DQt5Test_DIR=/home/rc/Qt/5.15.1/android/lib/cmake/Qt5Test -DQt5Network_DIR=/home/rc/Qt/5.15.1/android/lib/cmake/Qt5Network -DCMAKE_INSTALL_PREFIX=/usr/local/android -DUSE_RELATIVE_PATHS=ON -DOPENSSL_ROOT_DIR=/home/rc/Android/Sdk/android_openssl/static/ -DOPENSSL_INCLUDE_DIR=/home/rc/Android/Sdk/android_openssl/static/include/ -DOPENSSL_CRYPTO_LIBRARY=/home/rc/Android/Sdk/android_openssl/static/lib/arm/libcrypto.a  -DOPENSSL_SSL_LIBRARY=/home/rc/Android/Sdk/android_openssl/static/lib/arm/libssl.a -DBUILD_TESTS=OFF -DBUILD_TOOLS=OFF
 
