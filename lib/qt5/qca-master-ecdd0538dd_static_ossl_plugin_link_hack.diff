@@ -1,0 +1,20 @@
+--- a/plugins/qca-ossl/qca-ossl.cpp	2021-02-05 17:45:07.000000000 +0100
++++ b/plugins/qca-ossl/qca-ossl.cpp	2021-05-02 11:15:36.839012833 +0200
+@@ -5240,7 +5240,7 @@ public:
+                 // printf("SSL_read chunk: [%s]\n", qPrintable(arrayToHex(a)));
+                 recvQueue.append(a);
+             } else if (ret <= 0) {
+-                ERR_print_errors_fp(stdout);
++                //ERR_print_errors_fp(stdout);
+                 int x = SSL_get_error(ssl, ret);
+                 // printf("SSL_read error = %d\n", x);
+                 if (x == SSL_ERROR_WANT_READ || x == SSL_ERROR_WANT_WRITE)
+@@ -5714,7 +5714,7 @@ protected:
+             ok = true;
+         } else {
+             printf("bad here\n");
+-            ERR_print_errors_fp(stdout);
++            //ERR_print_errors_fp(stdout);
+         }
+     }
+ };
