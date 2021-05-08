@@ -46,15 +46,6 @@
 #include <synctoimap.h>
 #endif
 
-/*
- * Hack to include the QCA OpenSSL Plugin as static plugin.
- * For compiling the dependencies etc. see: lib/qt5/android-qca.notes.txt
- */
-#ifdef ANDROID
-#include <QtPlugin>
-Q_IMPORT_PLUGIN(opensslPlugin)
-#endif
-
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
     qDebug("Starting MeePasswords...");

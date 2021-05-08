@@ -26,6 +26,10 @@
 #include <QStandardPaths>
 #endif
 
+#ifdef ANDROID
+#include <QCoreApplication>
+#endif
+
 #include <QDebug>
 #include <QDir>
 #include <QFile>
@@ -41,8 +45,13 @@ EntryStorage::EntryStorage(QObject *parent) :
     setStoragePath(getStorageFilePath());
 
 #ifdef ANDROID
-    qDebug("Setting QCA_PLUGIN_PATH...");
-    qputenv("QCA_PLUGIN_PATH", "/libs/armeabi-v7a/qca-qt5:foo:bar");
+    // qDebug("Setting QCA_PLUGIN_PATH...");
+    // qputenv("QCA_PLUGIN_PATH", "/libs/armeabi-v7a/qca-qt5:foo:bar");
+    qDebug("Preparing QCA plug-in...");
+    QDir dir("../");
+    dir.mkdir("crypto");
+    QFile::copy("../lib/libqca-ossl_armeabi-v7a.so", "../crypto/libqca-ossl_armeabi-v7a.so");
+    QCoreApplication::addLibraryPath("../");
 #endif
 
     qDebug("Initializing QCA...");

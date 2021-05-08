@@ -16,8 +16,6 @@ android: {
     LIBS += \
         -L$$PWD/lib/qt5/build/android/android-24/qca \
         -l:libqca-qt5_armeabi-v7a.so \
-        -L$$PWD/lib/qt5/build/android/android-24/qca/qca-qt5/crypto \
-        -l:libqca-ossl.a \
         -L$$PWD/lib/qt5/build/android/android-24/openssl \
         -l:libcrypto.so \
         -l:libssl.so
@@ -57,9 +55,11 @@ android: {
     }
     export(target.path)
 
+    # This does not work. Likeley because of:
+    # https://forum.qt.io/topic/108470/installs-ignores-res-folder/6
     qca-ossl.files = \
         $$PWD/lib/qt5/build/android/android-24/qca/qca-qt5/crypto/libqca-ossl_armeabi-v7a.so
-    qca-ossl.path = /libs/armeabi-v7a/qca-qt5/crypto
+    qca-ossl.path = /libs/armeabi-v7a/crypto
 
     INSTALLS += target qca-ossl
     export(INSTALLS)
@@ -69,11 +69,23 @@ android: {
     OTHER_FILES += \
         android/AndroidManifest.xml
 
-    contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
-        message(Adding Android armeabi-v7a QCA libs.)
-        ANDROID_EXTRA_LIBS = \
-            $$PWD/lib/qt5/build/android/android-24/qca/libqca-qt5_armeabi-v7a.so
-    }
+    DISTFILES += \
+        android/AndroidManifest.xml \
+        android/build.gradle \
+        android/build.gradle \
+        android/gradle/wrapper/gradle-wrapper.jar \
+        android/gradle/wrapper/gradle-wrapper.jar \
+        android/gradle/wrapper/gradle-wrapper.properties \
+        android/gradle/wrapper/gradle-wrapper.properties \
+        android/gradlew \
+        android/gradlew \
+        android/gradlew.bat \
+        android/gradlew.bat \
+        android/res/values/libs.xml
+
+    ANDROID_ABIS = armeabi-v7a
+
+    ANDROID_EXTRA_LIBS = $$PWD/lib/qt5/build/android/android-24/openssl/libcrypto.so $$PWD/lib/qt5/build/android/android-24/openssl/libssl.so $$PWD/lib/qt5/build/android/android-24/qca/libqca-qt5_armeabi-v7a.so $$PWD/lib/qt5/build/android/android-24/qca/qca-qt5/crypto/libqca-ossl_armeabi-v7a.so
 } else {
     message(Building with Qt version: $$QT_VERSION)
 
@@ -452,23 +464,3 @@ android: {
         QMAKE_LFLAGS += -pie -rdynamic
     }
 }
-
-# ANDROID_EXTRA_LIBS = /home/rc/repositories/private/qt/meepasswords/lib/qt5/build/android/android-16/qca/lib/libqca-qt5.so
-
-DISTFILES += \
-    android/AndroidManifest.xml \
-    android/build.gradle \
-    android/build.gradle \
-    android/gradle/wrapper/gradle-wrapper.jar \
-    android/gradle/wrapper/gradle-wrapper.jar \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew \
-    android/gradlew \
-    android/gradlew.bat \
-    android/gradlew.bat \
-    android/res/values/libs.xml
-
-ANDROID_ABIS = armeabi-v7a
-
-ANDROID_EXTRA_LIBS = /home/rc/repositories/private/qt/meepasswords/lib/qt5/build/android/android-24/openssl/libcrypto.so /home/rc/repositories/private/qt/meepasswords/lib/qt5/build/android/android-24/openssl/libssl.so /home/rc/repositories/private/qt/meepasswords/lib/qt5/build/android/android-24/qca/libqca-qt5_armeabi-v7a.so
