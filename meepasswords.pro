@@ -14,14 +14,14 @@ isEqual(QT_MAJOR_VERSION, 5) {
     RESOURCES += common.qrc
 }
 
-exists("/usr/lib/qt5/qml/Sailfish/Silica/SilicaGridView.qml"): {
+exists($$QT.widgets.qml/Sailfish/Silica/SilicaGridView.qml): {
     message(SailfishOS build)
 
     TARGET = harbour-meepasswords
 
     DEFINES += QDECLARATIVE_BOOSTER
     DEFINES += MER_EDITION_SAILFISH
-    DEFINES += SYNC_TO_IMAP_SUPPORT
+    #DEFINES += SYNC_TO_IMAP_SUPPORT
     MER_EDITION = sailfish
 
     QT += widgets
@@ -31,7 +31,9 @@ exists("/usr/lib/qt5/qml/Sailfish/Silica/SilicaGridView.qml"): {
     CONFIG += sailfishapp
 
     CONFIG += link_pkgconfig
-    PKGCONFIG += qmfclient5 sailfishapp
+
+    #PKGCONFIG += qmfclient5 sailfishapp
+    PKGCONFIG += sailfishapp
 
     QMAKE_LFLAGS += '-Wl,-rpath,/usr/share/harbour-meepasswords/qca/lib'
 

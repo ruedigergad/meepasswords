@@ -37,12 +37,12 @@
 #include "entry.h"
 #include "entrylistmodel.h"
 #include "entrystorage.h"
-#include <envvarhelper.h>
 
 #include "qmlclipboardadapter.h"
 #include "settingsadapter.h"
 
 #ifdef SYNC_TO_IMAP_SUPPORT
+#include <envvarhelper.h>
 #include <synctoimap.h>
 #endif
 
@@ -52,8 +52,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
 #if defined(MER_EDITION_SAILFISH)
     QCoreApplication::addLibraryPath("/usr/share/harbour-meepasswords/qca/plugins");
-    EnvVarHelper::appendToEnvironmentVariable("LD_LIBRARY_PATH", "/usr/share/harbour-meepasswords/qca/lib");
-    EnvVarHelper::appendToEnvironmentVariable("QT_PLUGIN_PATH", "/usr/share/harbour-meepasswords/qca/plugins");
+//    EnvVarHelper::appendToEnvironmentVariable("LD_LIBRARY_PATH", "/usr/share/harbour-meepasswords/qca/lib");
+//    EnvVarHelper::appendToEnvironmentVariable("QT_PLUGIN_PATH", "/usr/share/harbour-meepasswords/qca/plugins");
     QGuiApplication *app = SailfishApp::application(argc, argv);
     QQuickView *view = SailfishApp::createView();
 #elif defined(LINUX_DESKTOP)
@@ -61,7 +61,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QApplication *app = new QApplication(argc, argv);
     QQuickView *view = new QQuickView();
 #endif
+#ifdef SYNC_TO_IMAP_SUPPORT
     SyncToImap::init();
+#endif
 
     QCoreApplication::setOrganizationName("ruedigergad.com");
     QCoreApplication::setOrganizationDomain("ruedigergad.com");
