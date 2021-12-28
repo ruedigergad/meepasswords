@@ -14,7 +14,7 @@ isEqual(QT_MAJOR_VERSION, 5) {
     RESOURCES += common.qrc
 }
 
-exists($$QT.widgets.qml/Sailfish/Silica/SilicaGridView.qml): {
+packagesExist(sailfishapp): {
     message(SailfishOS build)
 
     TARGET = harbour-meepasswords
