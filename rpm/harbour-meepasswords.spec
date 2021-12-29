@@ -13,7 +13,7 @@ Name:       harbour-meepasswords
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Keep your passwords protected.
-Version:    2.1.2
+Version:    2.1.3
 Release:    1
 Group:      Qt/Qt
 License:    GPLv3

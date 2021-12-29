@@ -51,6 +51,7 @@ SilicaListView {
 //                mainMenu.close()
 //            }
 //        }
+/*
         MenuItem {
             text: "Clear Sync Data"
             onClicked: {
@@ -65,6 +66,7 @@ SilicaListView {
                 mainMenu.close()
             }
         }
+*/
         MenuItem {
             text: "Change Password"
             onClicked: {
@@ -79,6 +81,7 @@ SilicaListView {
                 mainMenu.close()
             }
         }
+/*
         MenuItem {
             text: "Sync"
             onClicked: {
@@ -86,6 +89,7 @@ SilicaListView {
                 mainMenu.close()
             }
         }
+*/
         MenuItem {
             text: mainFlickable.settingsAdapter.fastScrollAnchor === "left" ? "Scroll Bar: Left" : "Scroll Bar: Right"
             onClicked: {
