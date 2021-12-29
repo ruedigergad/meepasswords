@@ -20,7 +20,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import meepasswords 1.0
-import SyncToImap 1.0
+//import SyncToImap 1.0
 
 ApplicationWindow {
     id: mainWindow

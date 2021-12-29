@@ -19,7 +19,7 @@
 
 import QtQuick 2.0
 import meepasswords 1.0
-import SyncToImap 1.0
+//import SyncToImap 1.0
 
 Flickable {
     id: mainFlickable
@@ -28,12 +28,12 @@ Flickable {
     focus: true
 
     property alias aboutDialog: aboutDialog
-    property alias confirmDeleteSyncMessage: confirmDeleteSyncMessage
-    property alias confirmSyncToImapDialog: confirmSyncToImapDialog
+//    property alias confirmDeleteSyncMessage: confirmDeleteSyncMessage
+//    property alias confirmSyncToImapDialog: confirmSyncToImapDialog
     property alias deleteConfirmationDialog: deleteConfirmationDialog
     property alias entryStorage: entryStorage
-    property alias fileHelper: fileHelper
-    property alias imapAccountSettings: imapAccountSettings
+//    property alias fileHelper: fileHelper
+//    property alias imapAccountSettings: imapAccountSettings
     property alias meePasswordsToolBar: meePasswordsToolBar
     property alias toolBar: toolBar
     property bool newStorage: false
@@ -337,6 +337,7 @@ Flickable {
         Keys.onReturnPressed: accept()
     }
 
+ /*
     TextInputDialog {
         id: confirmSyncToImapDialog
 
@@ -362,7 +363,7 @@ Flickable {
             }
         }
     }
-
+*/
     MessageDialog {
         id: messageDialog
 
@@ -372,6 +373,7 @@ Flickable {
         onRejected: mainFlickable.meePasswordsToolBar.enabled = true
     }
 
+/*
     ProgressDialog {
         id: progressDialog
 
@@ -445,6 +447,7 @@ Flickable {
     FileHelper {
         id: fileHelper
     }
+*/
 
     SettingsAdapter {
         id: settingsAdapter
