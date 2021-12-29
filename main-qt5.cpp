@@ -51,7 +51,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     qDebug("Starting MeePasswords...");
 
 #if defined(MER_EDITION_SAILFISH)
-    QCoreApplication::addLibraryPath("/usr/share/harbour-meepasswords/qca/plugins");
+//    QCoreApplication::addLibraryPath("/usr/share/harbour-meepasswords/qca/plugins");
 //    EnvVarHelper::appendToEnvironmentVariable("LD_LIBRARY_PATH", "/usr/share/harbour-meepasswords/qca/lib");
 //    EnvVarHelper::appendToEnvironmentVariable("QT_PLUGIN_PATH", "/usr/share/harbour-meepasswords/qca/plugins");
     QGuiApplication *app = SailfishApp::application(argc, argv);
@@ -103,4 +103,3 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     return ret;
 }
-
